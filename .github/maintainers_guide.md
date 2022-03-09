@@ -13,7 +13,7 @@ All you need to work on this project is a recent version of [Deno](https://deno.
 ### Building
 
 * The majority of this library (`src/generated`) is generated code based off of a slack api spec file. Updating the web apis based off a new spec file can be done by getting the latest spec file from https://api.slack.com/web#spec or via the [slack-api-specs](https://github.com/slackapi/slack-api-specs) repo directly. 
-* Replace the current `scripts/api_spec.json` file with the latest you grabbed.
+* Place that file at `scripts/api_spec.json`, as the generation script currently expects it to live there on the file system.
 * Run the command to regenerate the api methods code. Unit tests verifying every api method has a corresponding function created for it are also generated in this step.
 
 Run this from the root of the project
