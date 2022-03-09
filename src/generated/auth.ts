@@ -11,11 +11,11 @@ export const AuthAPI = (client: BaseSlackAPIClient) => {
   const auth: any = {};
 
   auth.revoke = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("auth.revoke", args);
+    return await client.apiCall("auth.revoke", args);
   };
 
   auth.test = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("auth.test", args);
+    return await client.apiCall("auth.test", args);
   };
 
   return auth as AuthAPIType;

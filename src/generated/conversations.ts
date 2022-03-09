@@ -29,109 +29,109 @@ export const ConversationsAPI = (client: BaseSlackAPIClient) => {
   conversations.archive = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("conversations.archive", args);
+    return await client.apiCall("conversations.archive", args);
   };
 
   conversations.close = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("conversations.close", args);
+    return await client.apiCall("conversations.close", args);
   };
 
   conversations.create = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("conversations.create", args);
+    return await client.apiCall("conversations.create", args);
   };
 
   conversations.history = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("conversations.history", args);
+    return await client.apiCall("conversations.history", args);
   };
 
   conversations.info = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("conversations.info", args);
+    return await client.apiCall("conversations.info", args);
   };
 
   conversations.invite = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("conversations.invite", args);
+    return await client.apiCall("conversations.invite", args);
   };
 
   conversations.join = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("conversations.join", args);
+    return await client.apiCall("conversations.join", args);
   };
 
   conversations.kick = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("conversations.kick", args);
+    return await client.apiCall("conversations.kick", args);
   };
 
   conversations.leave = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("conversations.leave", args);
+    return await client.apiCall("conversations.leave", args);
   };
 
   conversations.list = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("conversations.list", args);
+    return await client.apiCall("conversations.list", args);
   };
 
   conversations.mark = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("conversations.mark", args);
+    return await client.apiCall("conversations.mark", args);
   };
 
   conversations.members = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("conversations.members", args);
+    return await client.apiCall("conversations.members", args);
   };
 
   conversations.open = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("conversations.open", args);
+    return await client.apiCall("conversations.open", args);
   };
 
   conversations.rename = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("conversations.rename", args);
+    return await client.apiCall("conversations.rename", args);
   };
 
   conversations.replies = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("conversations.replies", args);
+    return await client.apiCall("conversations.replies", args);
   };
 
   conversations.setPurpose = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("conversations.setPurpose", args);
+    return await client.apiCall("conversations.setPurpose", args);
   };
 
   conversations.setTopic = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("conversations.setTopic", args);
+    return await client.apiCall("conversations.setTopic", args);
   };
 
   conversations.unarchive = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("conversations.unarchive", args);
+    return await client.apiCall("conversations.unarchive", args);
   };
 
   return conversations as ConversationsAPIType;

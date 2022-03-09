@@ -10,7 +10,7 @@ export const DialogAPI = (client: BaseSlackAPIClient) => {
   const dialog: any = {};
 
   dialog.open = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("dialog.open", args);
+    return await client.apiCall("dialog.open", args);
   };
 
   return dialog as DialogAPIType;

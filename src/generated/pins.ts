@@ -12,15 +12,15 @@ export const PinsAPI = (client: BaseSlackAPIClient) => {
   const pins: any = {};
 
   pins.add = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("pins.add", args);
+    return await client.apiCall("pins.add", args);
   };
 
   pins.list = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("pins.list", args);
+    return await client.apiCall("pins.list", args);
   };
 
   pins.remove = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("pins.remove", args);
+    return await client.apiCall("pins.remove", args);
   };
 
   return pins as PinsAPIType;

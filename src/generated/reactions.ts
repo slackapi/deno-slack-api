@@ -13,21 +13,21 @@ export const ReactionsAPI = (client: BaseSlackAPIClient) => {
   const reactions: any = {};
 
   reactions.add = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("reactions.add", args);
+    return await client.apiCall("reactions.add", args);
   };
 
   reactions.get = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("reactions.get", args);
+    return await client.apiCall("reactions.get", args);
   };
 
   reactions.list = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("reactions.list", args);
+    return await client.apiCall("reactions.list", args);
   };
 
   reactions.remove = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("reactions.remove", args);
+    return await client.apiCall("reactions.remove", args);
   };
 
   return reactions as ReactionsAPIType;

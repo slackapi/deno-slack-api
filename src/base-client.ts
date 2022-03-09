@@ -9,7 +9,7 @@ export class BaseSlackAPIClient {
     this.#baseURL = options.slackApiUrl || "https://slack.com/api/";
   }
 
-  async call(
+  async apiCall(
     method: string,
     data: SlackAPIMethodArgs,
   ): Promise<BaseResponse> {

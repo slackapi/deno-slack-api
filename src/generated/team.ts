@@ -16,30 +16,30 @@ export const TeamAPI = (client: BaseSlackAPIClient) => {
   const team: any = {};
 
   team.accessLogs = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("team.accessLogs", args);
+    return await client.apiCall("team.accessLogs", args);
   };
 
   team.billableInfo = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("team.billableInfo", args);
+    return await client.apiCall("team.billableInfo", args);
   };
 
   team.info = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("team.info", args);
+    return await client.apiCall("team.info", args);
   };
 
   team.integrationLogs = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("team.integrationLogs", args);
+    return await client.apiCall("team.integrationLogs", args);
   };
   team.profile = {};
 
   team.profile.get = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("team.profile.get", args);
+    return await client.apiCall("team.profile.get", args);
   };
 
   return team as TeamAPIType;

@@ -10,7 +10,7 @@ export const ApiAPI = (client: BaseSlackAPIClient) => {
   const api: any = {};
 
   api.test = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("api.test", args);
+    return await client.apiCall("api.test", args);
   };
 
   return api as ApiAPIType;

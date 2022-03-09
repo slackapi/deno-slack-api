@@ -14,27 +14,27 @@ export const RemindersAPI = (client: BaseSlackAPIClient) => {
   const reminders: any = {};
 
   reminders.add = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("reminders.add", args);
+    return await client.apiCall("reminders.add", args);
   };
 
   reminders.complete = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("reminders.complete", args);
+    return await client.apiCall("reminders.complete", args);
   };
 
   reminders.delete = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("reminders.delete", args);
+    return await client.apiCall("reminders.delete", args);
   };
 
   reminders.info = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("reminders.info", args);
+    return await client.apiCall("reminders.info", args);
   };
 
   reminders.list = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("reminders.list", args);
+    return await client.apiCall("reminders.list", args);
   };
 
   return reminders as RemindersAPIType;

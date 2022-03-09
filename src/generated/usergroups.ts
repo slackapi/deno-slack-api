@@ -20,42 +20,42 @@ export const UsergroupsAPI = (client: BaseSlackAPIClient) => {
   usergroups.create = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("usergroups.create", args);
+    return await client.apiCall("usergroups.create", args);
   };
 
   usergroups.disable = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("usergroups.disable", args);
+    return await client.apiCall("usergroups.disable", args);
   };
 
   usergroups.enable = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("usergroups.enable", args);
+    return await client.apiCall("usergroups.enable", args);
   };
 
   usergroups.list = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("usergroups.list", args);
+    return await client.apiCall("usergroups.list", args);
   };
 
   usergroups.update = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("usergroups.update", args);
+    return await client.apiCall("usergroups.update", args);
   };
   usergroups.users = {};
 
   usergroups.users.list = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("usergroups.users.list", args);
+    return await client.apiCall("usergroups.users.list", args);
   };
 
   usergroups.users.update = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("usergroups.users.update", args);
+    return await client.apiCall("usergroups.users.update", args);
   };
 
   return usergroups as UsergroupsAPIType;

@@ -25,64 +25,64 @@ export const UsersAPI = (client: BaseSlackAPIClient) => {
   users.conversations = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("users.conversations", args);
+    return await client.apiCall("users.conversations", args);
   };
 
   users.deletePhoto = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("users.deletePhoto", args);
+    return await client.apiCall("users.deletePhoto", args);
   };
 
   users.getPresence = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("users.getPresence", args);
+    return await client.apiCall("users.getPresence", args);
   };
 
   users.identity = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("users.identity", args);
+    return await client.apiCall("users.identity", args);
   };
 
   users.info = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("users.info", args);
+    return await client.apiCall("users.info", args);
   };
 
   users.list = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("users.list", args);
+    return await client.apiCall("users.list", args);
   };
 
   users.lookupByEmail = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("users.lookupByEmail", args);
+    return await client.apiCall("users.lookupByEmail", args);
   };
   users.profile = {};
 
   users.profile.get = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("users.profile.get", args);
+    return await client.apiCall("users.profile.get", args);
   };
 
   users.profile.set = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("users.profile.set", args);
+    return await client.apiCall("users.profile.set", args);
   };
 
   users.setActive = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("users.setActive", args);
+    return await client.apiCall("users.setActive", args);
   };
 
   users.setPhoto = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("users.setPhoto", args);
+    return await client.apiCall("users.setPhoto", args);
   };
 
   users.setPresence = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("users.setPresence", args);
+    return await client.apiCall("users.setPresence", args);
   };
 
   return users as UsersAPIType;

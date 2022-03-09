@@ -14,19 +14,19 @@ export const WorkflowsAPI = (client: BaseSlackAPIClient) => {
   workflows.stepCompleted = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("workflows.stepCompleted", args);
+    return await client.apiCall("workflows.stepCompleted", args);
   };
 
   workflows.stepFailed = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("workflows.stepFailed", args);
+    return await client.apiCall("workflows.stepFailed", args);
   };
 
   workflows.updateStep = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("workflows.updateStep", args);
+    return await client.apiCall("workflows.updateStep", args);
   };
 
   return workflows as WorkflowsAPIType;

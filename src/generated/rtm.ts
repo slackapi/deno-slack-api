@@ -10,7 +10,7 @@ export const RtmAPI = (client: BaseSlackAPIClient) => {
   const rtm: any = {};
 
   rtm.connect = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("rtm.connect", args);
+    return await client.apiCall("rtm.connect", args);
   };
 
   return rtm as RtmAPIType;

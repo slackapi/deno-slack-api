@@ -30,7 +30,7 @@ export const SlackAPI = (token?: string, options: SlackAPIOptions = {}) => {
   const client = new BaseSlackAPIClient(token, options);
 
   return {
-    call: client.call.bind(client),
+    apiCall: client.apiCall.bind(client),
     response: client.response.bind(client),
     admin: AdminAPI(client),
     api: ApiAPI(client),

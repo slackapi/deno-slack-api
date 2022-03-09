@@ -10,7 +10,7 @@ export const EmojiAPI = (client: BaseSlackAPIClient) => {
   const emoji: any = {};
 
   emoji.list = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("emoji.list", args);
+    return await client.apiCall("emoji.list", args);
   };
 
   return emoji as EmojiAPIType;

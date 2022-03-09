@@ -12,15 +12,15 @@ export const StarsAPI = (client: BaseSlackAPIClient) => {
   const stars: any = {};
 
   stars.add = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("stars.add", args);
+    return await client.apiCall("stars.add", args);
   };
 
   stars.list = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("stars.list", args);
+    return await client.apiCall("stars.list", args);
   };
 
   stars.remove = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("stars.remove", args);
+    return await client.apiCall("stars.remove", args);
   };
 
   return stars as StarsAPIType;

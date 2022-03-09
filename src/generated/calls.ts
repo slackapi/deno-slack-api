@@ -17,32 +17,32 @@ export const CallsAPI = (client: BaseSlackAPIClient) => {
   const calls: any = {};
 
   calls.add = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("calls.add", args);
+    return await client.apiCall("calls.add", args);
   };
 
   calls.end = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("calls.end", args);
+    return await client.apiCall("calls.end", args);
   };
 
   calls.info = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("calls.info", args);
+    return await client.apiCall("calls.info", args);
   };
   calls.participants = {};
 
   calls.participants.add = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("calls.participants.add", args);
+    return await client.apiCall("calls.participants.add", args);
   };
 
   calls.participants.remove = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("calls.participants.remove", args);
+    return await client.apiCall("calls.participants.remove", args);
   };
 
   calls.update = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("calls.update", args);
+    return await client.apiCall("calls.update", args);
   };
 
   return calls as CallsAPIType;

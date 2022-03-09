@@ -10,7 +10,7 @@ export const SearchAPI = (client: BaseSlackAPIClient) => {
   const search: any = {};
 
   search.messages = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("search.messages", args);
+    return await client.apiCall("search.messages", args);
   };
 
   return search as SearchAPIType;

@@ -12,7 +12,7 @@ export const MigrationAPI = (client: BaseSlackAPIClient) => {
   migration.exchange = async (
     args: SlackAPIMethodArgs,
   ): Promise<BaseResponse> => {
-    return await client.call("migration.exchange", args);
+    return await client.apiCall("migration.exchange", args);
   };
 
   return migration as MigrationAPIType;

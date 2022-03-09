@@ -6,6 +6,6 @@ Deno.test("SlackAPI", () => {
     slackApiUrl: "https://slack.com/api/",
   });
 
-  assertEquals(typeof client.call, "function");
+  assertEquals(typeof client.apiCall, "function");
   assertEquals(typeof client.response, "function");
 });

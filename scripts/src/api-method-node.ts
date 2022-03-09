@@ -89,7 +89,7 @@ export class APIMethodNode {
 
     return `
 ${this.nodePath} = async ( args: SlackAPIMethodArgs ): Promise<BaseResponse> => {
-  return await client.call("${this.nodePath}", args);
+  return await client.apiCall("${this.nodePath}", args);
 };`;
   };
 }

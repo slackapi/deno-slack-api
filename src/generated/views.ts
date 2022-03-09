@@ -13,19 +13,19 @@ export const ViewsAPI = (client: BaseSlackAPIClient) => {
   const views: any = {};
 
   views.open = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("views.open", args);
+    return await client.apiCall("views.open", args);
   };
 
   views.publish = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("views.publish", args);
+    return await client.apiCall("views.publish", args);
   };
 
   views.push = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("views.push", args);
+    return await client.apiCall("views.push", args);
   };
 
   views.update = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("views.update", args);
+    return await client.apiCall("views.update", args);
   };
 
   return views as ViewsAPIType;

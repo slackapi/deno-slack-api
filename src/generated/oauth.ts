@@ -14,16 +14,16 @@ export const OauthAPI = (client: BaseSlackAPIClient) => {
   const oauth: any = {};
 
   oauth.access = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("oauth.access", args);
+    return await client.apiCall("oauth.access", args);
   };
 
   oauth.token = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("oauth.token", args);
+    return await client.apiCall("oauth.token", args);
   };
   oauth.v2 = {};
 
   oauth.v2.access = async (args: SlackAPIMethodArgs): Promise<BaseResponse> => {
-    return await client.call("oauth.v2.access", args);
+    return await client.apiCall("oauth.v2.access", args);
   };
 
   return oauth as OauthAPIType;
