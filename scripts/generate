@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Writes the Function files based on a functions.json file existing alongside this script
+deno run --quiet --allow-read --allow-write ./scripts/src/generate.ts
+echo "Formatting Slack function files..."
+deno fmt --quiet ./src/generated/*.ts
+echo "Linting Slack function files..."
+deno lint --quiet ./src/generated/*.ts

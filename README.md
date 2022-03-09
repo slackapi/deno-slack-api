@@ -35,5 +35,5 @@ You can [create an Issue](https://github.com/slackapi/deno-slack-api/issues/new)
 right here on GitHub.
 
 We welcome contributions from everyone! Please check out our
-[Contributor's Guide](.github/contributing.md) for how to contribute in a
+[Contributor's Guide](.github/CONTRIBUTING.md) for how to contribute in a
 helpful and collaborative way.
