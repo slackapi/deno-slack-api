@@ -24,7 +24,7 @@ Run this from the root of the project
 
 ### Testing
 
-Test can be run direclty with Deno.
+Test can be run directly with Deno.
 
 ```
 deno test src
