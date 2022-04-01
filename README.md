@@ -12,7 +12,7 @@ const response = await client.chat.postMessage({
   channel: "...",
 });
 
-// use api.apiCall() directly with the api method name
+// use client.apiCall() directly with the api method name
 await client.apiCall("chat.postMessage", {
   text: "hello there",
   channel: "...",
