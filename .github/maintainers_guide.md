@@ -6,37 +6,47 @@ this project. If you use this package within your own software as is but don't p
 
 ## Tools (optional)
 
-> Are there any build tools, dependencies, or other programs someone maintaining this project
-> needs to be familiar with?
+All you need to work on this project is a recent version of [Deno](https://deno.land/)
 
 ## Tasks
 
+### Building
+
+* The majority of this library (`src/generated`) is generated code based off of a slack api spec file. Updating the web apis based off a new spec file can be done by getting the latest spec file from https://api.slack.com/web#spec or via the [slack-api-specs](https://github.com/slackapi/slack-api-specs) repo directly. 
+* Place that file at `scripts/api_spec.json`, as the generation script currently expects it to live there on the file system.
+* Run the command to regenerate the api methods code. Unit tests verifying every api method has a corresponding function created for it are also generated in this step.
+
+Run this from the root of the project
+
+```
+./scripts/generate
+```
+
 ### Testing
 
-> How do you run the tests?
+Test can be run directly with Deno.
 
-### Generating Documentation (optional)
+```
+deno test src
+```
 
-> If the documentation is generated from source, how does someone run the generation?
-> Are the docs published on a website (GitHub Pages)?
 
 ### Releasing
 
-> A description of the process to make a release for this project. Do not share any secrets here.
+* Releases for this library are triggered off of tags. You should create a new GitHub Release, and use a new version that adheres to semantic versioning based on what's being release. Version tags should match the following pattern: `1.0.1` (no `v` preceding the number).
+* Once the release has been created, a corresponding version will be avaliable on https://deno.land/x/deno_slack_api.
 
 ## Workflow
 
 ### Versioning and Tags
 
-> Does this project use semver? What does the numbering system look like? Are releases tagged in git?
+This project is versioned using [Semantic Versioning](http://semver.org/).
 
 ### Branches
 
 > Describe any specific branching workflow. For example:
-> `master` is where active development occurs.
+> `main` is where active development occurs.
 > Long running branches named feature branches are occasionally created for collaboration on a feature that has a large scope (because everyone cannot push commits to another person's open Pull Request)
-> At some point in the future after a major version increment, there may be maintenance branches
-> for older major versions.
 
 ### Issue Management
 
@@ -55,7 +65,6 @@ Labels are used to run issues through an organized workflow. Here are the basic 
 *  `good first contribution`: An issue that has a well-defined relatively-small scope, with clear expectations. It helps when the testing approach is also known.
 *  `duplicate`: An issue that is functionally the same as another issue. Apply this only if you've linked the other issue by number.
 
-> You may want to add more labels for subsystems of your project, depending on how complex it is.
 
 **Triage** is the process of taking new issues that aren't yet "seen" and marking them with a basic
 level of information with labels. An issue should have **one** of the following labels applied:

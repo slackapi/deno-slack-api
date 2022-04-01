@@ -26,9 +26,9 @@ If applicable, add screenshots to help explain your problem.
 
 #### Reproducible in:
 
-{project_name} version:
+deno-slack-api version:
 
-{platform_name} version:
+Deno version:
 
 OS version(s):
 

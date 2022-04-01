@@ -1,1 +1,3 @@
 .DS_Store
+.vscode
+scripts/api_spec.json
