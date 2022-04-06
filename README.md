@@ -27,6 +27,18 @@ const client = SlackAPI(token, {
 })
 ```
 
+## Requirements
+
+A recent version of `deno`.
+
+## Running Tests
+
+If you make changes to this repo, or just want to make sure things are working as desired, you can run:
+
+    deno fmt ./src
+    deno lint ./src
+    deno test --allow-read --coverage=.coverage && deno coverage --exclude="fixtures|test" .coverage
+
 ---
 
 ### Getting Help
