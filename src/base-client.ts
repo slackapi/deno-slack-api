@@ -52,7 +52,7 @@ export class BaseSlackAPIClient {
 }
 
 // Serialize an object into a string so as to be compatible with x-www-form-urlencoded payloads
-function serializeData(data: Record<string, unknown>): URLSearchParams {
+export function serializeData(data: Record<string, unknown>): URLSearchParams {
   const encodedData: Record<string, string> = {};
   Object.entries(data).forEach(([key, value]) => {
     // Objects/arrays, numbers and booleans get stringified
