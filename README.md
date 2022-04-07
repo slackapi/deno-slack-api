@@ -7,12 +7,6 @@ import { SlackAPI } from "https://deno.land/x/deno_slack_api@0.0.5/mod.ts"
 
 const client = SlackAPI(token);
 
-const response = await client.chat.postMessage({
-  text: "hello there",
-  channel: "...",
-});
-
-// use client.apiCall() directly with the api method name
 await client.apiCall("chat.postMessage", {
   text: "hello there",
   channel: "...",
