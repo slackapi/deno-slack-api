@@ -22,7 +22,7 @@ const customClient = SlackAPI(token, {
 
 ### Using the Slack API Client
 
-Now that you have an instance of the Slack API Client, you have access to it's methods:
+Now that you have an instance of the Slack API Client, you have access to its methods:
 - `apiCall`: An async function that accepts two arguments:
   1. `method`: a string which defines which API method you wish to invoke.
   2. `data`: a JSON object representing parameter data to be passed to the API method you wish to invoke; the client will handle serializing it appropriately.
