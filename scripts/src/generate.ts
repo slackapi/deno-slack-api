@@ -1,5 +1,5 @@
-import { pascalCase } from "https://deno.land/x/case@v2.1.0/mod.ts";
 import { APIMethodNode } from "./api-method-node.ts";
+import { pascalCase } from "./deps.ts";
 
 const run = async () => {
   const text = await Deno.readTextFile("./scripts/api_spec.json");
@@ -134,7 +134,7 @@ const getTestCode = (api: APIMethodNode) => {
   visitMethodNodes(api);
 
   return `
-import { assertEquals } from "https://deno.land/std@0.99.0/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@0.134.0/testing/asserts.ts";
 import { SlackAPI } from "../mod.ts";
 
 Deno.test("SlackAPI", () => {
