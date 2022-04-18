@@ -1,9 +1,12 @@
 import { pascalCase } from "https://deno.land/x/case@v2.1.0/mod.ts";
 import { APIMethodNode } from "./api-method-node.ts";
 
+const SPEC_FILE_URL =
+  "https://raw.githubusercontent.com/slackapi/slack-api-specs/master/web-api/slack_web_openapi_v2_without_examples.json";
+
 const run = async () => {
-  const text = await Deno.readTextFile("./scripts/api_spec.json");
-  const spec = JSON.parse(text);
+  const response = await fetch(SPEC_FILE_URL);
+  const spec = await response.json();
 
   // Root node
   const api = new APIMethodNode("", false, "", true);
