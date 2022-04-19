@@ -1,7 +1,7 @@
 import { BaseResponse, SlackAPIMethodArgs } from "./types.ts";
 
 type APICallback = {
-  (method: string, payload: SlackAPIMethodArgs): Promise<BaseResponse>;
+  (method: string, payload?: SlackAPIMethodArgs): Promise<BaseResponse>;
 };
 
 export const APIProxy = (
@@ -18,7 +18,7 @@ export const APIProxy = (
   // proxied object to be called, which will attempt an api call using the path as the method
   const objectToProxy = rootClient !== null
     ? rootClient
-    : (payload: SlackAPIMethodArgs) => {
+    : (payload?: SlackAPIMethodArgs) => {
       return apiCallback(method, payload);
     };
 
