@@ -4,11 +4,22 @@ import { SlackAPI } from "../mod.ts";
 Deno.test("SlackAPIMethodsType generated types", () => {
   const client = SlackAPI("test-token");
 
+  assertEquals(typeof client.admin.analytics.getFile, "function");
   assertEquals(typeof client.admin.apps.approve, "function");
   assertEquals(typeof client.admin.apps.approved.list, "function");
+  assertEquals(typeof client.admin.apps.clearResolution, "function");
+  assertEquals(typeof client.admin.apps.requests.cancel, "function");
   assertEquals(typeof client.admin.apps.requests.list, "function");
   assertEquals(typeof client.admin.apps.restrict, "function");
   assertEquals(typeof client.admin.apps.restricted.list, "function");
+  assertEquals(typeof client.admin.apps.uninstall, "function");
+  assertEquals(typeof client.admin.auth.policy.assignEntities, "function");
+  assertEquals(typeof client.admin.auth.policy.getEntities, "function");
+  assertEquals(typeof client.admin.auth.policy.removeEntities, "function");
+  assertEquals(typeof client.admin.barriers.create, "function");
+  assertEquals(typeof client.admin.barriers.delete, "function");
+  assertEquals(typeof client.admin.barriers.list, "function");
+  assertEquals(typeof client.admin.barriers.update, "function");
   assertEquals(typeof client.admin.conversations.archive, "function");
   assertEquals(typeof client.admin.conversations.convertToPrivate, "function");
   assertEquals(typeof client.admin.conversations.create, "function");
@@ -22,8 +33,16 @@ Deno.test("SlackAPIMethodsType generated types", () => {
     typeof client.admin.conversations.getConversationPrefs,
     "function",
   );
+  assertEquals(
+    typeof client.admin.conversations.getCustomRetention,
+    "function",
+  );
   assertEquals(typeof client.admin.conversations.getTeams, "function");
   assertEquals(typeof client.admin.conversations.invite, "function");
+  assertEquals(
+    typeof client.admin.conversations.removeCustomRetention,
+    "function",
+  );
   assertEquals(typeof client.admin.conversations.rename, "function");
   assertEquals(
     typeof client.admin.conversations.restrictAccess.addGroup,
@@ -40,6 +59,10 @@ Deno.test("SlackAPIMethodsType generated types", () => {
   assertEquals(typeof client.admin.conversations.search, "function");
   assertEquals(
     typeof client.admin.conversations.setConversationPrefs,
+    "function",
+  );
+  assertEquals(
+    typeof client.admin.conversations.setCustomRetention,
     "function",
   );
   assertEquals(typeof client.admin.conversations.setTeams, "function");
@@ -78,23 +101,37 @@ Deno.test("SlackAPIMethodsType generated types", () => {
   assertEquals(typeof client.admin.users.invite, "function");
   assertEquals(typeof client.admin.users.list, "function");
   assertEquals(typeof client.admin.users.remove, "function");
+  assertEquals(typeof client.admin.users.session.clearSettings, "function");
+  assertEquals(typeof client.admin.users.session.getSettings, "function");
   assertEquals(typeof client.admin.users.session.invalidate, "function");
+  assertEquals(typeof client.admin.users.session.list, "function");
   assertEquals(typeof client.admin.users.session.reset, "function");
+  assertEquals(typeof client.admin.users.session.resetBulk, "function");
+  assertEquals(typeof client.admin.users.session.setSettings, "function");
   assertEquals(typeof client.admin.users.setAdmin, "function");
   assertEquals(typeof client.admin.users.setExpiration, "function");
   assertEquals(typeof client.admin.users.setOwner, "function");
   assertEquals(typeof client.admin.users.setRegular, "function");
+  assertEquals(
+    typeof client.admin.users.unsupportedVersions.export,
+    "function",
+  );
   assertEquals(typeof client.api.test, "function");
+  assertEquals(typeof client.apps.connections.open, "function");
   assertEquals(typeof client.apps.event.authorizations.list, "function");
-  assertEquals(typeof client.apps.permissions.info, "function");
-  assertEquals(typeof client.apps.permissions.request, "function");
-  assertEquals(typeof client.apps.permissions.resources.list, "function");
-  assertEquals(typeof client.apps.permissions.scopes.list, "function");
-  assertEquals(typeof client.apps.permissions.users.list, "function");
-  assertEquals(typeof client.apps.permissions.users.request, "function");
+  assertEquals(typeof client.apps.manifest.create, "function");
+  assertEquals(typeof client.apps.manifest.delete, "function");
+  assertEquals(typeof client.apps.manifest.export, "function");
+  assertEquals(typeof client.apps.manifest.update, "function");
+  assertEquals(typeof client.apps.manifest.validate, "function");
   assertEquals(typeof client.apps.uninstall, "function");
   assertEquals(typeof client.auth.revoke, "function");
+  assertEquals(typeof client.auth.teams.list, "function");
   assertEquals(typeof client.auth.test, "function");
+  assertEquals(typeof client.bookmarks.add, "function");
+  assertEquals(typeof client.bookmarks.edit, "function");
+  assertEquals(typeof client.bookmarks.list, "function");
+  assertEquals(typeof client.bookmarks.remove, "function");
   assertEquals(typeof client.bots.info, "function");
   assertEquals(typeof client.calls.add, "function");
   assertEquals(typeof client.calls.end, "function");
@@ -102,6 +139,10 @@ Deno.test("SlackAPIMethodsType generated types", () => {
   assertEquals(typeof client.calls.participants.add, "function");
   assertEquals(typeof client.calls.participants.remove, "function");
   assertEquals(typeof client.calls.update, "function");
+  assertEquals(typeof client.channels.create, "function");
+  assertEquals(typeof client.channels.info, "function");
+  assertEquals(typeof client.channels.invite, "function");
+  assertEquals(typeof client.channels.mark, "function");
   assertEquals(typeof client.chat.delete, "function");
   assertEquals(typeof client.chat.deleteScheduledMessage, "function");
   assertEquals(typeof client.chat.getPermalink, "function");
@@ -112,16 +153,21 @@ Deno.test("SlackAPIMethodsType generated types", () => {
   assertEquals(typeof client.chat.scheduleMessage, "function");
   assertEquals(typeof client.chat.unfurl, "function");
   assertEquals(typeof client.chat.update, "function");
+  assertEquals(typeof client.conversations.acceptSharedInvite, "function");
+  assertEquals(typeof client.conversations.approveSharedInvite, "function");
   assertEquals(typeof client.conversations.archive, "function");
   assertEquals(typeof client.conversations.close, "function");
   assertEquals(typeof client.conversations.create, "function");
+  assertEquals(typeof client.conversations.declineSharedInvite, "function");
   assertEquals(typeof client.conversations.history, "function");
   assertEquals(typeof client.conversations.info, "function");
   assertEquals(typeof client.conversations.invite, "function");
+  assertEquals(typeof client.conversations.inviteShared, "function");
   assertEquals(typeof client.conversations.join, "function");
   assertEquals(typeof client.conversations.kick, "function");
   assertEquals(typeof client.conversations.leave, "function");
   assertEquals(typeof client.conversations.list, "function");
+  assertEquals(typeof client.conversations.listConnectInvites, "function");
   assertEquals(typeof client.conversations.mark, "function");
   assertEquals(typeof client.conversations.members, "function");
   assertEquals(typeof client.conversations.open, "function");
@@ -137,6 +183,11 @@ Deno.test("SlackAPIMethodsType generated types", () => {
   assertEquals(typeof client.dnd.setSnooze, "function");
   assertEquals(typeof client.dnd.teamInfo, "function");
   assertEquals(typeof client.emoji.list, "function");
+  assertEquals(typeof client.enterprise.auth.idpconfig.apply, "function");
+  assertEquals(typeof client.enterprise.auth.idpconfig.get, "function");
+  assertEquals(typeof client.enterprise.auth.idpconfig.list, "function");
+  assertEquals(typeof client.enterprise.auth.idpconfig.remove, "function");
+  assertEquals(typeof client.enterprise.auth.idpconfig.set, "function");
   assertEquals(typeof client.files.comments.delete, "function");
   assertEquals(typeof client.files.delete, "function");
   assertEquals(typeof client.files.info, "function");
@@ -150,10 +201,23 @@ Deno.test("SlackAPIMethodsType generated types", () => {
   assertEquals(typeof client.files.revokePublicURL, "function");
   assertEquals(typeof client.files.sharedPublicURL, "function");
   assertEquals(typeof client.files.upload, "function");
+  assertEquals(typeof client.groups.create, "function");
+  assertEquals(typeof client.groups.info, "function");
+  assertEquals(typeof client.groups.invite, "function");
+  assertEquals(typeof client.groups.mark, "function");
+  assertEquals(typeof client.groups.open, "function");
+  assertEquals(typeof client.im.list, "function");
+  assertEquals(typeof client.im.mark, "function");
+  assertEquals(typeof client.im.open, "function");
   assertEquals(typeof client.migration.exchange, "function");
+  assertEquals(typeof client.mpim.list, "function");
+  assertEquals(typeof client.mpim.mark, "function");
+  assertEquals(typeof client.mpim.open, "function");
   assertEquals(typeof client.oauth.access, "function");
-  assertEquals(typeof client.oauth.token, "function");
   assertEquals(typeof client.oauth.v2.access, "function");
+  assertEquals(typeof client.oauth.v2.exchange, "function");
+  assertEquals(typeof client.openid.connect.token, "function");
+  assertEquals(typeof client.openid.connect.userInfo, "function");
   assertEquals(typeof client.pins.add, "function");
   assertEquals(typeof client.pins.list, "function");
   assertEquals(typeof client.pins.remove, "function");
@@ -167,15 +231,21 @@ Deno.test("SlackAPIMethodsType generated types", () => {
   assertEquals(typeof client.reminders.info, "function");
   assertEquals(typeof client.reminders.list, "function");
   assertEquals(typeof client.rtm.connect, "function");
+  assertEquals(typeof client.rtm.start, "function");
+  assertEquals(typeof client.search.all, "function");
+  assertEquals(typeof client.search.files, "function");
   assertEquals(typeof client.search.messages, "function");
   assertEquals(typeof client.stars.add, "function");
   assertEquals(typeof client.stars.list, "function");
   assertEquals(typeof client.stars.remove, "function");
   assertEquals(typeof client.team.accessLogs, "function");
   assertEquals(typeof client.team.billableInfo, "function");
+  assertEquals(typeof client.team.billing.info, "function");
   assertEquals(typeof client.team.info, "function");
   assertEquals(typeof client.team.integrationLogs, "function");
+  assertEquals(typeof client.team.preferences.list, "function");
   assertEquals(typeof client.team.profile.get, "function");
+  assertEquals(typeof client.tooling.tokens.rotate, "function");
   assertEquals(typeof client.usergroups.create, "function");
   assertEquals(typeof client.usergroups.disable, "function");
   assertEquals(typeof client.usergroups.enable, "function");

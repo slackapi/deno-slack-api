@@ -1,18 +1,37 @@
 import { SlackAPIMethod } from "../types.ts";
 
 export type AdminAPIType = {
+  analytics: {
+    getFile: SlackAPIMethod;
+  };
   apps: {
     approve: SlackAPIMethod;
     approved: {
       list: SlackAPIMethod;
     };
+    clearResolution: SlackAPIMethod;
     requests: {
+      cancel: SlackAPIMethod;
       list: SlackAPIMethod;
     };
     restrict: SlackAPIMethod;
     restricted: {
       list: SlackAPIMethod;
     };
+    uninstall: SlackAPIMethod;
+  };
+  auth: {
+    policy: {
+      assignEntities: SlackAPIMethod;
+      getEntities: SlackAPIMethod;
+      removeEntities: SlackAPIMethod;
+    };
+  };
+  barriers: {
+    create: SlackAPIMethod;
+    delete: SlackAPIMethod;
+    list: SlackAPIMethod;
+    update: SlackAPIMethod;
   };
   conversations: {
     archive: SlackAPIMethod;
@@ -24,8 +43,10 @@ export type AdminAPIType = {
       listOriginalConnectedChannelInfo: SlackAPIMethod;
     };
     getConversationPrefs: SlackAPIMethod;
+    getCustomRetention: SlackAPIMethod;
     getTeams: SlackAPIMethod;
     invite: SlackAPIMethod;
+    removeCustomRetention: SlackAPIMethod;
     rename: SlackAPIMethod;
     restrictAccess: {
       addGroup: SlackAPIMethod;
@@ -34,6 +55,7 @@ export type AdminAPIType = {
     };
     search: SlackAPIMethod;
     setConversationPrefs: SlackAPIMethod;
+    setCustomRetention: SlackAPIMethod;
     setTeams: SlackAPIMethod;
     unarchive: SlackAPIMethod;
   };
@@ -85,12 +107,20 @@ export type AdminAPIType = {
     list: SlackAPIMethod;
     remove: SlackAPIMethod;
     session: {
+      clearSettings: SlackAPIMethod;
+      getSettings: SlackAPIMethod;
       invalidate: SlackAPIMethod;
+      list: SlackAPIMethod;
       reset: SlackAPIMethod;
+      resetBulk: SlackAPIMethod;
+      setSettings: SlackAPIMethod;
     };
     setAdmin: SlackAPIMethod;
     setExpiration: SlackAPIMethod;
     setOwner: SlackAPIMethod;
     setRegular: SlackAPIMethod;
+    unsupportedVersions: {
+      export: SlackAPIMethod;
+    };
   };
 };

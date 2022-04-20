@@ -1,18 +1,13 @@
+import { emptyDir, ensureDir } from "https://deno.land/std@0.67.0/fs/mod.ts";
 import { pascalCase } from "https://deno.land/x/case@v2.1.0/mod.ts";
 import { APIMethodNode } from "./api-method-node.ts";
-
-const SPEC_FILE_URL =
-  "https://raw.githubusercontent.com/slackapi/slack-api-specs/master/web-api/slack_web_openapi_v2_without_examples.json";
+import { getPublicAPIMethods } from "./public-api-methods.ts";
 
 const run = async () => {
-  const response = await fetch(SPEC_FILE_URL);
-  const spec = await response.json();
+  const methods = getPublicAPIMethods();
 
   // Root node
   const api = new APIMethodNode("", false, "", true);
-
-  const methods = Object.keys(spec.paths).map((path) => path.substring(1));
-  methods.sort((a, b) => a.localeCompare(b));
 
   for (const method of methods) {
     // Start with the root api node
@@ -35,13 +30,18 @@ const run = async () => {
     });
   }
 
+  const outputDir = "./src/generated-method-types/";
+
+  await ensureDir(outputDir);
+  await emptyDir(outputDir);
+
   // Cycle through each top level api group
   for (const groupNode of api.childNodes) {
     // Generate the code for this group api
     const groupCode = getGroupCode(groupNode);
     // write the code to a group-specific file
     await Deno.writeTextFile(
-      `./src/generated-method-types/${groupNode.name}.ts`,
+      `${outputDir}${groupNode.name}.ts`,
       groupCode,
     );
     console.log(`wrote api file: ${groupNode.name}`);
@@ -50,7 +50,7 @@ const run = async () => {
   // Write top level file that builds api
   const mainAPITypeCode = getMainAPICode(api);
   await Deno.writeTextFile(
-    "./src/generated-method-types/mod.ts",
+    `${outputDir}mod.ts`,
     mainAPITypeCode,
   );
   console.log("wrote main api file: mod.ts");
@@ -58,7 +58,7 @@ const run = async () => {
   // Write generated test file to verify all methods are accounted for
   const testCode = getTestCode(api);
   await Deno.writeTextFile(
-    "./src/generated-method-types/api_method_types_test.ts",
+    `${outputDir}/api_method_types_test.ts`,
     testCode,
   );
   console.log("wrote api test code: api_method_types_test.ts");
