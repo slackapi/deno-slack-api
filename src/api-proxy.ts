@@ -24,18 +24,12 @@ export const APIProxy = (
 
   const proxy = new Proxy(objectToProxy, {
     get(obj, prop) {
-      // If it's a property that exists, just access it directly
-      if (prop in obj) {
-        // deno-lint-ignore no-explicit-any
-        return Reflect.get.apply(obj, arguments as any);
-      }
-
       // We're attempting to access a property that doesn't exist, so create a new nested proxy
-      if (typeof prop === "string") {
+      if (typeof prop === "string" && !(prop in obj)) {
         return APIProxy(null, apiCallback, ...path, prop);
       }
 
-      // Fallback to trying to access it directly even if it's not in this objects props
+      // Fallback to trying to access it directly
       // deno-lint-ignore no-explicit-any
       return Reflect.get.apply(obj, arguments as any);
     },
