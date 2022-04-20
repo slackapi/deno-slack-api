@@ -118,6 +118,10 @@ Deno.test("SlackAPIMethodsType generated types", () => {
   );
   assertEquals(typeof client.api.test, "function");
   assertEquals(typeof client.apps.connections.open, "function");
+  assertEquals(typeof client.apps.datastore.delete, "function");
+  assertEquals(typeof client.apps.datastore.get, "function");
+  assertEquals(typeof client.apps.datastore.put, "function");
+  assertEquals(typeof client.apps.datastore.query, "function");
   assertEquals(typeof client.apps.event.authorizations.list, "function");
   assertEquals(typeof client.apps.manifest.create, "function");
   assertEquals(typeof client.apps.manifest.delete, "function");
@@ -201,6 +205,8 @@ Deno.test("SlackAPIMethodsType generated types", () => {
   assertEquals(typeof client.files.revokePublicURL, "function");
   assertEquals(typeof client.files.sharedPublicURL, "function");
   assertEquals(typeof client.files.upload, "function");
+  assertEquals(typeof client.functions.completeError, "function");
+  assertEquals(typeof client.functions.completeSuccess, "function");
   assertEquals(typeof client.groups.create, "function");
   assertEquals(typeof client.groups.info, "function");
   assertEquals(typeof client.groups.invite, "function");

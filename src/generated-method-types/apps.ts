@@ -4,6 +4,12 @@ export type AppsAPIType = {
   connections: {
     open: SlackAPIMethod;
   };
+  datastore: {
+    delete: SlackAPIMethod;
+    get: SlackAPIMethod;
+    put: SlackAPIMethod;
+    query: SlackAPIMethod;
+  };
   event: {
     authorizations: {
       list: SlackAPIMethod;

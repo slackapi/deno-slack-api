@@ -234,6 +234,13 @@ export const getPublicAPIMethods = () => {
     "mpim.list",
     "mpim.mark",
     "mpim.open",
+    // upcoming platform 2.0 methods we want available but aren't listed quite yet
+    "functions.completeError",
+    "functions.completeSuccess",
+    "apps.datastore.delete",
+    "apps.datastore.get",
+    "apps.datastore.put",
+    "apps.datastore.query",
   ];
 
   methods.sort((a, b) => a.localeCompare(b));

@@ -13,6 +13,7 @@ import { type DndAPIType } from "./dnd.ts";
 import { type EmojiAPIType } from "./emoji.ts";
 import { type EnterpriseAPIType } from "./enterprise.ts";
 import { type FilesAPIType } from "./files.ts";
+import { type FunctionsAPIType } from "./functions.ts";
 import { type GroupsAPIType } from "./groups.ts";
 import { type ImAPIType } from "./im.ts";
 import { type MigrationAPIType } from "./migration.ts";
@@ -48,6 +49,7 @@ export type SlackAPIMethodsType = {
   emoji: EmojiAPIType;
   enterprise: EnterpriseAPIType;
   files: FilesAPIType;
+  functions: FunctionsAPIType;
   groups: GroupsAPIType;
   im: ImAPIType;
   migration: MigrationAPIType;
