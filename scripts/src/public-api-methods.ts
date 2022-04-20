@@ -1,7 +1,7 @@
 // https://api.slack.com/methods
 // These are all of the public Slack API methods
 export const getPublicAPIMethods = () => {
-  const methods = [
+  const methodsSet = new Set([
     "admin.analytics.getFile",
     "admin.apps.approve",
     "admin.apps.clearResolution",
@@ -241,7 +241,9 @@ export const getPublicAPIMethods = () => {
     "apps.datastore.get",
     "apps.datastore.put",
     "apps.datastore.query",
-  ];
+  ]);
+
+  const methods = Array.from(methodsSet);
 
   methods.sort((a, b) => a.localeCompare(b));
 
