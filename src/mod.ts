@@ -1,7 +1,7 @@
 import { BaseSlackAPIClient } from "./base-client.ts";
 import { SlackAPIMethodArgs, SlackAPIOptions } from "./types.ts";
 import { APIProxy } from "./api-proxy.ts";
-import { SlackAPIMethodsType } from "./generated-method-types/mod.ts";
+import { SlackAPIMethodsType } from "./generated/method-types/mod.ts";
 
 export const SlackAPI = (token: string, options: SlackAPIOptions = {}) => {
   // Create our base client instance

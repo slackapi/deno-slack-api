@@ -30,7 +30,7 @@ const run = async () => {
     });
   }
 
-  const outputDir = "./src/generated-method-types/";
+  const outputDir = "./src/generated/method-types/";
 
   await ensureDir(outputDir);
   await emptyDir(outputDir);
@@ -88,7 +88,7 @@ export type SlackAPIMethodsType = {
 
 const getGroupCode = (groupNode: APIMethodNode) => {
   const groupCode = `
-  import { SlackAPIMethod } from "../types.ts";
+  import { SlackAPIMethod } from "../../types.ts";
 
   ${groupNode.getTypesCode()}
 `;
@@ -112,7 +112,7 @@ const getTestCode = (api: APIMethodNode) => {
 
   return `
 import { assertEquals } from "https://deno.land/std@0.99.0/testing/asserts.ts";
-import { SlackAPI } from "../mod.ts";
+import { SlackAPI } from "../../mod.ts";
 
 Deno.test("SlackAPIMethodsType generated types", () => {
   const client = SlackAPI("test-token");
