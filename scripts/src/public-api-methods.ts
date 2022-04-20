@@ -1,7 +1,7 @@
 // https://api.slack.com/methods
 // These are all of the public Slack API methods
 export const getPublicAPIMethods = () => {
-  const methodsSet = new Set([
+  const publicAPIMethods = [
     "admin.analytics.getFile",
     "admin.apps.approve",
     "admin.apps.clearResolution",
@@ -234,13 +234,21 @@ export const getPublicAPIMethods = () => {
     "mpim.list",
     "mpim.mark",
     "mpim.open",
-    // upcoming platform 2.0 methods we want available but aren't listed quite yet
+  ];
+
+  // upcoming platform 2.0 methods we want available but aren't listed quite yet
+  const platform2Methods = [
     "functions.completeError",
     "functions.completeSuccess",
     "apps.datastore.delete",
     "apps.datastore.get",
     "apps.datastore.put",
     "apps.datastore.query",
+  ];
+
+  const methodsSet = new Set([
+    ...publicAPIMethods,
+    ...platform2Methods,
   ]);
 
   const methods = Array.from(methodsSet);
