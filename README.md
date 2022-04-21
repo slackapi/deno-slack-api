@@ -37,9 +37,6 @@ If you make changes to this repo, or just want to make sure things are working a
 
 ### Getting Help
 
-You can [create an Issue](https://github.com/slackapi/deno-slack-api/issues/new)
-right here on GitHub.
-
 We welcome contributions from everyone! Please check out our
 [Contributor's Guide](.github/CONTRIBUTING.md) for how to contribute in a
 helpful and collaborative way.
