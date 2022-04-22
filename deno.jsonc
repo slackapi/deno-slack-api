@@ -1,0 +1,5 @@
+{
+  "tasks": {
+    "test": "deno test src && deno fmt --check src && deno lint src"
+  }
+}

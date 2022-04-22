@@ -50,6 +50,7 @@ export type DatastoreGetArgs<
     /**
      * @description The primary key of the item to retreive
      */
+    // deno-lint-ignore no-explicit-any
     [k in Schema["primary_key"]]: any;
   }
   & {
@@ -112,6 +113,7 @@ export type DatastoreDeleteArgs<
     /**
      * @description The primary key of the item to delete
      */
+    // deno-lint-ignore no-explicit-any
     [k in Schema["primary_key"]]: any;
   }
   & {
