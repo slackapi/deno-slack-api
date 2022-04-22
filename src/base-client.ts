@@ -11,7 +11,7 @@ export class BaseSlackAPIClient {
 
   async apiCall(
     method: string,
-    data: SlackAPIMethodArgs,
+    data: SlackAPIMethodArgs = {},
   ): Promise<BaseResponse> {
     const url = `${this.#baseURL}${method}`;
     const body = serializeData(data);

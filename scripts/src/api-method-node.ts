@@ -10,6 +10,8 @@ export class APIMethodNode {
   constructor(
     name: string,
     isMethod: boolean,
+    // This currently isn't referenced, but could be useful in the future for typed payloads,
+    // as it provides the underlying method that is passed to apiCall, i.e. `"chat.postMessage"`
     nodePath: string,
     isRootNode: boolean,
   ) {
@@ -34,7 +36,7 @@ export class APIMethodNode {
     let code = "";
     if (this.isRootNode) {
       const typeName = `${pascalCase(this.name)}APIType`;
-      code += `type ${typeName} = {\n`;
+      code += `export type ${typeName} = {\n`;
     }
 
     // api method with no child nodes
@@ -72,24 +74,4 @@ export class APIMethodNode {
 
     return code;
   }
-
-  getGeneratedCode = () => {
-    // Handle case of the root api node
-    if (!this.nodePath || !this.name) {
-      return;
-    }
-
-    if (!this.isMethod) {
-      if (this.isRootNode) {
-        return `const ${this.nodePath}: any = {};`;
-      }
-
-      return `${this.nodePath} = {};`;
-    }
-
-    return `
-${this.nodePath} = async ( args: SlackAPIMethodArgs ): Promise<BaseResponse> => {
-  return await client.apiCall("${this.nodePath}", args);
-};`;
-  };
 }

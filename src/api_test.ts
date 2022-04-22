@@ -10,7 +10,7 @@ Deno.test("SlackAPI class", async (t) => {
   mf.install(); // mock out calls to `fetch`
 
   await t.step("instantiated with default API URL", async (t) => {
-    const client = SlackAPI("test-token", {});
+    const client = SlackAPI("test-token");
 
     await t.step("base methods exist on client", () => {
       assertEquals(typeof client.apiCall, "function");
@@ -139,6 +139,38 @@ Deno.test("SlackAPI class", async (t) => {
         mf.reset();
       });
     });
+  });
+
+  await t.step("calling custom method accessor functions", async (t) => {
+    const client = SlackAPI("test-token");
+
+    await t.step(
+      "should provide single level deep api method functions",
+      async () => {
+        mf.mock("POST@/api/chat.postMessage", () => {
+          return new Response('{"ok":true}');
+        });
+
+        const res = await client.chat.postMessage({});
+        assertEquals(res.ok, true);
+
+        mf.reset();
+      },
+    );
+
+    await t.step(
+      "should provide deeply nested api method functions",
+      async () => {
+        mf.mock("POST@/api/admin.apps.approved.list", () => {
+          return new Response('{"ok":true}');
+        });
+
+        const res = await client.admin.apps.approved.list();
+        assertEquals(res.ok, true);
+
+        mf.reset();
+      },
+    );
   });
 
   mf.uninstall();
