@@ -5,15 +5,21 @@ Slack API Client for Deno Run on Slack projects
 ```ts
 import { SlackAPI } from "https://deno.land/x/deno_slack_api@0.0.2/mod.ts"
 
-const client = SlackAPI(token, {});
+const client = SlackAPI(token);
 
-await client.apiCall("chat.postMessage", {
+await client.chat.postMessage({
   text: "hello there",
   channel: "...",
 });
 
 // respond to a response_url
 await client.response("...", payload);
+
+// use apiCall() w/ method name
+await client.apiCall("chat.postMessage", {
+  text: "hello there",
+  channel: "...",
+});
 
 // create a client with options
 const client = SlackAPI(token, {
