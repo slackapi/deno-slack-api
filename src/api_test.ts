@@ -171,6 +171,35 @@ Deno.test("SlackAPI class", async (t) => {
         mf.reset();
       },
     );
+
+    await t.step(
+      "should allow for typed method calls",
+      async () => {
+        mf.mock("POST@/api/apps.datastore.put", () => {
+          return new Response('{"ok":true}');
+        });
+
+        const TestDatastore = {
+          name: "test",
+          attributes: {
+            id: "string",
+            email: "string",
+          },
+          primary_key: "id",
+        };
+
+        const res = await client.apps.datastore.put<typeof TestDatastore>({
+          datastore: "test",
+          item: {
+            id: "sample",
+            email: "test@test.com",
+          },
+        });
+        assertEquals(res.ok, true);
+
+        mf.reset();
+      },
+    );
   });
 
   mf.uninstall();
