@@ -7,6 +7,11 @@ import { SlackAPI } from "https://deno.land/x/deno_slack_api@0.0.2/mod.ts"
 
 const client = SlackAPI(token);
 
+// ...or create a client with options
+const client = SlackAPI(token, {
+  slackApiUrl: "..."
+});
+
 await client.chat.postMessage({
   text: "hello there",
   channel: "...",
@@ -20,11 +25,6 @@ await client.apiCall("chat.postMessage", {
   text: "hello there",
   channel: "...",
 });
-
-// create a client with options
-const client = SlackAPI(token, {
-  slackApiUrl: "..."
-})
 ```
 
 ## Requirements
