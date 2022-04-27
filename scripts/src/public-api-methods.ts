@@ -219,21 +219,6 @@ export const getPublicAPIMethods = () => {
     "workflows.stepCompleted",
     "workflows.stepFailed",
     "workflows.updateStep",
-    "channels.create",
-    "channels.info",
-    "channels.invite",
-    "channels.mark",
-    "groups.create",
-    "groups.info",
-    "groups.invite",
-    "groups.mark",
-    "groups.open",
-    "im.list",
-    "im.mark",
-    "im.open",
-    "mpim.list",
-    "mpim.mark",
-    "mpim.open",
   ];
 
   // upcoming platform 2.0 methods we want available but aren't listed quite yet
