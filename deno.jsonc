@@ -1,6 +1,16 @@
 {
+  "fmt": {
+    "files": {
+      "include": ["src"]
+    }
+  },
+  "lint": {
+    "files": {
+      "include": ["src"]
+    }
+  },
   "tasks": {
-    "test": "deno test src && deno fmt --check src && deno lint src",
-    "coverage": "deno test --allow-read --coverage=.coverage && deno coverage --exclude=fixtures|test .coverage"
+    "test": "deno fmt --check && deno lint && deno test src",
+    "coverage": "deno test --coverage=.coverage && deno coverage --exclude=fixtures --exclude=test --exclude=src/generated .coverage"
   }
 }
