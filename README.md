@@ -35,9 +35,11 @@ A recent version of `deno`.
 
 If you make changes to this repo, or just want to make sure things are working as desired, you can run:
 
-    deno fmt ./src
-    deno lint ./src
-    deno test --allow-read --coverage=.coverage && deno coverage --exclude="fixtures|test" .coverage
+    deno task test
+
+To get a full test coverage report, run:
+
+    deno task coverage
 
 ---
 
