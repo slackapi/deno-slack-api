@@ -262,5 +262,6 @@ Deno.test("SlackAPIMethodsType generated types", () => {
   assertEquals(typeof client.views.update, "function");
   assertEquals(typeof client.workflows.stepCompleted, "function");
   assertEquals(typeof client.workflows.stepFailed, "function");
+  assertEquals(typeof client.workflows.triggers.create, "function");
   assertEquals(typeof client.workflows.updateStep, "function");
 });
