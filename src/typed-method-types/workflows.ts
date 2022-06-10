@@ -64,16 +64,6 @@ type ScheduledTrigger = BaseTrigger & {
   };
 };
 
-const t: ScheduledTrigger = {
-  type: "scheduled",
-  workflow: "",
-  inputs: {},
-  schedule: {
-    start_time: "",
-    frequency: { type: "monthly", repeats_every: 1 },
-  },
-};
-
 type ShortcutTrigger = BaseTrigger & {
   type: typeof VALID_TRIGGERS.shortcut;
   shortcut: {
