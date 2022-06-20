@@ -86,7 +86,7 @@ export type DatastoreQueryArgs<
      */
     datastore: Schema["name"];
     expression?: string;
-    "expression_columns"?: Record<string, string>;
+    "expression_attributes"?: Record<string, string>;
     "expression_values"?: Record<string, string>;
     limit?: number;
   };
