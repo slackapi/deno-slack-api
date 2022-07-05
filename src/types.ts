@@ -13,6 +13,21 @@ export type BaseResponse = {
   [otherOptions: string]: unknown;
 };
 
+export type BaseSlackClient = {
+  apiCall: APIProxyCall;
+  response: APIProxyResponse;
+};
+
+export type APIProxyResponse = (
+  url: string,
+  data: Record<string, unknown>,
+) => Promise<BaseResponse>;
+
+export type APIProxyCall = (
+  method: string,
+  data?: SlackAPIMethodArgs,
+) => Promise<BaseResponse>;
+
 export type SlackAPIOptions = {
   /**
    * @description Optional url endpoint for the Slack API used for api calls. Defaults to https://slack.com/api/
