@@ -5,7 +5,7 @@
     "https://deno.land": false
   },
   "[typescript]": {
-    "editor.formatOnSave": false,
+    "editor.formatOnSave": true,
     "editor.defaultFormatter": "denoland.vscode-deno"
   },
   "editor.tabSize": 2
