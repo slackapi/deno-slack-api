@@ -1,10 +1,5 @@
 import { BaseSlackAPIClient } from "./base-client.ts";
-import {
-  APIProxyResponse,
-  BaseResponse,
-  BaseSlackClient,
-  SlackAPIMethodArgs,
-} from "./types.ts";
+import { BaseResponse, SlackAPIClient, SlackAPIMethodArgs } from "./types.ts";
 
 type APICallback = {
   (method: string, payload?: SlackAPIMethodArgs): Promise<BaseResponse>;
@@ -35,7 +30,7 @@ export const APIProxy = (
   rootClient: any | null,
   apiCallback: APICallback,
   ...path: (string | undefined)[]
-): APIProxyResponse => {
+): SlackAPIClient => {
   const method = path.filter(Boolean).join(".");
 
   // We either proxy the object passed in, which we do for the top level client,

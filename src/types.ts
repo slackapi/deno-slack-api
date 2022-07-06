@@ -1,3 +1,6 @@
+import { TypedSlackAPIMethodsType } from "./typed-method-types/mod.ts";
+import { SlackAPIMethodsType } from "./generated/method-types/mod.ts";
+
 export type BaseResponse = {
   /** `true` if the response from the server was successful, `false` otherwise. */
   ok: boolean;
@@ -13,19 +16,24 @@ export type BaseResponse = {
   [otherOptions: string]: unknown;
 };
 
+export type SlackAPIClient =
+  & BaseSlackClient
+  & TypedSlackAPIMethodsType
+  & SlackAPIMethodsType;
+
 export type BaseSlackClient = {
-  apiCall: APIProxyCall;
-  response: APIProxyResponse;
+  apiCall: BaseClientCall;
+  response: BaseClientResponse;
 };
 
-export type APIProxyResponse = (
-  url: string,
-  data: Record<string, unknown>,
-) => Promise<BaseResponse>;
-
-export type APIProxyCall = (
+type BaseClientCall = (
   method: string,
   data?: SlackAPIMethodArgs,
+) => Promise<BaseResponse>;
+
+type BaseClientResponse = (
+  url: string,
+  data: Record<string, unknown>,
 ) => Promise<BaseResponse>;
 
 export type SlackAPIOptions = {
