@@ -65,7 +65,9 @@ export function serializeData(data: Record<string, unknown>): URLSearchParams {
     // Inspired by https://github.com/slackapi/node-slack-sdk/blob/main/packages/web-api/src/WebClient.ts#L452
 
     const serializedValue: string =
-      (typeof value !== "string" ? JSON.stringify(value) : value);
+      (typeof value !== "string" 
+    ? JSON.stringify(value) 
+    : value);
     encodedData[key] = serializedValue;
   });
 
