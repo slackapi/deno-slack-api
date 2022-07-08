@@ -1,7 +1,5 @@
 import { BaseSlackAPIClient } from "./base-client.ts";
-import { BaseResponse, SlackAPIMethodArgs } from "./types.ts";
-import { TypedSlackAPIMethodsType } from "./typed-method-types/mod.ts";
-import { SlackAPIMethodsType } from "./generated/method-types/mod.ts";
+import { BaseResponse, SlackAPIClient, SlackAPIMethodArgs } from "./types.ts";
 
 type APICallback = {
   (method: string, payload?: SlackAPIMethodArgs): Promise<BaseResponse>;
@@ -13,7 +11,7 @@ export const ProxifyAndTypeClient = (baseClient: BaseSlackAPIClient) => {
     return baseClient.apiCall(method, payload);
   };
 
-  // Create a subest of the client that we want to wrap our Proxy() around
+  // Create a subset of the client that we want to wrap our Proxy() around
   const clientToProxy = {
     apiCall: baseClient.apiCall.bind(baseClient),
     response: baseClient.response.bind(baseClient),
@@ -23,8 +21,7 @@ export const ProxifyAndTypeClient = (baseClient: BaseSlackAPIClient) => {
   const client = APIProxy(
     clientToProxy,
     apiCallHandler,
-  ) as typeof clientToProxy & TypedSlackAPIMethodsType & SlackAPIMethodsType;
-
+  );
   return client;
 };
 
@@ -33,8 +30,7 @@ export const APIProxy = (
   rootClient: any | null,
   apiCallback: APICallback,
   ...path: (string | undefined)[]
-  // deno-lint-ignore no-explicit-any
-): any => {
+): SlackAPIClient => {
   const method = path.filter(Boolean).join(".");
 
   // We either proxy the object passed in, which we do for the top level client,
