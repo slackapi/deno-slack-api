@@ -1,5 +1,4 @@
 import { BaseTrigger, RequiredInputs, VALID_TRIGGERS } from "./mod.ts";
-import { FilterType } from "./trigger-filter.ts";
 
 export type WebhookTrigger =
   & BaseTrigger
@@ -7,6 +6,7 @@ export type WebhookTrigger =
   & {
     type: typeof VALID_TRIGGERS.webhook;
     webhook?: {
-      filter?: FilterType;
+      // deno-lint-ignore no-explicit-any
+      filter?: Record<string, any>;
     };
   };
