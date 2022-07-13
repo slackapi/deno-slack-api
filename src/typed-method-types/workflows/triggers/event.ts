@@ -18,7 +18,6 @@ export type EventTrigger =
   & RequiredInputs
   & {
     type: typeof VALID_TRIGGERS.event;
-    // TODO: Figure out event typing
     /** @description The payload object for event triggers */
     event: BaseEvent | MetadataEvents;
   };
