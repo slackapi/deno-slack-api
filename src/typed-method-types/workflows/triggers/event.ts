@@ -1,4 +1,4 @@
-import { BaseTrigger, RequiredInputs, VALID_TRIGGERS } from "./mod.ts";
+import { BaseTrigger, RequiredInputs, TriggerTypes } from "./mod.ts";
 
 type BaseEvent = {
   /** @description The type of event */
@@ -17,7 +17,7 @@ export type EventTrigger =
   & BaseTrigger
   & RequiredInputs
   & {
-    type: typeof VALID_TRIGGERS.event;
+    type: typeof TriggerTypes.Event;
     /** @description The payload object for event triggers */
     event: BaseEvent | MetadataEvents;
   };

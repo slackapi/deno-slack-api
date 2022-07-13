@@ -5,16 +5,16 @@ import { ShortcutTrigger } from "./shortcut.ts";
 import { WebhookTrigger } from "./webhook.ts";
 
 // TODO: Export to SDK
-export const VALID_TRIGGERS = {
-  event: "event",
-  scheduled: "scheduled",
-  shortcut: "shortcut",
-  webhook: "webhook",
+export const TriggerTypes = {
+  Event: "event",
+  Scheduled: "scheduled",
+  Shortcut: "shortcut",
+  Webhook: "webhook",
 } as const;
 
 export type BaseTrigger = {
   /** @description The type of trigger */
-  type: keyof typeof VALID_TRIGGERS;
+  type: keyof typeof TriggerTypes;
   /** @description The workflow that the trigger initiates */
   workflow: string;
   /** @description The inputs provided to the workflow */

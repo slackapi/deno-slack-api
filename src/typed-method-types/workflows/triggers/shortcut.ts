@@ -1,7 +1,7 @@
-import { BaseTrigger, VALID_TRIGGERS } from "./mod.ts";
+import { BaseTrigger, TriggerTypes } from "./mod.ts";
 
 export type ShortcutTrigger = BaseTrigger & {
-  type: typeof VALID_TRIGGERS.shortcut;
+  type: typeof TriggerTypes.Shortcut;
   shortcut?: {
     // Eventually this will support button text
     [key: string]: never;

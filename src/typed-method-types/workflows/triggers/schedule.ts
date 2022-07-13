@@ -1,4 +1,4 @@
-import { BaseTrigger, RequiredInputs, VALID_TRIGGERS } from "./mod.ts";
+import { BaseTrigger, RequiredInputs, TriggerTypes } from "./mod.ts";
 type BaseFrequencyType = {
   /** @description How often the trigger will activate */
   type: string;
@@ -18,7 +18,7 @@ export type ScheduledTrigger =
   & BaseTrigger
   & RequiredInputs
   & {
-    type: typeof VALID_TRIGGERS.scheduled;
+    type: typeof TriggerTypes.Scheduled;
     schedule: {
       /** @description A date string of when this scheduled trigger should first occur */
       start_time: string;
