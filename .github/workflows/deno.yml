@@ -27,12 +27,13 @@ jobs:
         with:
           deno-version: v1.x
 
-      # Uncomment this step to verify the use of 'deno fmt' on each commit.
-      - name: Verify formatting
-        run: deno fmt --check src
+      - name: Run formatter, linter and tests
+        run: deno task test
 
-      - name: Run linter
-        run: deno lint src
+      - name: Generate CodeCov-friendly coverage report
+        run: deno task coverage --lcov --output=codecov.lcov
 
-      - name: Run tests
-        run: deno test src
+      - name: Upload coverage to CodeCov
+        uses: codecov/codecov-action@v3.1.0
+        with:
+          file: ./codecov.lcov
