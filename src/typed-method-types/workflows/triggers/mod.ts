@@ -28,7 +28,7 @@ export type BaseTrigger = {
 // A helper to make sure inputs are passed. Required for automated triggers
 export type RequiredInputs = Required<Pick<BaseTrigger, "inputs">>;
 
-type TriggerTypes =
+type ValidTriggerTypes =
   | EventTrigger
   | ScheduledTrigger
   | ShortcutTrigger
@@ -39,6 +39,6 @@ type TriggerResponse = BaseTriggerResponse;
 
 export type TypedWorkflowsTriggersMethodTypes = {
   create: (
-    args: BaseMethodArgs & TriggerTypes,
+    args: BaseMethodArgs & ValidTriggerTypes,
   ) => TriggerResponse;
 };
