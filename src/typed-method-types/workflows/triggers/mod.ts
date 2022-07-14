@@ -14,7 +14,7 @@ export const TriggerTypes = {
 
 export type BaseTrigger = {
   /** @description The type of trigger */
-  type: keyof typeof TriggerTypes;
+  type: typeof TriggerTypes[keyof typeof TriggerTypes];
   /** @description The workflow that the trigger initiates */
   workflow: string;
   /** @description The inputs provided to the workflow */
