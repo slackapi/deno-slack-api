@@ -1,3 +1,5 @@
+import { methodsWithCustomTypes } from "../../src/typed-method-types/mod.ts";
+
 // https://api.slack.com/methods
 // These are all of the public Slack API methods
 export const getPublicAPIMethods = () => {
@@ -228,16 +230,16 @@ export const getPublicAPIMethods = () => {
     "workflows.triggers.delete",
     "functions.completeError",
     "functions.completeSuccess",
-    "apps.datastore.delete",
-    "apps.datastore.get",
-    "apps.datastore.put",
-    "apps.datastore.query",
   ];
 
   const methodsSet = new Set([
     ...publicAPIMethods,
     ...platform2Methods,
   ]);
+
+  methodsWithCustomTypes.forEach((customMethod) => {
+    methodsSet.delete(customMethod);
+  });
 
   const methods = Array.from(methodsSet);
 

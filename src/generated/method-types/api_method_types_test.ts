@@ -118,10 +118,6 @@ Deno.test("SlackAPIMethodsType generated types", () => {
   );
   assertEquals(typeof client.api.test, "function");
   assertEquals(typeof client.apps.connections.open, "function");
-  assertEquals(typeof client.apps.datastore.delete, "function");
-  assertEquals(typeof client.apps.datastore.get, "function");
-  assertEquals(typeof client.apps.datastore.put, "function");
-  assertEquals(typeof client.apps.datastore.query, "function");
   assertEquals(typeof client.apps.event.authorizations.list, "function");
   assertEquals(typeof client.apps.manifest.create, "function");
   assertEquals(typeof client.apps.manifest.delete, "function");
