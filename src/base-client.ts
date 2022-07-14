@@ -12,7 +12,9 @@ export class BaseSlackAPIClient {
   async apiCall(
     method: string,
     data: SlackAPIMethodArgs = {},
-  ): Promise<BaseResponse> {
+    //since we don't specifically know what the shape of the response object will be so set it to any.
+    // deno-lint-ignore no-explicit-any
+  ): Promise<any> {
     const url = `${this.#baseURL}${method}`;
     const body = serializeData(data);
 
@@ -58,9 +60,8 @@ export function serializeData(data: Record<string, unknown>): URLSearchParams {
     // Objects/arrays, numbers and booleans get stringified
     // Slack API accepts JSON-stringified-and-url-encoded payloads for objects/arrays
     // Inspired by https://github.com/slackapi/node-slack-sdk/blob/main/packages/web-api/src/WebClient.ts#L452
-    const serializedValue: string = (typeof value !== "string"
-      ? JSON.stringify(value)
-      : value);
+    const serializedValue: string =
+      (typeof value !== "string" ? JSON.stringify(value) : value);
     encodedData[key] = serializedValue;
   });
   return new URLSearchParams(encodedData);

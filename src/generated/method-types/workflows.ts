@@ -5,6 +5,8 @@ export type WorkflowsAPIType = {
   stepFailed: SlackAPIMethod;
   triggers: {
     create: SlackAPIMethod;
+    delete: SlackAPIMethod;
+    update: SlackAPIMethod;
   };
   updateStep: SlackAPIMethod;
 };
