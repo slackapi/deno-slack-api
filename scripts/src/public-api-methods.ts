@@ -225,13 +225,8 @@ export const getPublicAPIMethods = () => {
 
   // upcoming platform 2.0 methods we want available but aren't listed quite yet
   const platform2Methods = [
-    "workflows.triggers.create",
     "functions.completeError",
     "functions.completeSuccess",
-    "apps.datastore.delete",
-    "apps.datastore.get",
-    "apps.datastore.put",
-    "apps.datastore.query",
   ];
 
   const methodsSet = new Set([
