@@ -18,7 +18,8 @@ export type BaseTrigger = {
   /** @description The workflow that the trigger initiates */
   workflow: string;
   /** @description The inputs provided to the workflow */
-  inputs?: Record<string, unknown>;
+  // deno-lint-ignore no-explicit-any
+  inputs?: Record<string, any>;
   /** @description The name of the trigger */
   name: string;
   /** @description The description of the trigger */

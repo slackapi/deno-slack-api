@@ -23,6 +23,7 @@ type TriggerFilterBooleanLogic = {
   operator: TriggerFilterOperatorTypeValues;
   /**  @description The filter inputs that contain filter statement definitions */
   inputs: [TriggerFilterDefinition, ...TriggerFilterDefinition[]];
+  statement?: never;
 };
 
 type TriggerFilterOperatorTypeValues =
