@@ -41,4 +41,7 @@ export type TypedWorkflowsTriggersMethodTypes = {
   create: (
     args: BaseMethodArgs & ValidTriggerTypes,
   ) => TriggerResponse;
+  update: (
+    args: BaseMethodArgs & ValidTriggerTypes,
+  ) => TriggerResponse;
 };
