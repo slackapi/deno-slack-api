@@ -17,9 +17,7 @@ export class BaseSlackAPIClient implements BaseSlackClient {
   async apiCall(
     method: string,
     data: SlackAPIMethodArgs = {},
-    //since we don't specifically know what the shape of the response object will be so set it to any.
-    // deno-lint-ignore no-explicit-any
-  ): Promise<any> {
+  ): Promise<BaseResponse> {
     const url = `${this.#baseURL}${method}`;
     const body = serializeData(data);
 

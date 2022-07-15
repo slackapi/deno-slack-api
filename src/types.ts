@@ -13,9 +13,9 @@ export type BaseResponse = {
     warnings?: string[];
     messages?: string[];
   };
-  [otherOptions: string]: unknown;
+  // deno-lint-ignore no-explicit-any
+  [otherOptions: string]: any;
 };
-
 export type SlackAPIClient =
   & BaseSlackClient
   & TypedSlackAPIMethodsType
