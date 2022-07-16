@@ -12,14 +12,18 @@ export const TriggerTypes = {
   Webhook: "webhook",
 } as const;
 
+type WorkflowInput = {
+  // deno-lint-ignore no-explicit-any
+  value: any;
+};
+
 export type BaseTrigger = {
   /** @description The type of trigger */
   type: typeof TriggerTypes[keyof typeof TriggerTypes];
   /** @description The workflow that the trigger initiates */
   workflow: string;
   /** @description The inputs provided to the workflow */
-  // deno-lint-ignore no-explicit-any
-  inputs?: Record<string, any>;
+  inputs?: Record<string, WorkflowInput>;
   /** @description The name of the trigger */
   name: string;
   /** @description The description of the trigger */
