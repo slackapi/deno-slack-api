@@ -1,9 +1,29 @@
 import { BaseTrigger, RequiredInputs, TriggerTypes } from "./mod.ts";
+
+const SCHEDULE_FREQUENCY = {
+  Daily: "daily",
+  Weekly: "weekly",
+  Monthly: "monthly",
+  Yearly: "yearly",
+} as const;
+
+const WEEKDAYS = {
+  Monday: "Monday",
+  Tuesday: "Tuesday",
+  Wednesday: "Wednesday",
+  Thursday: "Thursday",
+  Friday: "Friday",
+  Saturday: "Saturday",
+  Sunday: "Sunday",
+} as const;
+
+type Frequency = typeof SCHEDULE_FREQUENCY[keyof typeof SCHEDULE_FREQUENCY];
+
 type BaseFrequencyType = {
   /** @description How often the trigger will activate */
-  type: string;
+  type: Frequency;
   /** @description The days of the week the trigger should activate on (not available for daily triggers) */
-  on_days?: string;
+  on_days?: (typeof WEEKDAYS[keyof typeof WEEKDAYS])[];
   /** @description How often the trigger will repeat, respective to the frequency type */
   repeats_every?: number;
   /**
@@ -12,7 +32,30 @@ type BaseFrequencyType = {
   on_week_num?: number;
 };
 
-type FrequencyType = BaseFrequencyType;
+type DailyFrequencyType =
+  & {
+    /** @description How often the trigger will activate */
+    type: typeof SCHEDULE_FREQUENCY.Daily;
+  }
+  & Pick<BaseFrequencyType, "repeats_every">;
+
+type WeeklyFrequencyType = {
+  /** @description How often the trigger will activate */
+  type: typeof SCHEDULE_FREQUENCY.Weekly;
+} & Pick<BaseFrequencyType, "on_days" | "repeats_every">;
+
+type MonthlyOrYearlyFrequencyType = {
+  /** @description How often the trigger will activate */
+  type: Extract<
+    Frequency,
+    typeof SCHEDULE_FREQUENCY.Monthly | typeof SCHEDULE_FREQUENCY.Yearly
+  >;
+} & Omit<BaseFrequencyType, "type">;
+
+type FrequencyType =
+  | MonthlyOrYearlyFrequencyType
+  | DailyFrequencyType
+  | WeeklyFrequencyType;
 
 export type ScheduledTrigger =
   & BaseTrigger
