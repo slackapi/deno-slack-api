@@ -227,6 +227,8 @@ export const getPublicAPIMethods = () => {
   const platform2Methods = [
     "functions.completeError",
     "functions.completeSuccess",
+    "workflows.triggers.update",
+    "workflows.triggers.delete",
   ];
 
   const methodsSet = new Set([
