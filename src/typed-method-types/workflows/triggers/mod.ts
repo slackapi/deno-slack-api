@@ -25,6 +25,10 @@ export type BaseTrigger = {
   description?: string;
 };
 
+export type UpdateTrigger = BaseTrigger & {
+  trigger_id: string;
+};
+
 // A helper to make sure inputs are passed. Required for automated triggers
 export type RequiredInputs = Required<Pick<BaseTrigger, "inputs">>;
 
