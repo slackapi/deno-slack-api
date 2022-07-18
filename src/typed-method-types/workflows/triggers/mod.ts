@@ -30,6 +30,10 @@ export type BaseTrigger = {
   description?: string;
 };
 
+export type TriggerIdType = {
+  trigger_id: string;
+};
+
 // A helper to make sure inputs are passed. Required for automated triggers
 export type RequiredInputs = Required<Pick<BaseTrigger, "inputs">>;
 
@@ -45,5 +49,11 @@ type TriggerResponse = BaseTriggerResponse;
 export type TypedWorkflowsTriggersMethodTypes = {
   create: (
     args: BaseMethodArgs & ValidTriggerTypes,
+  ) => TriggerResponse;
+  update: (
+    args: BaseMethodArgs & TriggerIdType & ValidTriggerTypes,
+  ) => TriggerResponse;
+  delete: (
+    args: BaseMethodArgs & TriggerIdType,
   ) => TriggerResponse;
 };
