@@ -1,4 +1,5 @@
 import { BaseTrigger, RequiredInputs, TriggerTypes } from "./mod.ts";
+import { FilterType } from "./trigger-filter.ts";
 
 export type WebhookTrigger =
   & BaseTrigger
@@ -6,7 +7,7 @@ export type WebhookTrigger =
   & {
     type: typeof TriggerTypes.Webhook;
     webhook?: {
-      // deno-lint-ignore no-explicit-any
-      filter?: Record<string, any>;
+      /** @description Defines the condition in which this webhook trigger should execute the Workflow */
+      filter?: FilterType;
     };
   };
