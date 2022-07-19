@@ -3,8 +3,8 @@ import { EventTrigger } from "./event.ts";
 import { ScheduledTrigger } from "./scheduled.ts";
 import { ShortcutTrigger } from "./shortcut.ts";
 import { WebhookTrigger } from "./webhook.ts";
+import { ObjectValueUnion } from "../../../type-helpers.ts";
 
-// TODO: Export to SDK
 export const TriggerTypes = {
   Event: "event",
   Scheduled: "scheduled",
@@ -21,7 +21,7 @@ type WorkflowStringFormat = `${string}#/workflows/${string}`;
 
 export type BaseTrigger = {
   /** @description The type of trigger */
-  type: typeof TriggerTypes[keyof typeof TriggerTypes];
+  type: ObjectValueUnion<typeof TriggerTypes>;
   /** @description The workflow that the trigger initiates */
   workflow: WorkflowStringFormat;
   /** @description The inputs provided to the workflow */
