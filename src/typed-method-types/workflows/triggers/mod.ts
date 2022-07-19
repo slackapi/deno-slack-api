@@ -41,9 +41,16 @@ type ValidTriggerTypes =
 
 type BaseTriggerResponse = Promise<BaseResponse>;
 type TriggerResponse = BaseTriggerResponse;
+type ListArgs = {
+  is_owner?: boolean;
+  is_published?: boolean;
+};
 
 export type TypedWorkflowsTriggersMethodTypes = {
   create: (
     args: BaseMethodArgs & ValidTriggerTypes,
+  ) => TriggerResponse;
+  list: (
+    args?: BaseMethodArgs & ListArgs,
   ) => TriggerResponse;
 };

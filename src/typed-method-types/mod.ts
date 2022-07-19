@@ -15,6 +15,7 @@ export const methodsWithCustomTypes = [
   "apps.datastore.put",
   "apps.datastore.query",
   "workflows.triggers.create",
+  "workflows.triggers.list",
 ];
 
 export type TypedSlackAPIMethodsType =
