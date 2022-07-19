@@ -51,7 +51,7 @@ type MonthlyFrequencyType = {
   type: typeof SCHEDULE_FREQUENCY.Monthly;
   /** @description The days of the week the trigger should activate on (not available for daily triggers) */
   on_days?: [WeekdayUnion];
-} & Omit<BaseFrequencyType, "type" | "on_days">;
+} & Pick<BaseFrequencyType, "repeats_every" | "on_week_num">;
 
 type YearlyFrequencyType = {
   /** @description How often the trigger will activate */
