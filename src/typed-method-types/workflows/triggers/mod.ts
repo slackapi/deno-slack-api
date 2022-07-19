@@ -1,6 +1,6 @@
 import { BaseMethodArgs, BaseResponse } from "../../../types.ts";
 import { EventTrigger } from "./event.ts";
-import { ScheduledTrigger } from "./schedule.ts";
+import { ScheduledTrigger } from "./scheduled.ts";
 import { ShortcutTrigger } from "./shortcut.ts";
 import { WebhookTrigger } from "./webhook.ts";
 
