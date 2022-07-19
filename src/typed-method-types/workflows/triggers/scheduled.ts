@@ -17,13 +17,15 @@ const WEEKDAYS = {
   Sunday: "Sunday",
 } as const;
 
-type Frequency = typeof SCHEDULE_FREQUENCY[keyof typeof SCHEDULE_FREQUENCY];
+type FrequencyUnion =
+  typeof SCHEDULE_FREQUENCY[keyof typeof SCHEDULE_FREQUENCY];
+type WeekdayUnion = typeof WEEKDAYS[keyof typeof WEEKDAYS];
 
 type BaseFrequencyType = {
   /** @description How often the trigger will activate */
-  type: Frequency;
+  type: FrequencyUnion;
   /** @description The days of the week the trigger should activate on (not available for daily triggers) */
-  on_days?: (typeof WEEKDAYS[keyof typeof WEEKDAYS])[];
+  on_days?: WeekdayUnion[];
   /** @description How often the trigger will repeat, respective to the frequency type */
   repeats_every?: number;
   /**
@@ -44,18 +46,23 @@ type WeeklyFrequencyType = {
   type: typeof SCHEDULE_FREQUENCY.Weekly;
 } & Pick<BaseFrequencyType, "on_days" | "repeats_every">;
 
-type MonthlyOrYearlyFrequencyType = {
+type MonthlyFrequencyType = {
   /** @description How often the trigger will activate */
-  type: Extract<
-    Frequency,
-    typeof SCHEDULE_FREQUENCY.Monthly | typeof SCHEDULE_FREQUENCY.Yearly
-  >;
-} & Omit<BaseFrequencyType, "type">;
+  type: typeof SCHEDULE_FREQUENCY.Monthly;
+  /** @description The days of the week the trigger should activate on (not available for daily triggers) */
+  on_days?: [WeekdayUnion];
+} & Omit<BaseFrequencyType, "type" | "on_days">;
+
+type YearlyFrequencyType = {
+  /** @description How often the trigger will activate */
+  type: typeof SCHEDULE_FREQUENCY.Yearly;
+} & Pick<BaseFrequencyType, "repeats_every">;
 
 type FrequencyType =
   | DailyFrequencyType
   | WeeklyFrequencyType
-  | MonthlyOrYearlyFrequencyType;
+  | MonthlyFrequencyType
+  | YearlyFrequencyType;
 
 type BaseTriggerSchedule = {
   /** @description A date string of when this scheduled trigger should first occur */

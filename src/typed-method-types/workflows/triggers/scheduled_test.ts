@@ -117,7 +117,7 @@ Deno.test("Scheduled Triggers can be set to be reoccur monthly", () => {
       frequency: {
         type: "monthly",
         repeats_every: 3,
-        on_days: ["Friday", "Monday"],
+        on_days: ["Friday"],
         on_week_num: 1,
       },
     },
@@ -135,8 +135,7 @@ Deno.test("Scheduled Triggers can be set to be reoccur yearly", () => {
       start_time: "2022-03-01T14:00:00Z",
       frequency: {
         type: "yearly",
-        on_days: ["Friday", "Monday"],
-        on_week_num: 26,
+        repeats_every: 2,
       },
     },
   };
