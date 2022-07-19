@@ -53,28 +53,42 @@ type MonthlyOrYearlyFrequencyType = {
 } & Omit<BaseFrequencyType, "type">;
 
 type FrequencyType =
-  | MonthlyOrYearlyFrequencyType
   | DailyFrequencyType
-  | WeeklyFrequencyType;
+  | WeeklyFrequencyType
+  | MonthlyOrYearlyFrequencyType;
 
-export type ScheduledTrigger =
-  & BaseTrigger
-  & RequiredInputs
+type BaseTriggerSchedule = {
+  /** @description A date string of when this scheduled trigger should first occur */
+  start_time: string;
+  /**
+   *  @description A timezone string to use for scheduling
+   *  @default "UTC"
+   */
+  timezone?: string;
+};
+
+type SingleOccurrenceTriggerSchedule = BaseTriggerSchedule & {
+  frequency?: never;
+  end_time?: never;
+  occurence_count?: never;
+};
+
+type RecurringTriggerSchedule =
+  & BaseTriggerSchedule
   & {
-    type: typeof TriggerTypes.Scheduled;
-    schedule: {
-      /** @description A date string of when this scheduled trigger should first occur */
-      start_time: string;
-      /** @description If set, this trigger will not run past the provided date string  */
-      end_time?: string;
-      /**
-       *  @description A timezone string to use for scheduling
-       *  @default "UTC"
-       */
-      timezone?: string;
-      /** @description The maximum number of times the trigger may run */
-      occurence_count?: number;
-      /** @description The configurable frequency of which this trigger will activate  */
-      frequency?: FrequencyType;
-    };
+    /** @description If set, this trigger will not run past the provided date string  */
+    end_time?: string;
+    /** @description The maximum number of times the trigger may run */
+    occurence_count?: number;
+    /** @description The configurable frequency of which this trigger will activate  */
+    frequency: FrequencyType;
   };
+
+type TriggerSchedule =
+  | RecurringTriggerSchedule
+  | SingleOccurrenceTriggerSchedule;
+
+export type ScheduledTrigger = BaseTrigger & RequiredInputs & {
+  type: typeof TriggerTypes.Scheduled;
+  schedule: TriggerSchedule;
+};
