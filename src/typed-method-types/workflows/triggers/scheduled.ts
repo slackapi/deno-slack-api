@@ -1,13 +1,13 @@
 import { BaseTrigger, RequiredInputs, TriggerTypes } from "./mod.ts";
 
-const SCHEDULE_FREQUENCY = {
+export const SCHEDULE_FREQUENCY = {
   Daily: "daily",
   Weekly: "weekly",
   Monthly: "monthly",
   Yearly: "yearly",
 } as const;
 
-const WEEKDAYS = {
+export const WEEKDAYS = {
   Monday: "Monday",
   Tuesday: "Tuesday",
   Wednesday: "Wednesday",
