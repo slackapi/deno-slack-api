@@ -1,17 +1,39 @@
 import { BaseTrigger, RequiredInputs, TriggerTypes } from "./mod.ts";
+import { FilterType } from "./trigger-filter.ts";
+import { ObjectValueUnion } from "../../../type-helpers.ts";
+
+export const MetadataEventTypes = {
+  MessageMetadataPosted: "slack#/events/message_metadata_posted",
+  // MessageMetadataAdded: "slack#/events/message_metadata_added",
+  // MessageMetadataDeleted: "slack#/events/message_metadata_deleted",
+} as const;
+
+export const TriggerEventTypes = {
+  ChannelCreated: "slack#/events/channel_created",
+  DndUpdated: "slack#/events/dnd_updated",
+  ReactionAdded: "slack#/events/reaction_added",
+  UserJoinedChannel: "slack#/events/user_joined_channel",
+  UserJoinedTeam: "slack#/events/user_joined_team",
+  ...MetadataEventTypes,
+} as const;
+
+type TriggerEventTypeValues = ObjectValueUnion<typeof TriggerEventTypes>;
+type MetadataEventTypeValues = ObjectValueUnion<typeof MetadataEventTypes>;
 
 type BaseEvent = {
   /** @description The type of event */
-  event_type: string;
+  event_type: Exclude<TriggerEventTypeValues, MetadataEventTypeValues>;
+  filter?: FilterType;
   channel_ids?: string[];
-  // deno-lint-ignore no-explicit-any
-  filter?: Record<string, any>;
   team_ids?: string[];
+  metadata_event_type?: never;
 };
 
 type MetadataEvents = {
-  metadata_event_type: string;
-} & BaseEvent;
+  /** @description The type of event */
+  event_type: Extract<TriggerEventTypeValues, MetadataEventTypeValues>;
+  metadata_event_type: string; // TODO: Is this just a normal string? Is it required?
+} & Omit<BaseEvent, "event_type" | "metadata_event_type">;
 
 export type EventTrigger =
   & BaseTrigger
