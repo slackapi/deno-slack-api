@@ -31,6 +31,7 @@ export type BaseTrigger = {
 };
 
 export type TriggerIdType = {
+  /** @description The id of a specified trigger */
   trigger_id: string;
 };
 
@@ -47,12 +48,15 @@ type BaseTriggerResponse = Promise<BaseResponse>;
 type TriggerResponse = BaseTriggerResponse;
 
 export type TypedWorkflowsTriggersMethodTypes = {
+  /** @description Create a new trigger with a specified type */
   create: (
     args: BaseMethodArgs & ValidTriggerTypes,
   ) => TriggerResponse;
+  /** @description Updates an existing trigger identified with trigger_id */
   update: (
     args: BaseMethodArgs & TriggerIdType & ValidTriggerTypes,
   ) => TriggerResponse;
+  /** @description Deletes an existing trigger identified with trigger_id */
   delete: (
     args: BaseMethodArgs & TriggerIdType,
   ) => TriggerResponse;
