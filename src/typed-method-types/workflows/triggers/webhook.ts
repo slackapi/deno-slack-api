@@ -1,3 +1,4 @@
+import { BaseTriggerResponse } from "./base_response.ts";
 import { BaseTrigger, RequiredInputs, TriggerTypes } from "./mod.ts";
 import { FilterType } from "./trigger-filter.ts";
 
@@ -11,3 +12,5 @@ export type WebhookTrigger =
       filter?: FilterType;
     };
   };
+
+export type WebhookResponse = BaseTriggerResponse;

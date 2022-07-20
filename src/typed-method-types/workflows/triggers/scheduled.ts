@@ -1,3 +1,4 @@
+import { BaseTriggerResponse } from "./base_response.ts";
 import { BaseTrigger, RequiredInputs, TriggerTypes } from "./mod.ts";
 
 export const SCHEDULE_FREQUENCY = {
@@ -99,3 +100,7 @@ export type ScheduledTrigger = BaseTrigger & RequiredInputs & {
   type: typeof TriggerTypes.Scheduled;
   schedule: TriggerSchedule;
 };
+
+export type ScheduledResponse =
+  & BaseTriggerResponse
+  & SingleOccurrenceTriggerSchedule;

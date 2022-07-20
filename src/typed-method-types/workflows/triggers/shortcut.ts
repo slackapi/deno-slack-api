@@ -1,3 +1,4 @@
+import { BaseTriggerResponse } from "./base_response.ts";
 import { BaseTrigger, TriggerTypes } from "./mod.ts";
 
 export type ShortcutTrigger = BaseTrigger & {
@@ -6,3 +7,7 @@ export type ShortcutTrigger = BaseTrigger & {
     button_text: string;
   };
 };
+
+export type ShortcutResponse =
+  & BaseTriggerResponse
+  & Pick<BaseTrigger, "name" | "description">;

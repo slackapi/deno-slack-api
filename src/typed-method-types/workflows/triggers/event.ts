@@ -1,3 +1,4 @@
+import { BaseTriggerResponse } from "./base_response.ts";
 import { BaseTrigger, RequiredInputs, TriggerTypes } from "./mod.ts";
 
 type BaseEvent = {
@@ -21,3 +22,10 @@ export type EventTrigger =
     /** @description The payload object for event triggers */
     event: BaseEvent | MetadataEvents;
   };
+
+export type EventResponse =
+  & BaseTriggerResponse
+  & (
+    | BaseEvent
+    | MetadataEvents
+  );
