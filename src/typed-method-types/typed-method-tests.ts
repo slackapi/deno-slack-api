@@ -10,4 +10,6 @@ Deno.test("Custom Type Methods are valid functions", () => {
   assertEquals(typeof client.apps.datastore.query, "function");
   assertEquals(typeof client.workflows.triggers.create, "function");
   assertEquals(typeof client.workflows.triggers.list, "function");
+  assertEquals(typeof client.workflows.triggers.update, "function");
+  assertEquals(typeof client.workflows.triggers.delete, "function");
 });

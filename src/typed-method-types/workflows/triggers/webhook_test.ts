@@ -22,7 +22,7 @@ Deno.test("Webhook Triggers can set the type using the TriggerTypes object", () 
   assertEquals(webhook.type, TriggerTypes.Webhook);
 });
 
-Deno.test("Webhook Trigger Filters support an optional webhook object", () => {
+Deno.test("Webhook Triggers support an optional filter object", () => {
   const webhook: WebhookTrigger = {
     type: TriggerTypes.Webhook,
     name: "test",
