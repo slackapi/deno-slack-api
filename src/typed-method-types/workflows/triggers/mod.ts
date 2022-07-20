@@ -1,7 +1,6 @@
 import { BaseMethodArgs, BaseResponse } from "../../../types.ts";
 import { EventTrigger } from "./event.ts";
-// TODO: Rename to `scheduled.ts` after the Schedule PR is merged
-import { ScheduledTrigger } from "./schedule.ts";
+import { ScheduledTrigger } from "./scheduled.ts";
 import { ShortcutTrigger } from "./shortcut.ts";
 import { WebhookTrigger } from "./webhook.ts";
 import { FilterType } from "./trigger-filter.ts";
@@ -28,6 +27,10 @@ export type BaseTrigger = {
   name: string;
   /** @description The description of the trigger */
   description?: string;
+};
+
+export type TriggerIdType = {
+  trigger_id: string;
 };
 
 // A helper to make sure inputs are passed. Required for automated triggers
@@ -125,5 +128,11 @@ type TriggerResponse = BaseTriggerResponse;
 export type TypedWorkflowsTriggersMethodTypes = {
   create: (
     args: BaseMethodArgs & ValidTriggerTypes,
+  ) => TriggerResponse;
+  update: (
+    args: BaseMethodArgs & TriggerIdType & ValidTriggerTypes,
+  ) => TriggerResponse;
+  delete: (
+    args: BaseMethodArgs & TriggerIdType,
   ) => TriggerResponse;
 };
