@@ -46,6 +46,12 @@ type ValidTriggerTypes =
 
 type BaseTriggerResponse = Promise<BaseResponse>;
 type TriggerResponse = BaseTriggerResponse;
+type ListArgs = {
+  /** @description Lists triggers only if they owned by the caller */
+  is_owner?: boolean;
+  /** @description Lists triggers only if they have been published */
+  is_published?: boolean;
+};
 
 export type TypedWorkflowsTriggersMethodTypes = {
   /** @description Create a new trigger with a specified type */
@@ -59,5 +65,9 @@ export type TypedWorkflowsTriggersMethodTypes = {
   /** @description Deletes an existing trigger identified with trigger_id */
   delete: (
     args: BaseMethodArgs & TriggerIdType,
+  ) => TriggerResponse;
+  /** @description Returns a list of triggers in the workspace */
+  list: (
+    args?: BaseMethodArgs & ListArgs,
   ) => TriggerResponse;
 };
