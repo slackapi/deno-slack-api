@@ -1,9 +1,12 @@
-import { BaseMethodArgs, BaseResponse } from "../../../types.ts";
-import { EventResponse, EventTrigger } from "./event.ts";
-import { ScheduledResponse, ScheduledTrigger } from "./scheduled.ts";
-import { ShortcutResponse, ShortcutTrigger } from "./shortcut.ts";
-import { WebhookResponse, WebhookTrigger } from "./webhook.ts";
-import { FilterType } from "./trigger-filter.ts";
+import {
+  BaseMethodArgs,
+  BaseResponse,
+  UpdateMethodArgs,
+} from "../../../types.ts";
+import { EventTrigger, EventTriggerResponse } from "./event.ts";
+import { ScheduledTrigger, ScheduledTriggerResponse } from "./scheduled.ts";
+import { ShortcutTrigger, ShortcutTriggerResponse } from "./shortcut.ts";
+import { WebhookTrigger, WebhookTriggerResponse } from "./webhook.ts";
 export const TriggerTypes = {
   Event: "event",
   Scheduled: "scheduled",
@@ -30,41 +33,44 @@ export type BaseTrigger = {
 };
 
 export type TriggerIdType = {
-  trigger_id: string;
+  trigger_id: string | undefined;
 };
 
 // A helper to make sure inputs are passed. Required for automated triggers
 export type RequiredInputs = Required<Pick<BaseTrigger, "inputs">>;
 
-type ValidTriggerTypes =
-  | EventTrigger
-  | ScheduledTrigger
-  | ShortcutTrigger
-  | WebhookTrigger;
-
-type ValidResponseTypes =
-  | EventResponse
-  | ScheduledResponse
-  | ShortcutResponse
-  | WebhookResponse;
-export type TriggerResponse = Promise<
-  ValidResponseTypes | FailedTriggerResponse
->;
-
-type FailedTriggerResponse = BaseResponse & {
+export type FailedTriggerResponse = BaseResponse & {
   ok: false;
   /** @description no trigger is returned on a failed response */
   trigger?: never;
 };
 
+type createType = {
+  (args: BaseMethodArgs & ScheduledTrigger): ScheduledTriggerResponse;
+  (args: BaseMethodArgs & ShortcutTrigger): ShortcutTriggerResponse;
+  (args: BaseMethodArgs & WebhookTrigger): WebhookTriggerResponse;
+  (args: BaseMethodArgs & EventTrigger): EventTriggerResponse;
+};
+
+type updateType = {
+  (args: UpdateMethodArgs & ScheduledTrigger): ScheduledTriggerResponse;
+  (args: UpdateMethodArgs & ShortcutTrigger): ShortcutTriggerResponse;
+  (args: UpdateMethodArgs & WebhookTrigger): WebhookTriggerResponse;
+  (args: UpdateMethodArgs & EventTrigger): EventTriggerResponse;
+};
+
+type DeleteResponse = {
+  ok: true;
+};
+
+type DeleteTriggerResponse = Promise<
+  DeleteResponse | FailedTriggerResponse
+>;
+
 export type TypedWorkflowsTriggersMethodTypes = {
-  create: (
-    args: BaseMethodArgs & ValidTriggerTypes,
-  ) => TriggerResponse;
-  update: (
-    args: BaseMethodArgs & TriggerIdType & ValidTriggerTypes,
-  ) => TriggerResponse;
+  create: createType;
+  update: updateType;
   delete: (
     args: BaseMethodArgs & TriggerIdType,
-  ) => TriggerResponse;
+  ) => DeleteTriggerResponse;
 };

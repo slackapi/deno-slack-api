@@ -1,5 +1,11 @@
+import { BaseResponse } from "../../../types.ts";
 import { BaseTriggerResponse } from "./base_response.ts";
-import { BaseTrigger, RequiredInputs, TriggerTypes } from "./mod.ts";
+import {
+  BaseTrigger,
+  FailedTriggerResponse,
+  RequiredInputs,
+  TriggerTypes,
+} from "./mod.ts";
 
 type BaseEvent = {
   /** @description The type of event */
@@ -22,10 +28,18 @@ export type EventTrigger =
     /** @description The payload object for event triggers */
     event: BaseEvent | MetadataEvents;
   };
-
+export type EventTriggerResponse = Promise<
+  EventResponse | FailedTriggerResponse
+>;
 export type EventResponse =
-  & BaseTriggerResponse
-  & (
-    | BaseEvent
-    | MetadataEvents
-  );
+  & BaseResponse
+  & {
+    trigger:
+      & BaseTriggerResponse
+      & Pick<BaseTrigger, "type">
+      & Pick<BaseTrigger, "name" | "description">
+      & (
+        | BaseEvent
+        | MetadataEvents
+      );
+  };
