@@ -38,7 +38,7 @@ export type TriggerIdType = {
 // A helper to make sure inputs are passed. Required for automated triggers
 export type RequiredInputs = Required<Pick<BaseTrigger, "inputs">>;
 
-type ValidTriggerTypes =
+export type ValidTriggerTypes =
   | EventTrigger
   | ScheduledTrigger
   | ShortcutTrigger
