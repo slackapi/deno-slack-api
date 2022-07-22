@@ -1,4 +1,11 @@
-import { BaseTrigger, RequiredInputs, TriggerTypes } from "./mod.ts";
+import { BaseResponse } from "../../../types.ts";
+import { BaseTriggerResponse } from "./base_response.ts";
+import {
+  BaseTrigger,
+  FailedTriggerResponse,
+  RequiredInputs,
+  TriggerTypes,
+} from "./mod.ts";
 
 export const SCHEDULE_FREQUENCY = {
   Daily: "daily",
@@ -98,4 +105,15 @@ type TriggerSchedule =
 export type ScheduledTrigger = BaseTrigger & RequiredInputs & {
   type: typeof TriggerTypes.Scheduled;
   schedule: TriggerSchedule;
+};
+
+export type ScheduledTriggerResponse = Promise<
+  ScheduledResponse | FailedTriggerResponse
+>;
+export type ScheduledResponse = BaseResponse & {
+  trigger:
+    & BaseTriggerResponse
+    & Pick<BaseTrigger, "type">
+    & Pick<BaseTrigger, "name" | "description">
+    & ScheduledTrigger;
 };
