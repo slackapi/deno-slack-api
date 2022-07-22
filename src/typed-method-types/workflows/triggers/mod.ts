@@ -3,10 +3,23 @@ import {
   BaseResponse,
   UpdateMethodArgs,
 } from "../../../types.ts";
-import { EventTrigger, EventTriggerResponse } from "./event.ts";
-import { ScheduledTrigger, ScheduledTriggerResponse } from "./scheduled.ts";
-import { ShortcutTrigger, ShortcutTriggerResponse } from "./shortcut.ts";
-import { WebhookTrigger, WebhookTriggerResponse } from "./webhook.ts";
+import { EventResponse, EventTrigger, EventTriggerResponse } from "./event.ts";
+import {
+  ScheduledResponse,
+  ScheduledTrigger,
+  ScheduledTriggerResponse,
+} from "./scheduled.ts";
+import {
+  ShortcutResponse,
+  ShortcutTrigger,
+  ShortcutTriggerResponse,
+} from "./shortcut.ts";
+import {
+  WebhookResponse,
+  WebhookTrigger,
+  WebhookTriggerResponse,
+} from "./webhook.ts";
+
 export const TriggerTypes = {
   Event: "event",
   Scheduled: "scheduled",
@@ -33,6 +46,7 @@ export type BaseTrigger = {
 };
 
 export type TriggerIdType = {
+  /** @description The id of a specified trigger */
   trigger_id: string | undefined;
 };
 
@@ -45,6 +59,7 @@ export type FailedTriggerResponse = BaseResponse & {
   trigger?: never;
 };
 
+/** @description Overload function type for create method */
 type createType = {
   (args: BaseMethodArgs & ScheduledTrigger): ScheduledTriggerResponse;
   (args: BaseMethodArgs & ShortcutTrigger): ShortcutTriggerResponse;
@@ -52,6 +67,7 @@ type createType = {
   (args: BaseMethodArgs & EventTrigger): EventTriggerResponse;
 };
 
+/** @description Overload function type for update method */
 type updateType = {
   (args: UpdateMethodArgs & ScheduledTrigger): ScheduledTriggerResponse;
   (args: UpdateMethodArgs & ShortcutTrigger): ShortcutTriggerResponse;
@@ -59,6 +75,7 @@ type updateType = {
   (args: UpdateMethodArgs & EventTrigger): EventTriggerResponse;
 };
 
+/** @description Response object content for delete method */
 type DeleteResponse = {
   ok: true;
 };
@@ -67,10 +84,38 @@ type DeleteTriggerResponse = Promise<
   DeleteResponse | FailedTriggerResponse
 >;
 
+type ListArgs = {
+  /** @description Lists triggers only if they owned by the caller */
+  is_owner?: boolean;
+  /** @description Lists triggers only if they have been published */
+  is_published?: boolean;
+};
+
+type ValidResponseTypes =
+  | EventResponse
+  | ScheduledResponse
+  | WebhookResponse
+  | ShortcutResponse;
+
+type ListResponse = {
+  triggers: ValidResponseTypes[];
+};
+
+type ListTriggerResponse = Promise<
+  ListResponse | FailedTriggerResponse
+>;
+
 export type TypedWorkflowsTriggersMethodTypes = {
+  /** @description Method to create a new trigger */
   create: createType;
+  /** @description Method to update an existing trigger identified with trigger_id */
   update: updateType;
+  /** @description Method to delete an existing trigger identified with trigger_id */
   delete: (
     args: BaseMethodArgs & TriggerIdType,
   ) => DeleteTriggerResponse;
+  /** @description Method to list existing triggers in the workspace */
+  list: (
+    args?: BaseMethodArgs & ListArgs,
+  ) => ListTriggerResponse;
 };
