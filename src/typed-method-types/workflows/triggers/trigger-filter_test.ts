@@ -6,6 +6,7 @@ import { FilterType, TriggerFilterOperatorType } from "./trigger-filter.ts";
 
 Deno.test("Trigger Filters can use a single statement", () => {
   const filter: FilterType = {
+    version: 1,
     root: {
       statement: "1 === 1",
     },
@@ -15,6 +16,7 @@ Deno.test("Trigger Filters can use a single statement", () => {
 
 Deno.test("Trigger Filters can use simple logical operators", () => {
   const filter: FilterType = {
+    version: 1,
     root: {
       operator: "OR",
       inputs: [{
@@ -33,6 +35,7 @@ Deno.test("Trigger Filters can use simple logical operators", () => {
 
 Deno.test("Trigger Filters can use nested logical operators", () => {
   const filter: FilterType = {
+    version: 1,
     root: {
       operator: TriggerFilterOperatorType.OR,
       inputs: [{

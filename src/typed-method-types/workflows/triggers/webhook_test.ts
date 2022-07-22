@@ -30,6 +30,7 @@ Deno.test("Webhook Triggers support an optional filter object", () => {
     inputs: {},
     webhook: {
       filter: {
+        version: 1,
         root: {
           statement: "1 === 1",
         },
