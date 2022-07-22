@@ -59,6 +59,12 @@ export type FailedTriggerResponse = BaseResponse & {
   trigger?: never;
 };
 
+export type ValidTriggerTypes =
+  | EventTrigger
+  | ScheduledTrigger
+  | ShortcutTrigger
+  | WebhookTrigger;
+
 /** @description Overload function type for create method */
 type createType = {
   (args: BaseMethodArgs & ScheduledTrigger): ScheduledTriggerResponse;
