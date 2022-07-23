@@ -29,7 +29,7 @@ type BaseFrequencyType = {
   /** @description How often the trigger will repeat, respective to the frequency type */
   repeats_every?: number;
   /**
-   * @description The nth week of the chosen frequency type (not available for daily or weekly triggers)
+   * @description The nth week of the chosen frequency type (not available for daily, weekly, or yearly triggers)
    * @example 3 — The 3rd week of the month
    * @example -1 — The last week of the month */
   on_week_num?: 1 | 2 | 3 | 4 | -1;
