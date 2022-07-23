@@ -17,11 +17,13 @@ type WorkflowInput = {
   value: any;
 };
 
+type WorkflowStringFormat = `${string}#/workflows/${string}`;
+
 export type BaseTrigger = {
   /** @description The type of trigger */
   type: typeof TriggerTypes[keyof typeof TriggerTypes];
   /** @description The workflow that the trigger initiates */
-  workflow: string;
+  workflow: WorkflowStringFormat;
   /** @description The inputs provided to the workflow */
   inputs?: Record<string, WorkflowInput>;
   /** @description The name of the trigger */
