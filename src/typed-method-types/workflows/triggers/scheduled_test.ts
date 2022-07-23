@@ -6,7 +6,7 @@ Deno.test("Scheduled Triggers can be set with a string", () => {
   const schedule: ScheduledTrigger = {
     name: "Sample",
     type: "scheduled",
-    workflow: "#/workflows/example",
+    workflow: "slack#/workflows/example",
     inputs: {},
     schedule: {
       start_time: "2022-03-01T14:00:00Z",
@@ -32,7 +32,7 @@ Deno.test("Scheduled Triggers can be set with just the start_time property", () 
   const schedule: ScheduledTrigger = {
     name: "Sample",
     type: TriggerTypes.Scheduled,
-    workflow: "#/workflows/example",
+    workflow: "A012384#/workflows/example",
     inputs: {},
     schedule: {
       start_time: "2022-03-01T14:00:00Z",
