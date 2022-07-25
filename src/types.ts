@@ -1,7 +1,13 @@
 import { TypedSlackAPIMethodsType } from "./typed-method-types/mod.ts";
 import { SlackAPIMethodsType } from "./generated/method-types/mod.ts";
 
-export type { ValidTriggerTypes } from "./typed-method-types/workflows/triggers/mod.ts";
+export type {
+  /**
+   * @deprecated Use Trigger instead
+   */
+  ValidTriggerTypes,
+  ValidTriggerTypes as Trigger,
+} from "./typed-method-types/workflows/triggers/mod.ts";
 
 export type BaseResponse = {
   /** `true` if the response from the server was successful, `false` otherwise. */
