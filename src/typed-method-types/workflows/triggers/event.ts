@@ -35,9 +35,11 @@ export type EventTriggerResponse<TriggerDefinition extends EventTrigger> =
 export type EventResponse<TriggerDefinition extends EventTrigger> =
   & BaseResponse
   & {
-    trigger:
-      & BaseTriggerResponse<TriggerDefinition>
-      & {
-        event_type: TriggerDefinition["event"]["event_type"];
-      };
+    trigger: EventTriggerObject<TriggerDefinition>;
+  };
+
+export type EventTriggerObject<TriggerDefinition extends EventTrigger> =
+  & BaseTriggerResponse<TriggerDefinition>
+  & {
+    event_type: TriggerDefinition["event"]["event_type"];
   };

@@ -26,9 +26,11 @@ export type WebhookTriggerResponse<TriggerDefinition extends WebhookTrigger> =
 export type WebhookResponse<TriggerDefinition extends WebhookTrigger> =
   & BaseResponse
   & {
-    trigger:
-      & BaseTriggerResponse<TriggerDefinition>
-      & {
-        webhook?: TriggerDefinition["webhook"];
-      };
+    trigger: WebhookTriggerObject<TriggerDefinition>;
+  };
+
+export type WebhookTriggerObject<TriggerDefinition extends WebhookTrigger> =
+  & BaseTriggerResponse<TriggerDefinition>
+  & {
+    webhook?: TriggerDefinition["webhook"];
   };

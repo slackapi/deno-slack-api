@@ -118,9 +118,11 @@ export type ScheduledTriggerResponse<
 export type ScheduledResponse<TriggerDefinition extends ScheduledTrigger> =
   & BaseResponse
   & {
-    trigger:
-      & BaseTriggerResponse<TriggerDefinition>
-      & {
-        schedule: TriggerDefinition["schedule"];
-      };
+    trigger: ScheduledTriggerObject<TriggerDefinition>;
+  };
+
+export type ScheduledTriggerObject<TriggerDefinition extends ScheduledTrigger> =
+  & BaseTriggerResponse<TriggerDefinition>
+  & {
+    schedule: TriggerDefinition["schedule"];
   };

@@ -1,12 +1,24 @@
 import { BaseMethodArgs, BaseResponse } from "../../../types.ts";
-import { EventTrigger, EventTriggerResponse } from "./event.ts";
-import { ScheduledTrigger, ScheduledTriggerResponse } from "./scheduled.ts";
 import {
-  ShortcutResponse,
+  EventTrigger,
+  EventTriggerObject,
+  EventTriggerResponse,
+} from "./event.ts";
+import {
+  ScheduledTrigger,
+  ScheduledTriggerObject,
+  ScheduledTriggerResponse,
+} from "./scheduled.ts";
+import {
   ShortcutTrigger,
+  ShortcutTriggerObject,
   ShortcutTriggerResponse,
 } from "./shortcut.ts";
-import { WebhookTrigger, WebhookTriggerResponse } from "./webhook.ts";
+import {
+  WebhookTrigger,
+  WebhookTriggerObject,
+  WebhookTriggerResponse,
+} from "./webhook.ts";
 
 export const TriggerTypes = {
   Event: "event",
@@ -22,7 +34,7 @@ type WorkflowInput = {
 
 type ResponseTypes<TriggerDefinition extends ValidTriggerTypes> =
   TriggerDefinition extends ShortcutTrigger
-    ? ShortcutResponse<TriggerDefinition>
+    ? ShortcutTriggerResponse<TriggerDefinition>
     : TriggerDefinition extends EventTrigger
       ? EventTriggerResponse<TriggerDefinition>
     : TriggerDefinition extends ScheduledTrigger
@@ -67,19 +79,26 @@ type ListArgs = {
   is_published?: boolean;
 };
 
-type ValidResponseTypes =
-  | ShortcutTriggerResponse<ShortcutTrigger>
-  | EventTriggerResponse<EventTrigger>
-  | ScheduledTriggerResponse<ScheduledTrigger>
-  | WebhookTriggerResponse<WebhookTrigger>;
+type ValidTriggerObjects =
+  | ShortcutTriggerObject<ShortcutTrigger>
+  | EventTriggerObject<EventTrigger>
+  | ScheduledTriggerObject<ScheduledTrigger>
+  | WebhookTriggerObject<WebhookTrigger>;
 
 type ListResponse = {
-  triggers: ValidResponseTypes[];
+  ok: true;
+  triggers: ValidTriggerObjects[];
 };
 
 type ListTriggerResponse = Promise<
-  ListResponse | FailedTriggerResponse
+  ListResponse | FailedListResponse
 >;
+
+export type FailedListResponse = BaseResponse & {
+  ok: false;
+  /** @description no triggers are returned on a failed response */
+  triggers?: never;
+};
 
 export type FailedTriggerResponse = BaseResponse & {
   ok: false;

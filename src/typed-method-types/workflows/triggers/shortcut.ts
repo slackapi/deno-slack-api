@@ -19,7 +19,8 @@ export type ShortcutTriggerResponse<
 export type ShortcutResponse<TriggerDefinition extends ShortcutTrigger> =
   & BaseResponse
   & {
-    trigger:
-      & BaseTriggerResponse<TriggerDefinition>
-      & { shortcut_url: string };
+    trigger: ShortcutTriggerObject<TriggerDefinition>;
   };
+export type ShortcutTriggerObject<TriggerDefinition extends ShortcutTrigger> =
+  & BaseTriggerResponse<TriggerDefinition>
+  & { shortcut_url: string };
