@@ -2,20 +2,24 @@ import { BaseResponse } from "../../../types.ts";
 import { BaseTriggerResponse } from "./base_response.ts";
 import { BaseTrigger, FailedTriggerResponse, TriggerTypes } from "./mod.ts";
 
-export type ShortcutTrigger = BaseTrigger & {
-  type: typeof TriggerTypes.Shortcut;
-  shortcut?: {
-    button_text: string;
+export type ShortcutTrigger =
+  & BaseTrigger
+  & {
+    type: typeof TriggerTypes.Shortcut;
+    shortcut?: {
+      button_text: string;
+    };
   };
-};
 
-export type ShortcutTriggerResponse = Promise<
-  ShortcutResponse | FailedTriggerResponse
+export type ShortcutTriggerResponse<
+  TriggerDefinition extends ShortcutTrigger,
+> = Promise<
+  ShortcutResponse<TriggerDefinition> | FailedTriggerResponse
 >;
-export type ShortcutResponse = BaseResponse & {
-  trigger:
-    & BaseTriggerResponse
-    & Pick<BaseTrigger, "type">
-    & Pick<BaseTrigger, "name" | "description">
-    & { shortcut_url: string };
-};
+export type ShortcutResponse<TriggerDefinition extends ShortcutTrigger> =
+  & BaseResponse
+  & {
+    trigger:
+      & BaseTriggerResponse<TriggerDefinition>
+      & { shortcut_url: string };
+  };

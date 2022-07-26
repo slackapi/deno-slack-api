@@ -1,4 +1,9 @@
-export type BaseTriggerResponse = {
+import { ValidTriggerTypes } from "./mod.ts";
+
+export type BaseTriggerResponse<TriggerDefinition extends ValidTriggerTypes> = {
+  name: TriggerDefinition["name"];
+  type: TriggerDefinition["type"];
+  description: TriggerDefinition["description"];
   /** @description The trigger's internal uid */
   id: string;
   /** @description The metadata for the workflow */
@@ -45,13 +50,7 @@ export type BaseTriggerResponse = {
   };
   // TODO: Type this based on a generic
   /** @description The inputs provided to the workflow */
-  inputs: {
-    [key: string]: {
-      value: unknown;
-      locked: boolean;
-      hidden: boolean;
-    };
-  };
+  inputs: TriggerDefinition["inputs"];
   outputs: {
     [key: string]: {
       type: string;

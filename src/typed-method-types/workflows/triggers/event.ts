@@ -28,18 +28,16 @@ export type EventTrigger =
     /** @description The payload object for event triggers */
     event: BaseEvent | MetadataEvents;
   };
-export type EventTriggerResponse = Promise<
-  EventResponse | FailedTriggerResponse
->;
-export type EventResponse =
+export type EventTriggerResponse<TriggerDefinition extends EventTrigger> =
+  Promise<
+    EventResponse<TriggerDefinition> | FailedTriggerResponse
+  >;
+export type EventResponse<TriggerDefinition extends EventTrigger> =
   & BaseResponse
   & {
     trigger:
-      & BaseTriggerResponse
-      & Pick<BaseTrigger, "type">
-      & Pick<BaseTrigger, "name" | "description">
-      & (
-        | BaseEvent
-        | MetadataEvents
-      );
+      & BaseTriggerResponse<TriggerDefinition>
+      & {
+        event_type: TriggerDefinition["event"]["event_type"];
+      };
   };

@@ -102,18 +102,25 @@ type TriggerSchedule =
   | RecurringTriggerSchedule
   | SingleOccurrenceTriggerSchedule;
 
-export type ScheduledTrigger = BaseTrigger & RequiredInputs & {
-  type: typeof TriggerTypes.Scheduled;
-  schedule: TriggerSchedule;
-};
+export type ScheduledTrigger =
+  & BaseTrigger
+  & RequiredInputs
+  & {
+    type: typeof TriggerTypes.Scheduled;
+    schedule: TriggerSchedule;
+  };
 
-export type ScheduledTriggerResponse = Promise<
-  ScheduledResponse | FailedTriggerResponse
+export type ScheduledTriggerResponse<
+  TriggerDefinition extends ScheduledTrigger,
+> = Promise<
+  ScheduledResponse<TriggerDefinition> | FailedTriggerResponse
 >;
-export type ScheduledResponse = BaseResponse & {
-  trigger:
-    & BaseTriggerResponse
-    & Pick<BaseTrigger, "type">
-    & Pick<BaseTrigger, "name" | "description">
-    & ScheduledTrigger;
-};
+export type ScheduledResponse<TriggerDefinition extends ScheduledTrigger> =
+  & BaseResponse
+  & {
+    trigger:
+      & BaseTriggerResponse<TriggerDefinition>
+      & {
+        schedule: TriggerDefinition["schedule"];
+      };
+  };

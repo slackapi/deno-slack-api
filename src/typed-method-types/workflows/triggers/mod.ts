@@ -1,24 +1,12 @@
-import {
-  BaseMethodArgs,
-  BaseResponse,
-  UpdateMethodArgs,
-} from "../../../types.ts";
-import { EventResponse, EventTrigger, EventTriggerResponse } from "./event.ts";
-import {
-  ScheduledResponse,
-  ScheduledTrigger,
-  ScheduledTriggerResponse,
-} from "./scheduled.ts";
+import { BaseMethodArgs, BaseResponse } from "../../../types.ts";
+import { EventTrigger, EventTriggerResponse } from "./event.ts";
+import { ScheduledTrigger, ScheduledTriggerResponse } from "./scheduled.ts";
 import {
   ShortcutResponse,
   ShortcutTrigger,
   ShortcutTriggerResponse,
 } from "./shortcut.ts";
-import {
-  WebhookResponse,
-  WebhookTrigger,
-  WebhookTriggerResponse,
-} from "./webhook.ts";
+import { WebhookTrigger, WebhookTriggerResponse } from "./webhook.ts";
 
 export const TriggerTypes = {
   Event: "event",
@@ -32,9 +20,22 @@ type WorkflowInput = {
   value: any;
 };
 
+type ResponseTypes<TriggerDefinition extends ValidTriggerTypes> =
+  TriggerDefinition extends ShortcutTrigger
+    ? ShortcutResponse<TriggerDefinition>
+    : TriggerDefinition extends EventTrigger
+      ? EventTriggerResponse<TriggerDefinition>
+    : TriggerDefinition extends ScheduledTrigger
+      ? ScheduledTriggerResponse<TriggerDefinition>
+    : TriggerDefinition extends WebhookTrigger
+      ? WebhookTriggerResponse<TriggerDefinition>
+    : BaseResponse;
+
+export type TriggerTypeKeys = typeof TriggerTypes[keyof typeof TriggerTypes];
+
 export type BaseTrigger = {
   /** @description The type of trigger */
-  type: typeof TriggerTypes[keyof typeof TriggerTypes];
+  type: string;
   /** @description The workflow that the trigger initiates */
   workflow: string;
   /** @description The inputs provided to the workflow */
@@ -45,41 +46,10 @@ export type BaseTrigger = {
   description?: string;
 };
 
-export type TriggerIdType = {
-  /** @description The id of a specified trigger */
-  trigger_id: string | undefined;
-};
-
 // A helper to make sure inputs are passed. Required for automated triggers
-export type RequiredInputs = Required<Pick<BaseTrigger, "inputs">>;
-
-export type FailedTriggerResponse = BaseResponse & {
-  ok: false;
-  /** @description no trigger is returned on a failed response */
-  trigger?: never;
-};
-
-export type ValidTriggerTypes =
-  | EventTrigger
-  | ScheduledTrigger
-  | ShortcutTrigger
-  | WebhookTrigger;
-
-/** @description Overload function type for create method */
-type createType = {
-  (args: BaseMethodArgs & ScheduledTrigger): ScheduledTriggerResponse;
-  (args: BaseMethodArgs & ShortcutTrigger): ShortcutTriggerResponse;
-  (args: BaseMethodArgs & WebhookTrigger): WebhookTriggerResponse;
-  (args: BaseMethodArgs & EventTrigger): EventTriggerResponse;
-};
-
-/** @description Overload function type for update method */
-type updateType = {
-  (args: UpdateMethodArgs & ScheduledTrigger): ScheduledTriggerResponse;
-  (args: UpdateMethodArgs & ShortcutTrigger): ShortcutTriggerResponse;
-  (args: UpdateMethodArgs & WebhookTrigger): WebhookTriggerResponse;
-  (args: UpdateMethodArgs & EventTrigger): EventTriggerResponse;
-};
+export type RequiredInputs = Required<
+  Pick<BaseTrigger, "inputs">
+>;
 
 /** @description Response object content for delete method */
 type DeleteResponse = {
@@ -98,10 +68,10 @@ type ListArgs = {
 };
 
 type ValidResponseTypes =
-  | EventResponse
-  | ScheduledResponse
-  | WebhookResponse
-  | ShortcutResponse;
+  | ShortcutTriggerResponse<ShortcutTrigger>
+  | EventTriggerResponse<EventTrigger>
+  | ScheduledTriggerResponse<ScheduledTrigger>
+  | WebhookTriggerResponse<WebhookTrigger>;
 
 type ListResponse = {
   triggers: ValidResponseTypes[];
@@ -110,6 +80,37 @@ type ListResponse = {
 type ListTriggerResponse = Promise<
   ListResponse | FailedTriggerResponse
 >;
+
+export type FailedTriggerResponse = BaseResponse & {
+  ok: false;
+  /** @description no trigger is returned on a failed response */
+  trigger?: never;
+};
+
+export type TriggerIdType = {
+  /** @description The id of a specified trigger */
+  trigger_id: string | undefined;
+};
+
+export type ValidTriggerTypes =
+  | EventTrigger
+  | ScheduledTrigger
+  | ShortcutTrigger
+  | WebhookTrigger;
+
+/** @description Overload function type for create method */
+type createType = {
+  <TriggerDefinition extends ValidTriggerTypes>(
+    args: BaseMethodArgs & TriggerDefinition,
+  ): ResponseTypes<TriggerDefinition>;
+};
+
+/** @description Overload function type for update method */
+type updateType = {
+  <TriggerDefinition extends ValidTriggerTypes>(
+    args: BaseMethodArgs & TriggerDefinition & TriggerIdType,
+  ): ResponseTypes<TriggerDefinition>;
+};
 
 export type TypedWorkflowsTriggersMethodTypes = {
   /** @description Method to create a new trigger */

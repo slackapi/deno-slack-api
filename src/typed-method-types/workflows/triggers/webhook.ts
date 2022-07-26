@@ -18,14 +18,17 @@ export type WebhookTrigger =
       filter?: FilterType;
     };
   };
+export type WebhookTriggerResponse<TriggerDefinition extends WebhookTrigger> =
+  Promise<
+    WebhookResponse<TriggerDefinition> | FailedTriggerResponse
+  >;
 
-export type WebhookResponse = BaseResponse & {
-  trigger:
-    & BaseTriggerResponse
-    & Pick<BaseTrigger, "type">
-    & Pick<BaseTrigger, "name" | "description">;
-};
-
-export type WebhookTriggerResponse = Promise<
-  WebhookResponse | FailedTriggerResponse
->;
+export type WebhookResponse<TriggerDefinition extends WebhookTrigger> =
+  & BaseResponse
+  & {
+    trigger:
+      & BaseTriggerResponse<TriggerDefinition>
+      & {
+        webhook?: TriggerDefinition["webhook"];
+      };
+  };
