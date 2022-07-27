@@ -29,9 +29,10 @@ type BaseFrequencyType = {
   /** @description How often the trigger will repeat, respective to the frequency type */
   repeats_every?: number;
   /**
-   * @description The nth week of the chosen frequency type (not available for daily or weekly triggers)
-   * @example The 3rd week of the month */
-  on_week_num?: number;
+   * @description The nth week of the chosen frequency type (not available for daily, weekly, or yearly triggers)
+   * @example 3 — The 3rd week of the month
+   * @example -1 — The last week of the month */
+  on_week_num?: 1 | 2 | 3 | 4 | -1;
 };
 
 type DailyFrequencyType =
@@ -65,7 +66,10 @@ type FrequencyType =
   | YearlyFrequencyType;
 
 type BaseTriggerSchedule = {
-  /** @description A date string of when this scheduled trigger should first occur */
+  /**
+   * @description An ISO 8601 date string of when this scheduled trigger should first occur
+   * @example "2022-03-01T14:00:00Z"
+   */
   start_time: string;
   /**
    *  @description A timezone string to use for scheduling
