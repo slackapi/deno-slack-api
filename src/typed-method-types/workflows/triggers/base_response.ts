@@ -7,7 +7,7 @@ export type BaseTriggerResponse<TriggerDefinition extends ValidTriggerTypes> = {
   /** @description The trigger's internal uid */
   id: string;
   /** @description The metadata for the workflow */
-  function: {
+  workflow: {
     /** @description the workflow function's internal uid */
     id: string;
     /** @description the workflow's internal uid */
