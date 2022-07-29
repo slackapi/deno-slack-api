@@ -1,8 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.99.0/testing/asserts.ts";
-import { WebhookTrigger } from "./webhook.ts";
-import { TriggerTypes } from "./mod.ts";
+import { WebhookTrigger } from "../webhook.ts";
+import { TriggerTypes } from "../mod.ts";
 import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
-import { SlackAPI } from "../../../mod.ts";
+import { SlackAPI } from "../../../../mod.ts";
 import { webhook_response } from "./fixtures/sample_responses.ts";
 
 Deno.test("Webhook Triggers can set the type using the string", () => {

@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.99.0/testing/asserts.ts";
-import { ScheduledTrigger } from "./scheduled.ts";
-import { TriggerTypes } from "./mod.ts";
-import { SlackAPI } from "../../../mod.ts";
+import { ScheduledTrigger } from "../scheduled.ts";
+import { TriggerTypes } from "../mod.ts";
+import { SlackAPI } from "../../../../mod.ts";
 import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
 import { scheduled_response } from "./fixtures/sample_responses.ts";
 
