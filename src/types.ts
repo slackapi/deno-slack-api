@@ -1,6 +1,5 @@
 import { TypedSlackAPIMethodsType } from "./typed-method-types/mod.ts";
 import { SlackAPIMethodsType } from "./generated/method-types/mod.ts";
-import { TriggerIdType } from "./typed-method-types/workflows/triggers/mod.ts";
 
 export type { ValidTriggerTypes } from "./typed-method-types/workflows/triggers/mod.ts";
 
@@ -53,8 +52,6 @@ export type BaseMethodArgs = {
    */
   token?: string;
 };
-
-export type UpdateMethodArgs = BaseMethodArgs & TriggerIdType;
 
 export type SlackAPIMethodArgs = BaseMethodArgs & {
   [name: string]: unknown;

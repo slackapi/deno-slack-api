@@ -48,7 +48,6 @@ export type BaseTriggerResponse<TriggerDefinition extends ValidTriggerTypes> = {
     /** @description A timestamp of when the workflow was last updated */
     date_updated: number;
   };
-  // TODO: Type this based on a generic
   /** @description The inputs provided to the workflow */
   inputs: TriggerDefinition["inputs"];
   outputs: {

@@ -1,47 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.99.0/testing/asserts.ts";
-import { WebhookTrigger } from "./webhook.ts";
-import { TriggerTypes } from "./mod.ts";
-import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
 import { SlackAPI } from "../../../mod.ts";
+import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
 
-Deno.test("Webhook Triggers can set the type using the string", () => {
-  const webhook: WebhookTrigger = {
-    type: "webhook",
-    name: "test",
-    workflow: "example",
-    inputs: {},
-  };
-  assertEquals(webhook.type, TriggerTypes.Webhook);
-});
-
-Deno.test("Webhook Triggers can set the type using the TriggerTypes object", () => {
-  const webhook: WebhookTrigger = {
-    type: TriggerTypes.Webhook,
-    name: "test",
-    workflow: "example",
-    inputs: {},
-  };
-  assertEquals(webhook.type, TriggerTypes.Webhook);
-});
-
-Deno.test("Webhook Triggers support an optional filter object", () => {
-  const webhook: WebhookTrigger = {
-    type: TriggerTypes.Webhook,
-    name: "test",
-    workflow: "example",
-    inputs: {},
-    webhook: {
-      filter: {
-        root: {
-          statement: "1 === 1",
-        },
-      },
-    },
-  };
-  assertEquals(typeof webhook.webhook, "object");
-});
-
-Deno.test("Mock call for webhook", async (t) => {
+Deno.test("Mock CRUD call", async (t) => {
   mf.install(); // mock out calls to `fetch`
 
   await t.step("instantiated with default API URL", async (t) => {
@@ -49,9 +10,12 @@ Deno.test("Mock call for webhook", async (t) => {
 
     await t.step("base methods exist on client", () => {
       assertEquals(typeof client.workflows.triggers.create, "function");
+      assertEquals(typeof client.workflows.triggers.update, "function");
+      assertEquals(typeof client.workflows.triggers.delete, "function");
+      assertEquals(typeof client.workflows.triggers.list, "function");
     });
 
-    await t.step("apiCall method", async (t) => {
+    await t.step("create method", async (t) => {
       await t.step("should call the default API URL", async () => {
         mf.mock("POST@/api/workflows.triggers.create", (req: Request) => {
           assertEquals(
@@ -92,7 +56,7 @@ Deno.test("Mock call for webhook", async (t) => {
 
           const res = await await client.workflows.triggers.create({
             name: "TEST",
-            type: "webhook",
+            type: "shortcut",
             workflow: "#/workflows/reverse_workflow",
             inputs: {
               a_string: {
@@ -120,7 +84,7 @@ Deno.test("Mock call for webhook", async (t) => {
 
         const res = await await client.workflows.triggers.update({
           name: "TEST",
-          type: "webhook",
+          type: "shortcut",
           trigger_id: "123",
           workflow: "#/workflows/reverse_workflow",
           inputs: {
@@ -129,6 +93,44 @@ Deno.test("Mock call for webhook", async (t) => {
             },
           },
         });
+        assertEquals(res.ok, true);
+
+        mf.reset();
+      },
+    );
+
+    await t.step(
+      "should return successful response JSON on delete",
+      async () => {
+        mf.mock("POST@/api/workflows.triggers.delete", (req: Request) => {
+          assertEquals(
+            req.url,
+            "https://slack.com/api/workflows.triggers.delete",
+          );
+          return new Response('{"ok":true}');
+        });
+
+        const res = await await client.workflows.triggers.delete({
+          trigger_id: "123",
+        });
+        assertEquals(res.ok, true);
+
+        mf.reset();
+      },
+    );
+
+    await t.step(
+      "should return successful response JSON on list",
+      async () => {
+        mf.mock("POST@/api/workflows.triggers.list", (req: Request) => {
+          assertEquals(
+            req.url,
+            "https://slack.com/api/workflows.triggers.list",
+          );
+          return new Response('{"ok":true}');
+        });
+
+        const res = await await client.workflows.triggers.list();
         assertEquals(res.ok, true);
 
         mf.reset();

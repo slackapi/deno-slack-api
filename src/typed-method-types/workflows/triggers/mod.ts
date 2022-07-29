@@ -43,8 +43,6 @@ type ResponseTypes<TriggerDefinition extends ValidTriggerTypes> =
       ? WebhookTriggerResponse<TriggerDefinition>
     : BaseResponse;
 
-export type TriggerTypeKeys = typeof TriggerTypes[keyof typeof TriggerTypes];
-
 export type BaseTrigger = {
   /** @description The type of trigger */
   type: string;
@@ -56,6 +54,8 @@ export type BaseTrigger = {
   name: string;
   /** @description The description of the trigger */
   description?: string;
+  // deno-lint-ignore no-explicit-any
+  [otherOptions: string]: any;
 };
 
 // A helper to make sure inputs are passed. Required for automated triggers
@@ -91,14 +91,8 @@ type ListResponse = {
 };
 
 type ListTriggerResponse = Promise<
-  ListResponse | FailedListResponse
+  ListResponse | FailedTriggerResponse
 >;
-
-export type FailedListResponse = BaseResponse & {
-  ok: false;
-  /** @description no triggers are returned on a failed response */
-  triggers?: never;
-};
 
 export type FailedTriggerResponse = BaseResponse & {
   ok: false;
@@ -108,7 +102,7 @@ export type FailedTriggerResponse = BaseResponse & {
 
 export type TriggerIdType = {
   /** @description The id of a specified trigger */
-  trigger_id: string | undefined;
+  trigger_id: string;
 };
 
 export type ValidTriggerTypes =
@@ -117,15 +111,15 @@ export type ValidTriggerTypes =
   | ShortcutTrigger
   | WebhookTrigger;
 
-/** @description Overload function type for create method */
-type createType = {
+/** @description Function type for create method */
+type CreateType = {
   <TriggerDefinition extends ValidTriggerTypes>(
     args: BaseMethodArgs & TriggerDefinition,
   ): ResponseTypes<TriggerDefinition>;
 };
 
-/** @description Overload function type for update method */
-type updateType = {
+/** @description Function type for update method */
+type UpdateType = {
   <TriggerDefinition extends ValidTriggerTypes>(
     args: BaseMethodArgs & TriggerDefinition & TriggerIdType,
   ): ResponseTypes<TriggerDefinition>;
@@ -133,9 +127,9 @@ type updateType = {
 
 export type TypedWorkflowsTriggersMethodTypes = {
   /** @description Method to create a new trigger */
-  create: createType;
+  create: CreateType;
   /** @description Method to update an existing trigger identified with trigger_id */
-  update: updateType;
+  update: UpdateType;
   /** @description Method to delete an existing trigger identified with trigger_id */
   delete: (
     args: BaseMethodArgs & TriggerIdType,

@@ -32,6 +32,6 @@ export type WebhookResponse<TriggerDefinition extends WebhookTrigger> =
 export type WebhookTriggerObject<TriggerDefinition extends WebhookTrigger> =
   & BaseTriggerResponse<TriggerDefinition>
   & {
-    webhook?: TriggerDefinition["webhook"];
+    webhook: TriggerDefinition["webhook"];
     webhook_url: string;
   };
