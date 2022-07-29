@@ -8,7 +8,7 @@ Deno.test("Shortcut Triggers can set the type using the string", () => {
   const shortcut: ShortcutTrigger = {
     type: "shortcut",
     name: "test",
-    workflow: "example",
+    workflow: "#/workflows/reverse_workflow",
     inputs: {},
   };
   assertEquals(shortcut.type, TriggerTypes.Shortcut);
@@ -18,7 +18,7 @@ Deno.test("Shortcut Triggers can set the type using the TriggerTypes object", ()
   const shortcut: ShortcutTrigger = {
     type: TriggerTypes.Shortcut,
     name: "test",
-    workflow: "example",
+    workflow: "#/workflows/reverse_workflow",
     inputs: {},
   };
   assertEquals(shortcut.type, TriggerTypes.Shortcut);
