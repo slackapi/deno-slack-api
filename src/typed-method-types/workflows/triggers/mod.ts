@@ -42,12 +42,13 @@ type ResponseTypes<TriggerDefinition extends ValidTriggerTypes> =
     : TriggerDefinition extends WebhookTrigger
       ? WebhookTriggerResponse<TriggerDefinition>
     : BaseResponse;
+type WorkflowStringFormat = `${string}#/workflows/${string}`;
 
 export type BaseTrigger = {
   /** @description The type of trigger */
   type: string;
   /** @description The workflow that the trigger initiates */
-  workflow: string;
+  workflow: WorkflowStringFormat;
   /** @description The inputs provided to the workflow */
   inputs?: Record<string, WorkflowInput>;
   /** @description The name of the trigger */

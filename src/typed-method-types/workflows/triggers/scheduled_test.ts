@@ -8,7 +8,7 @@ Deno.test("Scheduled Triggers can be set with a string", () => {
   const schedule: ScheduledTrigger = {
     name: "Sample",
     type: "scheduled",
-    workflow: "example",
+    workflow: "slack#/workflows/example",
     inputs: {},
     schedule: {
       start_time: "2022-03-01T14:00:00Z",
@@ -21,7 +21,7 @@ Deno.test("Scheduled Triggers can be set with TriggerTypes object", () => {
   const schedule: ScheduledTrigger = {
     name: "Sample",
     type: TriggerTypes.Scheduled,
-    workflow: "example",
+    workflow: "#/workflows/example",
     inputs: {},
     schedule: {
       start_time: "2022-03-01T14:00:00Z",
@@ -34,7 +34,7 @@ Deno.test("Scheduled Triggers can be set with just the start_time property", () 
   const schedule: ScheduledTrigger = {
     name: "Sample",
     type: TriggerTypes.Scheduled,
-    workflow: "example",
+    workflow: "A012384#/workflows/example",
     inputs: {},
     schedule: {
       start_time: "2022-03-01T14:00:00Z",
@@ -47,7 +47,7 @@ Deno.test("Scheduled Triggers can be set just once", () => {
   const schedule: ScheduledTrigger = {
     name: "Sample",
     type: TriggerTypes.Scheduled,
-    workflow: "example",
+    workflow: "#/workflows/example",
     inputs: {},
     schedule: {
       start_time: "2022-03-01T14:00:00Z",
@@ -61,7 +61,7 @@ Deno.test("Scheduled Triggers can be set to be recurring", () => {
   const schedule: ScheduledTrigger = {
     name: "Sample",
     type: TriggerTypes.Scheduled,
-    workflow: "example",
+    workflow: "#/workflows/example",
     inputs: {},
     schedule: {
       start_time: "2022-03-01T14:00:00Z",
@@ -77,7 +77,7 @@ Deno.test("Scheduled Triggers can be set to be reoccur daily", () => {
   const schedule: ScheduledTrigger = {
     name: "Sample",
     type: TriggerTypes.Scheduled,
-    workflow: "example",
+    workflow: "#/workflows/example",
     inputs: {},
     schedule: {
       start_time: "2022-03-01T14:00:00Z",
@@ -94,7 +94,7 @@ Deno.test("Scheduled Triggers can be set to be reoccur weekly", () => {
   const schedule: ScheduledTrigger = {
     name: "Sample",
     type: TriggerTypes.Scheduled,
-    workflow: "example",
+    workflow: "#/workflows/example",
     inputs: {},
     schedule: {
       start_time: "2022-03-01T14:00:00Z",
@@ -112,7 +112,7 @@ Deno.test("Scheduled Triggers can be set to be reoccur monthly", () => {
   const schedule: ScheduledTrigger = {
     name: "Sample",
     type: TriggerTypes.Scheduled,
-    workflow: "example",
+    workflow: "#/workflows/example",
     inputs: {},
     schedule: {
       start_time: "2022-03-01T14:00:00Z",
@@ -131,7 +131,7 @@ Deno.test("Scheduled Triggers can be set to be reoccur yearly", () => {
   const schedule: ScheduledTrigger = {
     name: "Sample",
     type: TriggerTypes.Scheduled,
-    workflow: "example",
+    workflow: "#/workflows/example",
     inputs: {},
     schedule: {
       start_time: "2022-03-01T14:00:00Z",

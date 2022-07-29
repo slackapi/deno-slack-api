@@ -5,8 +5,8 @@ export const TriggerFilterOperatorType = {
 } as const;
 
 export type FilterType = {
-  /** @default 1 */
-  version?: number;
+  /** @example 1 */
+  version: number;
   root: TriggerFilterDefinition;
 };
 
