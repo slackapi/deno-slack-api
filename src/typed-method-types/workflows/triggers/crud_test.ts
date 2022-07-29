@@ -1,6 +1,11 @@
 import { assertEquals } from "https://deno.land/std@0.99.0/testing/asserts.ts";
 import { SlackAPI } from "../../../mod.ts";
 import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
+import {
+  delete_response,
+  shortcut_response,
+} from "./fixtures/sample_responses.ts";
+import { list_response } from "./fixtures/list_response.ts";
 
 Deno.test("Mock CRUD call", async (t) => {
   mf.install(); // mock out calls to `fetch`
@@ -51,7 +56,7 @@ Deno.test("Mock CRUD call", async (t) => {
               req.url,
               "https://slack.com/api/workflows.triggers.create",
             );
-            return new Response('{"ok":true}');
+            return new Response(JSON.stringify(shortcut_response));
           });
 
           const res = await await client.workflows.triggers.create({
@@ -65,6 +70,13 @@ Deno.test("Mock CRUD call", async (t) => {
             },
           });
           assertEquals(res.ok, true);
+          if (res.ok) {
+            assertEquals(res.trigger, shortcut_response.trigger);
+            assertEquals<string>(
+              res.trigger?.shortcut_url,
+              shortcut_response.trigger.shortcut_url,
+            );
+          }
 
           mf.reset();
         },
@@ -79,7 +91,7 @@ Deno.test("Mock CRUD call", async (t) => {
             req.url,
             "https://slack.com/api/workflows.triggers.update",
           );
-          return new Response('{"ok":true}');
+          return new Response(JSON.stringify(shortcut_response));
         });
 
         const res = await await client.workflows.triggers.update({
@@ -94,6 +106,13 @@ Deno.test("Mock CRUD call", async (t) => {
           },
         });
         assertEquals(res.ok, true);
+        if (res.ok) {
+          assertEquals(res.trigger, shortcut_response.trigger);
+          assertEquals<string>(
+            res.trigger?.shortcut_url,
+            shortcut_response.trigger.shortcut_url,
+          );
+        }
 
         mf.reset();
       },
@@ -107,7 +126,7 @@ Deno.test("Mock CRUD call", async (t) => {
             req.url,
             "https://slack.com/api/workflows.triggers.delete",
           );
-          return new Response('{"ok":true}');
+          return new Response(JSON.stringify(delete_response));
         });
 
         const res = await await client.workflows.triggers.delete({
@@ -127,11 +146,12 @@ Deno.test("Mock CRUD call", async (t) => {
             req.url,
             "https://slack.com/api/workflows.triggers.list",
           );
-          return new Response('{"ok":true}');
+          return new Response(JSON.stringify(list_response));
         });
 
         const res = await await client.workflows.triggers.list();
         assertEquals(res.ok, true);
+        assertEquals(res.triggers.length, list_response.triggers.length);
 
         mf.reset();
       },

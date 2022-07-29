@@ -3,6 +3,7 @@ import { ScheduledTrigger } from "./scheduled.ts";
 import { TriggerTypes } from "./mod.ts";
 import { SlackAPI } from "../../../mod.ts";
 import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
+import { scheduled_response } from "./fixtures/sample_responses.ts";
 
 Deno.test("Scheduled Triggers can be set with a string", () => {
   const schedule: ScheduledTrigger = {
@@ -152,41 +153,10 @@ Deno.test("Mock call for schedule", async (t) => {
 
     await t.step("base methods exist on client", () => {
       assertEquals(typeof client.workflows.triggers.create, "function");
+      assertEquals(typeof client.workflows.triggers.update, "function");
     });
 
-    await t.step("apiCall method", async (t) => {
-      await t.step("should call the default API URL", async () => {
-        mf.mock("POST@/api/workflows.triggers.create", (req: Request) => {
-          assertEquals(
-            req.url,
-            "https://slack.com/api/workflows.triggers.create",
-          );
-          return new Response('{"ok":true}');
-        });
-
-        await client.workflows.triggers.create({
-          name: "TEST",
-          type: "scheduled",
-          workflow: "#/workflows/reverse_workflow",
-          inputs: {
-            a_string: {
-              value: "string",
-            },
-          },
-          schedule: {
-            timezone: "Asia/Kolkata",
-            start_time: "2099-11-17T07:35:03Z",
-            frequency: {
-              type: "weekly",
-              on_days: ["Monday", "Wednesday", "Friday"],
-              repeats_every: 2,
-            },
-          },
-        });
-
-        mf.reset();
-      });
-
+    await t.step("scheduled responses", async (t) => {
       await t.step(
         "should return successful response JSON on create",
         async () => {
@@ -195,7 +165,7 @@ Deno.test("Mock call for schedule", async (t) => {
               req.url,
               "https://slack.com/api/workflows.triggers.create",
             );
-            return new Response('{"ok":true}');
+            return new Response(JSON.stringify(scheduled_response));
           });
 
           const res = await await client.workflows.triggers.create({
@@ -218,6 +188,21 @@ Deno.test("Mock call for schedule", async (t) => {
             },
           });
           assertEquals(res.ok, true);
+          if (res.ok) {
+            assertEquals(res.trigger, scheduled_response.trigger);
+            assertEquals(
+              res.trigger?.schedule,
+              scheduled_response.trigger.schedule,
+            );
+            assertEquals(
+              res.trigger?.schedule.start_time,
+              scheduled_response.trigger.schedule.start_time,
+            );
+            assertEquals(
+              res.trigger?.schedule.timezone,
+              scheduled_response.trigger.schedule.timezone,
+            );
+          }
 
           mf.reset();
         },
@@ -232,7 +217,7 @@ Deno.test("Mock call for schedule", async (t) => {
             req.url,
             "https://slack.com/api/workflows.triggers.update",
           );
-          return new Response('{"ok":true}');
+          return new Response(JSON.stringify(scheduled_response));
         });
 
         const res = await await client.workflows.triggers.update({
@@ -256,6 +241,21 @@ Deno.test("Mock call for schedule", async (t) => {
           },
         });
         assertEquals(res.ok, true);
+        if (res.ok) {
+          assertEquals(res.trigger, scheduled_response.trigger);
+          assertEquals(
+            res.trigger?.schedule,
+            scheduled_response.trigger.schedule,
+          );
+          assertEquals(
+            res.trigger?.schedule.start_time,
+            scheduled_response.trigger.schedule.start_time,
+          );
+          assertEquals(
+            res.trigger?.schedule.timezone,
+            scheduled_response.trigger.schedule.timezone,
+          );
+        }
 
         mf.reset();
       },

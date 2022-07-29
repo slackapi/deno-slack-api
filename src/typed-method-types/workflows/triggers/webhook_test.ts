@@ -3,6 +3,7 @@ import { WebhookTrigger } from "./webhook.ts";
 import { TriggerTypes } from "./mod.ts";
 import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
 import { SlackAPI } from "../../../mod.ts";
+import { webhook_response } from "./fixtures/sample_responses.ts";
 
 Deno.test("Webhook Triggers can set the type using the string", () => {
   const webhook: WebhookTrigger = {
@@ -52,34 +53,7 @@ Deno.test("Mock call for webhook", async (t) => {
       assertEquals(typeof client.workflows.triggers.create, "function");
     });
 
-    await t.step("apiCall method", async (t) => {
-      await t.step("should call the default API URL", async () => {
-        mf.mock("POST@/api/workflows.triggers.create", (req: Request) => {
-          assertEquals(
-            req.url,
-            "https://slack.com/api/workflows.triggers.create",
-          );
-          return new Response('{"ok":true}');
-        });
-
-        await client.workflows.triggers.create({
-          name: "TEST",
-          type: "event",
-          workflow: "#/workflows/reverse_workflow",
-          inputs: {
-            a_string: {
-              value: "string",
-            },
-          },
-          event: {
-            event_type: "reaction_added",
-            channel_ids: ["C013ZG3K41Z"],
-          },
-        });
-
-        mf.reset();
-      });
-
+    await t.step("webhook responses", async (t) => {
       await t.step(
         "should return successful response JSON on create",
         async () => {
@@ -88,7 +62,7 @@ Deno.test("Mock call for webhook", async (t) => {
               req.url,
               "https://slack.com/api/workflows.triggers.create",
             );
-            return new Response('{"ok":true}');
+            return new Response(JSON.stringify(webhook_response));
           });
 
           const res = await await client.workflows.triggers.create({
@@ -102,6 +76,14 @@ Deno.test("Mock call for webhook", async (t) => {
             },
           });
           assertEquals(res.ok, true);
+          if (res.ok) {
+            assertEquals(res.trigger, webhook_response.trigger);
+            assertEquals<string>(
+              res.trigger?.webhook_url,
+              webhook_response.trigger.webhook_url,
+            );
+          }
+          mf.reset();
 
           mf.reset();
         },
@@ -116,7 +98,7 @@ Deno.test("Mock call for webhook", async (t) => {
             req.url,
             "https://slack.com/api/workflows.triggers.update",
           );
-          return new Response('{"ok":true}');
+          return new Response(JSON.stringify(webhook_response));
         });
 
         const res = await await client.workflows.triggers.update({
@@ -131,7 +113,13 @@ Deno.test("Mock call for webhook", async (t) => {
           },
         });
         assertEquals(res.ok, true);
-
+        if (res.ok) {
+          assertEquals(res.trigger, webhook_response.trigger);
+          assertEquals<string>(
+            res.trigger?.webhook_url,
+            webhook_response.trigger.webhook_url,
+          );
+        }
         mf.reset();
       },
     );

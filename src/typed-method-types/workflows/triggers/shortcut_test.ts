@@ -3,6 +3,7 @@ import { ShortcutTrigger } from "./shortcut.ts";
 import { TriggerTypes } from "./mod.ts";
 import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
 import { SlackAPI } from "../../../mod.ts";
+import { shortcut_response } from "./fixtures/sample_responses.ts";
 
 Deno.test("Shortcut Triggers can set the type using the string", () => {
   const shortcut: ShortcutTrigger = {
@@ -32,36 +33,10 @@ Deno.test("Mock call for shortcut", async (t) => {
 
     await t.step("base methods exist on client", () => {
       assertEquals(typeof client.workflows.triggers.create, "function");
+      assertEquals(typeof client.workflows.triggers.update, "function");
     });
 
-    await t.step("apiCall method", async (t) => {
-      await t.step("should call the default API URL", async () => {
-        mf.mock("POST@/api/workflows.triggers.create", (req: Request) => {
-          assertEquals(
-            req.url,
-            "https://slack.com/api/workflows.triggers.create",
-          );
-          return new Response('{"ok":true}');
-        });
-
-        await client.workflows.triggers.create({
-          name: "TEST",
-          type: "event",
-          workflow: "#/workflows/reverse_workflow",
-          inputs: {
-            a_string: {
-              value: "string",
-            },
-          },
-          event: {
-            event_type: "reaction_added",
-            channel_ids: ["C013ZG3K41Z"],
-          },
-        });
-
-        mf.reset();
-      });
-
+    await t.step("shortcut responses", async (t) => {
       await t.step(
         "should return successful response JSON on create",
         async () => {
@@ -70,7 +45,7 @@ Deno.test("Mock call for shortcut", async (t) => {
               req.url,
               "https://slack.com/api/workflows.triggers.create",
             );
-            return new Response('{"ok":true}');
+            return new Response(JSON.stringify(shortcut_response));
           });
 
           const res = await await client.workflows.triggers.create({
@@ -84,7 +59,13 @@ Deno.test("Mock call for shortcut", async (t) => {
             },
           });
           assertEquals(res.ok, true);
-
+          if (res.ok) {
+            assertEquals(res.trigger, shortcut_response.trigger);
+            assertEquals<string>(
+              res.trigger?.shortcut_url,
+              shortcut_response.trigger.shortcut_url,
+            );
+          }
           mf.reset();
         },
       );
@@ -98,7 +79,7 @@ Deno.test("Mock call for shortcut", async (t) => {
             req.url,
             "https://slack.com/api/workflows.triggers.update",
           );
-          return new Response('{"ok":true}');
+          return new Response(JSON.stringify(shortcut_response));
         });
 
         const res = await await client.workflows.triggers.update({
@@ -113,6 +94,13 @@ Deno.test("Mock call for shortcut", async (t) => {
           },
         });
         assertEquals(res.ok, true);
+        if (res.ok) {
+          assertEquals(res.trigger, shortcut_response.trigger);
+          assertEquals<string>(
+            res.trigger?.shortcut_url,
+            shortcut_response.trigger.shortcut_url,
+          );
+        }
 
         mf.reset();
       },
