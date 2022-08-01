@@ -1,6 +1,11 @@
 import { BaseResponse } from "../../../types.ts";
 import { BaseTriggerResponse } from "./base_response.ts";
-import { BaseTrigger, FailedTriggerResponse, TriggerTypes } from "./mod.ts";
+import {
+  BaseTrigger,
+  FailedTriggerResponse,
+  TriggerTypes,
+  WorkflowSchema,
+} from "./mod.ts";
 
 export type ShortcutTrigger =
   & BaseTrigger
@@ -13,14 +18,22 @@ export type ShortcutTrigger =
 
 export type ShortcutTriggerResponse<
   TriggerDefinition extends ShortcutTrigger,
+  WorkflowDefinition extends WorkflowSchema,
 > = Promise<
-  ShortcutResponse<TriggerDefinition> | FailedTriggerResponse
+  | ShortcutResponse<TriggerDefinition, WorkflowDefinition>
+  | FailedTriggerResponse
 >;
-export type ShortcutResponse<TriggerDefinition extends ShortcutTrigger> =
+export type ShortcutResponse<
+  TriggerDefinition extends ShortcutTrigger,
+  WorkflowDefinition extends WorkflowSchema,
+> =
   & BaseResponse
   & {
-    trigger: ShortcutTriggerObject<TriggerDefinition>;
+    trigger: ShortcutTriggerObject<TriggerDefinition, WorkflowDefinition>;
   };
-export type ShortcutTriggerObject<TriggerDefinition extends ShortcutTrigger> =
-  & BaseTriggerResponse<TriggerDefinition>
+export type ShortcutTriggerObject<
+  TriggerDefinition extends ShortcutTrigger,
+  WorkflowDefinition extends WorkflowSchema,
+> =
+  & BaseTriggerResponse<TriggerDefinition, WorkflowDefinition>
   & { shortcut_url: string };

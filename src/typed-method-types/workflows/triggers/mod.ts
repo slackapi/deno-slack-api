@@ -32,16 +32,19 @@ type WorkflowInput = {
   value: any;
 };
 
-type ResponseTypes<TriggerDefinition extends ValidTriggerTypes> =
-  TriggerDefinition extends ShortcutTrigger
-    ? ShortcutTriggerResponse<TriggerDefinition>
-    : TriggerDefinition extends EventTrigger
-      ? EventTriggerResponse<TriggerDefinition>
-    : TriggerDefinition extends ScheduledTrigger
-      ? ScheduledTriggerResponse<TriggerDefinition>
-    : TriggerDefinition extends WebhookTrigger
-      ? WebhookTriggerResponse<TriggerDefinition>
-    : BaseResponse;
+type ResponseTypes<
+  TriggerDefinition extends ValidTriggerTypes,
+  WorkflowDefinition extends WorkflowSchema,
+> = TriggerDefinition extends ShortcutTrigger
+  ? ShortcutTriggerResponse<TriggerDefinition, WorkflowDefinition>
+  : TriggerDefinition extends EventTrigger
+    ? EventTriggerResponse<TriggerDefinition, WorkflowDefinition>
+  : TriggerDefinition extends ScheduledTrigger
+    ? ScheduledTriggerResponse<TriggerDefinition, WorkflowDefinition>
+  : TriggerDefinition extends WebhookTrigger
+    ? WebhookTriggerResponse<TriggerDefinition, WorkflowDefinition>
+  : BaseResponse;
+
 type WorkflowStringFormat = `${string}#/workflows/${string}`;
 
 export type BaseTrigger = {
@@ -64,6 +67,16 @@ export type RequiredInputs = Required<
   Pick<BaseTrigger, "inputs">
 >;
 
+export type WorkflowSchema = {
+  callback_id: string;
+  description?: string;
+  // deno-lint-ignore no-explicit-any
+  input_parameters?: Record<string, any>;
+  // deno-lint-ignore no-explicit-any
+  output_parameters?: Record<string, any>;
+  title: string;
+};
+
 /** @description Response object content for delete method */
 type DeleteResponse = {
   ok: true;
@@ -81,10 +94,10 @@ type ListArgs = {
 };
 
 type ValidTriggerObjects =
-  | ShortcutTriggerObject<ShortcutTrigger>
-  | EventTriggerObject<EventTrigger>
-  | ScheduledTriggerObject<ScheduledTrigger>
-  | WebhookTriggerObject<WebhookTrigger>;
+  | ShortcutTriggerObject<ShortcutTrigger, WorkflowSchema>
+  | EventTriggerObject<EventTrigger, WorkflowSchema>
+  | ScheduledTriggerObject<ScheduledTrigger, WorkflowSchema>
+  | WebhookTriggerObject<WebhookTrigger, WorkflowSchema>;
 
 type ListResponse = {
   ok: true;
@@ -113,24 +126,26 @@ export type ValidTriggerTypes =
   | WebhookTrigger;
 
 /** @description Function type for create method */
-type CreateType = {
-  <TriggerDefinition extends ValidTriggerTypes>(
+type CreateType<WorkflowDefinition extends WorkflowSchema> = {
+  <
+    TriggerDefinition extends ValidTriggerTypes,
+  >(
     args: BaseMethodArgs & TriggerDefinition,
-  ): ResponseTypes<TriggerDefinition>;
+  ): ResponseTypes<TriggerDefinition, WorkflowDefinition>;
 };
 
 /** @description Function type for update method */
-type UpdateType = {
+type UpdateType<WorkflowDefinition extends WorkflowSchema> = {
   <TriggerDefinition extends ValidTriggerTypes>(
     args: BaseMethodArgs & TriggerDefinition & TriggerIdType,
-  ): ResponseTypes<TriggerDefinition>;
+  ): ResponseTypes<TriggerDefinition, WorkflowDefinition>;
 };
 
 export type TypedWorkflowsTriggersMethodTypes = {
   /** @description Method to create a new trigger */
-  create: CreateType;
+  create: CreateType<WorkflowSchema>;
   /** @description Method to update an existing trigger identified with trigger_id */
-  update: UpdateType;
+  update: UpdateType<WorkflowSchema>;
   /** @description Method to delete an existing trigger identified with trigger_id */
   delete: (
     args: BaseMethodArgs & TriggerIdType,

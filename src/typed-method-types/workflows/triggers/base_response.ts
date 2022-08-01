@@ -1,6 +1,9 @@
-import { ValidTriggerTypes } from "./mod.ts";
+import { ValidTriggerTypes, WorkflowSchema } from "./mod.ts";
 
-export type BaseTriggerResponse<TriggerDefinition extends ValidTriggerTypes> = {
+export type BaseTriggerResponse<
+  TriggerDefinition extends ValidTriggerTypes,
+  WorkflowDefinition extends WorkflowSchema,
+> = {
   name: TriggerDefinition["name"];
   type: TriggerDefinition["type"];
   description: TriggerDefinition["description"];
@@ -22,16 +25,10 @@ export type BaseTriggerResponse<TriggerDefinition extends ValidTriggerTypes> = {
     type: string;
     // TODO: Add generic for inputs
     /** @description the workflow's input parameters */
-    input_parameters: {
-      // deno-lint-ignore no-explicit-any
-      [key: string]: any;
-    }[];
+    input_parameters: WorkflowDefinition["input_parameters"];
     // TODO: Add generic for outputs
     /** @description the workflow's output parameters */
-    output_parameters: {
-      // deno-lint-ignore no-explicit-any
-      [key: string]: any;
-    }[];
+    output_parameters: WorkflowDefinition["output_parameters"];
     /** @description the app_id that the workflow belongs to */
     app_id: string;
     /** @description the app metadata that the workflow belongs to */

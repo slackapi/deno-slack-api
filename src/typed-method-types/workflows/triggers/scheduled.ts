@@ -5,6 +5,7 @@ import {
   FailedTriggerResponse,
   RequiredInputs,
   TriggerTypes,
+  WorkflowSchema,
 } from "./mod.ts";
 
 export const SCHEDULE_FREQUENCY = {
@@ -116,17 +117,25 @@ export type ScheduledTrigger =
 
 export type ScheduledTriggerResponse<
   TriggerDefinition extends ScheduledTrigger,
+  WorkflowDefinition extends WorkflowSchema,
 > = Promise<
-  ScheduledResponse<TriggerDefinition> | FailedTriggerResponse
+  | ScheduledResponse<TriggerDefinition, WorkflowDefinition>
+  | FailedTriggerResponse
 >;
-export type ScheduledResponse<TriggerDefinition extends ScheduledTrigger> =
+export type ScheduledResponse<
+  TriggerDefinition extends ScheduledTrigger,
+  WorkflowDefinition extends WorkflowSchema,
+> =
   & BaseResponse
   & {
-    trigger: ScheduledTriggerObject<TriggerDefinition>;
+    trigger: ScheduledTriggerObject<TriggerDefinition, WorkflowDefinition>;
   };
 
-export type ScheduledTriggerObject<TriggerDefinition extends ScheduledTrigger> =
-  & BaseTriggerResponse<TriggerDefinition>
+export type ScheduledTriggerObject<
+  TriggerDefinition extends ScheduledTrigger,
+  WorkflowDefinition extends WorkflowSchema,
+> =
+  & BaseTriggerResponse<TriggerDefinition, WorkflowDefinition>
   & {
     schedule: TriggerDefinition["schedule"];
   };
