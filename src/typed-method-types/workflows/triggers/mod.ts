@@ -126,8 +126,9 @@ export type ValidTriggerTypes =
   | WebhookTrigger;
 
 /** @description Function type for create method */
-type CreateType<WorkflowDefinition extends WorkflowSchema> = {
+type CreateType = {
   <
+    WorkflowDefinition extends WorkflowSchema,
     TriggerDefinition extends ValidTriggerTypes,
   >(
     args: BaseMethodArgs & TriggerDefinition,
