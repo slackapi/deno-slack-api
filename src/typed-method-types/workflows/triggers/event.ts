@@ -3,17 +3,17 @@ import { FilterType } from "./trigger-filter.ts";
 import { ObjectValueUnion } from "../../../type-helpers.ts";
 
 export const MetadataEventTypes = {
-  MessageMetadataPosted: "slack#/events/message_metadata_posted",
+  MessageMetadataPosted: "slack#/events/message_metadata_posted", //channel
   // MessageMetadataAdded: "slack#/events/message_metadata_added",
   // MessageMetadataDeleted: "slack#/events/message_metadata_deleted",
 } as const;
 
 export const TriggerEventTypes = {
-  ChannelCreated: "slack#/events/channel_created",
-  DndUpdated: "slack#/events/dnd_updated",
-  ReactionAdded: "slack#/events/reaction_added",
-  UserJoinedChannel: "slack#/events/user_joined_channel",
-  UserJoinedTeam: "slack#/events/user_joined_team",
+  ChannelCreated: "slack#/events/channel_created", //workspace
+  DndUpdated: "slack#/events/dnd_updated", //workspace
+  ReactionAdded: "slack#/events/reaction_added", //channel
+  UserJoinedChannel: "slack#/events/user_joined_channel", //channel
+  UserJoinedTeam: "slack#/events/user_joined_team", //workspace
   ...MetadataEventTypes,
 } as const;
 
@@ -32,6 +32,7 @@ type BaseEvent = {
 type MetadataEvents = {
   /** @description The type of event */
   event_type: Extract<TriggerEventTypeValues, MetadataEventTypeValues>;
+  /** @description User defined description for the event type */
   metadata_event_type: string; // TODO: Is this just a normal string? Is it required?
 } & Omit<BaseEvent, "event_type" | "metadata_event_type">;
 
