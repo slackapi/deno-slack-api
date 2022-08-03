@@ -136,17 +136,20 @@ type CreateType = {
 };
 
 /** @description Function type for update method */
-type UpdateType<WorkflowDefinition extends WorkflowSchema> = {
-  <TriggerDefinition extends ValidTriggerTypes>(
+type UpdateType = {
+  <
+    WorkflowDefinition extends WorkflowSchema,
+    TriggerDefinition extends ValidTriggerTypes,
+  >(
     args: BaseMethodArgs & TriggerDefinition & TriggerIdType,
   ): ResponseTypes<TriggerDefinition, WorkflowDefinition>;
 };
 
 export type TypedWorkflowsTriggersMethodTypes = {
   /** @description Method to create a new trigger */
-  create: CreateType<WorkflowSchema>;
+  create: CreateType;
   /** @description Method to update an existing trigger identified with trigger_id */
-  update: UpdateType<WorkflowSchema>;
+  update: UpdateType;
   /** @description Method to delete an existing trigger identified with trigger_id */
   delete: (
     args: BaseMethodArgs & TriggerIdType,
