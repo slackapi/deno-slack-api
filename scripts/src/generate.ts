@@ -1,15 +1,13 @@
+import { emptyDir, ensureDir } from "https://deno.land/std@0.67.0/fs/mod.ts";
 import { pascalCase } from "https://deno.land/x/case@v2.1.0/mod.ts";
 import { APIMethodNode } from "./api-method-node.ts";
+import { getPublicAPIMethods } from "./public-api-methods.ts";
 
 const run = async () => {
-  const text = await Deno.readTextFile("./scripts/api_spec.json");
-  const spec = JSON.parse(text);
+  const methods = getPublicAPIMethods();
 
   // Root node
   const api = new APIMethodNode("", false, "", true);
-
-  const methods = Object.keys(spec.paths).map((path) => path.substring(1));
-  methods.sort((a, b) => a.localeCompare(b));
 
   for (const method of methods) {
     // Start with the root api node
@@ -32,89 +30,68 @@ const run = async () => {
     });
   }
 
+  const outputDir = "./src/generated/method-types/";
+
+  await ensureDir(outputDir);
+  await emptyDir(outputDir);
+
   // Cycle through each top level api group
   for (const groupNode of api.childNodes) {
     // Generate the code for this group api
     const groupCode = getGroupCode(groupNode);
     // write the code to a group-specific file
-    await Deno.writeTextFile(`./src/generated/${groupNode.name}.ts`, groupCode);
+    await Deno.writeTextFile(
+      `${outputDir}${groupNode.name}.ts`,
+      groupCode,
+    );
     console.log(`wrote api file: ${groupNode.name}`);
   }
 
   // Write top level file that builds api
-  const mainAPICode = getMainAPICode(api);
-  await Deno.writeTextFile("./src/generated/mod.ts", mainAPICode);
+  const mainAPITypeCode = getMainAPICode(api);
+  await Deno.writeTextFile(
+    `${outputDir}mod.ts`,
+    mainAPITypeCode,
+  );
   console.log("wrote main api file: mod.ts");
 
   // Write generated test file to verify all methods are accounted for
   const testCode = getTestCode(api);
-  await Deno.writeTextFile("./src/generated/api_test.ts", testCode);
-  console.log("wrote api test code: api_test.ts");
+  await Deno.writeTextFile(
+    `${outputDir}/api_method_types_test.ts`,
+    testCode,
+  );
+  console.log("wrote api test code: api_method_types_test.ts");
 };
 
 run();
 
 const getMainAPICode = (api: APIMethodNode): string => {
   const imports = api.childNodes.map((node) => {
-    const groupAPIName = pascalCase(node.name);
-    return `import { ${groupAPIName}API } from "./${node.name}.ts";`;
+    const groupAPITypeName = `${pascalCase(node.name)}APIType`;
+    return `import { type ${groupAPITypeName} } from "./${node.name}.ts";`;
   }).join("\n");
 
-  const apiMixins = api.childNodes.map((node) => {
+  const apiTypeMixins = api.childNodes.map((node) => {
     const groupAPIName = pascalCase(node.name);
-    return `${node.name}: ${groupAPIName}API(client),`;
+    return `${node.name}: ${groupAPIName}APIType,`;
   }).join("\n");
 
   return `
-import { BaseSlackAPIClient } from "../base-client.ts";
-import { SlackAPIOptions } from "../types.ts";
 ${imports}
 
-export const SlackAPI = (token?: string, options: SlackAPIOptions = {}) => {
-  const client = new BaseSlackAPIClient(token, options);
-
-  return {
-    apiCall: client.apiCall.bind(client),
-    response: client.response.bind(client),
-    ${apiMixins}
-  };
+export type SlackAPIMethodsType = {
+  ${apiTypeMixins}
 };
 `;
 };
 
-const getNodeMethodsCode = (node: APIMethodNode) => {
-  let code = "";
-
-  function walkNodes(node: APIMethodNode) {
-    code += `${node.getGeneratedCode()}\n`;
-    node.childNodes.forEach(walkNodes);
-  }
-
-  walkNodes(node);
-
-  return code;
-};
-
 const getGroupCode = (groupNode: APIMethodNode) => {
-  const groupApiName = pascalCase(groupNode.name);
-  const groupTypeName = `${groupApiName}APIType`;
-
-  const groupType = groupNode.getTypesCode();
-  const methodsCode = getNodeMethodsCode(groupNode);
-
   const groupCode = `
-  import { BaseSlackAPIClient } from "../base-client.ts";
-  import { BaseResponse, SlackAPIMethod, SlackAPIMethodArgs } from "../types.ts";
+  import { SlackAPIMethod } from "../../types.ts";
 
-  ${groupType}
-
-  export const ${groupApiName}API = (client: BaseSlackAPIClient) => {
-  // deno-lint-ignore no-explicit-any
-  ${methodsCode}
-
-  return ${groupNode.name} as ${groupTypeName};
-  };
-  `;
+  ${groupNode.getTypesCode()}
+`;
 
   return groupCode;
 };
@@ -135,10 +112,10 @@ const getTestCode = (api: APIMethodNode) => {
 
   return `
 import { assertEquals } from "https://deno.land/std@0.99.0/testing/asserts.ts";
-import { SlackAPI } from "../mod.ts";
+import { SlackAPI } from "../../mod.ts";
 
-Deno.test("SlackAPI", () => {
-  const client = SlackAPI();
+Deno.test("SlackAPIMethodsType generated types", () => {
+  const client = SlackAPI("test-token");
 
   ${assertions}
 });

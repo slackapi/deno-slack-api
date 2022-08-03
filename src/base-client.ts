@@ -1,6 +1,11 @@
-import { BaseResponse, SlackAPIMethodArgs, SlackAPIOptions } from "./types.ts";
+import {
+  BaseResponse,
+  BaseSlackClient,
+  SlackAPIMethodArgs,
+  SlackAPIOptions,
+} from "./types.ts";
 
-export class BaseSlackAPIClient {
+export class BaseSlackAPIClient implements BaseSlackClient {
   #token?: string;
   #baseURL: string;
 
@@ -11,7 +16,7 @@ export class BaseSlackAPIClient {
 
   async apiCall(
     method: string,
-    data: SlackAPIMethodArgs,
+    data: SlackAPIMethodArgs = {},
   ): Promise<BaseResponse> {
     const url = `${this.#baseURL}${method}`;
     const body = serializeData(data);
@@ -57,11 +62,12 @@ export function serializeData(data: Record<string, unknown>): URLSearchParams {
   Object.entries(data).forEach(([key, value]) => {
     // Objects/arrays, numbers and booleans get stringified
     // Slack API accepts JSON-stringified-and-url-encoded payloads for objects/arrays
-    // Inspired by https://github.com/slackapi/node-slack-sdk/blob/main/packages/web-api/src/WebClient.ts#L452
-    const serializedValue: string = (typeof value !== "string"
-      ? JSON.stringify(value)
-      : value);
+    // Inspired by https://github.com/slackapi/node-slack-sdk/blob/%40slack/web-api%406.7.2/packages/web-api/src/WebClient.ts#L452-L528
+
+    const serializedValue: string =
+      (typeof value !== "string" ? JSON.stringify(value) : value);
     encodedData[key] = serializedValue;
   });
+
   return new URLSearchParams(encodedData);
 }
