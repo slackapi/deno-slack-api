@@ -1,7 +1,4 @@
-import {
-  assertEquals,
-  assertExists,
-} from "https://deno.land/std@0.99.0/testing/asserts.ts";
+import { assertEquals, assertExists } from "../../../dev_deps.ts";
 import { FilterType, TriggerFilterOperatorType } from "./trigger-filter.ts";
 
 Deno.test("Trigger Filters can use a single statement", () => {
