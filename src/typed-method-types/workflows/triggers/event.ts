@@ -17,24 +17,24 @@ export const TriggerEventTypes = {
   ...MetadataEventTypes,
 } as const;
 
-//Channel level events
-export const ChannelEventTypes = {
-  MessageMetadataPosted: "slack#/events/message_metadata_posted", //channel
-  ReactionAdded: "slack#/events/reaction_added", //channel
-  UserJoinedChannel: "slack#/events/user_joined_channel", //channel
-} as const;
-
-//Workspace level events
-export const WorkspaceEventTypes = {
-  MessageMetadataPosted: "slack#/events/message_metadata_posted", //channel
-  ChannelCreated: "slack#/events/channel_created", //workspace
-  DndUpdated: "slack#/events/dnd_updated", //workspace
-  UserJoinedTeam: "slack#/events/user_joined_team", //workspace
-} as const;
-
-type ChannelLevelEventValues = ObjectValueUnion<typeof ChannelEventTypes>;
-type WorkspaceLevelEventValues = ObjectValueUnion<typeof WorkspaceEventTypes>;
-type MetadataEventTypeValues = ObjectValueUnion<typeof MetadataEventTypes>;
+type MessageMetadataTypes = ObjectValueUnion<
+  Pick<
+    typeof TriggerEventTypes,
+    "MessageMetadataPosted" /* | "MessageMetadataAdded" | "MessageMetadataDeleted" */
+  >
+>;
+type ChannelTypes = ObjectValueUnion<
+  Pick<
+    typeof TriggerEventTypes,
+    "ReactionAdded" | "UserJoinedChannel" | "MessageMetadataPosted"
+  >
+>;
+type WorkspaceTypes = ObjectValueUnion<
+  Pick<
+    typeof TriggerEventTypes,
+    "UserJoinedTeam" | "ChannelCreated" | "DndUpdated"
+  >
+>;
 
 type BaseChannelEvent =
   & (MetadataChannelEvent | ChannelEvent)
@@ -45,18 +45,19 @@ type BaseChannelEvent =
 
 type ChannelEvent = BaseEvent & {
   /** @description The type of event */
-  event_type: Exclude<ChannelLevelEventValues, MetadataEventTypeValues>;
+  event_type: Exclude<ChannelTypes, MessageMetadataTypes>;
 };
 type MetadataChannelEvent =
   & {
     /** @description The type of event */
-    event_type: Extract<ChannelLevelEventValues, MetadataEventTypeValues>;
+    event_type: Extract<ChannelTypes, MessageMetadataTypes>;
   }
   & MetadataEvents
   & Pick<BaseEvent, "filter">;
 
 type BaseWorkspaceEvent =
-  & (MetadataWorkspaceEvent | WorkspaceEvent)
+  //Currently there are no metadata workspace events supported, if we support in the future change to "MetadataWorkspaceEvent | WorkspaceEvent"
+  & (WorkspaceEvent)
   & {
     /** @description The team id's that this event listens on */
     team_ids?: string[];
@@ -64,13 +65,13 @@ type BaseWorkspaceEvent =
 
 type WorkspaceEvent = BaseEvent & {
   /** @description The type of event */
-  event_type: Exclude<WorkspaceLevelEventValues, MetadataEventTypeValues>;
+  event_type: WorkspaceTypes;
 };
 
 type MetadataWorkspaceEvent =
   & {
     /** @description The type of event */
-    event_type: Extract<WorkspaceLevelEventValues, MetadataEventTypeValues>;
+    event_type: Extract<WorkspaceTypes, MessageMetadataTypes>;
   }
   & MetadataEvents
   & Pick<BaseEvent, "filter">;
