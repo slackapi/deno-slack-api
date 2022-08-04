@@ -27,23 +27,18 @@ export const TriggerTypes = {
   Webhook: "webhook",
 } as const;
 
-type WorkflowInput = {
+export type WorkflowInput = {
   // deno-lint-ignore no-explicit-any
   value: any;
 };
 
 type ResponseTypes<
-  TriggerDefinition extends ValidTriggerTypes,
   WorkflowDefinition extends WorkflowSchema,
-> = TriggerDefinition extends ShortcutTrigger
-  ? ShortcutTriggerResponse<TriggerDefinition, WorkflowDefinition>
-  : TriggerDefinition extends EventTrigger
-    ? EventTriggerResponse<TriggerDefinition, WorkflowDefinition>
-  : TriggerDefinition extends ScheduledTrigger
-    ? ScheduledTriggerResponse<TriggerDefinition, WorkflowDefinition>
-  : TriggerDefinition extends WebhookTrigger
-    ? WebhookTriggerResponse<TriggerDefinition, WorkflowDefinition>
-  : BaseResponse;
+> =
+  | ShortcutTriggerResponse<WorkflowDefinition>
+  | EventTriggerResponse<WorkflowDefinition>
+  | ScheduledTriggerResponse<WorkflowDefinition>
+  | WebhookTriggerResponse<WorkflowDefinition>;
 
 type WorkflowStringFormat = `${string}#/workflows/${string}`;
 
@@ -62,19 +57,30 @@ export type BaseTrigger = {
   [otherOptions: string]: any;
 };
 
-// A helper to make sure inputs are passed. Required for automated triggers
-export type RequiredInputs = Required<
-  Pick<BaseTrigger, "inputs">
->;
+export type InputSchema<
+  RequiredParams extends RequiredInputParams | undefined,
+> = RequiredParams extends RequiredInputParams ? 
+    & {
+      [k in keyof RequiredParams["properties"]]: WorkflowInput;
+    }
+    & {
+      [k in keyof RequiredParams["required"]]: WorkflowInput;
+    }
+  : Record<never, never>;
 
 export type WorkflowSchema = {
   callback_id: string;
   description?: string;
-  // deno-lint-ignore no-explicit-any
-  input_parameters?: Record<string, any>;
+  input_parameters?: RequiredInputParams;
   // deno-lint-ignore no-explicit-any
   output_parameters?: Record<string, any>;
   title: string;
+};
+
+export type RequiredInputParams = {
+  // deno-lint-ignore no-explicit-any
+  properties: Record<string, any>;
+  required: string[];
 };
 
 /** @description Response object content for delete method */
@@ -94,10 +100,10 @@ type ListArgs = {
 };
 
 type ValidTriggerObjects =
-  | ShortcutTriggerObject<ShortcutTrigger, WorkflowSchema>
-  | EventTriggerObject<EventTrigger, WorkflowSchema>
-  | ScheduledTriggerObject<ScheduledTrigger, WorkflowSchema>
-  | WebhookTriggerObject<WebhookTrigger, WorkflowSchema>;
+  | ShortcutTriggerObject<WorkflowSchema>
+  | EventTriggerObject<WorkflowSchema>
+  | ScheduledTriggerObject<WorkflowSchema>
+  | WebhookTriggerObject<WorkflowSchema>;
 
 type ListResponse = {
   ok: true;
@@ -119,30 +125,31 @@ export type TriggerIdType = {
   trigger_id: string;
 };
 
-export type ValidTriggerTypes =
-  | EventTrigger
-  | ScheduledTrigger
-  | ShortcutTrigger
-  | WebhookTrigger;
+export type InputParameterSchema = {
+  // deno-lint-ignore no-explicit-any
+  [options: string]: any;
+} | undefined;
+export type ValidTriggerTypes<WorkflowDefinition extends WorkflowSchema> =
+  | EventTrigger<WorkflowDefinition>
+  | ScheduledTrigger<WorkflowDefinition>
+  | ShortcutTrigger<WorkflowDefinition>
+  | WebhookTrigger<WorkflowDefinition>;
 
 /** @description Function type for create method */
 type CreateType = {
-  <
-    WorkflowDefinition extends WorkflowSchema,
-    TriggerDefinition extends ValidTriggerTypes,
-  >(
-    args: BaseMethodArgs & TriggerDefinition,
-  ): ResponseTypes<TriggerDefinition, WorkflowDefinition>;
+  <WorkflowDefinition extends WorkflowSchema>(
+    args: BaseMethodArgs & ValidTriggerTypes<WorkflowDefinition>,
+  ): ResponseTypes<WorkflowDefinition>;
 };
 
 /** @description Function type for update method */
 type UpdateType = {
-  <
-    WorkflowDefinition extends WorkflowSchema,
-    TriggerDefinition extends ValidTriggerTypes,
-  >(
-    args: BaseMethodArgs & TriggerDefinition & TriggerIdType,
-  ): ResponseTypes<TriggerDefinition, WorkflowDefinition>;
+  <WorkflowDefinition extends WorkflowSchema>(
+    args:
+      & BaseMethodArgs
+      & ValidTriggerTypes<WorkflowDefinition>
+      & TriggerIdType,
+  ): ResponseTypes<WorkflowDefinition>;
 };
 
 export type TypedWorkflowsTriggersMethodTypes = {

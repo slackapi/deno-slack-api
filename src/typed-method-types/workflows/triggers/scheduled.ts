@@ -3,7 +3,7 @@ import { BaseTriggerResponse } from "./base_response.ts";
 import {
   BaseTrigger,
   FailedTriggerResponse,
-  RequiredInputs,
+  InputSchema,
   TriggerTypes,
   WorkflowSchema,
 } from "./mod.ts";
@@ -107,35 +107,35 @@ type TriggerSchedule =
   | RecurringTriggerSchedule
   | SingleOccurrenceTriggerSchedule;
 
-export type ScheduledTrigger =
+export type ScheduledTrigger<
+  WorkflowDefinition extends WorkflowSchema,
+> =
   & BaseTrigger
-  & RequiredInputs
   & {
     type: typeof TriggerTypes.Scheduled;
     schedule: TriggerSchedule;
+    inputs: InputSchema<WorkflowDefinition["input_parameters"]>;
   };
 
 export type ScheduledTriggerResponse<
-  TriggerDefinition extends ScheduledTrigger,
   WorkflowDefinition extends WorkflowSchema,
 > = Promise<
-  | ScheduledResponse<TriggerDefinition, WorkflowDefinition>
+  | ScheduledResponse<WorkflowDefinition>
   | FailedTriggerResponse
 >;
 export type ScheduledResponse<
-  TriggerDefinition extends ScheduledTrigger,
   WorkflowDefinition extends WorkflowSchema,
 > =
   & BaseResponse
   & {
-    trigger: ScheduledTriggerObject<TriggerDefinition, WorkflowDefinition>;
+    trigger: ScheduledTriggerObject<WorkflowDefinition>;
   };
 
 export type ScheduledTriggerObject<
-  TriggerDefinition extends ScheduledTrigger,
   WorkflowDefinition extends WorkflowSchema,
 > =
-  & BaseTriggerResponse<TriggerDefinition, WorkflowDefinition>
+  & BaseTriggerResponse<WorkflowDefinition>
   & {
-    schedule: TriggerDefinition["schedule"];
+    // deno-lint-ignore no-explicit-any
+    schedule: Record<string, any>;
   };

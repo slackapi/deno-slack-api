@@ -3,44 +3,41 @@ import { BaseTriggerResponse } from "./base_response.ts";
 import {
   BaseTrigger,
   FailedTriggerResponse,
-  RequiredInputs,
+  InputSchema,
   TriggerTypes,
   WorkflowSchema,
 } from "./mod.ts";
 import { FilterType } from "./trigger-filter.ts";
 
-export type WebhookTrigger =
+export type WebhookTrigger<WorkflowDefinition extends WorkflowSchema> =
   & BaseTrigger
-  & RequiredInputs
   & {
     type: typeof TriggerTypes.Webhook;
     webhook?: {
       /** @description Defines the condition in which this webhook trigger should execute the Workflow */
       filter?: FilterType;
     };
+    inputs?: InputSchema<WorkflowDefinition["input_parameters"]>;
   };
 export type WebhookTriggerResponse<
-  TriggerDefinition extends WebhookTrigger,
   WorkflowDefinition extends WorkflowSchema,
 > = Promise<
-  WebhookResponse<TriggerDefinition, WorkflowDefinition> | FailedTriggerResponse
+  WebhookResponse<WorkflowDefinition> | FailedTriggerResponse
 >;
 
 export type WebhookResponse<
-  TriggerDefinition extends WebhookTrigger,
   WorkflowDefinition extends WorkflowSchema,
 > =
   & BaseResponse
   & {
-    trigger: WebhookTriggerObject<TriggerDefinition, WorkflowDefinition>;
+    trigger: WebhookTriggerObject<WorkflowDefinition>;
   };
 
 export type WebhookTriggerObject<
-  TriggerDefinition extends WebhookTrigger,
   WorkflowDefinition extends WorkflowSchema,
 > =
-  & BaseTriggerResponse<TriggerDefinition, WorkflowDefinition>
+  & BaseTriggerResponse<WorkflowDefinition>
   & {
-    webhook: TriggerDefinition["webhook"];
+    webhook: string;
     webhook_url: string;
   };
