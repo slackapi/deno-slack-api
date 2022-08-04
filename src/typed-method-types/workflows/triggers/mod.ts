@@ -61,13 +61,12 @@ export type InputSchema<
   RequiredParams extends RequiredInputParams | undefined,
 > = RequiredParams extends RequiredInputParams ? 
     & {
-      [k in keyof RequiredParams["properties"]]: WorkflowInput;
+      [k in keyof RequiredParams["properties"]]?: WorkflowInput;
     }
     & {
-      [k in keyof RequiredParams["required"]]: WorkflowInput;
+      [k in RequiredParams["required"][number]]: WorkflowInput;
     }
   : Record<never, never>;
-
 export type WorkflowSchema = {
   callback_id: string;
   description?: string;
