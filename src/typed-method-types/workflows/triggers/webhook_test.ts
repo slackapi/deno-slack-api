@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.99.0/testing/asserts.ts";
+import { assertEquals } from "../../../dev_deps.ts";
 import { WebhookTrigger } from "./webhook.ts";
 import { TriggerTypes } from "./mod.ts";
 
