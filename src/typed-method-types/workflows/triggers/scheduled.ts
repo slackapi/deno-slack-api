@@ -81,7 +81,7 @@ type BaseTriggerSchedule = {
 type SingleOccurrenceTriggerSchedule = BaseTriggerSchedule & {
   frequency?: never;
   end_time?: never;
-  occurence_count?: never;
+  occurrence_count?: never;
 };
 
 type RecurringTriggerSchedule =
@@ -90,7 +90,7 @@ type RecurringTriggerSchedule =
     /** @description If set, this trigger will not run past the provided date string  */
     end_time?: string;
     /** @description The maximum number of times the trigger may run */
-    occurence_count?: number;
+    occurrence_count?: number;
     /** @description The configurable frequency of which this trigger will activate  */
     frequency: FrequencyType;
   };
