@@ -1,4 +1,4 @@
-import { pascalCase } from "https://deno.land/x/case@v2.1.0/mod.ts";
+import { pascalCase } from "../../src/deps.ts";
 
 export class APIMethodNode {
   name = "";

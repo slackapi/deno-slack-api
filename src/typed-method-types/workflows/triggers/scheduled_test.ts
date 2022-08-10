@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.99.0/testing/asserts.ts";
+import { assertEquals } from "../../../dev_deps.ts";
 import { ScheduledTrigger } from "./scheduled.ts";
 import { TriggerTypes } from "./mod.ts";
 
@@ -64,7 +64,7 @@ Deno.test("Scheduled Triggers can be set to be recurring", () => {
     schedule: {
       start_time: "2022-03-01T14:00:00Z",
       end_time: "2022-05-01T14:00:00Z",
-      occurence_count: 3,
+      occurrence_count: 3,
       frequency: { type: "daily" },
     },
   };

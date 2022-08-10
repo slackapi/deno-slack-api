@@ -1,5 +1,4 @@
-import { emptyDir, ensureDir } from "https://deno.land/std@0.67.0/fs/mod.ts";
-import { pascalCase } from "https://deno.land/x/case@v2.1.0/mod.ts";
+import { pascalCase, emptyDir, ensureDir } from "../../src/deps.ts";
 import { APIMethodNode } from "./api-method-node.ts";
 import { getPublicAPIMethods } from "./public-api-methods.ts";
 
@@ -111,7 +110,7 @@ const getTestCode = (api: APIMethodNode) => {
   visitMethodNodes(api);
 
   return `
-import { assertEquals } from "https://deno.land/std@0.99.0/testing/asserts.ts";
+import { assertEquals } from "../../dev_deps.ts";
 import { SlackAPI } from "../../mod.ts";
 
 Deno.test("SlackAPIMethodsType generated types", () => {
