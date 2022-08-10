@@ -1,21 +1,8 @@
 import { BaseTrigger, RequiredInputs, TriggerTypes } from "./mod.ts";
 import { FilterType } from "./trigger-filter.ts";
 import { ObjectValueUnion } from "../../../type-helpers.ts";
-
-export const MetadataEventTypes = {
-  MessageMetadataPosted: "slack#/events/message_metadata_posted", //channel
-  // MessageMetadataAdded: "slack#/events/message_metadata_added",
-  // MessageMetadataDeleted: "slack#/events/message_metadata_deleted",
-} as const;
-
-export const TriggerEventTypes = {
-  ChannelCreated: "slack#/events/channel_created", //workspace
-  DndUpdated: "slack#/events/dnd_updated", //workspace
-  ReactionAdded: "slack#/events/reaction_added", //channel
-  UserJoinedChannel: "slack#/events/user_joined_channel", //channel
-  UserJoinedTeam: "slack#/events/user_joined_team", //workspace
-  ...MetadataEventTypes,
-} as const;
+import { PopulatedArray } from "../../../deps.ts";
+import { TriggerEventTypes } from "./trigger_event_types.ts";
 
 type MessageMetadataTypes = ObjectValueUnion<
   Pick<
@@ -23,26 +10,53 @@ type MessageMetadataTypes = ObjectValueUnion<
     "MessageMetadataPosted" /* | "MessageMetadataAdded" | "MessageMetadataDeleted" */
   >
 >;
+
+type FilterRequiredTypes = ObjectValueUnion<
+  Pick<typeof TriggerEventTypes, "MessagePosted">
+>;
 type ChannelTypes = ObjectValueUnion<
   Pick<
     typeof TriggerEventTypes,
-    "ReactionAdded" | "UserJoinedChannel" | "MessageMetadataPosted"
+    | "ReactionAdded"
+    | "UserJoinedChannel"
+    | "MessageMetadataPosted"
+    | "AppMention"
+    | "ChannelShared"
+    | "ChannelUnshared"
+    | "MemberLeftChannel"
+    | "PinAdded"
+    | "PinRemoved"
+    | "ReactionRemoved"
+    | "SharedChannelInviteAccepted"
+    | "SharedChannelInviteApproved"
+    | "SharedChannelInviteDeclined"
+    | "SharedChannelInviteReceived"
   >
 >;
 type WorkspaceTypes = ObjectValueUnion<
   Pick<
     typeof TriggerEventTypes,
-    "UserJoinedTeam" | "ChannelCreated" | "DndUpdated"
+    | "UserJoinedTeam"
+    | "ChannelCreated"
+    | "DndUpdated"
+    | "ChannelArchive"
+    | "ChannelDeleted"
+    | "ChannelRename"
+    | "ChannelUnarchive"
+    | "EmojiChanged"
   >
 >;
 
 type BaseChannelEvent =
-  & (MetadataChannelEvent | ChannelEvent)
+  & (MetadataChannelEvent | ChannelEvent | MessagePostedEvent)
   & {
     /** @description The channel id's that this event listens on */
-    channel_ids?: string[];
+    channel_ids: PopulatedArray<string>;
   };
 
+type MessagePostedEvent = MessageEvent & {
+  event_type: FilterRequiredTypes;
+};
 type ChannelEvent = BaseEvent & {
   /** @description The type of event */
   event_type: Exclude<ChannelTypes, MessageMetadataTypes>;
@@ -56,11 +70,10 @@ type MetadataChannelEvent =
   & Pick<BaseEvent, "filter">;
 
 type BaseWorkspaceEvent =
-  //Currently there are no metadata workspace events supported, if we support in the future change to "MetadataWorkspaceEvent | WorkspaceEvent"
-  & (WorkspaceEvent)
+  & WorkspaceEvent
   & {
     /** @description The team id's that this event listens on */
-    team_ids?: string[];
+    team_ids?: PopulatedArray<string>;
   };
 
 type WorkspaceEvent = BaseEvent & {
@@ -68,16 +81,13 @@ type WorkspaceEvent = BaseEvent & {
   event_type: WorkspaceTypes;
 };
 
-type MetadataWorkspaceEvent =
-  & {
-    /** @description The type of event */
-    event_type: Extract<WorkspaceTypes, MessageMetadataTypes>;
-  }
-  & MetadataEvents
-  & Pick<BaseEvent, "filter">;
-
 type BaseEvent = {
   filter?: FilterType;
+  metadata_event_type?: never;
+};
+
+type MessageEvent = {
+  filter: FilterType;
   metadata_event_type?: never;
 };
 
