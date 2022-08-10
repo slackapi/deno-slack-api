@@ -3,7 +3,6 @@ import { BaseTriggerResponse } from "./base_response.ts";
 import {
   BaseTrigger,
   FailedTriggerResponse,
-  InputSchema,
   TriggerTypes,
   WorkflowSchema,
 } from "./mod.ts";
@@ -110,11 +109,10 @@ type TriggerSchedule =
 export type ScheduledTrigger<
   WorkflowDefinition extends WorkflowSchema,
 > =
-  & BaseTrigger
+  & BaseTrigger<WorkflowDefinition>
   & {
     type: typeof TriggerTypes.Scheduled;
     schedule: TriggerSchedule;
-    inputs: InputSchema<WorkflowDefinition["input_parameters"]>;
   };
 
 export type ScheduledTriggerResponse<

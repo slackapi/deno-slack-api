@@ -3,7 +3,6 @@ import { BaseTriggerResponse } from "./base_response.ts";
 import {
   BaseTrigger,
   FailedTriggerResponse,
-  InputSchema,
   TriggerTypes,
   WorkflowSchema,
 } from "./mod.ts";
@@ -22,12 +21,11 @@ type MetadataEvents = {
 } & BaseEvent;
 
 export type EventTrigger<WorkflowDefinition extends WorkflowSchema> =
-  & BaseTrigger
+  & BaseTrigger<WorkflowDefinition>
   & {
     type: typeof TriggerTypes.Event;
     /** @description The payload object for event triggers */
     event: BaseEvent | MetadataEvents;
-    inputs: InputSchema<WorkflowDefinition["input_parameters"]>;
   };
 export type EventTriggerResponse<
   WorkflowDefinition extends WorkflowSchema,

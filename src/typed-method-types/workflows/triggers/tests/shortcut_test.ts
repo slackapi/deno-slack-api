@@ -4,23 +4,28 @@ import { TriggerTypes } from "../mod.ts";
 import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
 import { SlackAPI } from "../../../../mod.ts";
 import { shortcut_response } from "./fixtures/sample_responses.ts";
+import type {
+  ExampleWorkflow,
+  MixedInputWorkflow,
+  OptionalInputWorkflow,
+  RequiredInputWorkflow,
+} from "./fixtures/workflows.ts";
 
 Deno.test("Shortcut Triggers can set the type using the string", () => {
-  const shortcut: ShortcutTrigger = {
+  const shortcut: ShortcutTrigger<ExampleWorkflow> = {
     type: "shortcut",
     name: "test",
     workflow: "#/workflows/example",
-    inputs: {},
   };
   assertEquals(shortcut.type, TriggerTypes.Shortcut);
 });
 
 Deno.test("Shortcut Triggers can set the type using the TriggerTypes object", () => {
-  const shortcut: ShortcutTrigger = {
+  const shortcut: ShortcutTrigger<RequiredInputWorkflow> = {
     type: TriggerTypes.Shortcut,
     name: "test",
     workflow: "#/workflows/example",
-    inputs: {},
+    inputs: { required: { value: "example" } },
   };
   assertEquals(shortcut.type, TriggerTypes.Shortcut);
 });
@@ -48,7 +53,7 @@ Deno.test("Mock call for shortcut", async (t) => {
             return new Response(JSON.stringify(shortcut_response));
           });
 
-          const res = await await client.workflows.triggers.create({
+          const res = await client.workflows.triggers.create({
             name: "TEST",
             type: "shortcut",
             workflow: "#/workflows/reverse_workflow",
@@ -101,6 +106,58 @@ Deno.test("Mock call for shortcut", async (t) => {
             shortcut_response.trigger.shortcut_url,
           );
         }
+
+        mf.reset();
+      },
+    );
+
+    await t.step(
+      "should allow a generic to be passed",
+      async () => {
+        mf.mock("POST@/api/workflows.triggers.create", (req: Request) => {
+          assertEquals(
+            req.url,
+            "https://slack.com/api/workflows.triggers.create",
+          );
+          return new Response(JSON.stringify(shortcut_response));
+        });
+
+        // No inputs
+        await client.workflows.triggers.create<ExampleWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+        });
+
+        // Mix of optional and required inputs
+        await client.workflows.triggers.create<MixedInputWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          inputs: {
+            required: { value: "test" },
+          },
+        });
+
+        // Only required Inputs
+        await client.workflows.triggers.create<RequiredInputWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          inputs: {
+            required: {
+              value: "test",
+            },
+          },
+        });
+
+        // Only optional Inputs
+        await client.workflows.triggers.create<OptionalInputWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          inputs: {},
+        });
 
         mf.reset();
       },

@@ -3,19 +3,17 @@ import { BaseTriggerResponse } from "./base_response.ts";
 import {
   BaseTrigger,
   FailedTriggerResponse,
-  InputSchema,
   TriggerTypes,
   WorkflowSchema,
 } from "./mod.ts";
 
 export type ShortcutTrigger<WorkflowDefinition extends WorkflowSchema> =
-  & BaseTrigger
+  & BaseTrigger<WorkflowDefinition>
   & {
     type: typeof TriggerTypes.Shortcut;
     shortcut?: {
       button_text: string;
     };
-    inputs?: InputSchema<WorkflowDefinition["input_parameters"]>;
   };
 
 export type ShortcutTriggerResponse<
