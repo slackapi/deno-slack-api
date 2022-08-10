@@ -68,7 +68,7 @@ export type BaseTrigger<WorkflowDefinition extends WorkflowSchema> = {
   [otherOptions: string]: any;
 } & WorkflowInputsType<WorkflowDefinition>;
 
-export type InputSchema<RequiredParams extends RequiredInputParams> =
+type InputSchema<RequiredParams extends RequiredInputParams> =
   & { [k in keyof RequiredParams["properties"]]?: WorkflowInput }
   & { [k in RequiredParams["required"][number]]: WorkflowInput };
 
