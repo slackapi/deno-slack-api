@@ -68,20 +68,13 @@ export type BaseTrigger<WorkflowDefinition extends WorkflowSchema> = {
   [otherOptions: string]: any;
 } & WorkflowInputsType<WorkflowDefinition>;
 
-export type InputSchema<
-  RequiredParams extends RequiredInputParams | undefined,
-> = RequiredParams extends RequiredInputParams ? 
-    & {
-      [k in keyof RequiredParams["properties"]]?: WorkflowInput;
-    }
-    & {
-      [k in RequiredParams["required"][number]]: WorkflowInput;
-    }
-  : Record<never, never>;
+export type InputSchema<RequiredParams extends RequiredInputParams> =
+  & { [k in keyof RequiredParams["properties"]]?: WorkflowInput }
+  & { [k in RequiredParams["required"][number]]: WorkflowInput };
 
-type PopulatedInputs<WorkflowDefinition extends WorkflowSchema> = {
+type PopulatedInputs<InputParams extends RequiredInputParams> = {
   /** @description The inputs provided to the workflow */
-  inputs?: InputSchema<WorkflowDefinition["input_parameters"]>;
+  inputs?: InputSchema<InputParams>;
 };
 
 type IsWorkflowDefinitionSet<WorkflowDefinition extends WorkflowSchema> =
@@ -93,9 +86,9 @@ type WorkflowInputsType<WorkflowDefinition extends WorkflowSchema> =
       ? /** If the workflow has inputs, allow them to be set */
       WorkflowDefinition["input_parameters"]["required"] extends never[]
         // If the workflow has no required inputs, keep inputs optional
-        ? PopulatedInputs<WorkflowDefinition>
+        ? PopulatedInputs<WorkflowDefinition["input_parameters"]>
         // If the workflow has required inputs, make inputs required
-      : Required<PopulatedInputs<WorkflowDefinition>>
+      : Required<PopulatedInputs<WorkflowDefinition["input_parameters"]>>
     : // If the workflow does not have inputs, don't allow them to be set
     {
       /** @description The inputs provided to the workflow */
