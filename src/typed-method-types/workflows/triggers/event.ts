@@ -1,7 +1,7 @@
 import { BaseTrigger, RequiredInputs, TriggerTypes } from "./mod.ts";
 import { FilterType } from "./trigger-filter.ts";
 import { ObjectValueUnion } from "../../../type-helpers.ts";
-import { TriggerEventTypes } from "./trigger_event_types.ts";
+import { TriggerEventTypes } from "./trigger-event-types.ts";
 
 // Utility type for the array types which requires minumum one subtype in it.
 type PopulatedArray<T> = [T, ...T[]];
