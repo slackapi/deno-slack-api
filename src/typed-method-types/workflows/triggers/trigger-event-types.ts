@@ -13,7 +13,6 @@ export const TriggerEventTypes = {
   // MessageMetadataDeleted: "slack#/events/message_metadata_deleted",
   MessageMetadataPosted: "slack#/events/message_metadata_posted",
   MessagePosted: "slack#/events/message_posted",
-  UserLeftChannel: "slack#/events/user_left_channel",
   PinAdded: "slack#/events/pin_added",
   PinRemoved: "slack#/events/pin_removed",
   ReactionAdded: "slack#/events/reaction_added",
@@ -24,4 +23,5 @@ export const TriggerEventTypes = {
   SharedChannelInviteReceived: "slack#/events/shared_channel_invite_received",
   UserJoinedChannel: "slack#/events/user_joined_channel",
   UserJoinedTeam: "slack#/events/user_joined_team",
+  UserLeftChannel: "slack#/events/user_left_channel",
 } as const;

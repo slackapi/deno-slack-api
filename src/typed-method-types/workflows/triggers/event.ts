@@ -24,7 +24,6 @@ type ChannelTypes = ObjectValueUnion<
     | "AppMentioned"
     | "ChannelShared"
     | "ChannelUnshared"
-    | "UserLeftChannel"
     | "MessageMetadataPosted"
     | "PinAdded"
     | "PinRemoved"
@@ -35,6 +34,7 @@ type ChannelTypes = ObjectValueUnion<
     | "SharedChannelInviteDeclined"
     | "SharedChannelInviteReceived"
     | "UserJoinedChannel"
+    | "UserLeftChannel"
   >
 >;
 
