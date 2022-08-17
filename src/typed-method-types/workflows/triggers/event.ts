@@ -21,10 +21,10 @@ type MessagePostedEventType = ObjectValueUnion<
 type ChannelTypes = ObjectValueUnion<
   Pick<
     typeof TriggerEventTypes,
-    | "AppMention"
+    | "AppMentioned"
     | "ChannelShared"
     | "ChannelUnshared"
-    | "MemberLeftChannel"
+    | "UserLeftChannel"
     | "MessageMetadataPosted"
     | "PinAdded"
     | "PinRemoved"
@@ -41,11 +41,11 @@ type ChannelTypes = ObjectValueUnion<
 type WorkspaceTypes = ObjectValueUnion<
   Pick<
     typeof TriggerEventTypes,
-    | "ChannelArchive"
+    | "ChannelArchived"
     | "ChannelCreated"
     | "ChannelDeleted"
-    | "ChannelRename"
-    | "ChannelUnarchive"
+    | "ChannelRenamed"
+    | "ChannelUnarchived"
     | "DndUpdated"
     | "EmojiChanged"
     | "UserJoinedTeam"
