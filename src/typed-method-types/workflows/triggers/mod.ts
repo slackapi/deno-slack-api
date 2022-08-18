@@ -4,7 +4,6 @@ import { ScheduledTrigger } from "./scheduled.ts";
 import { ShortcutTrigger } from "./shortcut.ts";
 import { WebhookTrigger } from "./webhook.ts";
 
-// TODO: Export to SDK
 export const TriggerTypes = {
   Event: "event",
   Scheduled: "scheduled",
