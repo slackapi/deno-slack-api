@@ -7,12 +7,8 @@ import {
   WorkflowSchema,
 } from "./mod.ts";
 import { FilterType } from "./trigger-filter.ts";
-import { ObjectValueUnion } from "../../../type-helpers.ts";
+import { ObjectValueUnion, PopulatedArray } from "../../../type-helpers.ts";
 import { TriggerEventTypes } from "./trigger-event-types.ts";
-
-// TODO: Move to type util file coming in future PR
-// Utility type for the array types which requires minumum one subtype in it.
-type PopulatedArray<T> = [T, ...T[]];
 
 type MessageMetadataTypes = ObjectValueUnion<
   Pick<
