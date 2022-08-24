@@ -1,12 +1,12 @@
-import { assertEquals } from "https://deno.land/std@0.99.0/testing/asserts.ts";
+import { assertEquals, mf } from "../../../../dev_deps.ts";
 import { WebhookTrigger } from "../webhook.ts";
 import { TriggerTypes } from "../mod.ts";
-import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
 import { SlackAPI } from "../../../../mod.ts";
 import { webhook_response } from "./fixtures/sample_responses.ts";
 
 Deno.test("Webhook Triggers can set the type using the string", () => {
-  const webhook: WebhookTrigger = {
+  // deno-lint-ignore no-explicit-any
+  const webhook: WebhookTrigger<any> = {
     type: "webhook",
     name: "test",
     workflow: "#/workflows/example",
@@ -16,7 +16,8 @@ Deno.test("Webhook Triggers can set the type using the string", () => {
 });
 
 Deno.test("Webhook Triggers can set the type using the TriggerTypes object", () => {
-  const webhook: WebhookTrigger = {
+  // deno-lint-ignore no-explicit-any
+  const webhook: WebhookTrigger<any> = {
     type: TriggerTypes.Webhook,
     name: "test",
     workflow: "#/workflows/example",
@@ -26,7 +27,8 @@ Deno.test("Webhook Triggers can set the type using the TriggerTypes object", () 
 });
 
 Deno.test("Webhook Triggers support an optional filter object", () => {
-  const webhook: WebhookTrigger = {
+  // deno-lint-ignore no-explicit-any
+  const webhook: WebhookTrigger<any> = {
     type: TriggerTypes.Webhook,
     name: "test",
     workflow: "#/workflows/example",
@@ -65,7 +67,7 @@ Deno.test("Mock call for webhook", async (t) => {
             return new Response(JSON.stringify(webhook_response));
           });
 
-          const res = await await client.workflows.triggers.create({
+          const res = await client.workflows.triggers.create({
             name: "TEST",
             type: "webhook",
             workflow: "#/workflows/reverse_workflow",
@@ -78,7 +80,7 @@ Deno.test("Mock call for webhook", async (t) => {
           assertEquals(res.ok, true);
           if (res.ok) {
             assertEquals(res.trigger, webhook_response.trigger);
-            assertEquals<string>(
+            assertEquals(
               res.trigger?.webhook_url,
               webhook_response.trigger.webhook_url,
             );
@@ -101,7 +103,7 @@ Deno.test("Mock call for webhook", async (t) => {
           return new Response(JSON.stringify(webhook_response));
         });
 
-        const res = await await client.workflows.triggers.update({
+        const res = await client.workflows.triggers.update({
           name: "TEST",
           type: "webhook",
           trigger_id: "123",
@@ -115,7 +117,7 @@ Deno.test("Mock call for webhook", async (t) => {
         assertEquals(res.ok, true);
         if (res.ok) {
           assertEquals(res.trigger, webhook_response.trigger);
-          assertEquals<string>(
+          assertEquals(
             res.trigger?.webhook_url,
             webhook_response.trigger.webhook_url,
           );

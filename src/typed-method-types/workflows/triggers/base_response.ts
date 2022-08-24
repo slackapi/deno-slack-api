@@ -3,7 +3,7 @@ import { BaseTrigger, WorkflowSchema } from "./mod.ts";
 export type BaseTriggerResponse<
   WorkflowDefinition extends WorkflowSchema,
 > =
-  & Pick<BaseTrigger, "name" | "type" | "description">
+  & Pick<BaseTrigger<WorkflowDefinition>, "name" | "type" | "description">
   & {
     /** @description The trigger's internal uid */
     id: string;

@@ -128,5 +128,8 @@ export type EventTriggerObject<
 > =
   & BaseTriggerResponse<WorkflowDefinition>
   & {
-    event_type: string;
+    /**
+     * @description The type of event specified for the event trigger
+     */
+    event_type?: string;
   };

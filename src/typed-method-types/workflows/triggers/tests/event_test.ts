@@ -6,13 +6,14 @@ import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
 import { event_response } from "./fixtures/sample_responses.ts";
 
 Deno.test("Event Triggers can set the type using the string", () => {
-  const event: EventTrigger = {
+  // deno-lint-ignore no-explicit-any
+  const event: EventTrigger<any> = {
     type: "event",
     name: "test",
     workflow: "#/workflows/example",
     inputs: {},
     event: {
-      event_type: "reaction_added",
+      event_type: "slack#/events/reaction_added",
       channel_ids: ["C013ZG3K41Z"],
     },
   };
@@ -20,13 +21,14 @@ Deno.test("Event Triggers can set the type using the string", () => {
 });
 
 Deno.test("Event Triggers can set the type using the TriggerTypes object", () => {
-  const event: EventTrigger = {
+  // deno-lint-ignore no-explicit-any
+  const event: EventTrigger<any> = {
     type: TriggerTypes.Event,
     name: "test",
     workflow: "#/workflows/example",
     inputs: {},
     event: {
-      event_type: "reaction_added",
+      event_type: "slack#/events/reaction_added",
       channel_ids: ["C013ZG3K41Z"],
     },
   };
@@ -56,7 +58,7 @@ Deno.test("Mock call for event", async (t) => {
             return new Response(JSON.stringify(event_response));
           });
 
-          const res = await await client.workflows.triggers.create({
+          const res = await client.workflows.triggers.create({
             name: "TEST",
             type: "event",
             workflow: "#/workflows/reverse_workflow",
@@ -66,14 +68,14 @@ Deno.test("Mock call for event", async (t) => {
               },
             },
             event: {
-              event_type: "reaction_added",
+              event_type: "slack#/events/reaction_added",
               channel_ids: ["C013ZG3K41Z"],
             },
           });
           assertEquals(res.ok, true);
           if (res.ok) {
             assertEquals(res.trigger, event_response.trigger);
-            assertEquals<string>(
+            assertEquals(
               res.trigger?.event_type,
               event_response.trigger.event_type,
             );
@@ -95,7 +97,7 @@ Deno.test("Mock call for event", async (t) => {
           return new Response(JSON.stringify(event_response));
         });
 
-        const res = await await client.workflows.triggers.update({
+        const res = await client.workflows.triggers.update({
           name: "TEST",
           type: "event",
           trigger_id: "123",
@@ -106,14 +108,14 @@ Deno.test("Mock call for event", async (t) => {
             },
           },
           event: {
-            event_type: "reaction_added",
+            event_type: "slack#/events/reaction_added",
             channel_ids: ["C013ZG3K41Z"],
           },
         });
         assertEquals(res.ok, true);
         if (res.ok) {
           assertEquals(res.trigger, event_response.trigger);
-          assertEquals<string>(
+          assertEquals(
             res.trigger?.event_type,
             event_response.trigger.event_type,
           );

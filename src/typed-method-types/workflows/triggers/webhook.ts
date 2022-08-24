@@ -36,6 +36,12 @@ export type WebhookTriggerObject<
 > =
   & BaseTriggerResponse<WorkflowDefinition>
   & {
-    webhook: string;
-    webhook_url: string;
+    /**
+     * @description The webhook object used to define the webhook trigger
+     */
+    webhook?: string;
+    /**
+     * @description The URL used to trip the webhook trigger
+     */
+    webhook_url?: string;
   };

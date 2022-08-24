@@ -40,7 +40,7 @@ Deno.test("Mock CRUD call", async (t) => {
             },
           },
           event: {
-            event_type: "reaction_added",
+            event_type: "slack#/events/reaction_added",
             channel_ids: ["C013ZG3K41Z"],
           },
         });
@@ -59,7 +59,7 @@ Deno.test("Mock CRUD call", async (t) => {
             return new Response(JSON.stringify(shortcut_response));
           });
 
-          const res = await await client.workflows.triggers.create({
+          const res = await client.workflows.triggers.create({
             name: "TEST",
             type: "shortcut",
             workflow: "#/workflows/reverse_workflow",
@@ -72,7 +72,7 @@ Deno.test("Mock CRUD call", async (t) => {
           assertEquals(res.ok, true);
           if (res.ok) {
             assertEquals(res.trigger, shortcut_response.trigger);
-            assertEquals<string>(
+            assertEquals(
               res.trigger?.shortcut_url,
               shortcut_response.trigger.shortcut_url,
             );
@@ -94,7 +94,7 @@ Deno.test("Mock CRUD call", async (t) => {
           return new Response(JSON.stringify(shortcut_response));
         });
 
-        const res = await await client.workflows.triggers.update({
+        const res = await client.workflows.triggers.update({
           name: "TEST",
           type: "shortcut",
           trigger_id: "123",
@@ -108,7 +108,7 @@ Deno.test("Mock CRUD call", async (t) => {
         assertEquals(res.ok, true);
         if (res.ok) {
           assertEquals(res.trigger, shortcut_response.trigger);
-          assertEquals<string>(
+          assertEquals(
             res.trigger?.shortcut_url,
             shortcut_response.trigger.shortcut_url,
           );
@@ -129,7 +129,7 @@ Deno.test("Mock CRUD call", async (t) => {
           return new Response(JSON.stringify(delete_response));
         });
 
-        const res = await await client.workflows.triggers.delete({
+        const res = await client.workflows.triggers.delete({
           trigger_id: "123",
         });
         assertEquals(res.ok, true);
@@ -149,7 +149,7 @@ Deno.test("Mock CRUD call", async (t) => {
           return new Response(JSON.stringify(list_response));
         });
 
-        const res = await await client.workflows.triggers.list();
+        const res = await client.workflows.triggers.list();
         assertEquals(res.ok, true);
         assertEquals(res.triggers.length, list_response.triggers.length);
 

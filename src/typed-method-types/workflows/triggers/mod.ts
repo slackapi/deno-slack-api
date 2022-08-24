@@ -41,10 +41,10 @@ export type WorkflowInput = {
 type ResponseTypes<
   WorkflowDefinition extends WorkflowSchema,
 > =
-  | ShortcutTriggerResponse<WorkflowDefinition>
-  | EventTriggerResponse<WorkflowDefinition>
-  | ScheduledTriggerResponse<WorkflowDefinition>
-  | WebhookTriggerResponse<WorkflowDefinition>;
+  & ShortcutTriggerResponse<WorkflowDefinition>
+  & EventTriggerResponse<WorkflowDefinition>
+  & ScheduledTriggerResponse<WorkflowDefinition>
+  & WebhookTriggerResponse<WorkflowDefinition>;
 
 type WorkflowStringFormat<AcceptedString extends string> =
   `${string}#/workflows/${AcceptedString}`;

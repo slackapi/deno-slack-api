@@ -1,12 +1,12 @@
-import { assertEquals } from "https://deno.land/std@0.99.0/testing/asserts.ts";
+import { assertEquals, mf } from "../../../../dev_deps.ts";
 import { ScheduledTrigger } from "../scheduled.ts";
 import { TriggerTypes } from "../mod.ts";
 import { SlackAPI } from "../../../../mod.ts";
-import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
 import { scheduled_response } from "./fixtures/sample_responses.ts";
 
 Deno.test("Scheduled Triggers can be set with a string", () => {
-  const schedule: ScheduledTrigger = {
+  // deno-lint-ignore no-explicit-any
+  const schedule: ScheduledTrigger<any> = {
     name: "Sample",
     type: "scheduled",
     workflow: "slack#/workflows/example",
@@ -19,7 +19,8 @@ Deno.test("Scheduled Triggers can be set with a string", () => {
 });
 
 Deno.test("Scheduled Triggers can be set with TriggerTypes object", () => {
-  const schedule: ScheduledTrigger = {
+  // deno-lint-ignore no-explicit-any
+  const schedule: ScheduledTrigger<any> = {
     name: "Sample",
     type: TriggerTypes.Scheduled,
     workflow: "#/workflows/example",
@@ -32,7 +33,8 @@ Deno.test("Scheduled Triggers can be set with TriggerTypes object", () => {
 });
 
 Deno.test("Scheduled Triggers can be set with just the start_time property", () => {
-  const schedule: ScheduledTrigger = {
+  // deno-lint-ignore no-explicit-any
+  const schedule: ScheduledTrigger<any> = {
     name: "Sample",
     type: TriggerTypes.Scheduled,
     workflow: "A012384#/workflows/example",
@@ -45,7 +47,8 @@ Deno.test("Scheduled Triggers can be set with just the start_time property", () 
 });
 
 Deno.test("Scheduled Triggers can be set just once", () => {
-  const schedule: ScheduledTrigger = {
+  // deno-lint-ignore no-explicit-any
+  const schedule: ScheduledTrigger<any> = {
     name: "Sample",
     type: TriggerTypes.Scheduled,
     workflow: "#/workflows/example",
@@ -59,7 +62,8 @@ Deno.test("Scheduled Triggers can be set just once", () => {
 });
 
 Deno.test("Scheduled Triggers can be set to be recurring", () => {
-  const schedule: ScheduledTrigger = {
+  // deno-lint-ignore no-explicit-any
+  const schedule: ScheduledTrigger<any> = {
     name: "Sample",
     type: TriggerTypes.Scheduled,
     workflow: "#/workflows/example",
@@ -67,7 +71,7 @@ Deno.test("Scheduled Triggers can be set to be recurring", () => {
     schedule: {
       start_time: "2022-03-01T14:00:00Z",
       end_time: "2022-05-01T14:00:00Z",
-      occurence_count: 3,
+      occurrence_count: 3,
       frequency: { type: "daily" },
     },
   };
@@ -75,7 +79,8 @@ Deno.test("Scheduled Triggers can be set to be recurring", () => {
 });
 
 Deno.test("Scheduled Triggers can be set to be reoccur daily", () => {
-  const schedule: ScheduledTrigger = {
+  // deno-lint-ignore no-explicit-any
+  const schedule: ScheduledTrigger<any> = {
     name: "Sample",
     type: TriggerTypes.Scheduled,
     workflow: "#/workflows/example",
@@ -92,7 +97,8 @@ Deno.test("Scheduled Triggers can be set to be reoccur daily", () => {
 });
 
 Deno.test("Scheduled Triggers can be set to be reoccur weekly", () => {
-  const schedule: ScheduledTrigger = {
+  // deno-lint-ignore no-explicit-any
+  const schedule: ScheduledTrigger<any> = {
     name: "Sample",
     type: TriggerTypes.Scheduled,
     workflow: "#/workflows/example",
@@ -110,7 +116,8 @@ Deno.test("Scheduled Triggers can be set to be reoccur weekly", () => {
 });
 
 Deno.test("Scheduled Triggers can be set to be reoccur monthly", () => {
-  const schedule: ScheduledTrigger = {
+  // deno-lint-ignore no-explicit-any
+  const schedule: ScheduledTrigger<any> = {
     name: "Sample",
     type: TriggerTypes.Scheduled,
     workflow: "#/workflows/example",
@@ -129,7 +136,8 @@ Deno.test("Scheduled Triggers can be set to be reoccur monthly", () => {
 });
 
 Deno.test("Scheduled Triggers can be set to be reoccur yearly", () => {
-  const schedule: ScheduledTrigger = {
+  // deno-lint-ignore no-explicit-any
+  const schedule: ScheduledTrigger<any> = {
     name: "Sample",
     type: TriggerTypes.Scheduled,
     workflow: "#/workflows/example",
@@ -168,7 +176,7 @@ Deno.test("Mock call for schedule", async (t) => {
             return new Response(JSON.stringify(scheduled_response));
           });
 
-          const res = await await client.workflows.triggers.create({
+          const res = await client.workflows.triggers.create({
             name: "TEST",
             type: "scheduled",
             workflow: "#/workflows/reverse_workflow",
@@ -195,11 +203,11 @@ Deno.test("Mock call for schedule", async (t) => {
               scheduled_response.trigger.schedule,
             );
             assertEquals(
-              res.trigger?.schedule.start_time,
+              res.trigger?.schedule?.start_time,
               scheduled_response.trigger.schedule.start_time,
             );
             assertEquals(
-              res.trigger?.schedule.timezone,
+              res.trigger?.schedule?.timezone,
               scheduled_response.trigger.schedule.timezone,
             );
           }
@@ -220,7 +228,7 @@ Deno.test("Mock call for schedule", async (t) => {
           return new Response(JSON.stringify(scheduled_response));
         });
 
-        const res = await await client.workflows.triggers.update({
+        const res = await client.workflows.triggers.update({
           name: "TEST",
           type: "scheduled",
           trigger_id: "123",
@@ -248,11 +256,11 @@ Deno.test("Mock call for schedule", async (t) => {
             scheduled_response.trigger.schedule,
           );
           assertEquals(
-            res.trigger?.schedule.start_time,
+            res.trigger?.schedule?.start_time,
             scheduled_response.trigger.schedule.start_time,
           );
           assertEquals(
-            res.trigger?.schedule.timezone,
+            res.trigger?.schedule?.timezone,
             scheduled_response.trigger.schedule.timezone,
           );
         }

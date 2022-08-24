@@ -66,7 +66,7 @@ Deno.test("Mock call for shortcut", async (t) => {
           assertEquals(res.ok, true);
           if (res.ok) {
             assertEquals(res.trigger, shortcut_response.trigger);
-            assertEquals<string>(
+            assertEquals(
               res.trigger?.shortcut_url,
               shortcut_response.trigger.shortcut_url,
             );
@@ -87,7 +87,7 @@ Deno.test("Mock call for shortcut", async (t) => {
           return new Response(JSON.stringify(shortcut_response));
         });
 
-        const res = await await client.workflows.triggers.update({
+        const res = await client.workflows.triggers.update({
           name: "TEST",
           type: "shortcut",
           trigger_id: "123",
@@ -101,7 +101,7 @@ Deno.test("Mock call for shortcut", async (t) => {
         assertEquals(res.ok, true);
         if (res.ok) {
           assertEquals(res.trigger, shortcut_response.trigger);
-          assertEquals<string>(
+          assertEquals(
             res.trigger?.shortcut_url,
             shortcut_response.trigger.shortcut_url,
           );

@@ -33,4 +33,9 @@ export type ShortcutTriggerObject<
   WorkflowDefinition extends WorkflowSchema,
 > =
   & BaseTriggerResponse<WorkflowDefinition>
-  & { shortcut_url: string };
+  & {
+    /**
+     * @description A URL that will trip a shortcut trigger
+     */
+    shortcut_url?: string;
+  };
