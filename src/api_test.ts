@@ -1,8 +1,4 @@
-import {
-  assertEquals,
-  assertRejects,
-} from "https://deno.land/std@0.132.0/testing/asserts.ts";
-import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
+import { assertEquals, assertRejects, mf } from "./dev_deps.ts";
 import { SlackAPI } from "./mod.ts";
 import { serializeData } from "./base-client.ts";
 
