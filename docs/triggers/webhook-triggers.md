@@ -87,7 +87,9 @@ const trigger: Trigger = {
     outputs: {},
     date_created: 1658339927,
     date_updated: 1658339927,
-    webhook_url: "https://app.slack.com/app/A01412HH666/webhook/Ft01426C5LG3"
+    webhook_url: "https://hooks.dev.slack.com/triggers/T013ZG3K1QT/1140137995618/5a398c41c55cbd2a9083770d752d99a7"
+    }
+}
   }
 }
 ```
