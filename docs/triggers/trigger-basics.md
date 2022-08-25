@@ -61,3 +61,19 @@ Creation uses the `client.workflows.triggers.create` method which takes in a tri
     },
   });
 ```
+
+### Trigger Types
+There are currently 4 supported trigger types, [Shortcut](shortcut-trigger.md), [Webhook](webhook-trigger.md), 
+[Event](event-trigger.md), and [Scheduled](scheduled-trigger.md). Creation of each trigger type has a specific creation
+object type, however all triggers have parameters that are common to all trigger types, these common parameters are as follows:
+
+| Parameter name  | Required?     | Description                                                          |
+| ----------------|:-------------:| ---------------------------------------------------------------------|
+| type            | Yes           | The type of trigger (shortcut)                                       |
+| name            | Yes           | The name of the trigger                                              |
+| description     | No            | A description of the purpose of the trigger                          |
+| workflow        | Yes           | Which workflow the trigger connects to                               |
+| inputs          | No            | What inputs (defined in the manifest) are passed to the trigger      |
+
+In addition to these common parameters, specific trigger types will have their own unique parameters which can be viewed in 
+their respective documents.

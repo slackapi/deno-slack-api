@@ -2,16 +2,12 @@
 
 An event trigger is a trigger that activates when a specific event occurs within the Slack client. Event triggers can activate on either workspace,
 or channel level events, and each specific event type has its own required object parameters that need to be filled. An event trigger at the highest
-level includes the following required attributes: 
+level includes the common trigger parameters along with a required input parameter and an event parameter: 
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
-| type            | Yes           | The type of trigger (shortcut)                                       |
-| name            | Yes           | The name of the trigger                                              |
-| description     | No            | A description of the purpose of the trigger                          |
-| workflow        | Yes           | Which workflow the trigger connects to                               |
-| inputs          | No            | What inputs (defined in the manifest) are passed to the trigger      |
-| event           | No            | An event object with information about the activation event          |
+| inputs          | Yes            | What inputs (defined in the manifest) are passed to the trigger      |
+| event           | Yes            | An event object with information about the activation event          |
 
 ### Event Types
 
@@ -52,15 +48,39 @@ Event trigger must contain an event object, which specifies the details of the e
 | Parameter name    | Required?     | Description                                                             |
 | ------------------|:-------------:| ------------------------------------------------------------------------|
 | event_type        | Yes           | The name of the event                                                   |
-| filter            | Sometimes     | A Filter object (Required for message_posted event)                     |
+| [filter](trigger-filters.md) | Sometimes     | A Filter object (Required for message_posted event)                     |
 | team_ids          | No            | Which teams to listen for events (Optional for workspace events)        |
 | channel_ids       | Sometimes     | which channel to listen for events (required for channel level events)  |
+| metadata_event_type       | Sometimes     | Required for metadata events, string corresponding to the event type |
 
-### Example Shortcut Trigger
+## Usage
 
+### Channel Level Trigger
 ```ts
 const trigger: Trigger = {
-  type: "shortcut",
+  type: "event",
+  event: {
+    event_type: "slack#/events/app_mentioned",
+    channel_ids: ["C0X314124"]
+  },  
+  name: "Sample Event Trigger",
+  description: "A sample event trigger",
+  workflow: "#/workflows/sample_workflow",
+  inputs: {
+    a_channel: {
+      value: ["121CX31S"],
+    },
+  },
+};
+```
+
+### Workspace Level Trigger
+```ts
+const trigger: Trigger = {
+  type: "event",
+  event: {
+    event_type: "slack#/events/channel_created",
+  },
   name: "Request Time off",
   description: "Starts the workflow to request time off",
   workflow: "#/workflows/reverse_workflow",
@@ -69,5 +89,83 @@ const trigger: Trigger = {
       value: "{{data.interactivity}}",
     },
   },
-};
+}
+```
+
+### MessagePosted Trigger
+```ts
+const trigger: Trigger = {
+  type: "event",
+  event: {
+    event_type: "slack#/events/message_posted",
+    channel_ids: ["C0X314124"],
+    filter: {
+      version: 1,
+      root: {
+        statement: "1 === 1",
+      },
+    }
+  },
+  name: "Request Time off",
+  description: "Starts the workflow to request time off",
+  workflow: "#/workflows/reverse_workflow",
+  inputs: {
+    interactivity: {
+      value: "{{data.interactivity}}",
+    },
+  },
+}
+```
+
+### Message Metadata Trigger
+```ts
+const trigger: Trigger = {
+  type: "event",
+  event: {
+    event_type: "slack#/events/message_metadata_posted",
+    channel_ids: ["C0X314124"],
+    metadata_event_type: "click",
+  },
+  name: "Request Time off",
+  description: "Starts the workflow to request time off",
+  workflow: "#/workflows/reverse_workflow",
+  inputs: {
+    interactivity: {
+      value: "{{data.interactivity}}",
+    },
+  },
+}
+```
+### Example Response
+```ts
+{
+  ok: true,
+  trigger: {
+    id: "Ft01426DHUAF",
+    type: "event",
+    function: {
+      id: "Fn0141SXKUHZ",
+      workflow_id: "Wf0141SXKULB",
+      callback_id: "reverse_workflow",
+      title: "Reverse Workflow",
+      description: "A sample workflow",
+      type: "workflow",
+      input_parameters: [ [Object], [Object], [Object] ],
+      output_parameters: [],
+      app_id: "A01412HH666",
+      app: {
+        id: "A01412HH666",
+        name: "my-app (dev)",
+        icons: [Object],
+        is_workflow_app: false
+      },
+      date_updated: 1658339916
+    },
+    inputs: { a_string: { value: "string", locked: false, hidden: false } },
+    outputs: {},
+    date_created: 1658340679,
+    date_updated: 1658340679,
+    event_type: "reaction_added"
+  }
+}
 ```

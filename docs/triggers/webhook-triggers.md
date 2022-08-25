@@ -1,18 +1,40 @@
-## webhook Triggers
+## Webhook Triggers
 
 A webhook trigger is a trigger that activates on a webhook activation in the Slack client. A webhook trigger
-includes the following required attributes: 
+includes the common trigger parameters along with a webhook paramater: 
 
 | Parameter name| Required?     | Description                                                          |
 | --------------|:-------------:| ---------------------------------------------------------------------|
-| type          | Yes           | The type of trigger (shortcut)                                       |
-| name          | Yes           | The name of the trigger                                              |
-| description   | No            | A description of the purpose of the trigger                          |
-| workflow      | Yes           | Which workflow the trigger connects to                               |
-| inputs        | Yes            | What inputs (defined in the manifest) are passed to the trigger      |
-| webook        | No            | Contains information about filters                                   |
+| inputs        | Yes           | What inputs (defined in the manifest) are passed to the trigger      |
+| webook        | No            | Contains a [filter](trigger-filters.md)             |
 
-### Example Shortcut Trigger
+### Webhook Object
+
+A webhook trigger can contain an optional webhook object which specifies a filter:
+
+```ts
+  webhook?: {
+    filter: FilterObject;
+  };
+```
+
+## Usage
+
+### Webhook Trigger Without Filter
+```ts
+const trigger: Trigger = {
+  type: "webhook",
+  name: "Sample Webhook Trigger",
+  description: "Starts the workflow to reverse a string",
+  workflow: "#/workflows/reverse_workflow",
+  inputs: {
+    a_input: {
+      value: "input",
+    },
+  },
+};
+```
+### Webhook Trigger With Filter
 
 ```ts
 const trigger: Trigger = {
@@ -27,8 +49,46 @@ const trigger: Trigger = {
   },
   webhook: {
     filter: {
-      
+      version: 1,
+      root: {
+        statement: "1 === 1",
+      },
     }
   }
 };
 ```
+
+## Example Response
+```ts
+{
+  ok: true,
+  trigger: {
+    id: "Ft0141BC3F2N",
+    type: "webhook",
+    function: {
+      id: "Fn0141SXKUHZ",
+      workflow_id: "Wf0141SXKULB",
+      callback_id: "reverse_workflow",
+      title: "Reverse Workflow",
+      description: "A sample workflow",
+      type: "workflow",
+      input_parameters: [ [Object], [Object], [Object] ],
+      output_parameters: [],
+      app_id: "A01412HH666",
+      app: {
+        id: "A01412HH666",
+        name: "my-app (dev)",
+        icons: [Object],
+        is_workflow_app: false
+      },
+      date_updated: 1658339916
+    },
+    inputs: { a_string: { value: "string", locked: false, hidden: false } },
+    outputs: {},
+    date_created: 1658339927,
+    date_updated: 1658339927,
+    webhook_url: "https://app.slack.com/app/A01412HH666/webhook/Ft01426C5LG3"
+  }
+}
+```
+
