@@ -16,7 +16,7 @@ A Shortcut trigger can contain an optional shortcut object which specifies addit
     button_text: string;
   };
 ```
-### Usage
+### Shortcut Unfurling 
 A shortcut trigger can be used to create a shortcut which, when clicked or activated, will run through a workflow. When a shortcut trigger is created through the API, it's return object will include a shortcut_url parameter which can be pasted into the client and unfurled to reveal a shortcut link. Clicking on this link will run through the associated workflow.
 ## Usage
 ### Example Shortcut Trigger With Shortcut Object
