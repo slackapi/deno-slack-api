@@ -6,8 +6,6 @@ import { SlackAPI } from "../../../../mod.ts";
 import { shortcut_response } from "./fixtures/sample_responses.ts";
 import type {
   ExampleWorkflow,
-  MixedInputWorkflow,
-  OptionalInputWorkflow,
   RequiredInputWorkflow,
 } from "./fixtures/workflows.ts";
 
@@ -106,58 +104,6 @@ Deno.test("Mock call for shortcut", async (t) => {
             shortcut_response.trigger.shortcut_url,
           );
         }
-
-        mf.reset();
-      },
-    );
-
-    await t.step(
-      "should allow a generic to be passed",
-      async () => {
-        mf.mock("POST@/api/workflows.triggers.create", (req: Request) => {
-          assertEquals(
-            req.url,
-            "https://slack.com/api/workflows.triggers.create",
-          );
-          return new Response(JSON.stringify(shortcut_response));
-        });
-
-        // No inputs
-        await client.workflows.triggers.create<ExampleWorkflow>({
-          name: "TEST",
-          type: "shortcut",
-          workflow: "#/workflows/example",
-        });
-
-        // Mix of optional and required inputs
-        await client.workflows.triggers.create<MixedInputWorkflow>({
-          name: "TEST",
-          type: "shortcut",
-          workflow: "#/workflows/example",
-          inputs: {
-            required: { value: "test" },
-          },
-        });
-
-        // Only required Inputs
-        await client.workflows.triggers.create<RequiredInputWorkflow>({
-          name: "TEST",
-          type: "shortcut",
-          workflow: "#/workflows/example",
-          inputs: {
-            required: {
-              value: "test",
-            },
-          },
-        });
-
-        // Only optional Inputs
-        await client.workflows.triggers.create<OptionalInputWorkflow>({
-          name: "TEST",
-          type: "shortcut",
-          workflow: "#/workflows/example",
-          inputs: {},
-        });
 
         mf.reset();
       },

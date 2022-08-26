@@ -3,6 +3,13 @@ export type ExampleWorkflow = {
   title: "Example";
 };
 
+export type NoInputWorkflow = ExampleWorkflow & {
+  input_parameters: {
+    properties: Record<never, never>;
+    required: never[];
+  };
+};
+
 export type OptionalInputWorkflow = ExampleWorkflow & {
   input_parameters: {
     properties: {

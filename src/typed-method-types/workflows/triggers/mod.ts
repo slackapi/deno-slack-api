@@ -27,12 +27,6 @@ export const TriggerTypes = {
   Webhook: "webhook",
 } as const;
 
-const emptyValue = "#no_wf_definition" as const;
-const emptyWorkflow = {
-  callback_id: emptyValue,
-  title: emptyValue,
-} as const;
-
 export type WorkflowInput = {
   // deno-lint-ignore no-explicit-any
   value: any;
@@ -49,67 +43,46 @@ type ResponseTypes<
 type WorkflowStringFormat<AcceptedString extends string> =
   `${string}#/workflows/${AcceptedString}`;
 
-type TypedWorkflowString<WorkflowCallback extends string> =
-  // If the callback is from the empty workflow, accept any string
-  WorkflowCallback extends typeof emptyValue ? WorkflowStringFormat<string>
-    // otherwise accept only the specified callback
-    : WorkflowStringFormat<WorkflowCallback>;
-
 export type BaseTrigger<WorkflowDefinition extends WorkflowSchema> = {
   /** @description The type of trigger */
   type: string;
   /** @description The workflow that the trigger initiates */
-  workflow: TypedWorkflowString<WorkflowDefinition["callback_id"]>;
+  workflow: WorkflowStringFormat<WorkflowDefinition["callback_id"]>;
   /** @description The name of the trigger */
   name: string;
   /** @description The description of the trigger */
   description?: string;
   // deno-lint-ignore no-explicit-any
   [otherOptions: string]: any;
-} & WorkflowInputsType<WorkflowDefinition>;
+} & WorkflowInputsType<WorkflowDefinition["input_parameters"]>;
 
-type InputSchema<RequiredParams extends RequiredInputParams> =
-  & { [k in keyof RequiredParams["properties"]]?: WorkflowInput }
-  & { [k in RequiredParams["required"][number]]: WorkflowInput };
+type WorkflowInputsType<Params extends InputParameterSchema | undefined> =
+  Params extends InputParameterSchema
+    // If there are no required params, inputs are optional
+    ? Params["required"] extends never[] ? {
+        inputs?: InputSchema<Params>;
+      }
+      // If there are required params, inputs are required
+    : { inputs: InputSchema<Params> }
+    // If there are no inputs, don't allow them to be set
+    : { inputs?: never };
 
-type PopulatedInputs<InputParams extends RequiredInputParams> = {
-  /** @description The inputs provided to the workflow */
-  inputs?: InputSchema<InputParams>;
-};
-
-type IsWorkflowDefinitionSet<WorkflowDefinition extends WorkflowSchema> =
-  WorkflowDefinition extends typeof emptyWorkflow ? false : true;
-
-type WorkflowInputsType<WorkflowDefinition extends WorkflowSchema> =
-  IsWorkflowDefinitionSet<WorkflowDefinition> extends true
-    ? WorkflowDefinition["input_parameters"] extends RequiredInputParams
-      ? /** If the workflow has inputs, allow them to be set */
-      WorkflowDefinition["input_parameters"]["required"] extends never[]
-        // If the workflow has no required inputs, keep inputs optional
-        ? PopulatedInputs<WorkflowDefinition["input_parameters"]>
-        // If the workflow has required inputs, make inputs required
-      : Required<PopulatedInputs<WorkflowDefinition["input_parameters"]>>
-    : // If the workflow does not have inputs, don't allow them to be set
-    {
-      /** @description The inputs provided to the workflow */
-      inputs?: Record<string, never>;
-    }
-    // If the workflow is not set, allow any workflow input
-    : {
-      /** @description The inputs provided to the workflow */
-      inputs?: Record<string, WorkflowInput>;
-    };
+type InputSchema<Params extends InputParameterSchema | undefined> =
+  Params extends InputParameterSchema ? 
+      & { [k in keyof Params["properties"]]?: WorkflowInput }
+      & { [k in Params["required"][number]]: WorkflowInput }
+    : Record<string, WorkflowInput>;
 
 export type WorkflowSchema = {
   callback_id: string;
   description?: string;
-  input_parameters?: RequiredInputParams;
+  input_parameters?: InputParameterSchema;
   // deno-lint-ignore no-explicit-any
   output_parameters?: Record<string, any>;
   title: string;
 };
 
-export type RequiredInputParams = {
+export type InputParameterSchema = {
   // deno-lint-ignore no-explicit-any
   properties: Record<string, any>;
   required: (string | number)[];
@@ -157,13 +130,8 @@ export type TriggerIdType = {
   trigger_id: string;
 };
 
-export type InputParameterSchema = {
-  // deno-lint-ignore no-explicit-any
-  [options: string]: any;
-} | undefined;
-
 export type ValidTriggerTypes<
-  WorkflowDefinition extends WorkflowSchema = typeof emptyWorkflow,
+  WorkflowDefinition extends WorkflowSchema,
 > =
   | EventTrigger<WorkflowDefinition>
   | ScheduledTrigger<WorkflowDefinition>
@@ -172,14 +140,14 @@ export type ValidTriggerTypes<
 
 /** @description Function type for create method */
 type CreateType = {
-  <WorkflowDefinition extends WorkflowSchema = typeof emptyWorkflow>(
+  <WorkflowDefinition extends WorkflowSchema>(
     args: BaseMethodArgs & ValidTriggerTypes<WorkflowDefinition>,
   ): ResponseTypes<WorkflowDefinition>;
 };
 
 /** @description Function type for update method */
 type UpdateType = {
-  <WorkflowDefinition extends WorkflowSchema = typeof emptyWorkflow>(
+  <WorkflowDefinition extends WorkflowSchema>(
     args:
       & BaseMethodArgs
       & ValidTriggerTypes<WorkflowDefinition>
