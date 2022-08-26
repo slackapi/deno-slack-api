@@ -56,16 +56,23 @@ export type BaseTrigger<WorkflowDefinition extends WorkflowSchema> = {
   [otherOptions: string]: any;
 } & WorkflowInputsType<WorkflowDefinition["input_parameters"]>;
 
+// deno-lint-ignore no-explicit-any
+type EmptyObject = Record<any, never>;
+type PopulatedArray<T> = [T, ...T[]];
+type EmptyInputs = { inputs?: never | EmptyObject };
+
 type WorkflowInputsType<Params extends InputParameterSchema | undefined> =
   Params extends InputParameterSchema
-    // If there are no required params, inputs are optional
-    ? Params["required"] extends never[] ? {
-        inputs?: InputSchema<Params>;
-      }
+    // If there are no properties, inputs should be empty
+    ? Params["properties"] extends EmptyObject ? EmptyInputs
       // If there are required params, inputs are required
-    : { inputs: InputSchema<Params> }
+    : Params["required"] extends PopulatedArray<string | number> ? {
+        inputs: InputSchema<Params>;
+      }
+      // If there are no required properties, inputs are optional
+    : { inputs?: InputSchema<Params> }
     // If there are no inputs, don't allow them to be set
-    : { inputs?: never };
+    : EmptyInputs;
 
 type InputSchema<Params extends InputParameterSchema | undefined> =
   Params extends InputParameterSchema ? 
@@ -84,7 +91,7 @@ export type WorkflowSchema = {
 
 export type InputParameterSchema = {
   // deno-lint-ignore no-explicit-any
-  properties: Record<string, any>;
+  properties: Record<string, Record<string, any>>;
   required: (string | number)[];
 };
 
