@@ -18,6 +18,11 @@ A webhook trigger can contain an optional webhook object which specifies a filte
   };
 ```
 
+### Context Data Availability
+Like other trigger types, webhook triggers have access to context data which can be used to fill the `inputs` parameter. Unlike other triggers, the context data available
+to a webhook trigger is not predetermined, and will depend on the information sent along with the webhook to activate the trigger. Whatever data comes in the HTTP body of the webhook curl 
+is what is available in {{data}}. So a curl is made with {test: true} in the HTTP body, then you could grab that with {{data.test}}. But unlike other trigger types we don't know any of that in advance.
+
 ## Usage
 
 ### Webhook Trigger Without Filter
