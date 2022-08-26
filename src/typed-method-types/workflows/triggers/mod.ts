@@ -1,3 +1,4 @@
+import { PopulatedArray } from "../../../type-helpers.ts";
 import { BaseMethodArgs, BaseResponse } from "../../../types.ts";
 import {
   EventTrigger,
@@ -27,6 +28,8 @@ export const TriggerTypes = {
   Webhook: "webhook",
 } as const;
 
+type NO_GENERIC_TITLE = "#no-generic";
+
 export type WorkflowInput = {
   // deno-lint-ignore no-explicit-any
   value: any;
@@ -40,8 +43,9 @@ type ResponseTypes<
   & ScheduledTriggerResponse<WorkflowDefinition>
   & WebhookTriggerResponse<WorkflowDefinition>;
 
-type WorkflowStringFormat<AcceptedString extends string> =
-  `${string}#/workflows/${AcceptedString}`;
+type WorkflowStringFormat<AcceptedString extends string | undefined> =
+  AcceptedString extends string ? `${string}#/workflows/${AcceptedString}`
+    : `${string}#/workflows/${string}`;
 
 export type BaseTrigger<WorkflowDefinition extends WorkflowSchema> = {
   /** @description The type of trigger */
@@ -54,11 +58,15 @@ export type BaseTrigger<WorkflowDefinition extends WorkflowSchema> = {
   description?: string;
   // deno-lint-ignore no-explicit-any
   [otherOptions: string]: any;
-} & WorkflowInputsType<WorkflowDefinition["input_parameters"]>;
+} & WorkflowInputs<WorkflowDefinition>;
+
+type WorkflowInputs<WorkflowDefinition extends WorkflowSchema> =
+  WorkflowDefinition["title"] extends NO_GENERIC_TITLE
+    ? { inputs?: Record<string, WorkflowInput> }
+    : WorkflowInputsType<WorkflowDefinition["input_parameters"]>;
 
 // deno-lint-ignore no-explicit-any
 type EmptyObject = Record<any, never>;
-type PopulatedArray<T> = [T, ...T[]];
 type EmptyInputs = { inputs?: never | EmptyObject };
 
 type WorkflowInputsType<Params extends InputParameterSchema | undefined> =
@@ -81,7 +89,7 @@ type InputSchema<Params extends InputParameterSchema | undefined> =
     : Record<string, WorkflowInput>;
 
 export type WorkflowSchema = {
-  callback_id: string;
+  callback_id?: string;
   description?: string;
   input_parameters?: InputParameterSchema;
   // deno-lint-ignore no-explicit-any
@@ -137,8 +145,11 @@ export type TriggerIdType = {
   trigger_id: string;
 };
 
+// Set a default for any direct uses of this type for the CLI
 export type ValidTriggerTypes<
-  WorkflowDefinition extends WorkflowSchema,
+  WorkflowDefinition extends WorkflowSchema = {
+    title: NO_GENERIC_TITLE;
+  },
 > =
   | EventTrigger<WorkflowDefinition>
   | ScheduledTrigger<WorkflowDefinition>
