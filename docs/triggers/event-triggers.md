@@ -61,10 +61,10 @@ The inputs paramater has access to context information from when the trigger is 
 #### reaction_added
 ```json
 "data": {             
-  "event_type": “slack#/events/reaction_added",             
-  “user_id”: "U0GEV077Y",             
-  "message_ts”: "1535430114.000100”,             
-  "channel_id”: "C0GEV71UG",             
+  "event_type": "slack#/events/reaction_added",             
+  "user_id": "U0GEV077Y",             
+  "message_ts": "1535430114.000100",             
+  "channel_id": "C0GEV71UG",             
   "reaction": "joy"         
 }
 ```
@@ -72,15 +72,15 @@ The inputs paramater has access to context information from when the trigger is 
 #### message_metadata_posted
 ```json
 "data": {             
-  "event_type": “slack#/events/message_metadata_posted",              
+  "event_type": "slack#/events/message_metadata_posted",              
   "app_id": "A0A0000SZ",              
   "user_id": "URQE9F26L",              
   "channel_id": "C0A0000D7",              
-  "message_ts": "1630708981.000001”              
+  "message_ts": "1630708981.000001",              
   "metadata": {                  
     "event_type": "incident_created",                  
     "event_payload": {                     
-      “incident”: {                          
+      "incident": {                          
         "id": 123,                          
         "summary": "Someone tripped over",                          
         "sev": 1                      
@@ -118,11 +118,11 @@ The inputs paramater has access to context information from when the trigger is 
 ```json
 "data": {             
   "event_type": "slack#/events/channel_created",             
-  “channel_id": “C024BE91L”,             
-  “channel_name": “fun”,             
-  “channel_type": “public”,             
-  "creator_id": "U024BE7LH”              
-  “created": 1360782804,         
+  "channel_id": "C024BE91L",             
+  "channel_name": "fun",             
+  "channel_type": "public",             
+  "creator_id": "U024BE7LH",              
+  "created": 1360782804,         
 }
 ```
 
@@ -131,13 +131,13 @@ The inputs paramater has access to context information from when the trigger is 
 "data": {             
   "event_type": "slack#/events/user_joined_team",              
   "user": {
-    'id' => ‘U123’    
-    'team_id' => ‘T123’,    
-    'name' => ‘John Doe’,    
-    'display_name' => ‘John Doe’,    
-    'real_name' => ‘John Doe’,    
-    'timezone' => 'America/Los_Angeles',    
-    'is_bot' => false, 
+    "id": "U123",
+    "team_id" : "T123",    
+    "name" : "John Doe",    
+    "display_name" : "John Doe",    
+    "real_name" : "John Doe",    
+    "timezone" : "America/Los_Angeles",    
+    "is_bot" : false, 
   }            
 }
 ```
@@ -145,8 +145,8 @@ The inputs paramater has access to context information from when the trigger is 
 ```json
 "data": {             
   "event_type": "slack#/events/emoji_changed",             
-  “subtype”: “remove”,  // remove, rename, add             
-  “names”: [“picard_facepalm”],            
+  "subtype": "remove",  // remove, rename, add             
+  "names": ["picard_facepalm"],            
   "message_ts" : "1361482916.000004"         
 }
 ```
@@ -162,19 +162,19 @@ The inputs paramater has access to context information from when the trigger is 
 ```
 #### reaction_removed
 ```json
-“data”: {             
-  "event_type": “slack#/events/reaction_removed",             
-  “user_id”: "U0GEV077Y",             
-  "message_ts”: "1535430114.000100”,             
-  "channel_id”: "C0GEV71UG",             
+"data": {             
+  "event_type": "slack#/events/reaction_removed",             
+  "user_id": "U0GEV077Y",             
+  "message_ts": "1535430114.000100",             
+  "channel_id": "C0GEV71UG",             
   "reaction": "thumbsup"         
 }
 ```
 
 #### channel_deleted
 ```json
-“data”: {             
-  "event_type": “slack#/events/channel_deleted",              
+"data": {             
+  "event_type": "slack#/events/channel_deleted",              
   "channel_id": "C013PL9S6D8",              
   "channel_type": "public/private/im/mpim",              
   "channel_name": "project_planning",              
@@ -184,8 +184,8 @@ The inputs paramater has access to context information from when the trigger is 
 
 #### channel_renamed
 ```json
-“data”: {             
-  "event_type": “slack#/events/channel_renamed",             
+"data": {             
+  "event_type": "slack#/events/channel_renamed",             
   "user_id": "U325JGH5",             
   "channel_id": "C013PL9S6D8",              
   "channel_type": "public/private/im/mpim",              
@@ -195,25 +195,25 @@ The inputs paramater has access to context information from when the trigger is 
 
 #### pin_added
 ```json
-“data”: {             
-  "event_type": “slack#/events/pin_added",              
+"data": {             
+  "event_type": "slack#/events/pin_added",              
   "channel_id": "C013PL9S6D8",              
-  “user_id” "U024BE7LH”,              
+  "user_id": "U024BE7LH",              
   "channel_type": "public/private/im/mpim",              
   "channel_name": "project_planning",             
-  “message_ts”: 1360782804.083113         
+  "message_ts": 1360782804.083113         
 }
 ```
 
 #### pin_removed
 ```json
-“data”: {              
-  "event_type": “slack#/events/pin_removed",              
+"data": {              
+  "event_type": "slack#/events/pin_removed",              
   "user_id": "U024BE7LH",              
   "channel_id": "C013PL9S6D8",              
   "channel_type": "public/private/im/mpim",              
   "channel_name": "project_planning",             
-  “message_ts”: “1360782804.083113”                     
+  "message_ts": "1360782804.083113"                     
 }
 ```
 
@@ -221,62 +221,62 @@ The inputs paramater has access to context information from when the trigger is 
 ```json
 "data": {             
   "event_type": "slack#/events/channel_archived",             
-  “user_id”: "U024BE7LH",             
-  “channel_id”: "C024BE91L”,             
+  "user_id": "U024BE7LH",             
+  "channel_id": "C024BE91L",             
   "channel_type": "public/private/im/mpim",         
 }
 ```
 
 #### channel_unarchived
 ```json
-“data”: {              
-  "event_type": “slack#/events/channel_unarchived",             
-  “user_id”: "U024BE7LH",             
-  “channel_id”: "C024BE91L”,             
+"data": {              
+  "event_type": "slack#/events/channel_unarchived",             
+  "user_id": "U024BE7LH",             
+  "channel_id": "C024BE91L",             
   "channel_type": "public/private/im/mpim",              
-  “channel_name”: “cool-channel”         
+  "channel_name": "cool-channel"         
 }
 ```
 
 #### channel_shared
 ```json
-“data”: {              
-  "event_type": “slack#/events/channel_shared",              
-  “connected_team_id”: “E163Q94DX”              
-  “channel_id”: "C024BE91L”,             
+"data": {              
+  "event_type": "slack#/events/channel_shared",              
+  "connected_team_id": "E163Q94DX",            
+  "channel_id": "C024BE91L",             
   "channel_type": "public/private/im/mpim",              
-  “channel_name”: “cool-channel”         
+  "channel_name": "cool-channel"         
 }
 ```
 
 #### channel_unshared
 ```json
-“data”: {              
-  "event_type": “slack#/events/channel_unshared",              
-  “disconnected_team_id”: “E163Q94DX”,              
-  “is_ext_shared”: false,              
-  “channel_id”: "C024BE91L”,             
+"data": {              
+  "event_type": "slack#/events/channel_unshared",              
+  "disconnected_team_id": "E163Q94DX",              
+  "is_ext_shared": false,              
+  "channel_id": "C024BE91L",             
   "channel_type": "public/private/im/mpim",              
-  “channel_name”: “cool-channel”         
+  "channel_name": "cool-channel"         
 }
 ```
 
 #### app_mentioned
 ```json
-“data”: {              
-  "event_type": “slack#/events/app_mentioned",              
-  “user_id:”: “U061F7AUR”,              
-  “text”: "<@U0LAN0Z89> is it everything a river should be?",              
-  “channel_id”: "C024BE91L”,             
+"data": {              
+  "event_type": "slack#/events/app_mentioned",              
+  "user_id:": "U061F7AUR",              
+  "text": "<@U0LAN0Z89> is it everything a river should be?",              
+  "channel_id": "C024BE91L",             
   "channel_type": "public/private/im/mpim",              
-  “channel_name”: “cool-channel”         
+  "channel_name": "cool-channel"         
 }
 ```
 
 #### shared_channel_invite_accepted
 ```json
-“data”: {
-  "event_type": “slack#/events/shared_channel_invite_accepted",
+"data": {
+  "event_type": "slack#/events/shared_channel_invite_accepted",
   "approval_required": false,  
   "invite": {    
     "id": "I028YDERZSQ",    
@@ -291,20 +291,20 @@ The inputs paramater has access to context information from when the trigger is 
       "date_created": 1480946400    
     },    
     "inviting_user": {     // Standard hermes user object    
-      'id' => ‘U123’    
-      'team_id' => ‘T123’,    
-      'name' => ‘John Doe’,    
-      'display_name' => ‘John Doe’,    
-      'real_name' => ‘John Doe’,    
-      'timezone' => 'America/Los_Angeles',    
-      'is_bot' => false,     
+      "id" : "U123"    
+      "team_id" : "T123",    
+      "name" : "John Doe",    
+      "display_name" : "John Doe",    
+      "real_name" : "John Doe",    
+      "timezone" : "America/Los_Angeles",    
+      "is_bot" : false,     
     }    
   },  
   "recipient_email": "golden@doodle.com",  
-  "recipient_user_id": "U87654321"  
-  “channel_id”: "C12345678,  
+  "recipient_user_id": "U87654321",  
+  "channel_id": "C12345678",  
   "channel_type": "public/private/im/mpim",  
-  “channel_name”: test-slack-connect  
+  "channel_name": "test-slack-connect",  
   "teams_in_channel": [    
     {      
       "id": "T12345678",      
@@ -316,13 +316,13 @@ The inputs paramater has access to context information from when the trigger is 
     }  
   ],  
   "accepting_user": {    // Standard hermes user object    
-    'id' => ‘U123’    
-    'team_id' => ‘T123’,    
-    'name' => ‘John Doe’,    
-    'display_name' => ‘John Doe’,    
-    'real_name' => ‘John Doe’,    
-    'timezone' => 'America/Los_Angeles',    
-    'is_bot' => false,  
+    "id": "U123",    
+    "team_id": "T123",    
+    "name": "John Doe",    
+    "display_name": "John Doe",    
+    "real_name": "John Doe",    
+    "timezone": "America/Los_Angeles",    
+    "is_bot": false,  
   }
 }
 ```
@@ -344,20 +344,20 @@ The inputs paramater has access to context information from when the trigger is 
       "date_created": 1480946400    
     },    
     "inviting_user": {    // Standard hermes user object    
-      'id' => ‘U123’    
-      'team_id' => ‘T123’,    
-      'name' => ‘John Doe’,    
-      'display_name' => ‘John Doe’,    
-      'real_name' => ‘John Doe’,    
-      'timezone' => 'America/Los_Angeles',    
-      'is_bot' => false,    
+      "id": "U123",   
+      "team_id": "T123",    
+      "name": "John Doe",    
+      "display_name": "John Doe",    
+      "real_name": "John Doe",    
+      "timezone": "America/Los_Angeles",    
+      "is_bot": false,    
     },    
     "recipient_email": "golden@doodle.com",    
     "recipient_user_id": "U87654321"
   },
-  “channel_id”: "C12345678,  
+  "channel_id": "C12345678",  
   "channel_type": "public/private/im/mpim",  
-  “channel_name”: test-slack-connect,  
+  "channel_name": "test-slack-connect",  
   "approving_team_id": "T87654321",  
   "teams_in_channel": [    
     {      
@@ -370,13 +370,13 @@ The inputs paramater has access to context information from when the trigger is 
     }  
   ],  
   "approving_user": {  // Standard hermes user object    
-    'id' => ‘U123’    
-    'team_id' => ‘T123’,    
-    'name' => ‘John Doe’,    
-    'display_name' => ‘John Doe’,    
-    'real_name' => ‘John Doe’,    
-    'timezone' => 'America/Los_Angeles',    
-    'is_bot' => false,  
+    "id": "U123",    
+    "team_id": "T123",    
+    "name": "John Doe",    
+    "display_name": "John Doe",    
+    "real_name": "John Doe",    
+    "timezone": "America/Los_Angeles",    
+    "is_bot": false,  
   }, 
 }
 ```
@@ -398,20 +398,20 @@ The inputs paramater has access to context information from when the trigger is 
       "date_created": 1480946400    
     },    
     "inviting_user": {    // Standard hermes user object    
-      'id' => ‘U123’    
-      'team_id' => ‘T123’,    
-      'name' => ‘John Doe’,    
-      'display_name' => ‘John Doe’,    
-      'real_name' => ‘John Doe’,    
-      'timezone' => 'America/Los_Angeles',    
-      'is_bot' => false,    
+      "id" : "U123"    
+      "team_id" : "T123",    
+      "name" : "John Doe",    
+      "display_name" : "John Doe",    
+      "real_name" : "John Doe",    
+      "timezone" : "America/Los_Angeles",    
+      "is_bot" : false,    
     },    
     "recipient_email": "golden@doodle.com",    
     "recipient_user_id": "U87654321"
   },
-  “channel_id”: "C12345678,  
+  "channel_id": "C12345678",  
   "channel_type": "public/private/im/mpim",  
-  “channel_name”: test-slack-connect,  
+  "channel_name": "test-slack-connect",  
   "declining_team_id": "T87654321",  
   "teams_in_channel": [    
     {      
@@ -424,13 +424,13 @@ The inputs paramater has access to context information from when the trigger is 
     }  
   ],  
   "declining_user": {  // Standard hermes user object    
-    'id' => ‘U123’    
-    'team_id' => ‘T123’,    
-    'name' => ‘John Doe’,    
-    'display_name' => ‘John Doe’,    
-    'real_name' => ‘John Doe’,    
-    'timezone' => 'America/Los_Angeles',    
-    'is_bot' => false,  
+    "id" : "U123",    
+    "team_id" : "T123",    
+    "name" : "John Doe",    
+    "display_name" : "John Doe",    
+    "real_name" : "John Doe",    
+    "timezone" : "America/Los_Angeles",    
+    "is_bot" : false,  
   }, 
 }
 ```
@@ -452,19 +452,19 @@ The inputs paramater has access to context information from when the trigger is 
       "date_created": 1480946400      
     },      
     "inviting_user": {       // Standard hermes user object    
-      'id' => ‘U123’    
-      'team_id' => ‘T123’,    
-      'name' => ‘John Doe’,    
-      'display_name' => ‘John Doe’,    
-      'real_name' => ‘John Doe’,    
-      'timezone' => 'America/Los_Angeles',    
-      'is_bot' => false,      
+      "id": "U123",    
+      "team_id": "T123",    
+      "name": "John Doe",    
+      "display_name": "John Doe",    
+      "real_name": "John Doe",    
+      "timezone": "America/Los_Angeles",    
+      "is_bot": false,      
     },      
     "recipient_user_id": "U87654321"    
   },    
-  “channel_id”: "C12345678,  
+  "channel_id": "C12345678",  
   "channel_type": "public/private/im/mpim",  
-  “channel_name”: test-slack-connect,47639900  
+  "channel_name": "test-slack-connect",  
 }
 ```
 
