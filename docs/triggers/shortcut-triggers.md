@@ -16,8 +16,26 @@ A Shortcut trigger can contain an optional shortcut object which specifies addit
     button_text: string;
   };
 ```
+
+### Shortcut Data Context Object
+The Shortcut trigger also has access to a data context object which includes information related to the context of the trigger activation. This data object can be used to fill the optional input fields of the trigger being activated. The data context parameters available to a shortcut trigger are as follows:
+```ts
+  'data.user_id': string,
+	'data.channel_id': string,
+	'data.interactivity': InteractivityValue::T,
+	'data.location': string, //message, file, bookmark
+	'data.message_ts': string,
+	'data.user': UserContextValue::T,
+	'data.action_id': string,
+	'data.block_id': string,
+	'data.bookmark_id': string,
+	'data.canvas_id': string,
+```
+
+
 ### Shortcut Unfurling 
 A shortcut trigger can be used to create a shortcut which, when clicked or activated, will run through a workflow. When a shortcut trigger is created through the API, it's return object will include a shortcut_url parameter which can be pasted into the client and unfurled to reveal a shortcut link. Clicking on this link will run through the associated workflow.
+
 ## Usage
 ### Example Shortcut Trigger With Shortcut Object
 
