@@ -34,7 +34,23 @@ The frequency object contains information on the repeating schedule for the trig
 | repeats_every      | No  |How often the trigger will repeat, respective to the frequency type|
 | on_week_num      | No  |The nth week of the chosen frequency type (not available for daily, weekly, or yearly triggers)|
 
+### Scheduled Data Context Object
+The Scheduled trigger also has access to a data context object which includes information related to the context of the trigger activation. This data object can be used to fill the optional input fields of the trigger being activated. The data context parameters available to a scheduled trigger are as follows:
+```ts
+  'data.user_id': string,
+```
 
+The data context can be used in the input parameter as follows:
+
+```ts
+{ 
+ inputs: {
+  a_input_value: {
+    value: {{data.user_id}}
+  }
+ }
+}
+```
 
 ## Usage
 

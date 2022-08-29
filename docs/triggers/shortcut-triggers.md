@@ -32,6 +32,18 @@ The Shortcut trigger also has access to a data context object which includes inf
 	'data.canvas_id': string,
 ```
 
+The data context can be used in the input parameter as follows:
+
+```ts
+{ 
+ inputs: {
+  a_input_value: {
+    value: {{data.user_id}}
+  }
+ }
+}
+```
+
 
 ### Shortcut Unfurling 
 A shortcut trigger can be used to create a shortcut which, when clicked or activated, will run through a workflow. When a shortcut trigger is created through the API, it's return object will include a shortcut_url parameter which can be pasted into the client and unfurled to reveal a shortcut link. Clicking on this link will run through the associated workflow.
