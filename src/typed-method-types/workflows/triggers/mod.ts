@@ -63,30 +63,32 @@ export type BaseTrigger<WorkflowDefinition extends WorkflowSchema> = {
 type WorkflowInputs<WorkflowDefinition extends WorkflowSchema> =
   WorkflowDefinition["title"] extends NO_GENERIC_TITLE
     ? { inputs?: Record<string, WorkflowInput> }
-    : WorkflowInputsType<WorkflowDefinition["input_parameters"]>;
+    : [keyof WorkflowDefinition["input_parameters"]] extends [string]
+      ? WorkflowInputsType<NonNullable<WorkflowDefinition["input_parameters"]>>
+    : EmptyInputs;
 
 // deno-lint-ignore no-explicit-any
 type EmptyObject = Record<any, never>;
 type EmptyInputs = { inputs?: never | EmptyObject };
 
-type WorkflowInputsType<Params extends InputParameterSchema | undefined> =
-  Params extends InputParameterSchema
-    // If there are no properties, inputs should be empty
-    ? Params["properties"] extends EmptyObject ? EmptyInputs
-      // If there are required params, inputs are required
-    : Params["required"] extends PopulatedArray<string | number> ? {
-        inputs: InputSchema<Params>;
-      }
-      // If there are no required properties, inputs are optional
-    : { inputs?: InputSchema<Params> }
-    // If there are no inputs, don't allow them to be set
+type WorkflowInputsType<Params extends InputParameterSchema> =
+  [keyof Params["properties"]] extends [string]
+    // Since never extends string, must check for no properties
+    ? [keyof Params["properties"]] extends [never] ? EmptyInputs
+    : Params["required"] extends Array<infer T> ? [T] extends [never]
+        // If there are no required properties, inputs are optional
+        ? { inputs?: InputSchema<Params> }
+        // If there are required params, inputs are required
+      : { inputs: InputSchema<Params> }
+      // If there are no inputs, don't allow them to be set
+    : EmptyInputs
     : EmptyInputs;
 
-type InputSchema<Params extends InputParameterSchema | undefined> =
-  Params extends InputParameterSchema ? 
-      & { [k in keyof Params["properties"]]?: WorkflowInput }
-      & { [k in Params["required"][number]]: WorkflowInput }
-    : Record<string, WorkflowInput>;
+type InputSchema<Params extends InputParameterSchema> = Params extends
+  InputParameterSchema ? 
+    & { [k in keyof Params["properties"]]?: WorkflowInput }
+    & { [k in Params["required"][number]]: WorkflowInput }
+  : Record<string, WorkflowInput>;
 
 export type WorkflowSchema = {
   callback_id?: string;
@@ -146,10 +148,10 @@ export type TriggerIdType = {
 };
 
 // Set a default for any direct uses of this type for the CLI
+type DEFAULT_WORKFLOW_TYPE = { title: NO_GENERIC_TITLE };
+
 export type ValidTriggerTypes<
-  WorkflowDefinition extends WorkflowSchema = {
-    title: NO_GENERIC_TITLE;
-  },
+  WorkflowDefinition extends WorkflowSchema = DEFAULT_WORKFLOW_TYPE,
 > =
   | EventTrigger<WorkflowDefinition>
   | ScheduledTrigger<WorkflowDefinition>
@@ -158,14 +160,14 @@ export type ValidTriggerTypes<
 
 /** @description Function type for create method */
 type CreateType = {
-  <WorkflowDefinition extends WorkflowSchema>(
+  <WorkflowDefinition extends WorkflowSchema = DEFAULT_WORKFLOW_TYPE>(
     args: BaseMethodArgs & ValidTriggerTypes<WorkflowDefinition>,
   ): ResponseTypes<WorkflowDefinition>;
 };
 
 /** @description Function type for update method */
 type UpdateType = {
-  <WorkflowDefinition extends WorkflowSchema>(
+  <WorkflowDefinition extends WorkflowSchema = DEFAULT_WORKFLOW_TYPE>(
     args:
       & BaseMethodArgs
       & ValidTriggerTypes<WorkflowDefinition>

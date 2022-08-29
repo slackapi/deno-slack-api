@@ -35,71 +35,101 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
 
   await t.step("no generics required", async (t) => {
     await t.step("catches invalid workflow strings", async () => {
-      const trigger: Trigger = {
+      const _trigger: Trigger = {
         name: "TEST",
         type: "shortcut",
         //@ts-expect-error invalid workflow string
         workflow: "example",
       };
-      await client.workflows.triggers.create(trigger);
+      await client.workflows.triggers.create({
+        name: "TEST",
+        type: "shortcut",
+        //@ts-expect-error invalid workflow string
+        workflow: "example",
+      });
       assert(true);
     });
 
     await t.step("allows no inputs to be set", async () => {
-      const trigger: Trigger = {
+      const _: Trigger = {
         name: "TEST",
         type: "shortcut",
         workflow: "#/workflows/example",
       };
-      await client.workflows.triggers.create(trigger);
+      await client.workflows.triggers.create({
+        name: "TEST",
+        type: "shortcut",
+        workflow: "#/workflows/example",
+      });
       assert(true);
     });
 
     await t.step("allows empty inputs to be set", async () => {
-      const trigger: Trigger = {
+      const _: Trigger = {
         name: "TEST",
         type: "shortcut",
         workflow: "#/workflows/example",
         inputs: {},
       };
-      await client.workflows.triggers.create(trigger);
+      await client.workflows.triggers.create({
+        name: "TEST",
+        type: "shortcut",
+        workflow: "#/workflows/example",
+        inputs: {},
+      });
 
       assert(true);
     });
 
     await t.step("allows populated inputs to be set", async () => {
-      const trigger: Trigger = {
+      const _: Trigger = {
         name: "TEST",
         type: "shortcut",
         workflow: "#/workflows/example",
         inputs: { sample: { value: "test" } },
       };
-      await client.workflows.triggers.create(trigger);
+      await client.workflows.triggers.create({
+        name: "TEST",
+        type: "shortcut",
+        workflow: "#/workflows/example",
+        inputs: { sample: { value: "test" } },
+      });
 
       assert(true);
     });
 
     await t.step("catches error if inputs are wrong", async () => {
-      const trigger: Trigger = {
+      const _: Trigger = {
         name: "TEST",
         type: "shortcut",
         workflow: "#/workflows/example",
         // @ts-expect-error sample cant be set to a string
         inputs: { sample: "test" },
       };
-      await client.workflows.triggers.create(trigger);
+      await client.workflows.triggers.create({
+        name: "TEST",
+        type: "shortcut",
+        workflow: "#/workflows/example",
+        // @ts-expect-error sample cant be set to a string
+        inputs: { sample: "test" },
+      });
 
       assert(true);
     });
 
     await t.step("with trigger update", async () => {
-      const trigger: Trigger = {
+      const _: Trigger = {
         name: "TEST",
         type: "shortcut",
         workflow: "#/workflows/example",
         trigger_id: "example",
       };
-      await client.workflows.triggers.create(trigger);
+      await client.workflows.triggers.create({
+        name: "TEST",
+        type: "shortcut",
+        workflow: "#/workflows/example",
+        trigger_id: "example",
+      });
 
       assert(true);
     });
@@ -107,50 +137,70 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
 
   await t.step("with workflow generic", async (t) => {
     await t.step("catches invalid workflow string", async () => {
-      const trigger: Trigger<ExampleWorkflow> = {
+      const _: Trigger<ExampleWorkflow> = {
         name: "TEST",
         type: "shortcut",
         // @ts-expect-error invalid workflow string
         workflow: "example",
       };
-      await client.workflows.triggers.create<ExampleWorkflow>(trigger);
+      await client.workflows.triggers.create<ExampleWorkflow>({
+        name: "TEST",
+        type: "shortcut",
+        // @ts-expect-error invalid workflow string
+        workflow: "example",
+      });
 
       assert(true);
     });
 
     await t.step("handles workflow with no defined input params", async (t) => {
       await t.step("allows no inputs to be set", async () => {
-        const trigger: Trigger<ExampleWorkflow> = {
+        const _: Trigger<ExampleWorkflow> = {
           name: "TEST",
           type: "shortcut",
           workflow: "#/workflows/example",
         };
-        await client.workflows.triggers.create<ExampleWorkflow>(trigger);
+        await client.workflows.triggers.create<ExampleWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+        });
 
         assert(true);
       });
 
       await t.step("allows empty inputs to be set", async () => {
-        const trigger: Trigger<ExampleWorkflow> = {
+        const _: Trigger<ExampleWorkflow> = {
           name: "TEST",
           type: "shortcut",
           workflow: "#/workflows/example",
           inputs: {},
         };
-        await client.workflows.triggers.create<ExampleWorkflow>(trigger);
+        await client.workflows.triggers.create<ExampleWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          inputs: {},
+        });
 
         assert(true);
       });
 
       await t.step("catches populated inputs being passed", async () => {
-        const trigger: Trigger<ExampleWorkflow> = {
+        const _: Trigger<ExampleWorkflow> = {
           name: "TEST",
           type: "shortcut",
           workflow: "#/workflows/example",
           // @ts-expect-error inputs shouldn't be set
           inputs: { sample: { value: "test" } },
         };
-        await client.workflows.triggers.create<ExampleWorkflow>(trigger);
+        await client.workflows.triggers.create<ExampleWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          // @ts-expect-error inputs shouldn't be set
+          inputs: { sample: { value: "test" } },
+        });
 
         assert(true);
       });
@@ -158,37 +208,52 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
 
     await t.step("handles workflow with no defined properties", async (t) => {
       await t.step("allows no inputs to be set", async () => {
-        const trigger: Trigger<NoInputWorkflow> = {
+        const _: Trigger<NoInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
           workflow: "#/workflows/example",
         };
-        await client.workflows.triggers.create<NoInputWorkflow>(trigger);
+        await client.workflows.triggers.create<NoInputWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+        });
 
         assert(true);
       });
 
       await t.step("allows empty inputs to be set", async () => {
-        const trigger: Trigger<NoInputWorkflow> = {
+        const _: Trigger<NoInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
           workflow: "#/workflows/example",
           inputs: {},
         };
-        await client.workflows.triggers.create<NoInputWorkflow>(trigger);
+        await client.workflows.triggers.create<NoInputWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          inputs: {},
+        });
 
         assert(true);
       });
 
       await t.step("catches populated inputs being passed", async () => {
-        const trigger: Trigger<NoInputWorkflow> = {
+        const _: Trigger<NoInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
           workflow: "#/workflows/example",
           // @ts-expect-error inputs shouldn't be set
           inputs: { sample: { value: "test" } },
         };
-        await client.workflows.triggers.create<NoInputWorkflow>(trigger);
+        await client.workflows.triggers.create<NoInputWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          // @ts-expect-error inputs shouldn't be set
+          inputs: { sample: { value: "test" } },
+        });
 
         assert(true);
       });
@@ -196,49 +261,69 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
 
     await t.step("handles workflow with only optional inputs", async (t) => {
       await t.step("allows no inputs to be set", async () => {
-        const trigger: Trigger<OptionalInputWorkflow> = {
+        const _: Trigger<OptionalInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
           workflow: "#/workflows/example",
         };
-        await client.workflows.triggers.create<OptionalInputWorkflow>(trigger);
+        await client.workflows.triggers.create<OptionalInputWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+        });
 
         assert(true);
       });
 
       await t.step("allows empty inputs to be set", async () => {
-        const trigger: Trigger<OptionalInputWorkflow> = {
+        const _: Trigger<OptionalInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
           workflow: "#/workflows/example",
           inputs: {},
         };
-        await client.workflows.triggers.create<OptionalInputWorkflow>(trigger);
+        await client.workflows.triggers.create<OptionalInputWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          inputs: {},
+        });
 
         assert(true);
       });
 
       await t.step("allows optional inputs to be set", async () => {
-        const trigger: Trigger<OptionalInputWorkflow> = {
+        const _: Trigger<OptionalInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
           workflow: "#/workflows/example",
           inputs: { optional: { value: "test" } },
         };
-        await client.workflows.triggers.create<OptionalInputWorkflow>(trigger);
+        await client.workflows.triggers.create<OptionalInputWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          inputs: { optional: { value: "test" } },
+        });
 
         assert(true);
       });
 
       await t.step("catches error if inputs are wrong", async () => {
-        const trigger: Trigger<OptionalInputWorkflow> = {
+        const _: Trigger<OptionalInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
           workflow: "#/workflows/example",
           // @ts-expect-error sample cant be set to a string
           inputs: { sample: "test" },
         };
-        await client.workflows.triggers.create<OptionalInputWorkflow>(trigger);
+        await client.workflows.triggers.create<OptionalInputWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          // @ts-expect-error sample cant be set to a string
+          inputs: { sample: "test" },
+        });
 
         assert(true);
       });
@@ -246,38 +331,54 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
 
     await t.step("handles workflow with only required inputs", async (t) => {
       await t.step("requires inputs to be set", async () => {
-        const trigger: Trigger<RequiredInputWorkflow> = {
+        const _: Trigger<RequiredInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
           workflow: "#/workflows/example",
           inputs: { required: { value: "test" } },
         };
-        await client.workflows.triggers.create<RequiredInputWorkflow>(trigger);
+        await client.workflows.triggers.create<RequiredInputWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          inputs: { required: { value: "test" } },
+        });
 
         assert(true);
       });
 
       await t.step("catches empty inputs being set", async () => {
-        const trigger: Trigger<RequiredInputWorkflow> = {
+        const _: Trigger<RequiredInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
           workflow: "#/workflows/example",
           //@ts-expect-error cant pass empty object
           inputs: {},
         };
-        await client.workflows.triggers.create<RequiredInputWorkflow>(trigger);
+        await client.workflows.triggers.create<RequiredInputWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          //@ts-expect-error cant pass empty object
+          inputs: {},
+        });
 
         assert(true);
       });
 
       await t.step("allows required inputs to be set", async () => {
-        const trigger: Trigger<RequiredInputWorkflow> = {
+        const _: Trigger<RequiredInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
           workflow: "#/workflows/example",
           inputs: { required: { value: "test" } },
         };
-        await client.workflows.triggers.create<RequiredInputWorkflow>(trigger);
+        await client.workflows.triggers.create<RequiredInputWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          inputs: { required: { value: "test" } },
+        });
 
         assert(true);
       });
@@ -285,37 +386,53 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
 
     await t.step("handles workflow with a mix of inputs", async (t) => {
       await t.step("requires inputs to be set", async () => {
-        const trigger: Trigger<MixedInputWorkflow> = {
+        const _: Trigger<MixedInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
           workflow: "#/workflows/example",
           inputs: { required: { value: "test" } },
         };
-        await client.workflows.triggers.create<MixedInputWorkflow>(trigger);
+        await client.workflows.triggers.create<MixedInputWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          inputs: { required: { value: "test" } },
+        });
         assert(true);
       });
 
       await t.step("catches empty inputs being set", async () => {
-        const trigger: Trigger<MixedInputWorkflow> = {
+        const _: Trigger<MixedInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
           workflow: "#/workflows/example",
           //@ts-expect-error cant pass empty object
           inputs: {},
         };
-        await client.workflows.triggers.create<MixedInputWorkflow>(trigger);
+        await client.workflows.triggers.create<MixedInputWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          //@ts-expect-error cant pass empty object
+          inputs: {},
+        });
 
         assert(true);
       });
 
       await t.step("allows required inputs to be set", async () => {
-        const trigger: Trigger<MixedInputWorkflow> = {
+        const _: Trigger<MixedInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
           workflow: "#/workflows/example",
           inputs: { required: { value: "test" } },
         };
-        await client.workflows.triggers.create<MixedInputWorkflow>(trigger);
+        await client.workflows.triggers.create<MixedInputWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          inputs: { required: { value: "test" } },
+        });
 
         assert(true);
       });
@@ -323,7 +440,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
       await t.step(
         "allows required and optional inputs to be set",
         async () => {
-          const trigger: Trigger<MixedInputWorkflow> = {
+          const _: Trigger<MixedInputWorkflow> = {
             name: "TEST",
             type: "shortcut",
             workflow: "#/workflows/example",
@@ -332,7 +449,15 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
               optional: { value: "test2" },
             },
           };
-          await client.workflows.triggers.create<MixedInputWorkflow>(trigger);
+          await client.workflows.triggers.create<MixedInputWorkflow>({
+            name: "TEST",
+            type: "shortcut",
+            workflow: "#/workflows/example",
+            inputs: {
+              required: { value: "test" },
+              optional: { value: "test2" },
+            },
+          });
           assert(true);
         },
       );
