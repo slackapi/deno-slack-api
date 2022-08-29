@@ -1,4 +1,3 @@
-import { PopulatedArray } from "../../../type-helpers.ts";
 import { BaseMethodArgs, BaseResponse } from "../../../types.ts";
 import {
   EventTrigger,
