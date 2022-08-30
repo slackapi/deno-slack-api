@@ -27,9 +27,9 @@ export type ShortcutResponse<
 > =
   & BaseResponse
   & {
-    trigger: ShortcutTriggerObject<WorkflowDefinition>;
+    trigger: ShortcutTriggerResponseObject<WorkflowDefinition>;
   };
-export type ShortcutTriggerObject<
+export type ShortcutTriggerResponseObject<
   WorkflowDefinition extends WorkflowSchema,
 > =
   & BaseTriggerResponse<WorkflowDefinition>

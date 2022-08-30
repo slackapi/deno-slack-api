@@ -82,15 +82,15 @@ type ListArgs = {
   is_published?: boolean;
 };
 
-type ValidTriggerObjects =
-  | ShortcutTriggerObject<WorkflowSchema>
-  | EventTriggerObject<WorkflowSchema>
-  | ScheduledTriggerObject<WorkflowSchema>
-  | WebhookTriggerObject<WorkflowSchema>;
+type ValidTriggerResponseObjects =
+  | ShortcutTriggerResponseObject<WorkflowSchema>
+  | EventTriggerResponseObject<WorkflowSchema>
+  | ScheduledTriggerResponseObject<WorkflowSchema>
+  | WebhookTriggerResponseObject<WorkflowSchema>;
 
 type ListResponse = {
   ok: true;
-  triggers: ValidTriggerObjects[];
+  triggers: ValidTriggerResponseObjects[];
 };
 
 type ListTriggerResponse = Promise<

@@ -126,10 +126,10 @@ export type ScheduledResponse<
 > =
   & BaseResponse
   & {
-    trigger: ScheduledTriggerObject<WorkflowDefinition>;
+    trigger: ScheduledTriggerResponseObject<WorkflowDefinition>;
   };
 
-export type ScheduledTriggerObject<
+export type ScheduledTriggerResponseObject<
   WorkflowDefinition extends WorkflowSchema,
 > =
   & BaseTriggerResponse<WorkflowDefinition>

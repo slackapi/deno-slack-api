@@ -28,10 +28,10 @@ export type WebhookResponse<
 > =
   & BaseResponse
   & {
-    trigger: WebhookTriggerObject<WorkflowDefinition>;
+    trigger: WebhookTriggerResponseObject<WorkflowDefinition>;
   };
 
-export type WebhookTriggerObject<
+export type WebhookTriggerResponseObject<
   WorkflowDefinition extends WorkflowSchema,
 > =
   & BaseTriggerResponse<WorkflowDefinition>

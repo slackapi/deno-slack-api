@@ -60,6 +60,8 @@ type ChannelEvents =
   & {
     /** @description The channel id's that this event listens on */
     channel_ids: PopulatedArray<string>;
+    // deno-lint-ignore no-explicit-any
+    [otherOptions: string]: any;
   };
 
 type ChannelEvent = BaseEvent & {
@@ -90,6 +92,8 @@ type WorkspaceEvents =
   & {
     /** @description The team id's that this event listens on */
     team_ids?: PopulatedArray<string>;
+    // deno-lint-ignore no-explicit-any
+    [otherOptions: string]: any;
   };
 
 type BaseWorkspaceEvent = BaseEvent & {
@@ -122,10 +126,10 @@ export type EventResponse<
 > =
   & BaseResponse
   & {
-    trigger: EventTriggerObject<WorkflowDefinition>;
+    trigger: EventTriggerResponseObject<WorkflowDefinition>;
   };
 
-export type EventTriggerObject<
+export type EventTriggerResponseObject<
   WorkflowDefinition extends WorkflowSchema,
 > =
   & BaseTriggerResponse<WorkflowDefinition>
