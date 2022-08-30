@@ -17,11 +17,15 @@ type WorkflowInput = {
 };
 
 /** This is the structure for when inputs are empty */
-type EmptyInputs = { inputs?: never | EmptyObject };
+type EmptyInputs = {
+  /** @description The inputs provided to the workflow */
+  inputs?: never | EmptyObject;
+};
 
 /** This is the structure for when inputs are populated */
 type PopulatedInputs<Params extends InputParameterSchema> = {
-  /** @description */
+  /** @description The inputs provided to the workflow */
+
   inputs?: InputSchema<Params>;
 };
 
@@ -60,8 +64,10 @@ type WorkflowInputsType<Params extends InputParameterSchema> =
  */
 
 export type WorkflowInputs<WorkflowDefinition extends WorkflowSchema> =
-  WorkflowDefinition["title"] extends NO_GENERIC_TITLE
-    ? { inputs?: Record<string, WorkflowInput> }
+  WorkflowDefinition["title"] extends NO_GENERIC_TITLE ? {
+      /** @description The inputs provided to the workflow */
+      inputs?: Record<string, WorkflowInput>;
+    }
     : [keyof WorkflowDefinition["input_parameters"]] extends [string]
       ? WorkflowInputsType<NonNullable<WorkflowDefinition["input_parameters"]>>
     : EmptyInputs;
