@@ -2,23 +2,23 @@ import { BaseMethodArgs, BaseResponse } from "../../../types.ts";
 import { InputParameterSchema, WorkflowInputs } from "./inputs.ts";
 import {
   EventTrigger,
-  EventTriggerObject,
   EventTriggerResponse,
+  EventTriggerResponseObject,
 } from "./event.ts";
 import {
   ScheduledTrigger,
-  ScheduledTriggerObject,
   ScheduledTriggerResponse,
+  ScheduledTriggerResponseObject,
 } from "./scheduled.ts";
 import {
   ShortcutTrigger,
-  ShortcutTriggerObject,
   ShortcutTriggerResponse,
+  ShortcutTriggerResponseObject,
 } from "./shortcut.ts";
 import {
   WebhookTrigger,
-  WebhookTriggerObject,
   WebhookTriggerResponse,
+  WebhookTriggerResponseObject,
 } from "./webhook.ts";
 
 export const TriggerTypes = {
