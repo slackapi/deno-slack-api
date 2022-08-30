@@ -43,6 +43,8 @@ type InputSchema<Params extends InputParameterSchema> = Params extends
  * Returns an object where the input object is either required or optional.
  */
 type WorkflowInputsType<Params extends InputParameterSchema> =
+  // This intentionally avoids Distributive Conditional Types, so be careful removing any of the following square brackets
+  // See https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types for more details
   [keyof Params["properties"]] extends [string]
     // Since never extends string, must check for no properties
     ? [keyof Params["properties"]] extends [never] ? EmptyInputs
@@ -64,6 +66,7 @@ export type WorkflowInputs<WorkflowDefinition extends WorkflowSchema> =
       /** @description The inputs provided to the workflow */
       inputs?: Record<string, WorkflowInput>;
     }
+    // This also intentionally avoids Distributive Conditional Types, so be careful removing the following square brackets
     : [keyof WorkflowDefinition["input_parameters"]] extends [string]
       ? WorkflowInputsType<NonNullable<WorkflowDefinition["input_parameters"]>>
     : EmptyInputs;
