@@ -90,6 +90,7 @@ type ValidTriggerResponseObjects =
 
 type ListResponse = {
   ok: true;
+  /** @description List of triggers in the workspace */
   triggers: ValidTriggerResponseObjects[];
 };
 
