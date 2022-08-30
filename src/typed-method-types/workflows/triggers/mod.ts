@@ -1,4 +1,5 @@
 import { BaseMethodArgs, BaseResponse } from "../../../types.ts";
+import { InputParameterSchema, WorkflowInputs } from "./inputs.ts";
 import {
   EventTrigger,
   EventTriggerObject,
@@ -27,13 +28,9 @@ export const TriggerTypes = {
   Webhook: "webhook",
 } as const;
 
-type NO_GENERIC_TITLE = "#no-generic";
-
-export type WorkflowInput = {
-  // deno-lint-ignore no-explicit-any
-  value: any;
-};
-
+// Set defaults for any direct uses of this type for the CLI
+export type NO_GENERIC_TITLE = "#no-generic";
+type DEFAULT_WORKFLOW_TYPE = { title: NO_GENERIC_TITLE };
 type ResponseTypes<
   WorkflowDefinition extends WorkflowSchema,
 > =
@@ -59,36 +56,6 @@ export type BaseTrigger<WorkflowDefinition extends WorkflowSchema> = {
   [otherOptions: string]: any;
 } & WorkflowInputs<WorkflowDefinition>;
 
-type WorkflowInputs<WorkflowDefinition extends WorkflowSchema> =
-  WorkflowDefinition["title"] extends NO_GENERIC_TITLE
-    ? { inputs?: Record<string, WorkflowInput> }
-    : [keyof WorkflowDefinition["input_parameters"]] extends [string]
-      ? WorkflowInputsType<NonNullable<WorkflowDefinition["input_parameters"]>>
-    : EmptyInputs;
-
-// deno-lint-ignore no-explicit-any
-type EmptyObject = Record<any, never>;
-type EmptyInputs = { inputs?: never | EmptyObject };
-
-type WorkflowInputsType<Params extends InputParameterSchema> =
-  [keyof Params["properties"]] extends [string]
-    // Since never extends string, must check for no properties
-    ? [keyof Params["properties"]] extends [never] ? EmptyInputs
-    : Params["required"] extends Array<infer T> ? [T] extends [never]
-        // If there are no required properties, inputs are optional
-        ? { inputs?: InputSchema<Params> }
-        // If there are required params, inputs are required
-      : { inputs: InputSchema<Params> }
-      // If there are no inputs, don't allow them to be set
-    : EmptyInputs
-    : EmptyInputs;
-
-type InputSchema<Params extends InputParameterSchema> = Params extends
-  InputParameterSchema ? 
-    & { [k in keyof Params["properties"]]?: WorkflowInput }
-    & { [k in Params["required"][number]]: WorkflowInput }
-  : Record<string, WorkflowInput>;
-
 export type WorkflowSchema = {
   callback_id?: string;
   description?: string;
@@ -96,12 +63,6 @@ export type WorkflowSchema = {
   // deno-lint-ignore no-explicit-any
   output_parameters?: Record<string, any>;
   title: string;
-};
-
-export type InputParameterSchema = {
-  // deno-lint-ignore no-explicit-any
-  properties: Record<string, Record<string, any>>;
-  required: (string | number)[];
 };
 
 /** @description Response object content for delete method */
@@ -145,9 +106,6 @@ export type TriggerIdType = {
   /** @description The id of a specified trigger */
   trigger_id: string;
 };
-
-// Set a default for any direct uses of this type for the CLI
-type DEFAULT_WORKFLOW_TYPE = { title: NO_GENERIC_TITLE };
 
 export type ValidTriggerTypes<
   WorkflowDefinition extends WorkflowSchema = DEFAULT_WORKFLOW_TYPE,
