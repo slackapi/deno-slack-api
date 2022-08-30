@@ -31,13 +31,6 @@ export const TriggerTypes = {
 // Set defaults for any direct uses of this type for the CLI
 export type NO_GENERIC_TITLE = "#no-generic";
 type DEFAULT_WORKFLOW_TYPE = { title: NO_GENERIC_TITLE };
-type ResponseTypes<
-  WorkflowDefinition extends WorkflowSchema,
-> =
-  & ShortcutTriggerResponse<WorkflowDefinition>
-  & EventTriggerResponse<WorkflowDefinition>
-  & ScheduledTriggerResponse<WorkflowDefinition>
-  & WebhookTriggerResponse<WorkflowDefinition>;
 
 type WorkflowStringFormat<AcceptedString extends string | undefined> =
   AcceptedString extends string ? `${string}#/workflows/${AcceptedString}`
@@ -64,6 +57,14 @@ export type WorkflowSchema = {
   output_parameters?: Record<string, any>;
   title: string;
 };
+
+type ResponseTypes<
+  WorkflowDefinition extends WorkflowSchema,
+> =
+  & ShortcutTriggerResponse<WorkflowDefinition>
+  & EventTriggerResponse<WorkflowDefinition>
+  & ScheduledTriggerResponse<WorkflowDefinition>
+  & WebhookTriggerResponse<WorkflowDefinition>;
 
 /** @description Response object content for delete method */
 type DeleteResponse = {
@@ -102,7 +103,7 @@ export type FailedTriggerResponse = BaseResponse & {
   trigger?: never;
 };
 
-export type TriggerIdType = {
+type TriggerIdType = {
   /** @description The id of a specified trigger */
   trigger_id: string;
 };
