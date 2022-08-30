@@ -151,7 +151,7 @@ Deno.test("Mock CRUD call", async (t) => {
 
         const res = await client.workflows.triggers.list();
         assertEquals(res.ok, true);
-        assertEquals(res.triggers.length, list_response.triggers.length);
+        assertEquals(res.triggers?.length, list_response.triggers.length);
 
         mf.reset();
       },
