@@ -28,7 +28,7 @@ export const TriggerTypes = {
   Webhook: "webhook",
 } as const;
 
-// Set defaults for any direct uses of this type for the CLI
+// Set defaults for any direct uses of this type
 export type NO_GENERIC_TITLE = "#no-generic";
 type DEFAULT_WORKFLOW_TYPE = { title: NO_GENERIC_TITLE };
 
