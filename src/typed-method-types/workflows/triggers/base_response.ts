@@ -21,10 +21,8 @@ export type BaseTriggerResponse<
       description: string;
       /** @default "workflow" */
       type: string;
-      // TODO: Add generic for inputs
       /** @description the workflow's input parameters */
       input_parameters: WorkflowDefinition["input_parameters"];
-      // TODO: Add generic for outputs
       /** @description the workflow's output parameters */
       output_parameters: WorkflowDefinition["output_parameters"];
       /** @description the app_id that the workflow belongs to */
@@ -38,10 +36,16 @@ export type BaseTriggerResponse<
           image_48: string;
           image_64: string;
           image_72: string;
+          // deno-lint-ignore no-explicit-any
+          [otherOptions: string]: any;
         };
+        // deno-lint-ignore no-explicit-any
+        [otherOptions: string]: any;
       };
       /** @description A timestamp of when the workflow was last updated */
       date_updated: number;
+      // deno-lint-ignore no-explicit-any
+      [otherOptions: string]: any;
     };
     /** @description The inputs provided to the workflow */
     inputs: {
@@ -66,4 +70,6 @@ export type BaseTriggerResponse<
     date_created: number;
     /** @description A timestamp of when the workflow was last updated */
     date_updated: number;
+    // deno-lint-ignore no-explicit-any
+    [otherOptions: string]: any;
   };

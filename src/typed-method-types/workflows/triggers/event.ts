@@ -100,6 +100,8 @@ type BaseWorkspaceEvent = BaseEvent & {
 type BaseEvent = {
   /** @description Defines the condition in which this event trigger should execute the Workflow */
   filter?: FilterType;
+  // deno-lint-ignore no-explicit-any
+  [otherOptions: string]: any;
 };
 
 export type EventTrigger<WorkflowDefinition extends WorkflowSchema> =
@@ -132,4 +134,6 @@ export type EventTriggerObject<
      * @description The type of event specified for the event trigger
      */
     event_type?: string;
+    // deno-lint-ignore no-explicit-any
+    [otherOptions: string]: any;
   };
