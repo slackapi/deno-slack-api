@@ -97,9 +97,9 @@ type ListTriggerResponse = Promise<
   ListResponse | FailedListTriggerResponse
 >;
 
-export type FailedListTriggerResponse = BaseResponse & {
+type FailedListTriggerResponse = BaseResponse & {
   ok: false;
-  /** @description no trigger is returned on a failed response */
+  /** @description no triggers are returned on a failed response */
   triggers?: never;
 };
 
