@@ -28,8 +28,30 @@ type ChatPostMessageArgs = ChatPostMessageOneOfRequired & {
   channel: string;
 };
 
+type ChatPostMessageSuccessfulResponse = BaseResponse & {
+  ok: true;
+  /** @description The channel the message was posted to */
+  channel: string;
+  /** @description The timestamp of when the message was posted */
+  ts: string;
+  // deno-lint-ignore no-explicit-any
+  message: Record<string, any>;
+  // deno-lint-ignore no-explicit-any
+  [otherOptions: string]: any;
+};
+
+type ChatPostMessageFailedResponse = BaseResponse & {
+  ok: false;
+  // deno-lint-ignore no-explicit-any
+  [otherOptions: string]: any;
+};
+
+type ChatPostMessageResponse =
+  | ChatPostMessageSuccessfulResponse
+  | ChatPostMessageFailedResponse;
+
 type ChatPostMessage = {
-  (args: ChatPostMessageArgs): Promise<BaseResponse>;
+  (args: ChatPostMessageArgs): Promise<ChatPostMessageResponse>;
 };
 
 export type TypedChatMethodTypes = {
