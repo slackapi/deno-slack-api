@@ -1,16 +1,16 @@
 ## Webhook Triggers
 
 A webhook trigger is a trigger that activates on a webhook activation in the Slack client. A webhook trigger
-includes the common trigger parameters along with a webhook paramater: 
+includes the common trigger parameters along with a webhook parameter: 
 
 | Parameter name| Required?     | Description                                                          |
 | --------------|:-------------:| ---------------------------------------------------------------------|
-| inputs        | Yes           | What inputs (defined in the manifest) are passed to the trigger      |
-| webook        | No            | Contains a [filter](trigger-filters.md)             |
+| `inputs`        | Yes           | What inputs (defined in the manifest) are passed to the trigger      |
+| `webook`        | No            | Contains a [filter](trigger-filters.md)             |
 
 ### Webhook Object
 
-A webhook trigger can contain an optional webhook object which specifies a filter:
+A webhook trigger can contain an optional `webhook` object which specifies a `filter`:
 
 ```ts
   webhook?: {
@@ -20,8 +20,8 @@ A webhook trigger can contain an optional webhook object which specifies a filte
 
 ### Context Data Availability
 Like other trigger types, webhook triggers have access to context data which can be used to fill the `inputs` parameter. Unlike other triggers, the context data available
-to a webhook trigger is not predetermined, and will depend on the information sent along with the webhook to activate the trigger. Whatever data comes in the HTTP body of the webhook curl 
-is what is available in {{data}}. So a curl is made with {test: true} in the HTTP body, then you could grab that with {{data.test}}. But unlike other trigger types we don't know any of that in advance.
+to a webhook trigger is not predetermined, and will depend on the information sent along with the webhook to activate the trigger. Whatever data contained in the HTTP body of the webhook request 
+is what will be available in `{{data}}`. So an HTTP request made with a body of `{"test": true}` would yield a context data object that could be referenced like `{{data.test}}`. Unlike other trigger types, we don't know any of that in advance as it is request-specific.
 
 ## Usage
 
@@ -94,8 +94,6 @@ const trigger: Trigger = {
     date_updated: 1658339927,
     webhook_url: "https://hooks.dev.slack.com/triggers/T013ZG3K1QT/1140137995618/5a398c41c55cbd2a9083770d752d99a7"
     }
-}
-  }
 }
 ```
 
