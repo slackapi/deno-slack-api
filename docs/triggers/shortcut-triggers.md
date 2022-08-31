@@ -1,6 +1,6 @@
-## Shortcut Triggers
+## Link Triggers
 
-A shortcut trigger is a trigger that activates when a shortcut is clicked in the Slack client. When a shortcut trigger is created, its API response returns a `shortcut_url` which can be pased into the Slack client causing the client to render it as a button. Clicking on this button will activate the associated workflow. A shortcut trigger
+A link trigger is a trigger that activates when a link is clicked in the Slack client. When a link trigger is created, its API response returns a `shortcut_url` which can be pased into the Slack client causing the client to render it as a button. Clicking on this button will activate the associated workflow. A link trigger
 includes the common [trigger attributes](./trigger-basics.md#trigger-types) along with an optional shortcut parameter: 
 
 | Parameter name  | Required?     | Description                                                          |
@@ -9,7 +9,7 @@ includes the common [trigger attributes](./trigger-basics.md#trigger-types) alon
 
 ### Shortcut Object
 
-A Shortcut trigger can contain an optional shortcut object which specifies additional details about the shortcut. Currently, the shortcut object is used to specify the button text of the shortcut associated with the trigger and has the following shape:
+A Link trigger can contain an optional shortcut object which specifies additional details about the shortcut. Currently, the shortcut object is used to specify the button text of the shortcut associated with the trigger and has the following shape:
 
 ```ts
   shortcut?: {
@@ -17,8 +17,8 @@ A Shortcut trigger can contain an optional shortcut object which specifies addit
   };
 ```
 
-### Shortcut Data Context Object
-The Shortcut trigger also has access to a data context object which includes information related to the context of the trigger activation. This data object can be used to fill the optional input fields of the trigger being activated. The data context parameters available to a shortcut trigger are as follows:
+### Link Data Context Object
+The link trigger also has access to a data context object which includes information related to the context of the trigger activation. This data object can be used to fill the optional input fields of the trigger being activated. The data context parameters available to a shortcut trigger are as follows:
 ```ts
   'data.user_id': string,
 	'data.channel_id': string, 
@@ -45,8 +45,8 @@ The data context can be used in the input parameter as follows:
 ```
 
 
-### Shortcut Unfurling 
-A shortcut trigger can be used to create a shortcut which, when clicked or activated, will run through a workflow. When a shortcut trigger is created through the API, it's return object will include a shortcut_url parameter which can be pasted into Slack client and unfurled to reveal a shortcut link. Clicking on this link will run through the associated workflow.
+### Link Unfurling 
+A link trigger can be used to create a shortcut which, when clicked or activated, will run through a workflow. When a link trigger is created through the API, its return object will include a shortcut_url parameter which can be pasted into Slack client and unfurled to reveal a shortcut link. Clicking on this link will run through the associated workflow.
 
 ## Usage
 ### Example Shortcut Trigger With Shortcut Object
