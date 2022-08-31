@@ -1,11 +1,14 @@
-import { BaseTrigger, RequiredInputs, TriggerTypes } from "./mod.ts";
+import { BaseResponse } from "../../../types.ts";
+import { BaseTriggerResponse } from "./base_response.ts";
+import {
+  BaseTrigger,
+  FailedTriggerResponse,
+  TriggerTypes,
+  WorkflowSchema,
+} from "./mod.ts";
 import { FilterType } from "./trigger-filter.ts";
-import { ObjectValueUnion } from "../../../type-helpers.ts";
+import { ObjectValueUnion, PopulatedArray } from "../../../type-helpers.ts";
 import { TriggerEventTypes } from "./trigger-event-types.ts";
-
-// TODO: Move to type util file coming in future PR
-// Utility type for the array types which requires minumum one subtype in it.
-type PopulatedArray<T> = [T, ...T[]];
 
 type MessageMetadataTypes = ObjectValueUnion<
   Pick<
@@ -57,6 +60,8 @@ type ChannelEvents =
   & {
     /** @description The channel id's that this event listens on */
     channel_ids: PopulatedArray<string>;
+    // deno-lint-ignore no-explicit-any
+    [otherOptions: string]: any;
   };
 
 type ChannelEvent = BaseEvent & {
@@ -87,6 +92,8 @@ type WorkspaceEvents =
   & {
     /** @description The team id's that this event listens on */
     team_ids?: PopulatedArray<string>;
+    // deno-lint-ignore no-explicit-any
+    [otherOptions: string]: any;
   };
 
 type BaseWorkspaceEvent = BaseEvent & {
@@ -97,13 +104,40 @@ type BaseWorkspaceEvent = BaseEvent & {
 type BaseEvent = {
   /** @description Defines the condition in which this event trigger should execute the Workflow */
   filter?: FilterType;
+  // deno-lint-ignore no-explicit-any
+  [otherOptions: string]: any;
 };
 
-export type EventTrigger =
-  & BaseTrigger
-  & RequiredInputs
+export type EventTrigger<WorkflowDefinition extends WorkflowSchema> =
+  & BaseTrigger<WorkflowDefinition>
   & {
     type: typeof TriggerTypes.Event;
     /** @description The payload object for event triggers */
     event: ChannelEvents | WorkspaceEvents;
+  };
+
+export type EventTriggerResponse<
+  WorkflowDefinition extends WorkflowSchema,
+> = Promise<
+  EventResponse<WorkflowDefinition> | FailedTriggerResponse
+>;
+export type EventResponse<
+  WorkflowDefinition extends WorkflowSchema,
+> =
+  & BaseResponse
+  & {
+    trigger: EventTriggerResponseObject<WorkflowDefinition>;
+  };
+
+export type EventTriggerResponseObject<
+  WorkflowDefinition extends WorkflowSchema,
+> =
+  & BaseTriggerResponse<WorkflowDefinition>
+  & {
+    /**
+     * @description The type of event specified for the event trigger
+     */
+    event_type?: string;
+    // deno-lint-ignore no-explicit-any
+    [otherOptions: string]: any;
   };

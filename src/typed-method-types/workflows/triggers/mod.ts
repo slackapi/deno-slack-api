@@ -1,8 +1,25 @@
 import { BaseMethodArgs, BaseResponse } from "../../../types.ts";
-import { EventTrigger } from "./event.ts";
-import { ScheduledTrigger } from "./scheduled.ts";
-import { ShortcutTrigger } from "./shortcut.ts";
-import { WebhookTrigger } from "./webhook.ts";
+import { InputParameterSchema, WorkflowInputs } from "./inputs.ts";
+import {
+  EventTrigger,
+  EventTriggerResponse,
+  EventTriggerResponseObject,
+} from "./event.ts";
+import {
+  ScheduledTrigger,
+  ScheduledTriggerResponse,
+  ScheduledTriggerResponseObject,
+} from "./scheduled.ts";
+import {
+  ShortcutTrigger,
+  ShortcutTriggerResponse,
+  ShortcutTriggerResponseObject,
+} from "./shortcut.ts";
+import {
+  WebhookTrigger,
+  WebhookTriggerResponse,
+  WebhookTriggerResponseObject,
+} from "./webhook.ts";
 
 export const TriggerTypes = {
   Event: "event",
@@ -11,42 +28,53 @@ export const TriggerTypes = {
   Webhook: "webhook",
 } as const;
 
-type WorkflowInput = {
-  // deno-lint-ignore no-explicit-any
-  value: any;
-};
+// Set defaults for any direct uses of this type
+export type NO_GENERIC_TITLE = "#no-generic";
+type DEFAULT_WORKFLOW_TYPE = { title: NO_GENERIC_TITLE };
 
-type WorkflowStringFormat = `${string}#/workflows/${string}`;
+type WorkflowStringFormat<AcceptedString extends string | undefined> =
+  AcceptedString extends string ? `${string}#/workflows/${AcceptedString}`
+    : `${string}#/workflows/${string}`;
 
-export type BaseTrigger = {
+export type BaseTrigger<WorkflowDefinition extends WorkflowSchema> = {
   /** @description The type of trigger */
-  type: typeof TriggerTypes[keyof typeof TriggerTypes];
+  type: string;
   /** @description The workflow that the trigger initiates */
-  workflow: WorkflowStringFormat;
-  /** @description The inputs provided to the workflow */
-  inputs?: Record<string, WorkflowInput>;
+  workflow: WorkflowStringFormat<WorkflowDefinition["callback_id"]>;
   /** @description The name of the trigger */
   name: string;
   /** @description The description of the trigger */
   description?: string;
+  // deno-lint-ignore no-explicit-any
+  [otherOptions: string]: any;
+} & WorkflowInputs<WorkflowDefinition>;
+
+export type WorkflowSchema = {
+  callback_id?: string;
+  description?: string;
+  input_parameters?: InputParameterSchema;
+  // deno-lint-ignore no-explicit-any
+  output_parameters?: Record<string, any>;
+  title: string;
 };
 
-export type TriggerIdType = {
-  /** @description The id of a specified trigger */
-  trigger_id: string;
+type ResponseTypes<
+  WorkflowDefinition extends WorkflowSchema,
+> =
+  & ShortcutTriggerResponse<WorkflowDefinition>
+  & EventTriggerResponse<WorkflowDefinition>
+  & ScheduledTriggerResponse<WorkflowDefinition>
+  & WebhookTriggerResponse<WorkflowDefinition>;
+
+/** @description Response object content for delete method */
+type DeleteResponse = {
+  ok: true;
 };
 
-// A helper to make sure inputs are passed. Required for automated triggers
-export type RequiredInputs = Required<Pick<BaseTrigger, "inputs">>;
+type DeleteTriggerResponse = Promise<
+  DeleteResponse | FailedTriggerResponse
+>;
 
-export type ValidTriggerTypes =
-  | EventTrigger
-  | ScheduledTrigger
-  | ShortcutTrigger
-  | WebhookTrigger;
-
-type BaseTriggerResponse = Promise<BaseResponse>;
-type TriggerResponse = BaseTriggerResponse;
 type ListArgs = {
   /** @description Lists triggers only if they owned by the caller */
   is_owner?: boolean;
@@ -54,21 +82,75 @@ type ListArgs = {
   is_published?: boolean;
 };
 
+type ValidTriggerResponseObjects =
+  | ShortcutTriggerResponseObject<WorkflowSchema>
+  | EventTriggerResponseObject<WorkflowSchema>
+  | ScheduledTriggerResponseObject<WorkflowSchema>
+  | WebhookTriggerResponseObject<WorkflowSchema>;
+
+type ListResponse = {
+  ok: true;
+  /** @description List of triggers in the workspace */
+  triggers: ValidTriggerResponseObjects[];
+};
+
+type ListTriggerResponse = Promise<
+  ListResponse | FailedListTriggerResponse
+>;
+
+type FailedListTriggerResponse = BaseResponse & {
+  ok: false;
+  /** @description no triggers are returned on a failed response */
+  triggers?: never;
+};
+
+export type FailedTriggerResponse = BaseResponse & {
+  ok: false;
+  /** @description no trigger is returned on a failed response */
+  trigger?: never;
+};
+
+type TriggerIdType = {
+  /** @description The id of a specified trigger */
+  trigger_id: string;
+};
+
+export type ValidTriggerTypes<
+  WorkflowDefinition extends WorkflowSchema = DEFAULT_WORKFLOW_TYPE,
+> =
+  | EventTrigger<WorkflowDefinition>
+  | ScheduledTrigger<WorkflowDefinition>
+  | ShortcutTrigger<WorkflowDefinition>
+  | WebhookTrigger<WorkflowDefinition>;
+
+/** @description Function type for create method */
+type CreateType = {
+  <WorkflowDefinition extends WorkflowSchema = DEFAULT_WORKFLOW_TYPE>(
+    args: BaseMethodArgs & ValidTriggerTypes<WorkflowDefinition>,
+  ): ResponseTypes<WorkflowDefinition>;
+};
+
+/** @description Function type for update method */
+type UpdateType = {
+  <WorkflowDefinition extends WorkflowSchema = DEFAULT_WORKFLOW_TYPE>(
+    args:
+      & BaseMethodArgs
+      & ValidTriggerTypes<WorkflowDefinition>
+      & TriggerIdType,
+  ): ResponseTypes<WorkflowDefinition>;
+};
+
 export type TypedWorkflowsTriggersMethodTypes = {
-  /** @description Create a new trigger with a specified type */
-  create: (
-    args: BaseMethodArgs & ValidTriggerTypes,
-  ) => TriggerResponse;
-  /** @description Updates an existing trigger identified with trigger_id */
-  update: (
-    args: BaseMethodArgs & TriggerIdType & ValidTriggerTypes,
-  ) => TriggerResponse;
-  /** @description Deletes an existing trigger identified with trigger_id */
+  /** @description Method to create a new trigger */
+  create: CreateType;
+  /** @description Method to update an existing trigger identified with trigger_id */
+  update: UpdateType;
+  /** @description Method to delete an existing trigger identified with trigger_id */
   delete: (
     args: BaseMethodArgs & TriggerIdType,
-  ) => TriggerResponse;
-  /** @description Returns a list of triggers in the workspace */
+  ) => DeleteTriggerResponse;
+  /** @description Method to list existing triggers in the workspace */
   list: (
     args?: BaseMethodArgs & ListArgs,
-  ) => TriggerResponse;
+  ) => ListTriggerResponse;
 };

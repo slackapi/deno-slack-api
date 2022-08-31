@@ -1,4 +1,11 @@
-import { BaseTrigger, RequiredInputs, TriggerTypes } from "./mod.ts";
+import { BaseResponse } from "../../../types.ts";
+import { BaseTriggerResponse } from "./base_response.ts";
+import {
+  BaseTrigger,
+  FailedTriggerResponse,
+  TriggerTypes,
+  WorkflowSchema,
+} from "./mod.ts";
 
 export const SCHEDULE_FREQUENCY = {
   Daily: "daily",
@@ -99,7 +106,37 @@ type TriggerSchedule =
   | RecurringTriggerSchedule
   | SingleOccurrenceTriggerSchedule;
 
-export type ScheduledTrigger = BaseTrigger & RequiredInputs & {
-  type: typeof TriggerTypes.Scheduled;
-  schedule: TriggerSchedule;
-};
+export type ScheduledTrigger<
+  WorkflowDefinition extends WorkflowSchema,
+> =
+  & BaseTrigger<WorkflowDefinition>
+  & {
+    type: typeof TriggerTypes.Scheduled;
+    schedule: TriggerSchedule;
+  };
+
+export type ScheduledTriggerResponse<
+  WorkflowDefinition extends WorkflowSchema,
+> = Promise<
+  | ScheduledResponse<WorkflowDefinition>
+  | FailedTriggerResponse
+>;
+export type ScheduledResponse<
+  WorkflowDefinition extends WorkflowSchema,
+> =
+  & BaseResponse
+  & {
+    trigger: ScheduledTriggerResponseObject<WorkflowDefinition>;
+  };
+
+export type ScheduledTriggerResponseObject<
+  WorkflowDefinition extends WorkflowSchema,
+> =
+  & BaseTriggerResponse<WorkflowDefinition>
+  & {
+    /**
+     * @description A schedule object returned by Scheduled triggers
+     */
+    // deno-lint-ignore no-explicit-any
+    schedule?: Record<string, any>;
+  };
