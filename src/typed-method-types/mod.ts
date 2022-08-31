@@ -3,6 +3,8 @@
  * It is meant to be additive to the SlackClient type
  */
 import { TypedAppsMethodTypes } from "./apps.ts";
+import { TypedChatMethodTypes } from "./chat.ts";
+import { TypedFunctionMethodTypes } from "./functions.ts";
 import { TypedWorkflowsMethodTypes } from "./workflows/mod.ts";
 
 /**
@@ -14,6 +16,9 @@ export const methodsWithCustomTypes = [
   "apps.datastore.get",
   "apps.datastore.put",
   "apps.datastore.query",
+  "chat.postMessage",
+  "functions.completeSuccess",
+  "functions.completeError",
   "workflows.triggers.create",
   "workflows.triggers.list",
   "workflows.triggers.update",
@@ -22,4 +27,6 @@ export const methodsWithCustomTypes = [
 
 export type TypedSlackAPIMethodsType =
   & TypedAppsMethodTypes
+  & TypedChatMethodTypes
+  & TypedFunctionMethodTypes
   & TypedWorkflowsMethodTypes;

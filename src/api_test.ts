@@ -147,7 +147,7 @@ Deno.test("SlackAPI class", async (t) => {
           return new Response('{"ok":true}');
         });
 
-        const res = await client.chat.postMessage({});
+        const res = await client.chat.postMessage({ channel: "", text: "" });
         assertEquals(res.ok, true);
 
         mf.reset();

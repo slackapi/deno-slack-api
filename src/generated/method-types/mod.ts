@@ -12,7 +12,6 @@ import { type DndAPIType } from "./dnd.ts";
 import { type EmojiAPIType } from "./emoji.ts";
 import { type EnterpriseAPIType } from "./enterprise.ts";
 import { type FilesAPIType } from "./files.ts";
-import { type FunctionsAPIType } from "./functions.ts";
 import { type MigrationAPIType } from "./migration.ts";
 import { type OauthAPIType } from "./oauth.ts";
 import { type OpenidAPIType } from "./openid.ts";
@@ -44,7 +43,6 @@ export type SlackAPIMethodsType = {
   emoji: EmojiAPIType;
   enterprise: EnterpriseAPIType;
   files: FilesAPIType;
-  functions: FunctionsAPIType;
   migration: MigrationAPIType;
   oauth: OauthAPIType;
   openid: OpenidAPIType;
