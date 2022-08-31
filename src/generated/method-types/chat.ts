@@ -6,7 +6,6 @@ export type ChatAPIType = {
   getPermalink: SlackAPIMethod;
   meMessage: SlackAPIMethod;
   postEphemeral: SlackAPIMethod;
-  postMessage: SlackAPIMethod;
   scheduledMessages: {
     list: SlackAPIMethod;
   };

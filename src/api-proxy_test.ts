@@ -17,7 +17,7 @@ Deno.test("APIProxy", async () => {
 
   const client = APIProxy(clientToProxy, apiCallHandlerSpy);
 
-  const payload = { text: "proxied call" };
+  const payload = { text: "proxied call", channel: "" };
   await client.chat.postMessage(payload);
 
   assertSpyCall(apiCallHandlerSpy, 0, {

@@ -144,7 +144,6 @@ Deno.test("SlackAPIMethodsType generated types", () => {
   assertEquals(typeof client.chat.getPermalink, "function");
   assertEquals(typeof client.chat.meMessage, "function");
   assertEquals(typeof client.chat.postEphemeral, "function");
-  assertEquals(typeof client.chat.postMessage, "function");
   assertEquals(typeof client.chat.scheduledMessages.list, "function");
   assertEquals(typeof client.chat.scheduleMessage, "function");
   assertEquals(typeof client.chat.unfurl, "function");
@@ -197,8 +196,6 @@ Deno.test("SlackAPIMethodsType generated types", () => {
   assertEquals(typeof client.files.revokePublicURL, "function");
   assertEquals(typeof client.files.sharedPublicURL, "function");
   assertEquals(typeof client.files.upload, "function");
-  assertEquals(typeof client.functions.completeError, "function");
-  assertEquals(typeof client.functions.completeSuccess, "function");
   assertEquals(typeof client.migration.exchange, "function");
   assertEquals(typeof client.oauth.access, "function");
   assertEquals(typeof client.oauth.v2.access, "function");
