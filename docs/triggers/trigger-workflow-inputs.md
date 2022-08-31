@@ -1,4 +1,4 @@
-### Trigger Creation Workflow Definition Inputs
+# Trigger Creation Workflow Definition Inputs
 
 When creating a trigger at runtime, a workflow definition can be passed into the `client.workflows.triggers.create` method which will allow for typeahead/autocomplete of the input parameters based on the definition's inputs. 
 
@@ -56,9 +56,9 @@ const triggers: SlackFunctionHandler<typeof TriggersFunction.definition> =
   }
 ```
 
-### Workflow Definition Benefits
+## Workflow Definition Benefits
 
-## Inputless Workflows
+### Inputless Workflows
 
 Passing a workflow definition as a generic allows for typescript to autocomplete the input fields of the trigger based on the workflow, recall that in a standard `create` call without a workflow definition passed in, the `inputs` field is a required parameter and a typical code editor will display an error if the field is omitted:
 
@@ -74,7 +74,7 @@ Passing a workflow definition as a generic allows for typescript to autocomplete
 
 If a workflow is defined in the manifest without inputs, and this workflow definition is then passed into the `create` call as a generic, the `create` call will no longer require the inputs fields to be included in the API call.
 
-# Our workflow defined in the manifest
+#### Our workflow defined in the manifest
 ```ts
 export const TriggersWorkflow = DefineWorkflow({
   callback_id: "triggers_workflow",
@@ -83,7 +83,7 @@ export const TriggersWorkflow = DefineWorkflow({
 });
 ```
 
-# Our create call
+#### Our create call
 
 ```ts
   /* This is now considered a valid call to the create API, no inputs required */
@@ -100,7 +100,7 @@ export const TriggersWorkflow = DefineWorkflow({
 Even if an input is defined in a workflow as a parameter, recall that it also requires an array of `required` inputs to be defined as well, which can be seen in a [previous section](#defining-a-workflow-recap).
 Without passing in a workflow definition, even if no inputs are specified as `required` in the array, an empty `inputs` object would still be required to make a valid API call. With a workflow definition passed in, this is no longer a requirement.
 
-# Without Generic
+### Without Generic
 ```ts
   /* Even with an empty required array, an empty input object is still required  */
   const triggerResponse = await client.workflows.triggers.create({
@@ -112,7 +112,7 @@ Without passing in a workflow definition, even if no inputs are specified as `re
   });
 ```
 
-# With Generic
+### With Generic
 ```ts
   /* input object no longer required */
   const eventResponse = await client.workflows.triggers.create<typeof TriggerWorkflow.definition>({
