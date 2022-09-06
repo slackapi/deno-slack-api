@@ -37,7 +37,7 @@ The `frequency` object contains information on the repeating schedule for the tr
 ### Scheduled Data Context Object
 The Scheduled trigger also has access to a data context object which includes information related to the context of the trigger activation. This data object can be used to fill the optional input fields of the trigger being activated. The data context parameters available to a scheduled trigger are as follows:
 ```ts
-  'data.user_id': string, //The user_id of the 
+  'data.user_id': string, //The user_id of the user initiating the trigger.
 ```
 
 The data context can be used in the input parameter as follows:

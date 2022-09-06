@@ -1,16 +1,16 @@
 ## Webhook Triggers
 
-A webhook trigger is a trigger that activates on a webhook activation in the Slack client. A webhook trigger
-includes the common trigger parameters along with a webhook parameter: 
+A webhook Trigger is a Trigger that activates on a webhook activation in the Slack client. A webhook Trigger
+includes the common Trigger parameters along with a webhook parameter: 
 
 | Parameter name| Required?     | Description                                                          |
 | --------------|:-------------:| ---------------------------------------------------------------------|
-| `inputs`        | Yes           | What inputs (defined in the manifest) are passed to the trigger      |
+| `inputs`        | Yes           | What inputs (defined in the manifest) are passed to the Trigger      |
 | `webook`        | No            | Contains a [filter](trigger-filters.md)             |
 
 ### Webhook Object
 
-A webhook trigger can contain an optional `webhook` object which specifies a `filter`:
+A Webhook Trigger can contain an optional `webhook` configuration object which specifies a `filter`:
 
 ```ts
   webhook?: {
@@ -19,9 +19,9 @@ A webhook trigger can contain an optional `webhook` object which specifies a `fi
 ```
 
 ### Context Data Availability
-Like other trigger types, webhook triggers have access to context data which can be used to fill the `inputs` parameter. Unlike other triggers, the context data available
-to a webhook trigger is not predetermined, and will depend on the information sent along with the webhook to activate the trigger. Whatever data contained in the HTTP body of the webhook request 
-is what will be available in `{{data}}`. So an HTTP request made with a body of `{"test": true}` would yield a context data object that could be referenced like `{{data.test}}`. Unlike other trigger types, we don't know any of that in advance as it is request-specific.
+Like other Trigger types, webhook Triggers have access to context data which can be used to fill the `inputs` parameter. Unlike other Triggers, the context data available
+to a webhook Trigger is not predetermined, and will depend on the information sent along with the webhook to activate the Trigger. Whatever data contained in the HTTP body of the webhook request 
+is what will be available in `{{data}}`. So an HTTP request made with a body of `{"test": true}` would yield a context data object that could be referenced like `{{data.test}}`.
 
 ## Usage
 
@@ -56,7 +56,7 @@ const trigger: Trigger = {
     filter: {
       version: 1,
       root: {
-        statement: "1 === 1",
+        statement: "{{data.value}} == 1",
       },
     }
   }
@@ -70,20 +70,20 @@ const trigger: Trigger = {
   trigger: {
     id: "Ft0141BC3F2N",
     type: "webhook",
-    function: {
+    workflow: {
       id: "Fn0141SXKUHZ",
       workflow_id: "Wf0141SXKULB",
       callback_id: "reverse_workflow",
       title: "Reverse Workflow",
       description: "A sample workflow",
       type: "workflow",
-      input_parameters: [ [Object], [Object], [Object] ],
+      input_parameters: [],
       output_parameters: [],
       app_id: "A01412HH666",
       app: {
         id: "A01412HH666",
         name: "my-app (dev)",
-        icons: [Object],
+        icons: [],
         is_workflow_app: false
       },
       date_updated: 1658339916

@@ -7,20 +7,20 @@ A trigger filter is an object that can be added to a trigger on creation that wi
 | `version`         | Yes           | The version of the filter as a number                                |
 | `root`            | Yes           | A combination of boolean logic and comparator values                 |
 
-The root parameter can contain a combination of `Boolean` logic and `Comparator` objects with the following attributes:
+The root parameter can contain a combination of `Boolean logic` and `Conditional Expression` objects with the following attributes:
 
-### `BooleanLogic`
+### `Boolean Logic`
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
 | `operator`         | Yes           | The logical operator to run against your filter inputs (AND, OR, NOT) as a string value  |
 | `inputs`            | Yes          | The filter inputs that contain filter statement definitions              |
 
-### `Comparator` 
+### `Conditional Expressions` 
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
-| `statement`         | Yes         | Comparison of values         |
+| `statement`         | Yes         | Comparison of values (uses one of the following operators: ">", "<", "==", "!= )|
 
 ## Usage Examples
 
@@ -33,7 +33,7 @@ A Trigger filter can use a single statement, which will execute when the stateme
 {
     version: 1,
     root: {
-      statement: "1 === 1",
+      statement: "{{data.value}} > 3",
     },
 }
 ```
@@ -46,9 +46,23 @@ A Trigger filter can also use simple logical operators to compare multiple state
     root: {
       operator: "OR",
       inputs: [{
-        statement: "1 === 2",
+        statement: "{{data.value}} == apple",
       }, {
-        statement: "2 === 2",
+        statement: "{{data.value}} != banana",
+      }],
+    },
+  }
+```
+
+```ts 
+{
+    version: 1,
+    root: {
+      operator: "AND",
+      inputs: [{
+        statement: "{{data.value}} > 2",
+      }, {
+        statement: "{{data.value}} < 5",
       }],
     },
   }
@@ -62,19 +76,19 @@ A Trigger filter can make use of nested logical operators and statements for mor
     root: {
       operator: TriggerFilterOperatorType.OR,
       inputs: [{
-        statement: "1 === 2",
+        statement: "{{data.user_id}} == User1",
       }, {
-        statement: "2 === 3",
+        statement: "{{data.user_id}} == User2",
       }, {
         operator: "AND",
         inputs: [{
-          statement: "3 === 3",
+          statement: "{{data.user_id}} != 3",
         }, {
           operator: "OR",
           inputs: [{
-            statement: "3 === 4",
+            statement: "{{data.value}} < 4",
           }, {
-            statement: "4 === 4",
+            statement: "{{data.value}} > 10",
           }],
         }],
       }],

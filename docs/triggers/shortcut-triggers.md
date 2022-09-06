@@ -1,15 +1,15 @@
 ## Link Triggers
 
-A link trigger is a trigger that activates when a link is clicked in the Slack client. When a link trigger is created, its API response returns a `shortcut_url` which can be pased into the Slack client causing the client to render it as a button. Clicking on this button will activate the associated workflow. A link trigger
-includes the common [trigger attributes](./trigger-basics.md#trigger-types) along with an optional shortcut parameter: 
+A Link Trigger is an interactive Trigger that activates when a Shortcut is clicked in the Slack client. When a Shortcut Trigger is created, its API response returns a `shortcut_url` which can be used in Slack to show a button. Clicking on this button will activate the associated Workflow. A Link Trigger
+includes the common [Trigger attributes](./trigger-basics.md#trigger-types) along with an optional shortcut parameter: 
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
 | `shortcut`        | No            | Contains information about the [button text](#shortcut-object) of the shortcut          |
 
-### Shortcut Object
+### Shortcut Configuration
 
-A Link trigger can contain an optional shortcut object which specifies additional details about the shortcut. Currently, the shortcut object is used to specify the button text of the shortcut associated with the trigger and has the following shape:
+A Link Trigger can contain an optional `shortcut` configuration object which specifies additional details about the Shortcut. Currently, the `shortcut` object is used to specify the button text of the Shortcut associated with the Trigger and has the following shape:
 
 ```ts
   shortcut?: {
@@ -18,7 +18,8 @@ A Link trigger can contain an optional shortcut object which specifies additiona
 ```
 
 ### Link Data Context Object
-The link trigger also has access to a data context object which includes information related to the context of the trigger activation. This data object can be used to fill the optional input fields of the trigger being activated. The data context parameters available to a shortcut trigger are as follows:
+The `data` context parameters available to a Shortcut Trigger are as follows:
+
 ```ts
   'data.user_id': string,
 	'data.channel_id': string, 
@@ -43,16 +44,11 @@ The data context can be used in the input parameter as follows:
  }
 }
 ```
-
-
-### Link Unfurling 
-A link trigger can be used to create a shortcut which, when clicked or activated, will run through a workflow. When a link trigger is created through the API, its return object will include a shortcut_url parameter which can be pasted into Slack client and unfurled to reveal a shortcut link. Clicking on this link will run through the associated workflow.
-
 ## Usage
-### Example Shortcut Trigger With Shortcut Object
+Below are some usage examples of `ShortcutTrigger` objects which can be used in a .ts file to create a `shortcut` trigger through the [Hermes CLI](./trigger-basics.md/#creating-triggers-using-the-hermes-cli), alternatively this object could be passed into a 
+`client.workflows.triggers.create` method to achieve the same effect at [runtime](./trigger-basics.md/#creating-triggers-in-the-runtime-environment).
 
-Below are some usage examples of `ShortcutTrigger` objects which can be used in a .ts file to create a `shortcut` trigger through the Hermes CLI, alternatively this object could be passed into a 
-`client.workflows.triggers.create` method to achieve the same effect at runtime.
+### Example Configured Shortcut Trigger
 
 ```ts
 const trigger: ShortcutTrigger = {
@@ -87,7 +83,7 @@ const trigger: ShortcutTrigger = {
 };
 ```
 
-### Example Response
+### Example Response from Create API
 
 ```ts
 {
@@ -95,20 +91,20 @@ const trigger: ShortcutTrigger = {
   trigger: { //information related to the trigger 
     id: "Ft01426C5LG3", //The trigger id
     type: "shortcut", //The trigger type
-    function: { // Information related to the workflow function
+    workflow: { // Information related to the workflow function
       id: "Fn0141SXKUHZ",
       workflow_id: "Wf0141SXKULB",
       callback_id: "reverse_workflow",
       title: "Reverse Workflow",
       description: "A sample workflow",
       type: "workflow",
-      input_parameters: [ [Object], [Object], [Object] ],
+      input_parameters: [],
       output_parameters: [],
       app_id: "A01412HH666",
       app: {
         id: "A01412HH666",
         name: "my-app (dev)",
-        icons: [Object],
+        icons: [],
         is_workflow_app: false
       },
       date_updated: 1658339916
