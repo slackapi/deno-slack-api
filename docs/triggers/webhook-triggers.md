@@ -1,6 +1,6 @@
 ## Webhook Triggers
 
-A webhook Trigger is a Trigger that activates on a webhook activation in the Slack client. A webhook Trigger
+A Webhook Trigger is a Trigger that activates on a webhook activation in the Slack client. A Webhook Trigger
 includes the common Trigger parameters along with a webhook parameter: 
 
 | Parameter name| Required?     | Description                                                          |
@@ -19,7 +19,7 @@ A Webhook Trigger can contain an optional `webhook` configuration object which s
 ```
 
 ### Context Data Availability
-Like other Trigger types, webhook Triggers have access to context data which can be used to fill the `inputs` parameter. Unlike other Triggers, the context data available
+Like other Trigger types, Webhook Triggers have access to context data which can be used to fill the `inputs` parameter. Unlike other Triggers, the context data available
 to a webhook Trigger is not predetermined, and will depend on the information sent along with the webhook to activate the Trigger. Whatever data contained in the HTTP body of the webhook request 
 is what will be available in `{{data}}`. So an HTTP request made with a body of `{"test": true}` would yield a context data object that could be referenced like `{{data.test}}`.
 

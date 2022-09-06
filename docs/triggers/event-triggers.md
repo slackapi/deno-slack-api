@@ -1,17 +1,17 @@
 ## Event Triggers
 
-An event trigger is a trigger that activates when a specific event occurs within the Slack client. Event triggers can activate on either workspace,
-or channel level events, and each specific event type has its own required object parameters that need to be filled. An event trigger at the highest
-level includes the common trigger parameters along with a required input parameter and an event parameter: 
+An Event Trigger is a Trigger that activates when a specific event occurs within the Slack client. Event Triggers can activate on either workspace,
+or channel level events, and each specific event type has its own required object parameters that need to be filled. An event Trigger at the highest
+level includes the common Trigger parameters along with a required input parameter and an event parameter: 
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
-| inputs          | Yes            | What inputs (defined in the manifest) are passed to the trigger      |
+| inputs          | Yes            | What inputs (defined in the manifest) are passed to the Trigger      |
 | event           | Yes            | An event object with information about the activation event          |
 
 ### Event Types
 
-An event_type is a string which corresponds to an event in the Slack Client which can activate a workflow trigger.
+An event_type is a string which corresponds to an event in the Slack Client which can activate a Workflow Trigger.
 Currently, events are separated into two categories, Workspace level events, and Channel level events. Workspace level events are events that affect the entire workspace, regardless of channel or specific chat id. Channel level events listen in on specific channels and only activate when the event happens inside of that channel. 
 The following is a list of event types along with their category
 
@@ -43,7 +43,7 @@ The following is a list of event types along with their category
 
 ### The Event Object
 
-Event trigger must contain an event object, which specifies the details of the event that will activate the trigger. The event object has the following attributes: 
+Event trigger must contain an event object, which specifies the details of the event that will activate the Trigger. The event object has the following attributes: 
 
 | Parameter name    | Required?     | Description                                                             |
 | ------------------|:-------------:| ------------------------------------------------------------------------|
@@ -56,7 +56,7 @@ Event trigger must contain an event object, which specifies the details of the e
 
 ### Context Data Availability
 
-The inputs paramater has access to context information from when the trigger is activated. Each event_type has access to its own specific data parameters which can be found below:
+The inputs paramater has access to context information from when the Trigger is activated. Each event_type has access to its own specific data parameters which can be found below:
 
 #### reaction_added
 ```json
@@ -558,20 +558,20 @@ const trigger: Trigger = {
   trigger: {
     id: "Ft01426DHUAF",
     type: "event",
-    function: {
+    workflow: {
       id: "Fn0141SXKUHZ",
       workflow_id: "Wf0141SXKULB",
       callback_id: "reverse_workflow",
       title: "Reverse Workflow",
       description: "A sample workflow",
       type: "workflow",
-      input_parameters: [ [Object], [Object], [Object] ],
+      input_parameters: [],
       output_parameters: [],
       app_id: "A01412HH666",
       app: {
         id: "A01412HH666",
         name: "my-app (dev)",
-        icons: [Object],
+        icons: [],
         is_workflow_app: false
       },
       date_updated: 1658339916

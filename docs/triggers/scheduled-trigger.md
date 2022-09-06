@@ -1,10 +1,10 @@
 ## Scheduled Triggers
 
-A Scheduled trigger is a trigger that activates on a set schedule, defined by a `schedule` parameter object. A scheduled trigger includes the common trigger attributes along with a required schedule parameter: 
+A Scheduled trigger is a Trigger that activates on a set schedule, defined by a `schedule` parameter object. A Scheduled Trigger includes the common Trigger attributes along with a required schedule parameter: 
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
-| `schedule`        | No            | Contains information about the trigger schedule            |
+| `schedule`        | No            | Contains information about the Trigger schedule            |
 
 ### Schedule Object
 
@@ -14,30 +14,30 @@ Both Single Occurrence and Recurring Schedules have common base attributes:
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
-| `start_time`      | Yes  |An ISO 8601 date string of when this scheduled trigger should start (i.e. "2022-03-01T14:00:00Z")|
+| `start_time`      | Yes  |An ISO 8601 date string of when this scheduled Trigger should start (i.e. "2022-03-01T14:00:00Z")|
 | `timezone`      | No  |A timezone string to use for scheduling (Defaults to UTC if left blank)|
 
 A Single occurrence schedule can be created using just these two parameters, however a recurring schedule may also include the following parameters: 
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
-| `end_time`      | No  |An ISO 8601 date string of when this scheduled trigger should end (i.e. "2022-03-01T14:00:00Z")|
-| `occurrence_count`| No  |The maximum number of times the trigger may run (number)|
-| `frequency`      | No  |The configurable frequency of when this trigger will activate|
+| `end_time`      | No  |An ISO 8601 date string of when this scheduled Trigger should end (i.e. "2022-03-01T14:00:00Z")|
+| `occurrence_count`| No  |The maximum number of times the Trigger may run (number)|
+| `frequency`      | No  |The configurable frequency of when this Trigger will activate|
 
-The `frequency` object contains information on the repeating schedule for the trigger, it contains the following parameters:
+The `frequency` object contains information on the repeating schedule for the Trigger, it contains the following parameters:
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
-| `type`      | Yes  |How often the trigger will activate|
-| `on_days` | No  |An array of days of the week as capitalized strings i.e (["Monday", "Tuesday"]) the trigger should activate on (not available for daily triggers)|
-| `repeats_every`      | No  |How often the trigger will repeat, respective to the frequency type (a number, i.e every `3` days)|
+| `type`      | Yes  |How often the Trigger will activate|
+| `on_days` | No  |An array of days of the week as capitalized strings i.e (["Monday", "Tuesday"]) the Trigger should activate on (not available for daily triggers)|
+| `repeats_every`      | No  |How often the Trigger will repeat, respective to the frequency type (a number, i.e every `3` days)|
 | `on_week_num`      | No  |The nth week of the month that a monthly schedule should activate (a number i.e. activate on the `2` week of the month|
 
 ### Scheduled Data Context Object
-The Scheduled trigger also has access to a data context object which includes information related to the context of the trigger activation. This data object can be used to fill the optional input fields of the trigger being activated. The data context parameters available to a scheduled trigger are as follows:
+The Scheduled Trigger also has access to a data context object which includes information related to the context of the Trigger activation. This data object can be used to fill the optional input fields of the Trigger being activated. The data context parameters available to a scheduled Trigger are as follows:
 ```ts
-  'data.user_id': string, //The user_id of the user initiating the trigger.
+  'data.user_id': string, //The user_id of the user initiating the Trigger.
 ```
 
 The data context can be used in the input parameter as follows:
@@ -54,7 +54,7 @@ The data context can be used in the input parameter as follows:
 
 ## Usage
 
-Below are some usage examples of `ScheduledTrigger` objects which can be used in a .ts file to create a `scheduled` trigger through the Hermes CLI, alternatively this object could be passed into a 
+Below are some usage examples of `ScheduledTrigger` objects which can be used in a .ts file to create a `scheduled` Trigger through the Hermes CLI, alternatively this object could be passed into a 
 `client.workflows.triggers.create` method to achieve the same effect at runtime.
 
 ### Single Occurrence Schedule
@@ -163,7 +163,7 @@ const schedule: ScheduledTrigger = {
   trigger: {
     id: "Ft01426C5L83",
     type: "scheduled",
-    function: {
+    workflow: {
       id: "Fn0141SXKUHZ",
       workflow_id: "Wf0141SXKULB",
       callback_id: "reverse_workflow",
