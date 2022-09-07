@@ -12,8 +12,8 @@ level includes the common Trigger parameters along with a required input paramet
 ### Event Types
 
 An event_type is a string which corresponds to an event in the Slack Client which can activate a Workflow Trigger.
-Currently, events are separated into two categories, Workspace level events, and Channel level events. Workspace level events are events that affect the entire workspace, regardless of channel or specific chat id. Channel level events listen in on specific channels and only activate when the event happens inside of that channel. 
-The following is a list of event types along with their category
+Currently, events are separated into two categories, Workspace level events, and Channel level events. Workspace level events are events that affect the entire workspace, regardless of channel or specific chat id. Channel level events listen in on specific channels and only activate when the event happens inside of that channel. Each of these require a separate payload which can be found defined in the section [below](#the-event-object) 
+The following is a list of event types along with their category:
 
 | Event Name                       | Event String                | Category      | Notes       |
 | ---------------------------------|:----------------------------|:-------------:| ------------|
@@ -43,7 +43,7 @@ The following is a list of event types along with their category
 
 ### The Event Object
 
-Event trigger must contain an event object, which specifies the details of the event that will activate the Trigger. The event object has the following attributes: 
+Event trigger must contain an Event configuration object, which specifies the details of the Event that will activate the Trigger. The Event configuration object has the following attributes: 
 
 | Parameter name    | Required?     | Description                                                             |
 | ------------------|:-------------:| ------------------------------------------------------------------------|
@@ -290,8 +290,8 @@ The inputs paramater has access to context information from when the Trigger is 
       "domain": "corgis",      
       "date_created": 1480946400    
     },    
-    "inviting_user": {     // Standard hermes user object    
-      "id" : "U123"    
+    "inviting_user": {
+      "id" : "U123",    
       "team_id" : "T123",    
       "name" : "John Doe",    
       "display_name" : "John Doe",    
@@ -343,7 +343,7 @@ The inputs paramater has access to context information from when the Trigger is 
       "domain": "corgis",      
       "date_created": 1480946400    
     },    
-    "inviting_user": {    // Standard hermes user object    
+    "inviting_user": {   
       "id": "U123",   
       "team_id": "T123",    
       "name": "John Doe",    
@@ -369,7 +369,7 @@ The inputs paramater has access to context information from when the Trigger is 
       "date_created": 1626789600    
     }  
   ],  
-  "approving_user": {  // Standard hermes user object    
+  "approving_user": {   
     "id": "U123",    
     "team_id": "T123",    
     "name": "John Doe",    
@@ -397,7 +397,7 @@ The inputs paramater has access to context information from when the Trigger is 
       "domain": "corgis",      
       "date_created": 1480946400    
     },    
-    "inviting_user": {    // Standard hermes user object    
+    "inviting_user": {   
       "id" : "U123"    
       "team_id" : "T123",    
       "name" : "John Doe",    
@@ -423,7 +423,7 @@ The inputs paramater has access to context information from when the Trigger is 
       "date_created": 1626789600    
     }  
   ],  
-  "declining_user": {  // Standard hermes user object    
+  "declining_user": {    
     "id" : "U123",    
     "team_id" : "T123",    
     "name" : "John Doe",    
@@ -451,7 +451,7 @@ The inputs paramater has access to context information from when the Trigger is 
       "domain": "corgis",        
       "date_created": 1480946400      
     },      
-    "inviting_user": {       // Standard hermes user object    
+    "inviting_user": { 
       "id": "U123",    
       "team_id": "T123",    
       "name": "John Doe",    
@@ -469,7 +469,7 @@ The inputs paramater has access to context information from when the Trigger is 
 ```
 
 ## Usage
-
+The examples below are sample Trigger objects which can be used to create Triggers in the [CLI](./trigger-basics.md/#creating-triggers-using-the-hermes-cli).
 ### Channel Level Trigger
 ```ts
 const trigger: Trigger = {
