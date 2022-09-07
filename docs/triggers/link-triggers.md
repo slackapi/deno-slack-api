@@ -20,18 +20,17 @@ A Link Trigger can contain an optional `shortcut` configuration object which spe
 ### Link Data Context Object
 The `data` context parameters available to a Shortcut Trigger are as follows:
 
-```ts
-  'data.user_id': string,
-	'data.channel_id': string, 
-	'data.interactivity': InteractivityValue::T,
-	'data.location': string, //message, file, bookmark
-	'data.message_ts': string,
-	'data.user': UserContextValue::T,
-	'data.action_id': string,
-	'data.block_id': string,
-	'data.bookmark_id': string,
-	'data.canvas_id': string,
-```
+| Parameter name  | type     | Description                                                          |
+| ----------------|:-------------:| ---------------------------------------------------------------------|
+| `data.user_id`        | string            | A unique identifier for the Slack user who invoked the Trigger         |
+| `data.channel_id`        | string            | A unique identifier for the channel where the Trigger was invoked         |
+| `data.interactivity`        | object            | See [Block Kit interactivity](https://api.dev.slack.com/future/triggers/future/block-events)|
+| `data.location`        | string            | Where the Trigger was invoked. Can be `message` or `bookmark`|
+| `data.message_ts`        | string            | A unique UNIX timestamp in seconds indicating when the Trigger-invoking message was sent|
+| `data.user`        | object            | An object containing a `user_id` and a `secret` that can be used to identify and validate the specific user who invoked the Trigger|
+| `data.action_id`        | string            | A unique identifier for the action that invoked the Trigger. See [Block Kit interactivity](https://api.dev.slack.com/future/triggers/future/block-events) |
+| `data.block_id`        | string            | A unique identifier for the block where the Trigger was invoked. See [Block Kit interactivity](https://api.dev.slack.com/future/triggers/future/block-events)|
+| `data.bookmark_id`        | string            | A unique identifier for the bookmark where the Trigger was invoked|
 
 The data context can be used in the input parameter as follows:
 
@@ -83,7 +82,7 @@ const trigger: ShortcutTrigger = {
 };
 ```
 
-### Example Response from Create API
+### Example Response Payload from Create API
 
 ```ts
 {

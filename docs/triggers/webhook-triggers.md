@@ -97,3 +97,22 @@ const trigger: Trigger = {
 }
 ```
 
+## Invoking the Trigger 
+
+Send a POST request to invoke the Trigger. Within that POST request you can send values for specific inputs.
+
+Example POST request
+```
+curl \ 
+-X POST "https://hooks.slack.com/triggers/T123ABC456/.../..." \
+--header "Content-Type: application/json" \
+--data "{"channel":"C123ABC456"}" 
+```
+
+If successful, you'll get the following response:
+
+```
+{
+  "ok":true
+}
+```

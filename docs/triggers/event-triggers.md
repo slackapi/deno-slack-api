@@ -12,7 +12,7 @@ level includes the common Trigger parameters along with a required input paramet
 ### Event Types
 
 An event_type is a string which corresponds to an event in the Slack Client which can activate a Workflow Trigger.
-Currently, events are separated into two categories, Workspace level events, and Channel level events. Workspace level events are events that affect the entire workspace, regardless of channel or specific chat id. Channel level events listen in on specific channels and only activate when the event happens inside of that channel. Each of these require a separate payload which can be found defined in the section [below](#the-event-object) 
+Currently, events are separated into two categories, Workspace level events, and Channel level events. Workspace level events are events that affect the entire workspace, regardless of channel or specific chat id. Channel level events listen in on specific channels and only activate when the event happens inside of that channel. Each of these require a separate payload which can be found defined in the section [below](#the-event-object). 
 The following is a list of event types along with their category:
 
 | Event Name                       | Event String                | Category      | Notes       |

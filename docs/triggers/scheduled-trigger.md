@@ -34,7 +34,17 @@ The `frequency` object contains information on the repeating schedule for the Tr
 | `repeats_every`      | No  |How often the Trigger will repeat, respective to the frequency type (a number, i.e every `3` days)|
 | `on_week_num`      | No  |The nth week of the month that a monthly schedule should activate (a number i.e. activate on the `2` week of the month|
 
-### Scheduled Data Context Object
+### Scheduled Inputs Object
+The Scheduled Trigger has a required `inputs` object which can take the following parameters:
+
+| Parameter name  | Required?     | Description                                                          |
+| ----------------|:-------------:| ---------------------------------------------------------------------|
+| `type`      | No  |	The type of Trigger: `scheduled`|
+| `team_id` | No  |	A unique identifier for the workspace/team where the Trigger occurred.|
+| `enterprise_id`      | No  |	A unique identifier for the enterprise where the Trigger occurred.|
+| `event_timestamp`      | No  |	A UNIX timestamp in seconds indicating when the Trigger occurred.|
+
+
 The Scheduled Trigger also has access to a data context object which includes information related to the context of the Trigger activation. This data object can be used to fill the optional input fields of the Trigger being activated. The data context parameters available to a scheduled Trigger are as follows:
 ```ts
   'data.user_id': string, //The user_id of the user initiating the Trigger.

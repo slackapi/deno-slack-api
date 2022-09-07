@@ -21,12 +21,20 @@ The unique configuration objects for each Trigger type can be found in their res
 ### Trigger Context Data
 Each Trigger type has access to a `data` context object which includes information related to the context of the Trigger activation. This `data` object can be used to define values for `inputs` and `filters` of the Trigger being activated. Each of the four Trigger types has access to separate information which is contextual based on the Trigger type. These details will be provided in the specific article for that Trigger type.
 
+
 ## Creating Triggers
 
-Triggers can be created in one of two ways, either dynamically in your application at runtime, or through the Hermes CLI.
+Triggers can be created in one of two ways, either dynamically in your application at runtime, or through the Hermes CLI. More details on Trigger creation can be found in the [API documentation](https://api.dev.slack.com/future/triggers#create)
 ### Creating Triggers using the Hermes CLI
 
-To create a Trigger using the Hermes CLI, create a file that contains your Trigger, either in TS or JSON format.
+To create a Trigger using the Hermes CLI, create a file that contains your Trigger, either in TS or JSON format. Run the `trigger create` command with a `--trigger-def` flag pointing to your desired trigger file.
+
+```
+slack trigger create --trigger-def "path/to/trigger.ts"
+```
+
+Example trigger objects in valid typescript and JSON formats can be viewed below.
+
 ```ts
 import { Trigger } from "deno-slack-api/types.ts";
 
@@ -79,3 +87,117 @@ Creation uses the `client.workflows.triggers.create` method which takes in a Tri
     },
   });
 ```
+
+## Updating Triggers
+
+Similar to creating, updating Triggers can be done through the CLI, or at runtime using the `client.workflows.triggers.update` method. The updating a Trigger takes the same Trigger object as creating one, with the addition of a `trigger_id` parameter to identify the Trigger being updated. More details on Trigger creation can be found in the [API documentation](https://api.dev.slack.com/future/triggers#update)
+
+### Updating Triggers in the CLI
+
+To update a Trigger using the Hermes CLI, create a file that contains your Trigger along with its `trigger_id`, either in TS or JSON format. Run the `slack trigger update` command from the CLI with a `--trigger-id` flag to identify the trigger to be updated. The file path for the Trigger will be the exact same file that was used to create the Trigger, however the parameters of the Trigger object to be updated can be changed as necessary.
+
+```
+slack trigger update --trigger-id Ft123ABC --trigger-def "path/to/trigger.ts"
+```
+
+### Updating Triggers at runtime from your application
+
+Updating uses the `client.workflows.triggers.update` method which takes in the same Trigger object as the create call as input, with the addition of a `trigger_id` parameter. 
+
+```ts
+  const client = SlackAPI(token);
+
+  const shortcutResponse = await client.workflows.triggers.create({
+    trigger_id: "FtABC123",
+    type: "shortcut",
+    name: "Request Time off",
+    description: "Starts the workflow to request time off",
+    workflow: "#/workflows/reverse_workflow",
+    inputs: {
+      interactivity: {
+        value: "{{data.interactivity}}",
+      },
+    },
+  });
+```
+
+## Deleting Triggers 
+
+[API documentation](https://api.dev.slack.com/future/triggers#delete)
+
+### Delete a Trigger with the CLI 
+
+You can delete a Trigger with the slack trigger delete command.
+
+```
+slack trigger delete --trigger-id FtABC123
+```
+### Delete a Trigger at runtime
+
+Deleting a runtime Trigger deletes that specific Trigger created in one instance of the Workflow. This means that you'll need to have stored the trigger_id created for that instance. Your app will continue to be able to create Triggers.
+
+You can delete a runtime Trigger by using client.workflows.triggers.delete().
+
+```ts
+client.workflows.triggers.delete({
+   trigger_id: "FtABC123"
+});
+```
+
+## Listing Triggers
+
+Keeping track of active Triggers can be done using the `List` command, which will return a list of active triggers in your workspace. This can be done either through the CLI or at runtime.
+
+### Listing Triggers through the CLI
+
+Triggers can be listed through the CLI using the `slack trigger list` command. Doing so will list all active triggers in the CLI.
+
+### Listing Triggers at runtime
+
+Triggers can be listed at runtime using the `client.workflows.triggers.list` method. Using the client method will return an array of Trigger objects. The `list` method can be run with no input, however it also takes a variety of optional arguments to filter results. The optional arguments are as follows:
+
+| Parameter name  | Required?     | Description                                                          |
+| ----------------|:-------------:| ---------------------------------------------------------------------|
+| `app_id`         | No           | A single app id. Setting this value will filter the result to only include triggers for the given app id                           |
+| `is_collaborator`| No           | A `boolean` value. If true, only triggers where user is the collaborator will be returned.                |
+| `is_owner`       | No           | A `boolean` value. If true, only triggers created by this user will be returned.               |
+| `is_published`   | No           | A `boolean` value. If true, only return triggers to a published workflow. By default, all triggers will be returned.               |
+| `app_ids`        | No           | Comma-delimited list of app ids. Setting this value will filter the result to only include triggers for the given app ids |
+
+### Usage Examples
+
+#### Filter list by a single app_id
+```ts
+  const client = SlackAPI(token);
+
+  const List = await client.workflows.triggers.list({
+    app_id: "A013YMY7T7C",
+  });
+```
+
+#### Filter list by multiple app_ids
+```ts
+  const client = SlackAPI(token);
+
+  const List = await client.workflows.triggers.list({
+    app_ids: "A013YMY7T7C,A013NSFSY4B",
+  });
+```
+
+#### Filter list by single app_id and collaborator/owner/published status
+```ts
+  const client = SlackAPI(token);
+
+  const List = await client.workflows.triggers.list({
+    app_ids: "A013YMY7T7C,A013NSFSY4B",
+    is_collaborator: true,
+    is_owner: true,
+    is_published: true,
+  });
+```
+
+## Managing Trigger Access
+
+A newly created Run on Slack Trigger will only be accessible to others inside a workspace once its creator has granted access.
+
+Use the `access` command to manage who can have access to run your Triggers. Details on granting and revoking Trigger access can be found in the [API documentation](https://api.dev.slack.com/future/triggers#manage-access)

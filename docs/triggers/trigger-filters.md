@@ -1,6 +1,6 @@
 ## Trigger Filters
 
-A trigger filter is an object that can be added to a trigger on creation that will define the condition in which a trigger should execute its associated workflow. A trigger filter contains two parameters:
+A Trigger filter is an object that can be added to a Trigger on creation that will define the condition in which a Trigger should execute its associated workflow. A Trigger filter contains two parameters:
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
