@@ -1,6 +1,6 @@
 ## Link Triggers
 
-A Link Trigger is an interactive Trigger that activates when a Shortcut is clicked in the Slack client. When a Shortcut Trigger is created, its API response returns a `shortcut_url` which can be used in Slack to show a button. Clicking on this button will activate the associated Workflow. A Link Trigger
+A Link Trigger is an interactive Trigger that activates when a link is clicked in the Slack client. When a Link Trigger is created, its API response returns a `shortcut_url` which can be used in Slack to show a button. Clicking on this button will activate the associated Workflow. A Link Trigger
 includes the common [Trigger attributes](./trigger-basics.md#trigger-types) along with an optional shortcut parameter: 
 
 | Parameter name  | Required?     | Description                                                          |
@@ -9,7 +9,7 @@ includes the common [Trigger attributes](./trigger-basics.md#trigger-types) alon
 
 ### Shortcut Configuration
 
-A Link Trigger can contain an optional `shortcut` configuration object which specifies additional details about the Shortcut. Currently, the `shortcut` object is used to specify the button text of the Shortcut associated with the Trigger and has the following shape:
+A Link Trigger can contain an optional `shortcut` configuration object which specifies additional details about the link. Currently, the `shortcut` object is used to specify the button text of the link associated with the Trigger and has the following shape:
 
 ```ts
   shortcut?: {
@@ -17,7 +17,7 @@ A Link Trigger can contain an optional `shortcut` configuration object which spe
   };
 ```
 
-### Link Data Context Object
+### Context Data Availability
 The `data` context parameters available to a Shortcut Trigger are as follows:
 
 | Parameter name  | type     | Description                                                          |
@@ -64,6 +64,8 @@ const trigger: ShortcutTrigger = {
     button_text: "Click Me"
   }
 };
+
+export default trigger;
 ```
 
 ### Example Shortcut Trigger Without Shortcut Object
@@ -80,6 +82,8 @@ const trigger: ShortcutTrigger = {
     },
   },
 };
+
+export default trigger;
 ```
 
 ### Example Response Payload from Create API
@@ -88,21 +92,21 @@ const trigger: ShortcutTrigger = {
 {
   ok: true, //true on success, false on failure
   trigger: { //information related to the trigger 
-    id: "Ft01426C5LG3", //The trigger id
+    id: "Ft014646C5ZF3", //The trigger id
     type: "shortcut", //The trigger type
     workflow: { // Information related to the workflow function
       id: "Fn0141SXKUHZ",
-      workflow_id: "Wf0141SXKULB",
-      callback_id: "reverse_workflow",
-      title: "Reverse Workflow",
+      workflow_id: "Wf0141SXKWRZ",
+      callback_id: "example_workflow",
+      title: "Example Workflow",
       description: "A sample workflow",
       type: "workflow",
       input_parameters: [],
       output_parameters: [],
-      app_id: "A01412HH666",
+      app_id: "A01412GH614",
       app: {
-        id: "A01412HH666",
-        name: "my-app (dev)",
+        id: "A01412GH614",
+        name: "my-app",
         icons: [],
         is_workflow_app: false
       },
@@ -112,9 +116,9 @@ const trigger: ShortcutTrigger = {
     outputs: {},
     date_created: 1658339927,
     date_updated: 1658339927,
-    name: "TEST", //The name given to the trigger
-    description: "", //Trigger description
-    shortcut_url: "https://app.slack.com/app/A01412HH666/shortcut/Ft01426C5LG3" //The shortcut URL, paste into client to create unfurled link
+    name: "Example Trigger", //The name given to the trigger
+    description: "An example trigger", //Trigger description
+    shortcut_url: "https://app.slack.com/app/A01412GH614/shortcut/Ft014646C5ZF3" //The shortcut URL, paste into client to create unfurled link
   }
 }
 ```

@@ -1,12 +1,12 @@
 ## Scheduled Triggers
 
-A Scheduled trigger is a Trigger that activates on a set schedule, defined by a `schedule` parameter object. A Scheduled Trigger includes the common Trigger attributes along with a required schedule parameter: 
+A Scheduled Trigger is a Trigger that activates on a set schedule, defined by a `schedule` parameter object. A Scheduled Trigger includes the common Trigger attributes along with a required `schedule` parameter: 
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
 | `schedule`        | No            | Contains information about the Trigger schedule            |
 
-### Schedule Object
+### Schedule Configuration
 
 The `schedule` object can take the shape of either a Single Occurrence schedule or a Recurring Schedule. A Single occurrence schedule is a schedule which will only activate one time, a recurring schedule sets a schedule that will repeat on the schedule. 
 
@@ -34,16 +34,7 @@ The `frequency` object contains information on the repeating schedule for the Tr
 | `repeats_every`      | No  |How often the Trigger will repeat, respective to the frequency type (a number, i.e every `3` days)|
 | `on_week_num`      | No  |The nth week of the month that a monthly schedule should activate (a number i.e. activate on the `2` week of the month|
 
-### Scheduled Inputs Object
-The Scheduled Trigger has a required `inputs` object which can take the following parameters:
-
-| Parameter name  | Required?     | Description                                                          |
-| ----------------|:-------------:| ---------------------------------------------------------------------|
-| `type`      | No  |	The type of Trigger: `scheduled`|
-| `team_id` | No  |	A unique identifier for the workspace/team where the Trigger occurred.|
-| `enterprise_id`      | No  |	A unique identifier for the enterprise where the Trigger occurred.|
-| `event_timestamp`      | No  |	A UNIX timestamp in seconds indicating when the Trigger occurred.|
-
+### Data Context Availability
 
 The Scheduled Trigger also has access to a data context object which includes information related to the context of the Trigger activation. This data object can be used to fill the optional input fields of the Trigger being activated. The data context parameters available to a scheduled Trigger are as follows:
 ```ts
@@ -165,7 +156,7 @@ const schedule: ScheduledTrigger = {
 ```
 
 
-### Example Response
+### Example Response From Create API
 
 ```ts
 {

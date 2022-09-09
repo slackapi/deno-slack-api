@@ -6,57 +6,56 @@ level includes the common Trigger parameters along with a required input paramet
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
-| inputs          | Yes            | What inputs (defined in the manifest) are passed to the Trigger      |
-| event           | Yes            | An event object with information about the activation event          |
+| `event`           | Yes            | An event object with information about the activation event          |
 
 ### Event Types
 
-An event_type is a string which corresponds to an event in the Slack Client which can activate a Workflow Trigger.
+An `event_type` is a string which corresponds to an event in the Slack Client. These `event_type`s can be set on a Trigger to activate a Workflow.
 Currently, events are separated into two categories, Workspace level events, and Channel level events. Workspace level events are events that affect the entire workspace, regardless of channel or specific chat id. Channel level events listen in on specific channels and only activate when the event happens inside of that channel. Each of these require a separate payload which can be found defined in the section [below](#the-event-object). 
 The following is a list of event types along with their category:
 
-| Event Name                       | Event String                | Category      | Notes       |
-| ---------------------------------|:----------------------------|:-------------:| ------------|
-| App Mentioned                    |`slack#/events/app_mentioned`| Channel       |             |
-| Channel Archived                 |`slack#/events/channel_archived`| Workspace     |             |
-| Channel Created                  |`slack#/events/channel_created`| Workspace     |             |
-| Channel Deleted                  |`slack#/events/channel_deleted`| Workspace     |             |
-| Channel Renamed                  |`slack#/events/channel_renamed`| Workspace     |             |
-| Channel Shared                   |`slack#/events/channel_shared`| Channel       |             |
-| Channel Unarchived               |`slack#/events/channel_unarchived`| Workspace     |             |
-| Channel Unshared                 |`slack#/events/channel_unshared`| Channel       |             |
-| DND Updated                      |`slack#/events/dnd_updated`| Workspace     |             |
-| Emoji Changed                    |`slack#/events/emoji_changed`| Workspace     |             |
-| Message Metadata Posted          |`slack#/events/message_metadata_posted`| Channel       | Requires the "metadata_event_type" parameter |
-| Message Posted                   |`slack#/events/message_posted`| Channel       | Requires a "filter" parameter in event object|
-| Pin Added                        |`slack#/events/pin_added`| Channel       |             |
-| Pin Removed                      |`slack#/events/pin_removed`| Channel       |             |
-| Reaction Added                   |`slack#/events/reaction_added`| Channel       |             |
-| Reaction Removed                 |`slack#/events/reaction_removed`| channel       |             |
-| Shared Channel Invite Accepted   |`slack#/events/shared_channel_invite_accepted`| Channel       |             |
-| Shared Channel Invite Approved   |`slack#/events/shared_channel_invite_approved`| Channel       |             |
-| Shared Channel Invite Declined   |`slack#/events/shared_channel_invite_declined`| Channel       |             |
-| Shared Channel Invite Received   |`slack#/events/shared_channel_invite_received`| Channel       |             |
-| User Joined Channel              |`slack#/events/user_joined_channel`| Channel       |             |
-| User Joined Team                 |`slack#/events/user_joined_team`| Workspace     |             |
-| User Left Channel                |`slack#/events/user_left_channel`| Channel       |             |
+| Event Name                       | Event String                | Category      | Notes       | Link    |  Payload     |
+| ---------------------------------|:----------------------------|:-------------:| ------------| --------| -------------|
+| App Mentioned                    |`slack#/events/app_mentioned`| Channel       |             |[API Doc](https://api.slack.com/events/app_mention)|[Payload](#appmentioned)|
+| Channel Archived                 |`slack#/events/channel_archived`| Workspace     |             |[API Doc](https://api.slack.com/events/channel_archive)|[Payload](#channelarchived)|
+| Channel Created                  |`slack#/events/channel_created`| Workspace     |             |[API Doc](https://api.slack.com/events/channel_created)|[Payload](#channelcreated)|
+| Channel Deleted                  |`slack#/events/channel_deleted`| Workspace     |             |[API Doc](https://api.slack.com/events/channel_deleted)|[Payload](#channeldeleted)|
+| Channel Renamed                  |`slack#/events/channel_renamed`| Workspace     |             |[API Doc](https://api.slack.com/events/channel_rename)|[Payload](#channelrenamed)|
+| Channel Shared                   |`slack#/events/channel_shared`| Channel       |             |[API Doc](https://api.slack.com/events/channel_shared)|[Payload](#channelshared)|
+| Channel Unarchived               |`slack#/events/channel_unarchived`| Workspace     |             |[API Doc](https://api.slack.com/events/channel_unarchive)|[Payload](#channelunarchived)|
+| Channel Unshared                 |`slack#/events/channel_unshared`| Channel       |             |[API Doc](https://api.slack.com/events/channel_unshared)|[Payload](#channelunshared)|
+| DND Updated                      |`slack#/events/dnd_updated`| Workspace     |             |[API Doc](https://api.slack.com/events/dnd_updated)|[Payload](#dndstatusupdated)|
+| Emoji Changed                    |`slack#/events/emoji_changed`| Workspace     |             |[API Doc](https://api.slack.com/events/emoji_changed)|[Payload](#emojichanged)|
+| Message Metadata Posted          |`slack#/events/message_metadata_posted`| Channel       | Requires the "metadata_event_type" parameter |[API Doc](https://api.slack.com/events/message_metadata_posted)|[Payload](#message-metadata-trigger)|
+| Message Posted                   |`slack#/events/message_posted`| Channel       | Requires a "filter" parameter in event object|[API Doc](https://api.slack.com/events/message)|[Payload](#messageposted-trigger)|
+| Pin Added                        |`slack#/events/pin_added`| Channel       |             |[API Doc](https://api.slack.com/events/pin_added)|[Payload](#pinadded)|
+| Pin Removed                      |`slack#/events/pin_removed`| Channel       |             |[API Doc](https://api.slack.com/events/pin_removed)|[Payload](#pinremoved)|
+| Reaction Added                   |`slack#/events/reaction_added`| Channel       |             |[API Doc](https://api.slack.com/events/reaction_added)|[Payload](#reactionadded)|
+| Reaction Removed                 |`slack#/events/reaction_removed`| channel       |             |[API Doc](https://api.slack.com/events/reaction_removed)|[Payload](#reactionremoved)|
+| Shared Channel Invite Accepted   |`slack#/events/shared_channel_invite_accepted`| Channel       |  |[API Doc](https://api.slack.com/events/shared_channel_invite_accepted)|[Payload](#sharedchannelinviteaccepted)|
+| Shared Channel Invite Approved   |`slack#/events/shared_channel_invite_approved`| Channel       ||[API Doc](https://api.slack.com/events/shared_channel_invite_approved)|[Payload](#sharedchannelinviteapproved)|
+| Shared Channel Invite Declined   |`slack#/events/shared_channel_invite_declined`| Channel       | |[API Doc](https://api.slack.com/events/shared_channel_invite_declined)|[Payload](#sharedchannelinvitedeclined)|
+| Shared Channel Invite Received   |`slack#/events/shared_channel_invite_received`| Channel       | |[API Doc](https://api.slack.com/events/shared_channel_invite_received)|[Payload](#sharedchannelinvitereceived)|
+| Member Joined Channel              |`slack#/events/user_joined_channel`| Channel       |             |[API Doc](https://api.slack.com/events/member_joined_channel)|[Payload](#userjoinedchannel)|
+| Member Joined Team                 |`slack#/events/user_joined_team`| Workspace     |             ||[Payload](#userjoinedteam)|
+| Member Left Channel                |`slack#/events/user_left_channel`| Channel       |             |[API Doc](https://api.slack.com/events/member_left_channel)|[Payload](#userleftchannel)|
 
-### The Event Object
+### Event Configuration
 
-Event trigger must contain an Event configuration object, which specifies the details of the Event that will activate the Trigger. The Event configuration object has the following attributes: 
+Event Trigger must contain an Event configuration object, which specifies the details of the Event that will activate the Trigger. The Event configuration object has the following attributes: 
 
 | Parameter name    | Required?     | Description                                                             |
 | ------------------|:-------------:| ------------------------------------------------------------------------|
-| event_type        | Yes           | The name of the event                                                   |
-| [filter](trigger-filters.md) | Sometimes     | A Filter object (Required for message_posted event)                     |
-| team_ids          | No            | Which teams to listen for events (Optional for workspace events)        |
-| channel_ids       | Sometimes     | which channel to listen for events (required for channel level events)  |
-| metadata_event_type       | Sometimes     | Required for metadata events, string corresponding to the event type |
+| `event_type`        | Yes           | The name of the event, matches an `event_string` from the [table above](#event-types) |
+| [`filter`](trigger-filters.md) | Sometimes     | A [Filter object](./trigger-filters.md) (Required for the message_posted event)    |
+| `team_ids`         | No            | An array of `team_id` strings that specifies which teams to listen for events (Optional for workspace events)        |
+| `channel_ids`       | Sometimes     | An array of `channel_id` strings that specifies which channels to listen for events (required for channel level events)  |
+| `metadata_event_type`       | Sometimes     | Required for metadata events, string corresponding to the event type |
 
 
 ### Context Data Availability
 
-The inputs paramater has access to context information from when the Trigger is activated. Each event_type has access to its own specific data parameters which can be found below:
+The `inputs` parameter has access to context information from when the Trigger is activated. Each event_type has access to its own specific data parameters which can be found below:
 
 #### reaction_added
 ```json
@@ -79,7 +78,7 @@ The inputs paramater has access to context information from when the Trigger is 
   "message_ts": "1630708981.000001",              
   "metadata": {                  
     "event_type": "incident_created",                  
-    "event_payload": {                     
+    "event_payload": { //Parameters inside event_payload are user-defined and may differ from the example listed here.                
       "incident": {                          
         "id": 123,                          
         "summary": "Someone tripped over",                          
@@ -97,7 +96,7 @@ The inputs paramater has access to context information from when the Trigger is 
   "user_id": "U0GEV077Y",             
   "channel_id": "C0GEV71UG",             
   "inviter_id": "U0GEV0BBB",             
-  "channel_type" : "public/private/im/mpim"         
+  "channel_type" : "public/private/im/mpim" //channel type can be one of these 4 values, either "public", "private", "im", or "mpim"         
 }
 ```
 
@@ -120,7 +119,7 @@ The inputs paramater has access to context information from when the Trigger is 
   "event_type": "slack#/events/channel_created",             
   "channel_id": "C024BE91L",             
   "channel_name": "fun",             
-  "channel_type": "public",             
+  "channel_type" : "public/private/im/mpim", //channel type can be one of these 4 values, either "public", "private", "im", or "mpim"           
   "creator_id": "U024BE7LH",              
   "created": 1360782804,         
 }
@@ -151,13 +150,13 @@ The inputs paramater has access to context information from when the Trigger is 
 }
 ```
 
-#### member_left_channel
+#### user_left_channel
 ```json
 "data": {             
   "event_type": "slack#/events/user_left_channel",             
   "user_id": "W06GH7XHN",             
   "channel_id": "C0GEV71UG",             
-  "channel_type" : "public/private/im/mpim"         
+  "channel_type" : "public/private/im/mpim", //channel type can be one of these 4 values, either "public", "private", "im", or "mpim"        
 }
 ```
 #### reaction_removed
@@ -176,7 +175,7 @@ The inputs paramater has access to context information from when the Trigger is 
 "data": {             
   "event_type": "slack#/events/channel_deleted",              
   "channel_id": "C013PL9S6D8",              
-  "channel_type": "public/private/im/mpim",              
+  "channel_type" : "public/private/im/mpim", //channel type can be one of these 4 values, either "public", "private", "im", or "mpim"             
   "channel_name": "project_planning",              
   "user_id": "U013PJ8915Y",         
 }
@@ -188,7 +187,7 @@ The inputs paramater has access to context information from when the Trigger is 
   "event_type": "slack#/events/channel_renamed",             
   "user_id": "U325JGH5",             
   "channel_id": "C013PL9S6D8",              
-  "channel_type": "public/private/im/mpim",              
+  "channel_type" : "public/private/im/mpim", //channel type can be one of these 4 values, either "public", "private", "im", or "mpim"               
   "channel_name": "project_planning",         
 }
 ```
@@ -211,7 +210,7 @@ The inputs paramater has access to context information from when the Trigger is 
   "event_type": "slack#/events/pin_removed",              
   "user_id": "U024BE7LH",              
   "channel_id": "C013PL9S6D8",              
-  "channel_type": "public/private/im/mpim",              
+  "channel_type" : "public/private/im/mpim", //channel type can be one of these 4 values, either "public", "private", "im", or "mpim"             
   "channel_name": "project_planning",             
   "message_ts": "1360782804.083113"                     
 }
@@ -223,7 +222,7 @@ The inputs paramater has access to context information from when the Trigger is 
   "event_type": "slack#/events/channel_archived",             
   "user_id": "U024BE7LH",             
   "channel_id": "C024BE91L",             
-  "channel_type": "public/private/im/mpim",         
+  "channel_type" : "public/private/im/mpim", //channel type can be one of these 4 values, either "public", "private", "im", or "mpim"      
 }
 ```
 
@@ -233,7 +232,7 @@ The inputs paramater has access to context information from when the Trigger is 
   "event_type": "slack#/events/channel_unarchived",             
   "user_id": "U024BE7LH",             
   "channel_id": "C024BE91L",             
-  "channel_type": "public/private/im/mpim",              
+  "channel_type" : "public/private/im/mpim", //channel type can be one of these 4 values, either "public", "private", "im", or "mpim"            
   "channel_name": "cool-channel"         
 }
 ```
@@ -244,7 +243,7 @@ The inputs paramater has access to context information from when the Trigger is 
   "event_type": "slack#/events/channel_shared",              
   "connected_team_id": "E163Q94DX",            
   "channel_id": "C024BE91L",             
-  "channel_type": "public/private/im/mpim",              
+  "channel_type" : "public/private/im/mpim", //channel type can be one of these 4 values, either "public", "private", "im", or "mpim"              
   "channel_name": "cool-channel"         
 }
 ```
@@ -256,7 +255,7 @@ The inputs paramater has access to context information from when the Trigger is 
   "disconnected_team_id": "E163Q94DX",              
   "is_ext_shared": false,              
   "channel_id": "C024BE91L",             
-  "channel_type": "public/private/im/mpim",              
+  "channel_type" : "public/private/im/mpim", //channel type can be one of these 4 values, either "public", "private", "im", or "mpim"               
   "channel_name": "cool-channel"         
 }
 ```
@@ -268,7 +267,7 @@ The inputs paramater has access to context information from when the Trigger is 
   "user_id:": "U061F7AUR",              
   "text": "<@U0LAN0Z89> is it everything a river should be?",              
   "channel_id": "C024BE91L",             
-  "channel_type": "public/private/im/mpim",              
+  "channel_type" : "public/private/im/mpim", //channel type can be one of these 4 values, either "public", "private", "im", or "mpim"       
   "channel_name": "cool-channel"         
 }
 ```
@@ -303,7 +302,7 @@ The inputs paramater has access to context information from when the Trigger is 
   "recipient_email": "golden@doodle.com",  
   "recipient_user_id": "U87654321",  
   "channel_id": "C12345678",  
-  "channel_type": "public/private/im/mpim",  
+  "channel_type" : "public/private/im/mpim", //channel type can be one of these 4 values, either "public", "private", "im", or "mpim"    
   "channel_name": "test-slack-connect",  
   "teams_in_channel": [    
     {      
@@ -356,7 +355,7 @@ The inputs paramater has access to context information from when the Trigger is 
     "recipient_user_id": "U87654321"
   },
   "channel_id": "C12345678",  
-  "channel_type": "public/private/im/mpim",  
+  "channel_type" : "public/private/im/mpim", //channel type can be one of these 4 values, either "public", "private", "im", or "mpim"    
   "channel_name": "test-slack-connect",  
   "approving_team_id": "T87654321",  
   "teams_in_channel": [    
@@ -410,7 +409,7 @@ The inputs paramater has access to context information from when the Trigger is 
     "recipient_user_id": "U87654321"
   },
   "channel_id": "C12345678",  
-  "channel_type": "public/private/im/mpim",  
+  "channel_type" : "public/private/im/mpim", //channel type can be one of these 4 values, either "public", "private", "im", or "mpim"    
   "channel_name": "test-slack-connect",  
   "declining_team_id": "T87654321",  
   "teams_in_channel": [    
@@ -463,7 +462,7 @@ The inputs paramater has access to context information from when the Trigger is 
     "recipient_user_id": "U87654321"    
   },    
   "channel_id": "C12345678",  
-  "channel_type": "public/private/im/mpim",  
+  "channel_type" : "public/private/im/mpim", //channel type can be one of these 4 values, either "public", "private", "im", or "mpim"    
   "channel_name": "test-slack-connect",  
 }
 ```

@@ -8,7 +8,7 @@ includes the common Trigger parameters along with a webhook parameter:
 | `inputs`        | Yes           | What inputs (defined in the manifest) are passed to the Trigger      |
 | `webook`        | No            | Contains a [filter](trigger-filters.md)             |
 
-### Webhook Object
+### Webhook Configuration
 
 A Webhook Trigger can contain an optional `webhook` configuration object which specifies a `filter`:
 
@@ -92,7 +92,7 @@ const trigger: Trigger = {
     outputs: {},
     date_created: 1658339927,
     date_updated: 1658339927,
-    webhook_url: "https://hooks.dev.slack.com/triggers/T013ZG3K1QT/1140137995618/5a398c41c55cbd2a9083770d752d99a7"
+    webhook_url: "https://hooks.dev.slack.com/triggers/T013ZG3K1QT/5641534666242/5a398c41c55cbd2sd89q9dqw0qa7"
     }
 }
 ```
