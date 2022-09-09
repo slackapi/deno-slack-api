@@ -16,29 +16,29 @@ The following is a list of event types along with their category:
 
 | Event Name                       | Event String                | Category      | Notes       | Link    |  Payload     |
 | ---------------------------------|:----------------------------|:-------------:| ------------| --------| -------------|
-| App Mentioned                    |`slack#/events/app_mentioned`| Channel       |             |[API Doc](https://api.slack.com/events/app_mention)|[Payload](#appmentioned)|
-| Channel Archived                 |`slack#/events/channel_archived`| Workspace     |             |[API Doc](https://api.slack.com/events/channel_archive)|[Payload](#channelarchived)|
-| Channel Created                  |`slack#/events/channel_created`| Workspace     |             |[API Doc](https://api.slack.com/events/channel_created)|[Payload](#channelcreated)|
-| Channel Deleted                  |`slack#/events/channel_deleted`| Workspace     |             |[API Doc](https://api.slack.com/events/channel_deleted)|[Payload](#channeldeleted)|
-| Channel Renamed                  |`slack#/events/channel_renamed`| Workspace     |             |[API Doc](https://api.slack.com/events/channel_rename)|[Payload](#channelrenamed)|
-| Channel Shared                   |`slack#/events/channel_shared`| Channel       |             |[API Doc](https://api.slack.com/events/channel_shared)|[Payload](#channelshared)|
-| Channel Unarchived               |`slack#/events/channel_unarchived`| Workspace     |             |[API Doc](https://api.slack.com/events/channel_unarchive)|[Payload](#channelunarchived)|
-| Channel Unshared                 |`slack#/events/channel_unshared`| Channel       |             |[API Doc](https://api.slack.com/events/channel_unshared)|[Payload](#channelunshared)|
-| DND Updated                      |`slack#/events/dnd_updated`| Workspace     |             |[API Doc](https://api.slack.com/events/dnd_updated)|[Payload](#dndstatusupdated)|
-| Emoji Changed                    |`slack#/events/emoji_changed`| Workspace     |             |[API Doc](https://api.slack.com/events/emoji_changed)|[Payload](#emojichanged)|
+| App Mentioned                    |`slack#/events/app_mentioned`| Channel       |             |[API Doc](https://api.slack.com/events/app_mention)|[Payload](#app_mentioned)|
+| Channel Archived                 |`slack#/events/channel_archived`| Workspace     |             |[API Doc](https://api.slack.com/events/channel_archive)|[Payload](#channel_archived)|
+| Channel Created                  |`slack#/events/channel_created`| Workspace     |             |[API Doc](https://api.slack.com/events/channel_created)|[Payload](#channel_created)|
+| Channel Deleted                  |`slack#/events/channel_deleted`| Workspace     |             |[API Doc](https://api.slack.com/events/channel_deleted)|[Payload](#channel_deleted)|
+| Channel Renamed                  |`slack#/events/channel_renamed`| Workspace     |             |[API Doc](https://api.slack.com/events/channel_rename)|[Payload](#channel_renamed)|
+| Channel Shared                   |`slack#/events/channel_shared`| Channel       |             |[API Doc](https://api.slack.com/events/channel_shared)|[Payload](#channel_shared)|
+| Channel Unarchived               |`slack#/events/channel_unarchived`| Workspace     |             |[API Doc](https://api.slack.com/events/channel_unarchive)|[Payload](#channel_unarchived)|
+| Channel Unshared                 |`slack#/events/channel_unshared`| Channel       |             |[API Doc](https://api.slack.com/events/channel_unshared)|[Payload](#channel_unshared)|
+| DND Updated                      |`slack#/events/dnd_updated`| Workspace     |             |[API Doc](https://api.slack.com/events/dnd_updated)|[Payload](#dnd_status_updated)|
+| Emoji Changed                    |`slack#/events/emoji_changed`| Workspace     |             |[API Doc](https://api.slack.com/events/emoji_changed)|[Payload](#emoji_changed)|
 | Message Metadata Posted          |`slack#/events/message_metadata_posted`| Channel       | Requires the "metadata_event_type" parameter |[API Doc](https://api.slack.com/events/message_metadata_posted)|[Payload](#message-metadata-trigger)|
 | Message Posted                   |`slack#/events/message_posted`| Channel       | Requires a "filter" parameter in event object|[API Doc](https://api.slack.com/events/message)|[Payload](#messageposted-trigger)|
-| Pin Added                        |`slack#/events/pin_added`| Channel       |             |[API Doc](https://api.slack.com/events/pin_added)|[Payload](#pinadded)|
-| Pin Removed                      |`slack#/events/pin_removed`| Channel       |             |[API Doc](https://api.slack.com/events/pin_removed)|[Payload](#pinremoved)|
-| Reaction Added                   |`slack#/events/reaction_added`| Channel       |             |[API Doc](https://api.slack.com/events/reaction_added)|[Payload](#reactionadded)|
-| Reaction Removed                 |`slack#/events/reaction_removed`| channel       |             |[API Doc](https://api.slack.com/events/reaction_removed)|[Payload](#reactionremoved)|
-| Shared Channel Invite Accepted   |`slack#/events/shared_channel_invite_accepted`| Channel       |  |[API Doc](https://api.slack.com/events/shared_channel_invite_accepted)|[Payload](#sharedchannelinviteaccepted)|
-| Shared Channel Invite Approved   |`slack#/events/shared_channel_invite_approved`| Channel       ||[API Doc](https://api.slack.com/events/shared_channel_invite_approved)|[Payload](#sharedchannelinviteapproved)|
-| Shared Channel Invite Declined   |`slack#/events/shared_channel_invite_declined`| Channel       | |[API Doc](https://api.slack.com/events/shared_channel_invite_declined)|[Payload](#sharedchannelinvitedeclined)|
-| Shared Channel Invite Received   |`slack#/events/shared_channel_invite_received`| Channel       | |[API Doc](https://api.slack.com/events/shared_channel_invite_received)|[Payload](#sharedchannelinvitereceived)|
-| Member Joined Channel              |`slack#/events/user_joined_channel`| Channel       |             |[API Doc](https://api.slack.com/events/member_joined_channel)|[Payload](#userjoinedchannel)|
-| Member Joined Team                 |`slack#/events/user_joined_team`| Workspace     |             ||[Payload](#userjoinedteam)|
-| Member Left Channel                |`slack#/events/user_left_channel`| Channel       |             |[API Doc](https://api.slack.com/events/member_left_channel)|[Payload](#userleftchannel)|
+| Pin Added                        |`slack#/events/pin_added`| Channel       |             |[API Doc](https://api.slack.com/events/pin_added)|[Payload](#pin_added)|
+| Pin Removed                      |`slack#/events/pin_removed`| Channel       |             |[API Doc](https://api.slack.com/events/pin_removed)|[Payload](#pin_removed)|
+| Reaction Added                   |`slack#/events/reaction_added`| Channel       |             |[API Doc](https://api.slack.com/events/reaction_added)|[Payload](#reaction_added)|
+| Reaction Removed                 |`slack#/events/reaction_removed`| channel       |             |[API Doc](https://api.slack.com/events/reaction_removed)|[Payload](#reaction_removed)|
+| Shared Channel Invite Accepted   |`slack#/events/shared_channel_invite_accepted`| Channel       |  |[API Doc](https://api.slack.com/events/shared_channel_invite_accepted)|[Payload](#shared_channel_invite_accepted)|
+| Shared Channel Invite Approved   |`slack#/events/shared_channel_invite_approved`| Channel       ||[API Doc](https://api.slack.com/events/shared_channel_invite_approved)|[Payload](#shared_channel_invite_approved)|
+| Shared Channel Invite Declined   |`slack#/events/shared_channel_invite_declined`| Channel       | |[API Doc](https://api.slack.com/events/shared_channel_invite_declined)|[Payload](#shared_channel_invite_declined)|
+| Shared Channel Invite Received   |`slack#/events/shared_channel_invite_received`| Channel       | |[API Doc](https://api.slack.com/events/shared_channel_invite_received)|[Payload](#shared_channel_invite_received)|
+| Member Joined Channel              |`slack#/events/user_joined_channel`| Channel       |             |[API Doc](https://api.slack.com/events/member_joined_channel)|[Payload](#user_joined_channel)|
+| Member Joined Team                 |`slack#/events/user_joined_team`| Workspace     |             ||[Payload](#user_joined_team)|
+| Member Left Channel                |`slack#/events/user_left_channel`| Channel       |             |[API Doc](https://api.slack.com/events/member_left_channel)|[Payload](#user_left_channel)|
 
 ### Event Configuration
 
