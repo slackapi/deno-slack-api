@@ -14,6 +14,12 @@ export class BaseSlackAPIClient implements BaseSlackClient {
     this.#baseURL = options.slackApiUrl || "https://slack.com/api/";
   }
 
+  setSlackApiUrl(apiURL: string) {
+    this.#baseURL = apiURL;
+
+    return this;
+  }
+
   async apiCall(
     method: string,
     data: SlackAPIMethodArgs = {},

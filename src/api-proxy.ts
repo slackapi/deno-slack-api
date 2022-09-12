@@ -13,6 +13,7 @@ export const ProxifyAndTypeClient = (baseClient: BaseSlackAPIClient) => {
 
   // Create a subset of the client that we want to wrap our Proxy() around
   const clientToProxy = {
+    setSlackApiUrl: baseClient.setSlackApiUrl.bind(baseClient),
     apiCall: baseClient.apiCall.bind(baseClient),
     response: baseClient.response.bind(baseClient),
   };

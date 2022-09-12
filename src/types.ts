@@ -31,6 +31,7 @@ export type SlackAPIClient =
   & SlackAPIMethodsType;
 
 export type BaseSlackClient = {
+  setSlackApiUrl: (slackApiUrl: string) => BaseSlackClient;
   apiCall: BaseClientCall;
   response: BaseClientResponse;
 };
