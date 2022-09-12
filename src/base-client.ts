@@ -14,6 +14,12 @@ export class BaseSlackAPIClient implements BaseSlackClient {
     this.#baseURL = options.slackApiUrl || "https://slack.com/api/";
   }
 
+  /**
+   * @description Set an override url endpoint for Slack API calls.
+   * @param apiURL url endpoint for the Slack API used for api calls. It should include the protocol, the domain and the path.
+   * @example: "https://slack.com/api/"
+   * @returns BaseSlackClient
+   */
   setSlackApiUrl(apiURL: string) {
     this.#baseURL = apiURL;
 
@@ -24,7 +30,8 @@ export class BaseSlackAPIClient implements BaseSlackClient {
     method: string,
     data: SlackAPIMethodArgs = {},
   ): Promise<BaseResponse> {
-    const url = `${this.#baseURL}${method}`;
+    // ensure there's a slash prior to method
+    const url = `${this.#baseURL.replace(/\/$/, "")}/${method}`;
     const body = serializeData(data);
 
     const token = data.token || this.#token || "";
