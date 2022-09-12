@@ -11,6 +11,7 @@ Deno.test("SlackAPI class", async (t) => {
     await t.step("base methods exist on client", () => {
       assertEquals(typeof client.apiCall, "function");
       assertEquals(typeof client.response, "function");
+      assertEquals(typeof client.setSlackApiUrl, "function");
     });
 
     await t.step("apiCall method", async (t) => {
@@ -137,6 +138,28 @@ Deno.test("SlackAPI class", async (t) => {
     });
   });
 
+  await t.step(
+    "instantiated with custom API URL without trailing slash",
+    async (t) => {
+      const client = SlackAPI("test-token", {
+        slackApiUrl: "https://apitown.com",
+      });
+
+      await t.step("apiCall method", async (t) => {
+        await t.step("should call the custom API URL", async () => {
+          mf.mock("POST@/chat.postMessage", (req: Request) => {
+            assertEquals(req.url, "https://apitown.com/chat.postMessage");
+            return new Response('{"ok":true}');
+          });
+
+          await client.apiCall("chat.postMessage", {});
+
+          mf.reset();
+        });
+      });
+    },
+  );
+
   await t.step("calling custom method accessor functions", async (t) => {
     const client = SlackAPI("test-token");
 
@@ -221,4 +244,59 @@ Deno.test("serializeData helper function", async (t) => {
       );
     },
   );
+});
+
+Deno.test("SlackApi.setSlackApiUrl()", async (t) => {
+  mf.install();
+  const testClient = SlackAPI("test-token");
+
+  await t.step("override url", async () => {
+    testClient.setSlackApiUrl("https://something.slack.com/api/");
+
+    mf.mock("POST@/api/chat.postMessage", (req: Request) => {
+      assertEquals(
+        req.url,
+        "https://something.slack.com/api/chat.postMessage",
+      );
+      return new Response('{"ok":true}');
+    });
+
+    await testClient.apiCall("chat.postMessage", {});
+
+    mf.reset();
+  });
+
+  await t.step("override url without trailing slash", async () => {
+    testClient.setSlackApiUrl("https://something.slack.com/api");
+
+    mf.mock("POST@/api/chat.postMessage", (req: Request) => {
+      assertEquals(
+        req.url,
+        "https://something.slack.com/api/chat.postMessage",
+      );
+      return new Response('{"ok":true}');
+    });
+
+    await testClient.apiCall("chat.postMessage", {});
+
+    mf.reset();
+  });
+
+  await t.step("reset url", async () => {
+    testClient.setSlackApiUrl("https://slack.com/api/");
+
+    mf.mock("POST@/api/chat.postMessage", (req: Request) => {
+      assertEquals(
+        req.url,
+        "https://slack.com/api/chat.postMessage",
+      );
+      return new Response('{"ok":true}');
+    });
+
+    await testClient.apiCall("chat.postMessage", {});
+
+    mf.reset();
+  });
+
+  mf.uninstall();
 });
