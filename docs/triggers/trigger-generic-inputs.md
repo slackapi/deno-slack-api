@@ -5,14 +5,14 @@ When creating or updating a trigger at runtime, a Workflow definition can be pas
 ## Defining A Workflow
 
 Recall that in the [SDK](https://github.com/slackapi/deno-slack-sdk/blob/main/docs/workflows.md#workflows), a `workflow` can be defined using the `DefineWorkflow` method.
-When a workflow is created in this manner, if contains a `workflow.definition` object. By passing this definition into the `create` method, the trigger will have access to information related to the workflow's definition.
+When a workflow is created in this manner, it contains a `workflow.definition` object. By passing this definition into the `create` method, the trigger will have access to information related to the workflow's definition.
 
 ### Using Trigger Generics at runtime Example 
 
 ```ts
-import type { SlackFunction } from "/deno-slack-sdk/src/types.ts";
+import { SlackFunction } from "deno-slack-sdk/mod.ts";
 import { TriggersFunction, TriggersWorkflow } from "../manifest.ts";
-import { SlackAPI } from "../../deno-slack-api/src/mod.ts";
+import { SlackAPI } from "deno-slack-api/mod.ts";
 
 const triggers: SlackFunction<typeof TriggersFunction.definition> = 
   async (
@@ -28,19 +28,24 @@ const triggers: SlackFunction<typeof TriggersFunction.definition> =
       name: "Request Time off",
       description: "Starts the workflow to request time off",
       workflow: "#/workflows/reverse_workflow",
+      inputs: {
+        a_input: {
+          value: "test_value",
+        }
+      }
     });
   }
 ```
 
 ## Workflow Definition Input with CLI Triggers
 
-A `workflow` definition input can also be passed to the `trigger` file that is used to create or update a Trigger through the CLI. When passing the definition input in this manner, the `Workflow` definition is passed as a generic to the `Trigger` object instead of the `create` or `update` method.
+A `workflow` definition input can also be passed to the `trigger` file that is used to create or update a Trigger through the CLI. When passing the definition input in this manner, the `Workflow` definition is passed as a generic to the `Trigger` object instead of the `create` or `update` method. With an Input Generic, the `trigger` object being defined will have access to typeahead on the expected parameters to be passed in.
 
 ### Using Trigger Generics with CLI Example
 
 ```ts
-import { Trigger } from "../deno-slack-api/src/types.ts";
-import { TriggersWorkflow } from "./manifest.ts";
+import { Trigger } from "deno-slack-api/types.ts";
+import { TriggersWorkflow } from "../manifest.ts";
 
 const trigger: Trigger<typeof TriggersWorkflow.definition> = { //Workflow definition is passed to the trigger object
   type: "shortcut",
@@ -48,7 +53,9 @@ const trigger: Trigger<typeof TriggersWorkflow.definition> = { //Workflow defini
   description: "Starts the workflow to request time off",
   workflow: "#/workflows/list_trigger_workflow",
   inputs: {    //The inputs parameter will now have typeahead based on the Workflow definition being passed in.
-    
+    a_input: {
+      value: "test_value"
+    }
   }
 };
 

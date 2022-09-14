@@ -24,21 +24,21 @@ Each Trigger type has access to a `data` context object which includes informati
 
 ## Creating Triggers
 
-Triggers can be created in one of two ways, either dynamically in your application at runtime, or through the Hermes CLI. More details on Trigger creation can be found in the [API documentation](https://api.dev.slack.com/future/triggers#create).
+Triggers can be created in one of two ways, either dynamically in your application at runtime, or through the Slack CLI. More details on Trigger creation can be found in the [API documentation](https://api.dev.slack.com/future/triggers#create).
 
 ### Creating Triggers Generic Inputs
 
 Triggers can be created or updated at runtime with an optional `WorkflowDefinition` as a generic input which utilizes the `WorkflowDefinition` object defined in the manifest to help specify what `inputs` a Trigger will require. Additional details can be found [here](trigger-generic-inputs.md).
 
-### Creating Triggers using the Hermes CLI
+### Creating Triggers using the Slack CLI
 
-To create a Trigger using the Hermes CLI, create a file that contains your Trigger TypeScript format. Run the `trigger create` command with a `--trigger-def` flag pointing to your desired trigger file.
+To create a Trigger using the Slack CLI, create a file that contains your Trigger TypeScript format. Run the `trigger create` command with a `--trigger-def` flag pointing to your desired trigger file.
 
 ```
 slack trigger create --trigger-def "path/to/trigger.ts"
 ```
 
-Example trigger objects in valid typescript and JSON formats can be viewed below.
+Example `trigger` objects in valid typescript and JSON formats can be viewed below. With a Generic Input these `trigger` objects will have access to typeahead for valid input parameters.
 
 #### With Generic Input
 ```ts
@@ -126,7 +126,7 @@ Similar to creating, updating Triggers can be done through the CLI, or at runtim
 
 ### Updating Triggers in the CLI
 
-To update a Trigger using the Hermes CLI, make the desired update to your existing [Trigger File](#creating-triggers-using-the-hermes-cli). When this is done, run the `slack trigger update` command from the CLI with a `--trigger-id` flag to identify the trigger to be updated.
+To update a Trigger using the Slack CLI, make the desired update to your existing [Trigger File](#creating-triggers-using-the-slack-cli). When this is done, run the `slack trigger update` command from the CLI with a `--trigger-id` flag to identify the trigger to be updated.
 
 ```
 slack trigger update --trigger-id Ft123ABC --trigger-def "path/to/trigger.ts"
