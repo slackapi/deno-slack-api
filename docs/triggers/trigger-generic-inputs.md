@@ -22,7 +22,7 @@ const triggerReturn = await client.workflows.triggers.create<
   name: "Request Time off",
   description: "Starts the workflow to request time off",
   workflow: "#/workflows/reverse_workflow",
-  inputs: {
+  inputs: { //inputs can now be autofilled from the Workflow Definition
     a_string: {
       value: "TEST",
     },
