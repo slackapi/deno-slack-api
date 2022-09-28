@@ -17,6 +17,8 @@ When dealing with Triggers at runtime, a Workflow definition input can optionall
 import { TriggersWorkflow } from "../manifest.ts";
 import { SlackAPI } from "deno-slack-api/mod.ts";
 
+...
+
 {
   //Inside the function execution logic
   const client = SlackAPI(token);
