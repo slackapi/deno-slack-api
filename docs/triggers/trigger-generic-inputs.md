@@ -15,7 +15,7 @@ import { SlackAPI } from "deno-slack-api/mod.ts";
 
 const client = SlackAPI(token);
 
-const triggerReturn = await client.workflows.triggers.create<
+const triggerReturn = await client.workflows.triggers.create< //Also works for update
   typeof TriggersWorkflow.definition
 >({
   type: "webhook",
