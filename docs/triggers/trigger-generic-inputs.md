@@ -5,36 +5,35 @@ When creating or updating a trigger at runtime, a Workflow definition can be pas
 ## Defining A Workflow
 
 Recall that in the [SDK](https://github.com/slackapi/deno-slack-sdk/blob/main/docs/workflows.md#workflows), a `workflow` can be defined using the `DefineWorkflow` method.
-When a workflow is created in this manner, it contains a `workflow.definition` object. By passing this definition into the `create` method, the trigger will have access to information related to the workflow's definition.
+When a workflow is created in this manner, it contains a `workflow.definition` object. By passing this definition into the `create` or `update` method, the trigger will have access to information related to the workflow's definition.
 
 ### Using Trigger Generics at runtime Example 
 
 ```ts
-import { SlackFunction } from "deno-slack-sdk/mod.ts";
-import { TriggersFunction, TriggersWorkflow } from "../manifest.ts";
+import { TriggersWorkflow } from "../manifest.ts";
 import { SlackAPI } from "deno-slack-api/mod.ts";
 
-const triggers: SlackFunction<typeof TriggersFunction.definition> = 
-  async (
-    { token, env },
-  ) => {
-    const client = SlackAPI(token, {
-      slackApiUrl: env["SLACK_API_URL"],
-    });
-    const triggerResponse = await client.workflows.triggers.create< 
-      typeof TriggersWorkflow.definition //The same generic can be passed into the update method
-    >({
-      type: "webhook",
-      name: "Request Time off",
-      description: "Starts the workflow to request time off",
-      workflow: "#/workflows/reverse_workflow",
-      inputs: {
-        a_input: {
-          value: "test_value",
-        }
-      }
-    });
-  }
+const client = SlackAPI(token);
+
+const triggerReturn = await client.workflows.triggers.create<
+  typeof TriggersWorkflow.definition
+>({
+  type: "webhook",
+  name: "Request Time off",
+  description: "Starts the workflow to request time off",
+  workflow: "#/workflows/reverse_workflow",
+  inputs: {
+    a_string: {
+      value: "TEST",
+    },
+    a_channel: {
+      value: "TEST",
+    },
+    b_string: {
+      value: "TEST",
+    },
+  },
+});
 ```
 
 ## Workflow Definition Input with CLI Triggers
