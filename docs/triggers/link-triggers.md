@@ -44,7 +44,7 @@ The data context can be used in the input parameter as follows:
 }
 ```
 ## Usage
-Below are some usage examples of `ShortcutTrigger` objects which can be used in a .ts file to create a `shortcut` trigger through the [Hermes CLI](./trigger-basics.md/#creating-triggers-using-the-hermes-cli), alternatively this object could be passed into a 
+Below are some usage examples of `ShortcutTrigger` objects which can be used in a .ts file to create a `shortcut` trigger through the [Slack CLI](./trigger-basics.md/#creating-triggers-using-the-slack-cli), alternatively this object could be passed into a 
 `client.workflows.triggers.create` method to achieve the same effect at [runtime](./trigger-basics.md/#creating-triggers-in-the-runtime-environment).
 
 ### Example Configured Shortcut Trigger
