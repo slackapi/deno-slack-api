@@ -17,7 +17,6 @@ When dealing with Triggers at runtime, a Workflow definition input can optionall
 import { TriggersWorkflow } from "../manifest.ts";
 import { SlackAPI } from "deno-slack-api/mod.ts";
 
-...
 {
   //Inside the function execution logic
   const client = SlackAPI(token);
@@ -41,7 +40,7 @@ import { SlackAPI } from "deno-slack-api/mod.ts";
       },
     },
 }
-
+```
 ## Workflow Definition Input with CLI Triggers
 
 A `workflow` definition input can also be passed to the `trigger` file that is used to create or update a Trigger through the CLI. When passing the definition input in this manner, the `Workflow` definition is passed as a generic to the `Trigger` object instead of the `create` or `update` method. With an Input Generic, the `trigger` object being defined will have access to typeahead on the expected parameters to be passed in.
