@@ -1,6 +1,6 @@
 # Trigger Generics
 
-When creating or updating a trigger at runtime, a Workflow definition can be passed into the `client.workflows.triggers.create` and `client.workflows.triggers.update` methods as a generic which will allow for typeahead/autocomplete of the input parameters based on the definition's inputs. 
+When creating or updating a trigger, a Workflow definition can be passed into the `client.workflows.triggers.create` and `client.workflows.triggers.update` methods as a generic which will allow for typeahead/autocomplete of the input parameters based on the definition's inputs. 
 
 ## Defining A Workflow
 
