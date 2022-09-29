@@ -24,17 +24,43 @@ Each Trigger type has access to a `data` context object which includes informati
 
 ## Creating Triggers
 
-Triggers can be created in one of two ways, either dynamically in your application at runtime, or through the Hermes CLI. More details on Trigger creation can be found in the [API documentation](https://api.dev.slack.com/future/triggers#create).
-### Creating Triggers using the Hermes CLI
+Triggers can be created in one of two ways, either dynamically in your application at runtime, or through the Slack CLI. More details on Trigger creation can be found in the [API documentation](https://api.dev.slack.com/future/triggers#create).
 
-To create a Trigger using the Hermes CLI, create a file that contains your Trigger TypeScript format. Run the `trigger create` command with a `--trigger-def` flag pointing to your desired trigger file.
+### Creating Triggers Generic Inputs
+
+Triggers can be created or updated at runtime with an optional `WorkflowDefinition` as a generic input which utilizes the `WorkflowDefinition` object defined in the manifest to help specify what `inputs` a Trigger will require. Additional details can be found [here](trigger-generic-inputs.md).
+
+### Creating Triggers using the Slack CLI
+
+To create a Trigger using the Slack CLI, create a file that contains your Trigger TypeScript format. Run the `trigger create` command with a `--trigger-def` flag pointing to your desired trigger file.
 
 ```
 slack trigger create --trigger-def "path/to/trigger.ts"
 ```
 
-Example trigger objects in valid typescript and JSON formats can be viewed below.
+Example `trigger` objects in valid typescript and JSON formats can be viewed below. With a Generic Input these `trigger` objects will have access to typeahead for valid input parameters.
 
+#### With Generic Input
+```ts
+import { Trigger } from "deno-slack-api/types.ts";
+import { TriggersWorkflow } from "../manifest.ts"; //The workflow you intend to use to define your trigger 
+
+const trigger: Trigger<typeof TriggersWorkflow.definition> = {
+  type: "shortcut", // the type of Trigger
+  name: "Request Time off", // the name of the Trigger
+  description: "Starts the workflow to request time off", //Trigger description
+  workflow: "#/workflows/reverse_workflow", //the workflow your Trigger activates
+  inputs: { //Trigger inputs
+    interactivity: {
+      value: "{{data.interactivity}}",
+    },
+  },
+};
+
+export default trigger;
+```
+
+#### Without Generic Input
 ```ts
 import { Trigger } from "deno-slack-api/types.ts";
 
@@ -58,6 +84,27 @@ export default trigger;
 Creating Triggers at runtime from within your application utilizes the `SlackAPI` client to make an API call to the Slack API.
 Creation uses the `client.workflows.triggers.create` method which takes in a Trigger object as input. 
 
+#### With Generic Input
+```ts
+  import { TriggersWorkflow } from "../manifest.ts"; //The workflow you intend to use to define your trigger 
+
+  const client = SlackAPI(token);
+
+  const shortcutResponse = await client.workflows.triggers.create<typeof TriggersWorkflow.definition>({
+    type: "shortcut",
+    name: "Request Time off",
+    description: "Starts the workflow to request time off",
+    workflow: "#/workflows/reverse_workflow",
+    inputs: {
+      interactivity: {
+        value: "{{data.interactivity}}",
+      },
+    },
+  });
+```
+
+#### Without Generic Input
+
 ```ts
   const client = SlackAPI(token);
 
@@ -73,14 +120,13 @@ Creation uses the `client.workflows.triggers.create` method which takes in a Tri
     },
   });
 ```
-
 ## Updating Triggers
 
 Similar to creating, updating Triggers can be done through the CLI, or at runtime using the `client.workflows.triggers.update` method. Updating a Trigger takes the same Trigger object as creating one, with the addition of a `trigger_id` parameter to identify the Trigger being updated. More details on updating Triggers can be found in the [API documentation](https://api.dev.slack.com/future/triggers#update).
 
 ### Updating Triggers in the CLI
 
-To update a Trigger using the Hermes CLI, make the desired update to your existing Trigger file. When this is done, run the `slack trigger update` command from the CLI with a `--trigger-id` flag to identify the trigger to be updated.
+To update a Trigger using the Slack CLI, make the desired update to your existing [Trigger File](#creating-triggers-using-the-slack-cli). When this is done, run the `slack trigger update` command from the CLI with a `--trigger-id` flag to identify the trigger to be updated.
 
 ```
 slack trigger update --trigger-id Ft123ABC --trigger-def "path/to/trigger.ts"
@@ -90,10 +136,12 @@ slack trigger update --trigger-id Ft123ABC --trigger-def "path/to/trigger.ts"
 
 Updating uses the `client.workflows.triggers.update` method which takes in the same Trigger object as the create call as input, with the addition of a `trigger_id` parameter. 
 
+#### With Generic Input
 ```ts
+  import { TriggersWorkflow } from "../manifest.ts"; //The workflow you intend to use to define your trigger 
   const client = SlackAPI(token);
 
-  const shortcutResponse = await client.workflows.triggers.create({
+  const shortcutResponse = await client.workflows.triggers.update<typeof TriggersWorkflow.definition>({
     trigger_id: "FtABC123",
     type: "shortcut",
     name: "Request Time off",
@@ -107,6 +155,24 @@ Updating uses the `client.workflows.triggers.update` method which takes in the s
   });
 ```
 
+#### Without Generic Input
+```ts
+  import { TriggersWorkflow } from "../manifest.ts"; //The workflow you intend to use to define your trigger 
+  const client = SlackAPI(token);
+
+  const shortcutResponse = await client.workflows.triggers.update({
+    trigger_id: "FtABC123",
+    type: "shortcut",
+    name: "Request Time off",
+    description: "Starts the workflow to request time off",
+    workflow: "#/workflows/reverse_workflow",
+    inputs: {
+      interactivity: {
+        value: "{{data.interactivity}}",
+      },
+    },
+  });
+```
 ## Deleting Triggers 
 
 Triggers can be deleted by passing the Trigger ID. See the [API documentation](https://api.dev.slack.com/future/triggers#delete) for more details.

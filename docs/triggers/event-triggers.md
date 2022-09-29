@@ -314,7 +314,7 @@ The `inputs` parameter has access to context information from when the Trigger i
       "date_created": 1626789600    
     }  
   ],  
-  "accepting_user": {    // Standard hermes user object    
+  "accepting_user": {    // Standard user object    
     "id": "U123",    
     "team_id": "T123",    
     "name": "John Doe",    
@@ -468,7 +468,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 ## Usage
-The examples below are sample Trigger objects which can be used to create Triggers in the [CLI](./trigger-basics.md/#creating-triggers-using-the-hermes-cli).
+The examples below are sample Trigger objects which can be used to create Triggers in the [CLI](./trigger-basics.md/#creating-triggers-using-the-slack-cli).
 ### Channel Level Trigger
 ```ts
 const trigger: Trigger = {

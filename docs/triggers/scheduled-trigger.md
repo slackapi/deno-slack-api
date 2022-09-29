@@ -55,7 +55,7 @@ The data context can be used in the input parameter as follows:
 
 ## Usage
 
-Below are some usage examples of `ScheduledTrigger` objects which can be used in a .ts file to create a `scheduled` Trigger through the Hermes CLI, alternatively this object could be passed into a 
+Below are some usage examples of `ScheduledTrigger` objects which can be used in a .ts file to create a `scheduled` Trigger through the Slack CLI, alternatively this object could be passed into a 
 `client.workflows.triggers.create` method to achieve the same effect at runtime.
 
 ### Single Occurrence Schedule
