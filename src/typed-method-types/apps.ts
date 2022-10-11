@@ -89,6 +89,7 @@ export type DatastoreQueryArgs<
     "expression_attributes"?: Record<string, string>;
     "expression_values"?: Record<string, string | boolean | number>;
     limit?: number;
+    cursor?: string;
   };
 
 export type DatastoreQueryResponse<
