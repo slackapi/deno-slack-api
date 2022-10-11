@@ -20,6 +20,7 @@ export type BaseResponse = {
   "response_metadata"?: {
     warnings?: string[];
     messages?: string[];
+    next_cursor?: string;
   };
   // deno-lint-ignore no-explicit-any
   [otherOptions: string]: any;
