@@ -77,6 +77,9 @@ export function serializeData(data: Record<string, unknown>): URLSearchParams {
     // Slack API accepts JSON-stringified-and-url-encoded payloads for objects/arrays
     // Inspired by https://github.com/slackapi/node-slack-sdk/blob/%40slack/web-api%406.7.2/packages/web-api/src/WebClient.ts#L452-L528
 
+    // Skip properties with undefined values.
+    if (value === undefined) return;
+
     const serializedValue: string =
       (typeof value !== "string" ? JSON.stringify(value) : value);
     encodedData[key] = serializedValue;
