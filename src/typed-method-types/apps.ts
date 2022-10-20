@@ -1,4 +1,9 @@
-import { BaseMethodArgs, BaseResponse, CursorPaginationArgs, CursorPaginationResponse } from "../types.ts";
+import {
+  BaseMethodArgs,
+  BaseResponse,
+  CursorPaginationArgs,
+  CursorPaginationResponse,
+} from "../types.ts";
 
 // apps.datastore Types
 export type DatastoreSchema = {

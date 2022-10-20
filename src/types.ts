@@ -100,7 +100,7 @@ export type CursorPaginationResponse = {
      */
     next_cursor?: string;
   };
-}
+};
 
 export type SlackAPIMethodArgs = BaseMethodArgs & {
   [name: string]: unknown;
@@ -111,5 +111,7 @@ export type SlackAPIMethod = {
 };
 
 export type SlackAPIMethodCursorPaginated = {
-  (args?: SlackAPIMethodArgs & CursorPaginationArgs): Promise<BaseResponse & CursorPaginationResponse>;
+  (
+    args?: SlackAPIMethodArgs & CursorPaginationArgs,
+  ): Promise<BaseResponse & CursorPaginationResponse>;
 };
