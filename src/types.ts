@@ -28,15 +28,6 @@ export type BaseResponse = {
   "response_metadata"?: {
     warnings?: string[];
     messages?: string[];
-    /**
-     * @description A pointer that can be provided as parameter for a follow-up
-     * call to the same API to retrieve the next set of results, should more exist.
-     * If this property does not exist or is the empty string, there are no further
-     * results to retrieve.
-     * See {@link https://api.slack.com/docs/pagination#cursors our docs on cursor-based pagination}
-     * for more details
-     */
-    next_cursor?: string;
   };
   // deno-lint-ignore no-explicit-any
   [otherOptions: string]: any;
@@ -76,6 +67,9 @@ export type BaseMethodArgs = {
    * for this single API call rather than the token provided when creating the client.
    */
   token?: string;
+};
+
+export type CursorPaginationArgs = {
   /**
    * @description Paginate through collections of data by setting the `cursor` parameter
    * to a `next_cursor` attribute returned by a previous request's `response_metadata`.
@@ -86,13 +80,27 @@ export type BaseMethodArgs = {
   cursor?: string;
   /**
    * @description The maximum number of items to return. Fewer than the requested
-   * number of items may be returned, even if the end of the users list hasn't
+   * number of items may be returned, even if the end of the result list hasn't
    * been reached.
    * Used in conjunction with `cursor`, these parameters allow for
    * {@link https://api.slack.com/docs/pagination#cursors cursor-based pagination}.
    */
   limit?: number;
 };
+
+export type CursorPaginationResponse = {
+  "response_metadata"?: {
+    /**
+     * @description A pointer that can be provided as parameter for a follow-up
+     * call to the same API to retrieve the next set of results, should more exist.
+     * If this property does not exist or is the empty string, there are no further
+     * results to retrieve.
+     * See {@link https://api.slack.com/docs/pagination#cursors our docs on cursor-based pagination}
+     * for more details
+     */
+    next_cursor?: string;
+  };
+}
 
 export type SlackAPIMethodArgs = BaseMethodArgs & {
   [name: string]: unknown;
