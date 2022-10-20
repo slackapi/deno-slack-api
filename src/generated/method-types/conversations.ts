@@ -1,4 +1,7 @@
-import { SlackAPIMethod } from "../../types.ts";
+import type {
+  SlackAPIMethod,
+  SlackAPIMethodCursorPaginated,
+} from "../../types.ts";
 
 export type ConversationsAPIType = {
   acceptSharedInvite: SlackAPIMethod;
@@ -7,20 +10,20 @@ export type ConversationsAPIType = {
   close: SlackAPIMethod;
   create: SlackAPIMethod;
   declineSharedInvite: SlackAPIMethod;
-  history: SlackAPIMethod;
+  history: SlackAPIMethodCursorPaginated;
   info: SlackAPIMethod;
   invite: SlackAPIMethod;
   inviteShared: SlackAPIMethod;
   join: SlackAPIMethod;
   kick: SlackAPIMethod;
   leave: SlackAPIMethod;
-  list: SlackAPIMethod;
-  listConnectInvites: SlackAPIMethod;
+  list: SlackAPIMethodCursorPaginated;
+  listConnectInvites: SlackAPIMethodCursorPaginated;
   mark: SlackAPIMethod;
-  members: SlackAPIMethod;
+  members: SlackAPIMethodCursorPaginated;
   open: SlackAPIMethod;
   rename: SlackAPIMethod;
-  replies: SlackAPIMethod;
+  replies: SlackAPIMethodCursorPaginated;
   setPurpose: SlackAPIMethod;
   setTopic: SlackAPIMethod;
   unarchive: SlackAPIMethod;

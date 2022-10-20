@@ -1,12 +1,15 @@
-import { SlackAPIMethod } from "../../types.ts";
+import type {
+  SlackAPIMethod,
+  SlackAPIMethodCursorPaginated,
+} from "../../types.ts";
 
 export type UsersAPIType = {
-  conversations: SlackAPIMethod;
+  conversations: SlackAPIMethodCursorPaginated;
   deletePhoto: SlackAPIMethod;
   getPresence: SlackAPIMethod;
   identity: SlackAPIMethod;
   info: SlackAPIMethod;
-  list: SlackAPIMethod;
+  list: SlackAPIMethodCursorPaginated;
   lookupByEmail: SlackAPIMethod;
   profile: {
     get: SlackAPIMethod;

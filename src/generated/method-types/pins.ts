@@ -1,4 +1,4 @@
-import { SlackAPIMethod } from "../../types.ts";
+import type { SlackAPIMethod } from "../../types.ts";
 
 export type PinsAPIType = {
   add: SlackAPIMethod;
