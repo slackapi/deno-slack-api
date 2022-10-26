@@ -110,7 +110,7 @@ export type SlackAPIMethod = {
   (args?: SlackAPIMethodArgs): Promise<BaseResponse>;
 };
 
-export type SlackAPIPaginatedCursorMethod = {
+export type SlackAPICursorPaginatedMethod = {
   (
     args?: SlackAPIMethodArgs & CursorPaginationArgs,
   ): Promise<BaseResponse & CursorPaginationResponse>;

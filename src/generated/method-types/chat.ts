@@ -1,6 +1,6 @@
 import type {
+  SlackAPICursorPaginatedMethod,
   SlackAPIMethod,
-  SlackAPIMethodCursorPaginated,
 } from "../../types.ts";
 
 export type ChatAPIType = {
@@ -10,7 +10,7 @@ export type ChatAPIType = {
   meMessage: SlackAPIMethod;
   postEphemeral: SlackAPIMethod;
   scheduledMessages: {
-    list: SlackAPIMethodCursorPaginated;
+    list: SlackAPICursorPaginatedMethod;
   };
   scheduleMessage: SlackAPIMethod;
   unfurl: SlackAPIMethod;

@@ -1,6 +1,6 @@
 import type {
+  SlackAPICursorPaginatedMethod,
   SlackAPIMethod,
-  SlackAPIMethodCursorPaginated,
 } from "../../types.ts";
 
 export type AppsAPIType = {
@@ -9,7 +9,7 @@ export type AppsAPIType = {
   };
   event: {
     authorizations: {
-      list: SlackAPIMethodCursorPaginated;
+      list: SlackAPICursorPaginatedMethod;
     };
   };
   manifest: {

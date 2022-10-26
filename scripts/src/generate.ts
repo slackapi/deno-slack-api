@@ -93,11 +93,11 @@ const getGroupCode = (groupNode: APIMethodNode) => {
   if (groupCode.match(/SlackAPIMethod[,;]/)) {
     imports = '{ SlackAPIMethod';
   }
-  if (groupCode.match(/SlackAPIMethodCursorPaginated[,;]/)) {
+  if (groupCode.match(/SlackAPICursorPaginatedMethod[,;]/)) {
     if (imports !== null) {
-      imports += ', SlackAPIMethodCursorPaginated';
+      imports += ', SlackAPICursorPaginatedMethod';
     } else {
-      imports = '{ SlackAPIMethodCursorPaginated';
+      imports = '{ SlackAPICursorPaginatedMethod';
     }
   }
   imports += ' }';

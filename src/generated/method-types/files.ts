@@ -1,6 +1,6 @@
 import type {
+  SlackAPICursorPaginatedMethod,
   SlackAPIMethod,
-  SlackAPIMethodCursorPaginated,
 } from "../../types.ts";
 
 export type FilesAPIType = {
@@ -9,11 +9,11 @@ export type FilesAPIType = {
   };
   delete: SlackAPIMethod;
   info: SlackAPIMethod;
-  list: SlackAPIMethodCursorPaginated;
+  list: SlackAPICursorPaginatedMethod;
   remote: {
     add: SlackAPIMethod;
     info: SlackAPIMethod;
-    list: SlackAPIMethodCursorPaginated;
+    list: SlackAPICursorPaginatedMethod;
     remove: SlackAPIMethod;
     share: SlackAPIMethod;
     update: SlackAPIMethod;

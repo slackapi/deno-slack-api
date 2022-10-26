@@ -1,6 +1,6 @@
 import type {
+  SlackAPICursorPaginatedMethod,
   SlackAPIMethod,
-  SlackAPIMethodCursorPaginated,
 } from "../../types.ts";
 
 export type AdminAPIType = {
@@ -10,30 +10,30 @@ export type AdminAPIType = {
   apps: {
     approve: SlackAPIMethod;
     approved: {
-      list: SlackAPIMethodCursorPaginated;
+      list: SlackAPICursorPaginatedMethod;
     };
     clearResolution: SlackAPIMethod;
     requests: {
       cancel: SlackAPIMethod;
-      list: SlackAPIMethodCursorPaginated;
+      list: SlackAPICursorPaginatedMethod;
     };
     restrict: SlackAPIMethod;
     restricted: {
-      list: SlackAPIMethodCursorPaginated;
+      list: SlackAPICursorPaginatedMethod;
     };
     uninstall: SlackAPIMethod;
   };
   auth: {
     policy: {
       assignEntities: SlackAPIMethod;
-      getEntities: SlackAPIMethodCursorPaginated;
+      getEntities: SlackAPICursorPaginatedMethod;
       removeEntities: SlackAPIMethod;
     };
   };
   barriers: {
     create: SlackAPIMethod;
     delete: SlackAPIMethod;
-    list: SlackAPIMethodCursorPaginated;
+    list: SlackAPICursorPaginatedMethod;
     update: SlackAPIMethod;
   };
   conversations: {
@@ -43,11 +43,11 @@ export type AdminAPIType = {
     delete: SlackAPIMethod;
     disconnectShared: SlackAPIMethod;
     ekm: {
-      listOriginalConnectedChannelInfo: SlackAPIMethodCursorPaginated;
+      listOriginalConnectedChannelInfo: SlackAPICursorPaginatedMethod;
     };
     getConversationPrefs: SlackAPIMethod;
     getCustomRetention: SlackAPIMethod;
-    getTeams: SlackAPIMethodCursorPaginated;
+    getTeams: SlackAPICursorPaginatedMethod;
     invite: SlackAPIMethod;
     removeCustomRetention: SlackAPIMethod;
     rename: SlackAPIMethod;
@@ -56,7 +56,7 @@ export type AdminAPIType = {
       listGroups: SlackAPIMethod;
       removeGroup: SlackAPIMethod;
     };
-    search: SlackAPIMethodCursorPaginated;
+    search: SlackAPICursorPaginatedMethod;
     setConversationPrefs: SlackAPIMethod;
     setCustomRetention: SlackAPIMethod;
     setTeams: SlackAPIMethod;
@@ -65,29 +65,29 @@ export type AdminAPIType = {
   emoji: {
     add: SlackAPIMethod;
     addAlias: SlackAPIMethod;
-    list: SlackAPIMethodCursorPaginated;
+    list: SlackAPICursorPaginatedMethod;
     remove: SlackAPIMethod;
     rename: SlackAPIMethod;
   };
   inviteRequests: {
     approve: SlackAPIMethod;
     approved: {
-      list: SlackAPIMethodCursorPaginated;
+      list: SlackAPICursorPaginatedMethod;
     };
     denied: {
-      list: SlackAPIMethodCursorPaginated;
+      list: SlackAPICursorPaginatedMethod;
     };
     deny: SlackAPIMethod;
-    list: SlackAPIMethodCursorPaginated;
+    list: SlackAPICursorPaginatedMethod;
   };
   teams: {
     admins: {
-      list: SlackAPIMethodCursorPaginated;
+      list: SlackAPICursorPaginatedMethod;
     };
     create: SlackAPIMethod;
-    list: SlackAPIMethodCursorPaginated;
+    list: SlackAPICursorPaginatedMethod;
     owners: {
-      list: SlackAPIMethodCursorPaginated;
+      list: SlackAPICursorPaginatedMethod;
     };
     settings: {
       info: SlackAPIMethod;
@@ -107,13 +107,13 @@ export type AdminAPIType = {
   users: {
     assign: SlackAPIMethod;
     invite: SlackAPIMethod;
-    list: SlackAPIMethodCursorPaginated;
+    list: SlackAPICursorPaginatedMethod;
     remove: SlackAPIMethod;
     session: {
       clearSettings: SlackAPIMethod;
       getSettings: SlackAPIMethod;
       invalidate: SlackAPIMethod;
-      list: SlackAPIMethodCursorPaginated;
+      list: SlackAPICursorPaginatedMethod;
       reset: SlackAPIMethod;
       resetBulk: SlackAPIMethod;
       setSettings: SlackAPIMethod;

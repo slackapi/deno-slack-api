@@ -1,5 +1,5 @@
-import type { SlackAPIMethodCursorPaginated } from "../../types.ts";
+import type { SlackAPICursorPaginatedMethod } from "../../types.ts";
 
 export type EmojiAPIType = {
-  list: SlackAPIMethodCursorPaginated;
+  list: SlackAPICursorPaginatedMethod;
 };
