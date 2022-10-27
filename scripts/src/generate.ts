@@ -86,13 +86,23 @@ export type SlackAPIMethodsType = {
 };
 
 const getGroupCode = (groupNode: APIMethodNode) => {
-  const groupCode = `
-  import { SlackAPIMethod } from "../../types.ts";
-
+  let imports = null;
+  let groupCode = `
   ${groupNode.getTypesCode()}
 `;
+  if (groupCode.match(/SlackAPIMethod[,;]/)) {
+    imports = '{ SlackAPIMethod';
+  }
+  if (groupCode.match(/SlackAPICursorPaginatedMethod[,;]/)) {
+    if (imports !== null) {
+      imports += ', SlackAPICursorPaginatedMethod';
+    } else {
+      imports = '{ SlackAPICursorPaginatedMethod';
+    }
+  }
+  imports += ' }';
 
-  return groupCode;
+  return `import type ${imports} from "../../types.ts";\n${groupCode}`;
 };
 
 const getTestCode = (api: APIMethodNode) => {

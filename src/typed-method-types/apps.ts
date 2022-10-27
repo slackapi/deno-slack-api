@@ -1,4 +1,9 @@
-import { BaseMethodArgs, BaseResponse } from "../types.ts";
+import {
+  BaseMethodArgs,
+  BaseResponse,
+  CursorPaginationArgs,
+  CursorPaginationResponse,
+} from "../types.ts";
 
 // apps.datastore Types
 export type DatastoreSchema = {
@@ -80,6 +85,7 @@ export type DatastoreQueryArgs<
   Schema extends DatastoreSchema,
 > =
   & BaseMethodArgs
+  & CursorPaginationArgs
   & {
     /**
      * @description The name of the datastore
@@ -88,13 +94,13 @@ export type DatastoreQueryArgs<
     expression?: string;
     "expression_attributes"?: Record<string, string>;
     "expression_values"?: Record<string, string | boolean | number>;
-    limit?: number;
   };
 
 export type DatastoreQueryResponse<
   Schema extends DatastoreSchema,
 > =
   & BaseResponse
+  & CursorPaginationResponse
   & {
     /**
      * @description The name of the datastore

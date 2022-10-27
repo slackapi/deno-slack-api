@@ -1,5 +1,8 @@
 import { pascalCase } from "../../src/deps.ts";
 
+const CURSOR_PAGINATED_API_NAMES = ['getEntities', 'getTeams', 'list', 'search', 'listOriginalConnectedChannelInfo', 'history', 'listConnectInvites', 'members', 'replies', 'conversations'];
+const PAGINATION_EXCEPTION_LIST = ['bookmarks.list', 'enterprise.auth.idpconfig.list', 'pins.list', 'reminders.list', 'team.preferences.list', 'usergroups.list', 'usergroups.users.list'];
+
 export class APIMethodNode {
   name = "";
   childNodes: APIMethodNode[] = [];
@@ -41,7 +44,11 @@ export class APIMethodNode {
 
     // api method with no child nodes
     if (this.isMethod && this.childNodes.length === 0) {
-      code += `${this.name}: SlackAPIMethod,\n`;
+      if (CURSOR_PAGINATED_API_NAMES.includes(this.name) && !PAGINATION_EXCEPTION_LIST.includes(this.nodePath)) {
+        code += `${this.name}: SlackAPICursorPaginatedMethod,\n`;
+      } else {
+        code += `${this.name}: SlackAPIMethod,\n`;
+      }
     }
 
     // api method with child nodes

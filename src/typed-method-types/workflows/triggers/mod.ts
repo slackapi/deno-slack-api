@@ -1,4 +1,9 @@
-import { BaseMethodArgs, BaseResponse } from "../../../types.ts";
+import {
+  BaseMethodArgs,
+  BaseResponse,
+  CursorPaginationArgs,
+  CursorPaginationResponse,
+} from "../../../types.ts";
 import { InputParameterSchema, WorkflowInputs } from "./inputs.ts";
 import {
   EventTrigger,
@@ -88,7 +93,7 @@ type ValidTriggerResponseObjects =
   | ScheduledTriggerResponseObject<WorkflowSchema>
   | WebhookTriggerResponseObject<WorkflowSchema>;
 
-type ListResponse = {
+type ListResponse = CursorPaginationResponse & {
   ok: true;
   /** @description List of triggers in the workspace */
   triggers: ValidTriggerResponseObjects[];
@@ -98,7 +103,7 @@ type ListTriggerResponse = Promise<
   ListResponse | FailedListTriggerResponse
 >;
 
-type FailedListTriggerResponse = BaseResponse & {
+type FailedListTriggerResponse = BaseResponse & CursorPaginationResponse & {
   ok: false;
   /** @description no triggers are returned on a failed response */
   triggers?: never;
@@ -151,6 +156,6 @@ export type TypedWorkflowsTriggersMethodTypes = {
   ) => DeleteTriggerResponse;
   /** @description Method to list existing triggers in the workspace */
   list: (
-    args?: BaseMethodArgs & ListArgs,
+    args?: BaseMethodArgs & CursorPaginationArgs & ListArgs,
   ) => ListTriggerResponse;
 };

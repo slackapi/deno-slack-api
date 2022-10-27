@@ -1,9 +1,12 @@
-import { SlackAPIMethod } from "../../types.ts";
+import type {
+  SlackAPICursorPaginatedMethod,
+  SlackAPIMethod,
+} from "../../types.ts";
 
 export type AuthAPIType = {
   revoke: SlackAPIMethod;
   teams: {
-    list: SlackAPIMethod;
+    list: SlackAPICursorPaginatedMethod;
   };
   test: SlackAPIMethod;
 };

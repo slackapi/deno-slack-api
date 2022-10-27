@@ -244,6 +244,19 @@ Deno.test("serializeData helper function", async (t) => {
       );
     },
   );
+  await t.step(
+    "should not serialize undefined values",
+    () => {
+      assertEquals(
+        serializeData({
+          "hockey": { "good": true, "awesome": "yes" },
+          "baseball": undefined,
+        })
+          .toString(),
+        "hockey=%7B%22good%22%3Atrue%2C%22awesome%22%3A%22yes%22%7D",
+      );
+    },
+  );
 });
 
 Deno.test("SlackApi.setSlackApiUrl()", async (t) => {

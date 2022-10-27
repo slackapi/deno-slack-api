@@ -12,7 +12,7 @@ All you need to work on this project is a recent version of [Deno](https://deno.
 
 ### Building
 
-* The majority of this library (`src/generated`) is generated code based off of `src/public-api-methods.ts`.
+* The majority of this library (`src/generated`) is generated code based off of `scripts/src/public-api-methods.ts`.
 * Run `./scripts/generate` to regenerate the API methods code. Unit tests verifying every API method has a corresponding function created for it are also generated in this step.
 
 Run the following from the root of the project:
@@ -20,6 +20,8 @@ Run the following from the root of the project:
 ```
 ./scripts/generate
 ```
+
+For more information on the code generation, have a look at `scripts/README.md`.
 
 ### Testing
 

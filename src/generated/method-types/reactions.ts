@@ -1,8 +1,11 @@
-import { SlackAPIMethod } from "../../types.ts";
+import type {
+  SlackAPICursorPaginatedMethod,
+  SlackAPIMethod,
+} from "../../types.ts";
 
 export type ReactionsAPIType = {
   add: SlackAPIMethod;
   get: SlackAPIMethod;
-  list: SlackAPIMethod;
+  list: SlackAPICursorPaginatedMethod;
   remove: SlackAPIMethod;
 };
