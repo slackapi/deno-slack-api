@@ -8,6 +8,8 @@ import {
 } from "./mod.ts";
 
 export const SCHEDULE_FREQUENCY = {
+  Once: "once",
+  Hourly: "hourly",
   Daily: "daily",
   Weekly: "weekly",
   Monthly: "monthly",
@@ -42,6 +44,18 @@ type BaseFrequencyType = {
   on_week_num?: 1 | 2 | 3 | 4 | -1;
 };
 
+type OnceFrequencyType = {
+  /** @description How often the trigger will activate */
+  type: typeof SCHEDULE_FREQUENCY.Once;
+};
+
+type HourlyFrequencyType =
+  & {
+    /** @description How often the trigger will activate */
+    type: typeof SCHEDULE_FREQUENCY.Hourly;
+  }
+  & Pick<BaseFrequencyType, "repeats_every">;
+
 type DailyFrequencyType =
   & {
     /** @description How often the trigger will activate */
@@ -67,6 +81,7 @@ type YearlyFrequencyType = {
 } & Pick<BaseFrequencyType, "repeats_every">;
 
 type FrequencyType =
+  | HourlyFrequencyType
   | DailyFrequencyType
   | WeeklyFrequencyType
   | MonthlyFrequencyType
@@ -86,7 +101,7 @@ type BaseTriggerSchedule = {
 };
 
 type SingleOccurrenceTriggerSchedule = BaseTriggerSchedule & {
-  frequency?: never;
+  frequency?: OnceFrequencyType;
   end_time?: never;
   occurrence_count?: never;
 };
