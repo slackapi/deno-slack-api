@@ -61,6 +61,39 @@ Deno.test("Scheduled Triggers can be set just once", () => {
   assertEquals(schedule.type, TriggerTypes.Scheduled);
 });
 
+Deno.test("Scheduled Triggers can be set just once with explicit once frequency type", () => {
+  // deno-lint-ignore no-explicit-any
+  const schedule: ScheduledTrigger<any> = {
+    name: "Sample",
+    type: TriggerTypes.Scheduled,
+    workflow: "#/workflows/example",
+    inputs: {},
+    schedule: {
+      start_time: "2022-03-01T14:00:00Z",
+      timezone: "asia/kolkata",
+      frequency: { type: "once" },
+    },
+  };
+  assertEquals(schedule.type, TriggerTypes.Scheduled);
+});
+
+Deno.test("Scheduled Triggers can be set to be recurring hourly", () => {
+  // deno-lint-ignore no-explicit-any
+  const schedule: ScheduledTrigger<any> = {
+    name: "Sample",
+    type: TriggerTypes.Scheduled,
+    workflow: "#/workflows/example",
+    inputs: {},
+    schedule: {
+      start_time: "2022-03-01T14:00:00Z",
+      end_time: "2022-05-01T14:00:00Z",
+      occurrence_count: 3,
+      frequency: { type: "hourly", "repeats_every": 1 },
+    },
+  };
+  assertEquals(schedule.type, TriggerTypes.Scheduled);
+});
+
 Deno.test("Scheduled Triggers can be set to be recurring", () => {
   // deno-lint-ignore no-explicit-any
   const schedule: ScheduledTrigger<any> = {

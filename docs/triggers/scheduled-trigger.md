@@ -17,7 +17,7 @@ Both Single Occurrence and Recurring Schedules have common base attributes:
 | `start_time`      | Yes  |An ISO 8601 date string of when this scheduled Trigger should start (i.e. "2022-03-01T14:00:00Z")|
 | `timezone`      | No  |A timezone string to use for scheduling (Defaults to UTC if left blank)|
 
-A Single occurrence schedule can be created using just these two parameters, however a recurring schedule may also include the following parameters: 
+A Single occurrence schedule can be created using just these two parameters or along with these parameter explicilty mentioning once frequency type, however a recurring schedule may also include the following parameters: 
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
@@ -81,6 +81,40 @@ const schedule: ScheduledTrigger = {
     schedule: {
       start_time: "2022-03-01T14:00:00Z",
       timezone: "asia/kolkata",
+    },
+  };
+```
+### Single Occurence Schedule with Time Zone and Once Frequency Type
+```ts
+const schedule: ScheduledTrigger = {
+    name: "Sample",
+    type: TriggerTypes.Scheduled,
+    workflow: "#/workflows/example",
+    inputs: {},
+    schedule: {
+      start_time: "2022-03-01T15:00:00Z",
+      timezone: "asia/kolkata",
+      frequency: {
+        type: "once",
+      },
+    },
+  };
+``` 
+
+### Recurring Hourly Schedule
+```ts
+const schedule: ScheduledTrigger = {
+    name: "Sample",
+    type: TriggerTypes.Scheduled,
+    workflow: "#/workflows/example",
+    inputs: {},
+    schedule: {
+      start_time: "2022-03-01T14:00:00Z",
+      end_time: "2022-05-01T14:00:00Z",
+      frequency: {
+        type: "hourly",
+        repeats_every: 2,
+      },
     },
   };
 ```
