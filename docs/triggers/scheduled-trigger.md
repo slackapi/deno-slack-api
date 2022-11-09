@@ -92,7 +92,7 @@ const schedule: ScheduledTrigger = {
     workflow: "#/workflows/example",
     inputs: {},
     schedule: {
-      start_time: "2022-03-01T15:00:00Z",
+      start_time: "2022-03-01T14:00:00Z",
       timezone: "asia/kolkata",
       frequency: {
         type: "once",
