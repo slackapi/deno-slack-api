@@ -53,12 +53,10 @@ export type DatastoreGetArgs<
 > =
   & {
     /**
-     * @description The primary key of the item to retreive
+     * @description The primary key of the item to retrieve
      */
     // deno-lint-ignore no-explicit-any
-    [k in Schema["primary_key"]]: any;
-  }
-  & {
+    id: any;
     /**
      * @description The name of the datastore
      */
@@ -120,9 +118,7 @@ export type DatastoreDeleteArgs<
      * @description The primary key of the item to delete
      */
     // deno-lint-ignore no-explicit-any
-    [k in Schema["primary_key"]]: any;
-  }
-  & {
+    id: any;
     /**
      * @description The name of the datastore
      */
