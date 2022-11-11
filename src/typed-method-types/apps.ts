@@ -13,10 +13,13 @@ export type DatastoreSchema = {
   primary_key: string;
 };
 
-export type DatastoreItem<Schema extends DatastoreSchema> = {
+export type DatastoreItem<Schema extends DatastoreSchema> =
   // deno-lint-ignore no-explicit-any
-  [k in keyof Schema["attributes"]]: any;
-};
+  & Record<Schema["primary_key"], any>
+  & {
+    // deno-lint-ignore no-explicit-any
+    [k in keyof Schema["attributes"]]?: any;
+  };
 
 export type DatastorePutArgs<
   Schema extends DatastoreSchema,
