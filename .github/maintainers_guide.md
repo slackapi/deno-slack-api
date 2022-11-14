@@ -40,7 +40,9 @@ Releases for this library are automatically generated off of git tags. Before cr
 To create a new release:
 
 1. Create a new GitHub Release from the [Releases page](https://github.com/slackapi/deno-slack-api/releases) by clicking the "Draft a new release" button.
-2. Input a new version manually into the "Choose a tag" input. Ensure that this version adheres to [semantic versioning][semver] based on what's being released. Version tags should match the following pattern: `1.0.1` (no `v` preceding the number).
+2. Input a new version manually into the "Choose a tag" input. 
+    - Review any pull request labels of the changes included in this release (i.e. `semver:minor` `semver:patch`, `semver:major`). Tip: Your release version should be based on the tag of the largest change. 
+    - Ensure that this version adheres to [semantic versioning][semver]. See [Versioning](#versioning) for correct version format. Version tags should match the following pattern: `1.0.1` (no `v` preceding the number).
   - After you input the new version, click the "Create a new tag: x.x.x on publish" button.
 3. Set the "Target" input to the "main" branch.
 4. Name the release title after the version tag.
