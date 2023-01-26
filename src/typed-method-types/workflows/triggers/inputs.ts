@@ -10,11 +10,26 @@ export type InputParameterSchema = {
   required: (string | number)[];
 };
 
-/** The structure that must be provided to the workflow input to pass a value */
-type WorkflowInput = {
+interface BaseWorkflowInputs {
+  /** @description The value of the workflow input parameter during workflow execution. Template variables may be used here. */
+  value?: unknown;
+  /** @description Set to `true` to allow the input parameter to be customizable, meaning its value is provided separately from the trigger. */
+  customizable?: true;
+}
+
+type WorkflowInputValue = BaseWorkflowInputs & {
   // deno-lint-ignore no-explicit-any
   value: any;
+  customizable?: never;
 };
+
+type WorkflowInputCustomizableValue = BaseWorkflowInputs & {
+  customizable: true;
+  value?: never;
+};
+
+/** The structure that must be provided to the workflow input to pass a value */
+type WorkflowInput = WorkflowInputValue | WorkflowInputCustomizableValue;
 
 /** The structure for when inputs are empty */
 type EmptyInputs = {
@@ -63,7 +78,7 @@ type WorkflowInputsType<Params extends InputParameterSchema> =
  */
 export type WorkflowInputs<WorkflowDefinition extends WorkflowSchema> =
   WorkflowDefinition["title"] extends NO_GENERIC_TITLE ? {
-      /** @description The inputs provided to the workflow */
+      /** @description The inputs provided to the workflow. Either `value` or `customizable` should be provided, but not both. */
       inputs?: Record<string, WorkflowInput>;
     }
     // This also intentionally avoids Distributive Conditional Types, so be careful removing the following square brackets
