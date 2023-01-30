@@ -1,5 +1,6 @@
 export const TriggerEventTypes = {
   AppMentioned: "slack#/events/app_mentioned",
+  AppHomeOpened: "slack#/events/app_home_opened",
   ChannelArchived: "slack#/events/channel_archived",
   ChannelCreated: "slack#/events/channel_created",
   ChannelDeleted: "slack#/events/channel_deleted",

@@ -44,6 +44,7 @@ type ChannelTypes = ObjectValueUnion<
 type WorkspaceTypes = ObjectValueUnion<
   Pick<
     typeof TriggerEventTypes,
+    | "AppHomeOpened"
     | "ChannelArchived"
     | "ChannelCreated"
     | "ChannelDeleted"
