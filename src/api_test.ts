@@ -219,6 +219,22 @@ Deno.test("SlackAPI class", async (t) => {
         mf.reset();
       },
     );
+
+    await t.step(
+      "should allow for typed method calls for external auth",
+      async () => {
+        mf.mock("POST@/api/apps.auth.external.get", () => {
+          return new Response('{"ok":true, "external_token": "abcd"}');
+        });
+        const TestExternalAuthId = {
+          external_token_id: "ET12345",
+        };
+        const res = await client.apps.auth.external.get(TestExternalAuthId);
+        assertEquals(res.ok, true);
+        assertEquals(res.external_token, "abcd");
+        mf.reset();
+      },
+    );
   });
 
   mf.uninstall();
