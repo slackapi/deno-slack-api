@@ -174,6 +174,7 @@ type AppsAuthExternalGetSuccessfulResponse = BaseResponse & {
 
 type AppsAuthExternalGetFailedResponse = BaseResponse & {
   ok: false;
+  external_token?: never;
   // deno-lint-ignore no-explicit-any
   [otherOptions: string]: any;
 };
