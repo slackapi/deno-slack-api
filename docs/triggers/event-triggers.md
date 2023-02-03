@@ -516,7 +516,7 @@ const trigger: Trigger = {
     filter: {
       version: 1,
       root: {
-        statement: "1 === 1",
+        statement: "1 == 1",
       },
     }
   },
