@@ -156,6 +156,33 @@ export type AppsDatastoreDelete = {
   ): Promise<DatastoreDeleteResponse<Schema>>;
 };
 
+// apps.auth Types
+
+type AppsAuthExternalGetArgs = {
+  /** @description The id of a specified external token */
+  external_token_id: string;
+};
+
+type AppsAuthExternalGetResponse =
+  | AppsAuthExternalGetSuccessfulResponse
+  | AppsAuthExternalGetFailedResponse;
+type AppsAuthExternalGetSuccessfulResponse = BaseResponse & {
+  ok: true;
+  /** @description The actual external token */
+  external_token: string;
+};
+
+type AppsAuthExternalGetFailedResponse = BaseResponse & {
+  ok: false;
+  external_token?: never;
+  // deno-lint-ignore no-explicit-any
+  [otherOptions: string]: any;
+};
+
+type AppsAuthExternalGet = {
+  (args: AppsAuthExternalGetArgs): Promise<AppsAuthExternalGetResponse>;
+};
+
 export type TypedAppsMethodTypes = {
   apps: {
     datastore: {
@@ -163,6 +190,11 @@ export type TypedAppsMethodTypes = {
       put: AppsDatastorePut;
       query: AppsDatastoreQuery;
       delete: AppsDatastoreDelete;
+    };
+    auth: {
+      external: {
+        get: AppsAuthExternalGet;
+      };
     };
   };
 };

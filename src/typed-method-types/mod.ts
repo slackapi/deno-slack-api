@@ -16,6 +16,7 @@ export const methodsWithCustomTypes = [
   "apps.datastore.get",
   "apps.datastore.put",
   "apps.datastore.query",
+  "apps.auth.external.get",
   "chat.postMessage",
   "functions.completeSuccess",
   "functions.completeError",

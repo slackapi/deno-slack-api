@@ -80,8 +80,9 @@ export function serializeData(data: Record<string, unknown>): URLSearchParams {
     // Skip properties with undefined values.
     if (value === undefined) return;
 
-    const serializedValue: string =
-      (typeof value !== "string" ? JSON.stringify(value) : value);
+    const serializedValue: string = typeof value !== "string"
+      ? JSON.stringify(value)
+      : value;
     encodedData[key] = serializedValue;
   });
 
