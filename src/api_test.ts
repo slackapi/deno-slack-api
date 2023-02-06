@@ -251,6 +251,20 @@ Deno.test("SlackAPI class", async (t) => {
         mf.reset();
       },
     );
+
+    await t.step(
+      "should allow for typed method calls for external auth delete method",
+      async () => {
+        mf.mock("POST@/api/apps.auth.external.delete", () => {
+          return new Response('{"ok":true}');
+        });
+        const res = await client.apps.auth.external.delete({
+          external_token_id: "ET12345",
+        });
+        assertEquals(res.ok, true);
+        mf.reset();
+      },
+    );
   });
 
   mf.uninstall();
