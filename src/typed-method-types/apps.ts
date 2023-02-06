@@ -161,6 +161,9 @@ export type AppsDatastoreDelete = {
 type AppsAuthExternalGetArgs = {
   /** @description The id of a specified external token */
   external_token_id: string;
+
+  /** @description always refresh the token before fetching */
+  force_refresh?: boolean;
 };
 
 type AppsAuthExternalGetResponse =
