@@ -12,5 +12,6 @@
   "tasks": {
     "test": "deno fmt --check && deno lint && deno test src",
     "coverage": "deno test --coverage=.coverage src && deno coverage --exclude=fixtures --exclude=test --exclude=src/generated .coverage"
-  }
+  },
+  "lock": false
 }
