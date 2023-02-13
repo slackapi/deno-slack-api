@@ -15,6 +15,7 @@ export const methodsWithCustomTypes = [
   "apps.datastore.delete",
   "apps.datastore.get",
   "apps.datastore.put",
+  "apps.datastore.update",
   "apps.datastore.query",
   "apps.auth.external.get",
   "apps.auth.external.delete",
