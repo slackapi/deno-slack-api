@@ -1,7 +1,16 @@
 {
+  "$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
   "fmt": {
     "files": {
       "include": ["src"]
+    },
+    "options": {
+      "semiColons": true,
+      "indentWidth": 2,
+      "lineWidth": 80,
+      "proseWrap": "always",
+      "singleQuote": false,
+      "useTabs": false
     }
   },
   "lint": {
@@ -9,9 +18,14 @@
       "include": ["src"]
     }
   },
+  "test": {
+    "files": {
+      "include": ["src"]
+    }
+  },
   "tasks": {
-    "test": "deno fmt --check && deno lint && deno test src",
-    "coverage": "deno test --coverage=.coverage src && deno coverage --exclude=fixtures --exclude=test --exclude=src/generated .coverage"
+    "test": "deno fmt --check && deno lint && deno test",
+    "coverage": "deno test --coverage=.coverage && deno coverage --exclude=fixtures --exclude=test --exclude=src/generated .coverage"
   },
   "lock": false
 }

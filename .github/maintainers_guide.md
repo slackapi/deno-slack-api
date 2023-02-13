@@ -17,7 +17,7 @@ All you need to work on this project is a recent version of [Deno](https://deno.
 
 Run the following from the root of the project:
 
-```
+```zsh
 ./scripts/generate
 ```
 
@@ -27,11 +27,32 @@ For more information on the code generation, have a look at `scripts/README.md`.
 
 Test can be run directly with Deno:
 
-    deno task test
+```zsh
+deno task test
+```
 
 You can also run a test coverage report with:
 
-    deno task coverage
+```zsh
+deno task coverage
+```
+
+### Lint and format
+
+The linting and formatting rules are defined in the `deno.jsonc` file, your IDE can be set up to follow these rules:
+
+1. Refer to the [Deno Set Up Your Environment](https://deno.land/manual/getting_started/setup_your_environment) guidelines to set up your IDE with the proper plugin.
+2. Ensure that the `deno.jsonc` file is set as the configuration file for your IDE plugin
+   * If you are using VS code [this](https://deno.land/manual/references/vscode_deno#using-a-configuration-file) is already configured in `.vscode/settings.json`
+
+#### Linting
+
+The list of linting rules can be found in [the linting deno docs](https://lint.deno.land/).
+Currently we apply all recommended rules.
+
+#### Format
+
+The list of format options is defined in the `deno.jsonc` file. They closely resemble the default values.
 
 ### Releasing
 
@@ -41,10 +62,10 @@ To create a new release:
 
 1. Create a new GitHub Release from the [Releases page](https://github.com/slackapi/deno-slack-api/releases) by clicking the "Draft a new release" button.
 2. Input a new version manually into the "Choose a tag" input. You can start off by incrementing the version to reflect a patch. (i.e. 1.16.0 -> 1.16.1)
-    - After you input the new version, click the "Create a new tag: x.x.x on publish" button. This won't create your tag immediately.
-    - Auto-generate the release notes by clicking the "Auto-generate release notes" button. This will pull in changes that will be included in your release. 
-    - Flip to the preview mode and review the pull request labels of the changes included in this release (i.e. `semver:minor` `semver:patch`, `semver:major`). Tip: Your release version should be based on the tag of the largest change, so if this release includes a `semver:minor`, the release version in your tag should be upgraded to reflect a minor. 
-    - Ensure that this version adheres to [semantic versioning][semver]. See [Versioning](#versioning) for correct version format. Version tags should match the following pattern: `1.0.1` (no `v` preceding the number).
+    * After you input the new version, click the "Create a new tag: x.x.x on publish" button. This won't create your tag immediately.
+    * Auto-generate the release notes by clicking the "Auto-generate release notes" button. This will pull in changes that will be included in your release.
+    * Flip to the preview mode and review the pull request labels of the changes included in this release (i.e. `semver:minor` `semver:patch`, `semver:major`). Tip: Your release version should be based on the tag of the largest change, so if this release includes a `semver:minor`, the release version in your tag should be upgraded to reflect a minor.
+    * Ensure that this version adheres to [semantic versioning][semver]. See [Versioning](#versioning-and-tags) for correct version format. Version tags should match the following pattern: `1.0.1` (no `v` preceding the number).
 3. Set the "Target" input to the "main" branch.
 4. Name the release title after the version tag.
 5. Make any adjustments to generated release notes to make sure they are accessible and approachable and that an end-user with little context about this project could still understand.
