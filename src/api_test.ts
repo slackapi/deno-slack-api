@@ -205,7 +205,7 @@ Deno.test("SlackAPI class", async (t) => {
             email: "string",
           },
           primary_key: "id",
-        };
+        } as const; // casted as const to validate primary_key requirement
 
         const res = await client.apps.datastore.put<typeof TestDatastore>({
           datastore: "test",
