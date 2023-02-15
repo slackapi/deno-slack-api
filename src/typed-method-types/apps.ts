@@ -51,6 +51,36 @@ export type DatastorePutResponse<
     item: DatastoreItem<Schema>;
   };
 
+export type DatastoreUpdateArgs<
+  Schema extends DatastoreSchema,
+> =
+  & BaseMethodArgs
+  & {
+    /**
+     * @description The name of the datastore
+     */
+    datastore: Schema["name"];
+    /**
+     * @description The item to store
+     */
+    item: DatastoreItem<Schema>;
+  };
+
+export type DatastoreUpdateResponse<
+  Schema extends DatastoreSchema,
+> =
+  & BaseResponse
+  & {
+    /**
+     * @description The name of the datastore
+     */
+    datastore: Schema["name"];
+    /**
+     * @description The item that was stored
+     */
+    item: DatastoreItem<Schema>;
+  };
+
 export type DatastoreGetArgs<
   Schema extends DatastoreSchema,
 > =
@@ -148,6 +178,11 @@ export type AppsDatastorePut = {
     args: DatastorePutArgs<Schema>,
   ): Promise<DatastorePutResponse<Schema>>;
 };
+export type AppsDatastoreUpdate = {
+  <Schema extends DatastoreSchema>(
+    args: DatastoreUpdateArgs<Schema>,
+  ): Promise<DatastoreUpdateResponse<Schema>>;
+};
 export type AppsDatastoreQuery = {
   <Schema extends DatastoreSchema>(
     args: DatastoreQueryArgs<Schema>,
@@ -219,6 +254,7 @@ export type TypedAppsMethodTypes = {
     datastore: {
       get: AppsDatastoreGet;
       put: AppsDatastorePut;
+      update: AppsDatastoreUpdate;
       query: AppsDatastoreQuery;
       delete: AppsDatastoreDelete;
     };
