@@ -48,7 +48,8 @@ export type DatastorePutResponse<
     /**
      * @description The item that was stored
      */
-    item: DatastoreItem<Schema>;
+    // TODO: [brk-chg] Remove Required utility
+    item: Required<DatastoreItem<Schema>>;
   };
 
 export type DatastoreUpdateArgs<
@@ -78,7 +79,8 @@ export type DatastoreUpdateResponse<
     /**
      * @description The item that was stored
      */
-    item: DatastoreItem<Schema>;
+    // TODO: [brk-chg] Remove Required Utility
+    item: Required<DatastoreItem<Schema>>;
   };
 
 export type DatastoreGetArgs<
@@ -109,7 +111,8 @@ export type DatastoreGetResponse<
     /**
      * @description The retreived item
      */
-    item: DatastoreItem<Schema>;
+    // TODO: [brk-chg] Remove Required Utility
+    item: Required<DatastoreItem<Schema>>;
   };
 
 export type DatastoreQueryArgs<
@@ -140,7 +143,8 @@ export type DatastoreQueryResponse<
     /**
      * @description The items matching your query
      */
-    items: DatastoreItem<Schema>[];
+    // TODO: [brk-chg] Remove Required Utility
+    items: Required<DatastoreItem<Schema>>[];
   };
 
 export type DatastoreDeleteArgs<
