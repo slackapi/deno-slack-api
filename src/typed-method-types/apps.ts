@@ -13,6 +13,12 @@ export type DatastoreSchema = {
   primary_key: string;
 };
 
+/**
+ * @deprecated This type is temporarily available for migration
+ */
+export type OptionalDatastoreItem<Schema extends DatastoreSchema> =
+  DatastoreItem<Schema>;
+
 export type DatastoreItem<Schema extends DatastoreSchema> =
   // deno-lint-ignore no-explicit-any
   & Record<Schema["primary_key"], any>
@@ -48,7 +54,8 @@ export type DatastorePutResponse<
     /**
      * @description The item that was stored
      */
-    item: DatastoreItem<Schema>;
+    // TODO: Remove Required utility
+    item: Required<DatastoreItem<Schema>>;
   };
 
 export type DatastoreUpdateArgs<
@@ -78,7 +85,8 @@ export type DatastoreUpdateResponse<
     /**
      * @description The item that was stored
      */
-    item: DatastoreItem<Schema>;
+    // TODO: Remove Required Utility
+    item: Required<DatastoreItem<Schema>>;
   };
 
 export type DatastoreGetArgs<
@@ -109,7 +117,8 @@ export type DatastoreGetResponse<
     /**
      * @description The retreived item
      */
-    item: DatastoreItem<Schema>;
+    // TODO: Remove Required Utility
+    item: Required<DatastoreItem<Schema>>;
   };
 
 export type DatastoreQueryArgs<
@@ -140,7 +149,8 @@ export type DatastoreQueryResponse<
     /**
      * @description The items matching your query
      */
-    items: DatastoreItem<Schema>[];
+    // TODO: Remove Required Utility
+    items: Required<DatastoreItem<Schema>>[];
   };
 
 export type DatastoreDeleteArgs<
