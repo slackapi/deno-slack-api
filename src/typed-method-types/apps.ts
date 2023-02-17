@@ -13,12 +13,6 @@ export type DatastoreSchema = {
   primary_key: string;
 };
 
-/**
- * @deprecated This type is temporarily available for migration
- */
-export type OptionalDatastoreItem<Schema extends DatastoreSchema> =
-  DatastoreItem<Schema>;
-
 export type DatastoreItem<Schema extends DatastoreSchema> =
   // deno-lint-ignore no-explicit-any
   & Record<Schema["primary_key"], any>

@@ -1,7 +1,6 @@
 import { BaseSlackAPIClient } from "./base-client.ts";
 import { SlackAPIOptions } from "./types.ts";
 import { ProxifyAndTypeClient } from "./api-proxy.ts";
-export type { OptionalDatastoreItem } from "./typed-method-types/apps.ts";
 
 export const SlackAPI = (token: string, options: SlackAPIOptions = {}) => {
   // Create our base client instance
