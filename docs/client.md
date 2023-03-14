@@ -48,7 +48,7 @@ await client.response("...", payload);
 
 #### Pagination
 
-A vast majority of Slack API methods support [cursor-based pagination][cursor-based pagination]. To use cursor-based pagination, start by specifying a `limit` parameter to any API method that returns lists of objects, like so:
+A vast majority of Slack API methods support [cursor-based pagination][cursor-based-pagination]. To use cursor-based pagination, start by specifying a `limit` parameter to any API method that returns lists of objects, like so:
 
 ```ts
 const messages = await client.conversations.history({
@@ -72,4 +72,4 @@ if (messages.response_metadata?.next_cursor) {
 ```
 
 [api-methods]: https://api.slack.com/methods
-[cursor-based pagination]: https://api.slack.com/docs/pagination#cursors
+[cursor-based-pagination]: https://api.slack.com/docs/pagination#cursors
