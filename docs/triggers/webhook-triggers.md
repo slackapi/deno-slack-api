@@ -6,7 +6,7 @@ includes the common Trigger parameters along with a webhook parameter:
 | Parameter name| Required?     | Description                                                          |
 | --------------|:-------------:| ---------------------------------------------------------------------|
 | `inputs`        | Yes           | What inputs (defined in the manifest) are passed to the Trigger      |
-| `webook`        | No            | Contains a [filter](trigger-filters.md)             |
+| `webook`        | No            | Contains a [filter][trigger-filters]             |
 
 ### Webhook Configuration
 
@@ -116,3 +116,5 @@ If successful, you'll get the following response:
   "ok":true
 }
 ```
+
+[trigger-filters]: ./trigger-filters.md

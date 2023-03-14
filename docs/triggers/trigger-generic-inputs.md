@@ -4,7 +4,7 @@ When creating or updating a trigger, a Workflow definition can be passed into th
 
 ## Defining A Workflow
 
-Recall that in the [SDK](https://github.com/slackapi/deno-slack-sdk/blob/main/docs/workflows.md#workflows), a `workflow` can be defined using the `DefineWorkflow` method.
+Recall that in the [SDK][workflow-sdk], a `workflow` can be defined using the `DefineWorkflow` method.
 When a workflow is created in this manner, it contains a `workflow.definition` object. By passing this definition into the `create` or `update` method, the trigger will have access to information related to the workflow's definition.
 
 ## Workflow Definition Input with Runtime Triggers
@@ -67,3 +67,5 @@ const trigger: Trigger<typeof TriggersWorkflow.definition> = { //Workflow defini
 
 export default trigger;
 ```
+
+[workflow-sdk]: https://github.com/slackapi/deno-slack-sdk/blob/main/docs/workflows.md#workflows

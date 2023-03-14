@@ -1,7 +1,7 @@
 ## Link Triggers
 
 A Link Trigger is an interactive Trigger that activates when a link is clicked in the Slack client. When a Link Trigger is created, its API response returns a `shortcut_url` which can be used in Slack to show a button. Clicking on this button will activate the associated Workflow. A Link Trigger
-includes the common [Trigger attributes](./trigger-basics.md#trigger-types) along with an optional shortcut parameter: 
+includes the common [Trigger attributes][trigger-types] along with an optional shortcut parameter: 
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
@@ -24,12 +24,12 @@ The `data` context parameters available to a Shortcut Trigger are as follows:
 | ----------------|:-------------:| ---------------------------------------------------------------------|
 | `data.user_id`        | string            | A unique identifier for the Slack user who invoked the Trigger         |
 | `data.channel_id`        | string            | A unique identifier for the channel where the Trigger was invoked         |
-| `data.interactivity`        | object            | See [Block Kit interactivity](https://api.dev.slack.com/future/triggers/future/block-events)|
+| `data.interactivity`        | object            | See [Block Kit interactivity][block-events]|
 | `data.location`        | string            | Where the Trigger was invoked. Can be `message` or `bookmark`|
 | `data.message_ts`        | string            | A unique UNIX timestamp in seconds indicating when the Trigger-invoking message was sent|
 | `data.user`        | object            | An object containing a `user_id` and a `secret` that can be used to identify and validate the specific user who invoked the Trigger|
-| `data.action_id`        | string            | A unique identifier for the action that invoked the Trigger. See [Block Kit interactivity](https://api.dev.slack.com/future/triggers/future/block-events) |
-| `data.block_id`        | string            | A unique identifier for the block where the Trigger was invoked. See [Block Kit interactivity](https://api.dev.slack.com/future/triggers/future/block-events)|
+| `data.action_id`        | string            | A unique identifier for the action that invoked the Trigger. See [Block Kit interactivity][block-events] |
+| `data.block_id`        | string            | A unique identifier for the block where the Trigger was invoked. See [Block Kit interactivity][block-events]|
 | `data.bookmark_id`        | string            | A unique identifier for the bookmark where the Trigger was invoked|
 
 The data context can be used in the input parameter as follows:
@@ -44,8 +44,8 @@ The data context can be used in the input parameter as follows:
 }
 ```
 ## Usage
-Below are some usage examples of `ShortcutTrigger` objects which can be used in a .ts file to create a `shortcut` trigger through the [Slack CLI](./trigger-basics.md/#creating-triggers-using-the-slack-cli), alternatively this object could be passed into a 
-`client.workflows.triggers.create` method to achieve the same effect at [runtime](./trigger-basics.md/#creating-triggers-in-the-runtime-environment).
+Below are some usage examples of `ShortcutTrigger` objects which can be used in a .ts file to create a `shortcut` trigger through the [Slack CLI][creating-triggers-cli], alternatively this object could be passed into a 
+`client.workflows.triggers.create` method to achieve the same effect at [runtime][creating-triggers-runtime].
 
 ### Example Configured Shortcut Trigger
 
@@ -92,20 +92,20 @@ export default trigger;
 {
   ok: true, //true on success, false on failure
   trigger: { //information related to the trigger 
-    id: "Ft014646C5ZF3", //The trigger id
+    id: "Ft012345C6ZF7", //The trigger id
     type: "shortcut", //The trigger type
     workflow: { // Information related to the workflow function
-      id: "Fn0141SXKUHZ",
-      workflow_id: "Wf0141SXKWRZ",
+      id: "Fn0123SXKUHZ",
+      workflow_id: "Wf0123SXKWRZ",
       callback_id: "example_workflow",
       title: "Example Workflow",
       description: "A sample workflow",
       type: "workflow",
       input_parameters: [],
       output_parameters: [],
-      app_id: "A01412GH614",
+      app_id: "A01234GH567",
       app: {
-        id: "A01412GH614",
+        id: "A01234GH567",
         name: "my-app",
         icons: [],
         is_workflow_app: false
@@ -118,7 +118,13 @@ export default trigger;
     date_updated: 1658339927,
     name: "Example Trigger", //The name given to the trigger
     description: "An example trigger", //Trigger description
-    shortcut_url: "https://app.slack.com/app/A01412GH614/shortcut/Ft014646C5ZF3" //The shortcut URL, paste into client to create unfurled link
+    shortcut_url: "https://app.slack.com/app/A01234GH567/shortcut/Ft012345C6ZF7" //The shortcut URL, paste into client to create unfurled link
   }
 }
 ```
+
+[trigger-types]: ./trigger-basics.md#trigger-types
+[creating-triggers-cli]: ./trigger-basics.md/#creating-triggers-using-the-slack-cli
+[creating-triggers-runtime]: ./trigger-basics.md/#creating-triggers-in-the-runtime-environment
+
+[block-events]: https://api.slack.com/future/triggers/future/block-events

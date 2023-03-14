@@ -1,12 +1,11 @@
 ## What is a Trigger?
 
-A Trigger is an entry point for the execution of a [Workflow](https://api.slack.com/future/workflows). Triggers define the circumstances under which a workflow will be initiated and contain contextual information that can be
+A Trigger is an entry point for the execution of a [Workflow][workflows]. Triggers define the circumstances under which a workflow will be initiated and contain contextual information that can be
 passed along from the Trigger to a Workflow. Triggers come in different shapes and sizes, and there are four primary Trigger types which can be used to activate a Workflow.
-These four types are [Event](./event-triggers.md), [Shortcut](./shortcut-triggers.md), [Scheduled](./scheduled-trigger.md), and [Webhook](./webhook-triggers.md). Because Triggers are the entry point of a workflow, a Workflow needs to be defined before a Trigger can be written for it. API information regarding Triggers can be found at [here](https://api.slack.com/future/triggers)
+These four types are [Event][event], [Shortcut][shortcut], [Scheduled][scheduled], and [Webhook][webhook]. Because Triggers are the entry point of a workflow, a Workflow needs to be defined before a Trigger can be written for it. API information regarding Triggers can be found at [here][triggers]
 
 ### Trigger Types
-There are currently 4 supported Trigger types, [Shortcut](shortcut-trigger.md), [Webhook](webhook-trigger.md), 
-[Event](event-trigger.md), and [Scheduled](scheduled-trigger.md). Each Trigger type has it's own configuration object, however all Triggers have parameters that are common to all Trigger types, these common parameters are as follows:
+There are currently 4 supported Trigger types, [Event][event], [Shortcut][shortcut], [Scheduled][scheduled], and [Webhook][webhook]. Each Trigger type has it's own configuration object, however all Triggers have parameters that are common to all Trigger types, these common parameters are as follows:
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
@@ -24,11 +23,11 @@ Each Trigger type has access to a `data` context object which includes informati
 
 ## Creating Triggers
 
-Triggers can be created in one of two ways, either dynamically in your application at runtime, or through the Slack CLI. More details on Trigger creation can be found in the [API documentation](https://api.dev.slack.com/future/triggers#create).
+Triggers can be created in one of two ways, either dynamically in your application at runtime, or through the Slack CLI. More details on Trigger creation can be found in the [API documentation][triggers-create].
 
 ### Creating Triggers Generic Inputs
 
-Triggers can be created or updated at runtime with an optional `WorkflowDefinition` as a generic input which utilizes the `WorkflowDefinition` object defined in the manifest to help specify what `inputs` a Trigger will require. Additional details can be found [here](trigger-generic-inputs.md).
+Triggers can be created or updated at runtime with an optional `WorkflowDefinition` as a generic input which utilizes the `WorkflowDefinition` object defined in the manifest to help specify what `inputs` a Trigger will require. Additional details can be found [here][generic-inputs].
 
 ### Creating Triggers using the Slack CLI
 
@@ -122,7 +121,7 @@ Creation uses the `client.workflows.triggers.create` method which takes in a Tri
 ```
 ## Updating Triggers
 
-Similar to creating, updating Triggers can be done through the CLI, or at runtime using the `client.workflows.triggers.update` method. Updating a Trigger takes the same Trigger object as creating one, with the addition of a `trigger_id` parameter to identify the Trigger being updated. More details on updating Triggers can be found in the [API documentation](https://api.dev.slack.com/future/triggers#update).
+Similar to creating, updating Triggers can be done through the CLI, or at runtime using the `client.workflows.triggers.update` method. Updating a Trigger takes the same Trigger object as creating one, with the addition of a `trigger_id` parameter to identify the Trigger being updated. More details on updating Triggers can be found in the [API documentation](triggers-update).
 
 ### Updating Triggers in the CLI
 
@@ -175,7 +174,7 @@ Updating uses the `client.workflows.triggers.update` method which takes in the s
 ```
 ## Deleting Triggers 
 
-Triggers can be deleted by passing the Trigger ID. See the [API documentation](https://api.dev.slack.com/future/triggers#delete) for more details.
+Triggers can be deleted by passing the Trigger ID. See the [API documentation][triggers-delete] for more details.
 
 ### Delete a Trigger at runtime
 
@@ -239,4 +238,18 @@ Triggers can be listed at runtime using the `client.workflows.triggers.list` met
 
 A newly created Run on Slack Trigger will only be accessible to others inside a workspace once its creator has granted access.
 
-Use the `access` command to manage who can have access to run your Triggers. Details on granting and revoking Trigger access can be found in the [API documentation](https://api.dev.slack.com/future/triggers#manage-access)
+Use the `access` command to manage who can have access to run your Triggers. Details on granting and revoking Trigger access can be found in the [API documentation][manage-access]
+
+
+[event]: event-triggers.md
+[scheduled]: scheduled-triggers.md
+[shortcut]: link-triggers.md
+[webhook]: webhook-triggers.md
+[generic-inputs]: trigger-generic-inputs.md
+
+[workflows]: https://api.slack.com/future/workflows
+[triggers]: https://api.slack.com/future/triggers
+[triggers-create]: https://api.slack.com/future/triggers#create
+[triggers-update]: https://api.slack.com/future/triggers#update
+[triggers-delete]: https://api.slack.com/future/triggers#delete
+[manage-access]: https://api.slack.com/future/triggers#manage-access
