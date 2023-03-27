@@ -5,9 +5,11 @@ import {
   assertEquals,
 } from "https://deno.land/std@0.99.0/testing/asserts.ts";
 import type {
+  CustomizableInputWorkflow,
   ExampleWorkflow,
   MixedInputWorkflow,
   NoInputWorkflow,
+  OptionalCustomizableInputWorkflow,
   OptionalInputWorkflow,
   RequiredInputWorkflow,
 } from "./fixtures/workflows.ts";
@@ -382,6 +384,136 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
 
         assert(true);
       });
+    });
+
+    await t.step("handles workflow with customizable inputs", async (t) => {
+      await t.step("allows customizable input to be set", async () => {
+        const _: Trigger<CustomizableInputWorkflow> = {
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          inputs: { customizable: { customizable: true } },
+        };
+        await client.workflows.triggers.create<CustomizableInputWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          inputs: { customizable: { customizable: true } },
+        });
+        assert(true);
+      });
+
+      await t.step("allows optional customizable input to be set", async () => {
+        const _: Trigger<CustomizableInputWorkflow> = {
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          inputs: { customizable: { customizable: true } },
+        };
+        await client.workflows.triggers.create<CustomizableInputWorkflow>({
+          name: "TEST",
+          type: "shortcut",
+          workflow: "#/workflows/example",
+          inputs: { customizable: { customizable: true } },
+        });
+        assert(true);
+      });
+
+      await t.step(
+        "allows empty optional customizable inputs to be set",
+        async () => {
+          const _: Trigger<OptionalCustomizableInputWorkflow> = {
+            name: "TEST",
+            type: "shortcut",
+            workflow: "#/workflows/example",
+            inputs: {},
+          };
+          await client.workflows.triggers.create<
+            OptionalCustomizableInputWorkflow
+          >({
+            name: "TEST",
+            type: "shortcut",
+            workflow: "#/workflows/example",
+            inputs: {},
+          });
+          assert(true);
+        },
+      );
+
+      await t.step(
+        "catches if customizable and value are set",
+        async () => {
+          const _: Trigger<CustomizableInputWorkflow> = {
+            name: "TEST",
+            type: "shortcut",
+            workflow: "#/workflows/example",
+            inputs: {
+              //@ts-expect-error invalid WorkflowInput type
+              customizable: { value: "string", customizable: true },
+            },
+          };
+          await client.workflows.triggers.create<CustomizableInputWorkflow>({
+            name: "TEST",
+            type: "shortcut",
+            workflow: "#/workflows/example",
+            inputs: {
+              //@ts-expect-error invalid WorkflowInput type
+              customizable: { value: "string", customizable: true },
+            },
+          });
+          assert(true);
+        },
+      );
+
+      await t.step(
+        "catches if customizable is not a boolean",
+        async () => {
+          const _: Trigger<CustomizableInputWorkflow> = {
+            name: "TEST",
+            type: "shortcut",
+            workflow: "#/workflows/example",
+            inputs: {
+              //@ts-expect-error customizable must be a boolean
+              customizable: { customizable: "incorrect type" },
+            },
+          };
+          await client.workflows.triggers.create<CustomizableInputWorkflow>({
+            name: "TEST",
+            type: "shortcut",
+            workflow: "#/workflows/example",
+            inputs: {
+              //@ts-expect-error customizable must be a boolean
+              customizable: { customizable: "incorrect type" },
+            },
+          });
+          assert(true);
+        },
+      );
+
+      await t.step(
+        "catches if customizable is false",
+        async () => {
+          const _: Trigger<CustomizableInputWorkflow> = {
+            name: "TEST",
+            type: "shortcut",
+            workflow: "#/workflows/example",
+            inputs: {
+              //@ts-expect-error customizable must be true
+              customizable: { customizable: false },
+            },
+          };
+          await client.workflows.triggers.create<CustomizableInputWorkflow>({
+            name: "TEST",
+            type: "shortcut",
+            workflow: "#/workflows/example",
+            inputs: {
+              //@ts-expect-error customizable must be true
+              customizable: { customizable: false },
+            },
+          });
+          assert(true);
+        },
+      );
     });
 
     await t.step("handles workflow with a mix of inputs", async (t) => {

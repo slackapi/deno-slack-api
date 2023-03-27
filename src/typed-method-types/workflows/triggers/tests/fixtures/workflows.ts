@@ -21,6 +21,17 @@ export type OptionalInputWorkflow = ExampleWorkflow & {
   };
 };
 
+export type OptionalCustomizableInputWorkflow = ExampleWorkflow & {
+  input_parameters: {
+    properties: {
+      customizable: {
+        type: "boolean";
+      };
+    };
+    required: [];
+  };
+};
+
 export type RequiredInputWorkflow = ExampleWorkflow & {
   input_parameters: {
     properties: {
@@ -41,7 +52,21 @@ export type MixedInputWorkflow = ExampleWorkflow & {
       optional: {
         type: "string";
       };
+      customizable: {
+        type: "boolean";
+      };
     };
     required: ["required"];
+  };
+};
+
+export type CustomizableInputWorkflow = ExampleWorkflow & {
+  input_parameters: {
+    properties: {
+      customizable: {
+        type: "boolean";
+      };
+    };
+    required: ["customizable"];
   };
 };
