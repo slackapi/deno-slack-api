@@ -3,10 +3,6 @@ import { SlackAPIMethodsType } from "./generated/method-types/mod.ts";
 export type { DatastoreItem } from "./typed-method-types/apps.ts";
 
 export type {
-  /**
-   * @deprecated Use Trigger instead
-   */
-  ValidTriggerTypes,
   ValidTriggerTypes as Trigger,
 } from "./typed-method-types/workflows/triggers/mod.ts";
 
