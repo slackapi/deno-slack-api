@@ -9,22 +9,22 @@ import { serializeData } from "./base-client.ts";
 import { assertInstanceOf } from "https://deno.land/std@0.132.0/testing/asserts.ts";
 import { HttpError } from "./deps.ts";
 
-Deno.test("SlackAPI class", async (slackApiTest) => {
+Deno.test("SlackAPI class", async (t) => {
   MockFetch.install(); // mock out calls to `fetch`
 
-  await slackApiTest.step(
+  await t.step(
     "instantiated with default API URL",
-    async (defaultUrlTest) => {
+    async (t) => {
       const client = SlackAPI("test-token");
 
-      await defaultUrlTest.step("base methods exist on client", () => {
+      await t.step("base methods exist on client", () => {
         assertEquals(typeof client.apiCall, "function");
         assertEquals(typeof client.response, "function");
         assertEquals(typeof client.setSlackApiUrl, "function");
       });
 
-      await defaultUrlTest.step("apiCall method", async (apiCallTest) => {
-        await apiCallTest.step("should call the default API URL", async () => {
+      await t.step("apiCall method", async (t) => {
+        await t.step("should call the default API URL", async () => {
           MockFetch.mock("POST@/api/chat.postMessage", (req: Request) => {
             assertEquals(req.url, "https://slack.com/api/chat.postMessage");
             return new Response('{"ok":true}');
@@ -35,7 +35,7 @@ Deno.test("SlackAPI class", async (slackApiTest) => {
           MockFetch.reset();
         });
 
-        await apiCallTest.step(
+        await t.step(
           "should prioritize calling provided token vs. token instantiated client with",
           async () => {
             MockFetch.mock("POST@/api/chat.postMessage", (req: Request) => {
@@ -61,7 +61,7 @@ Deno.test("SlackAPI class", async (slackApiTest) => {
           },
         );
 
-        await apiCallTest.step(
+        await t.step(
           "should throw if response returns an HTTP status code >= 400",
           async () => {
             MockFetch.mock("POST@/api/chat.postMessage", () => {
@@ -80,7 +80,7 @@ Deno.test("SlackAPI class", async (slackApiTest) => {
           },
         );
 
-        await apiCallTest.step(
+        await t.step(
           "should throw an HttpError if HTTP response status code >= 400",
           async () => {
             MockFetch.mock("POST@/api/chat.postMessage", () => {
@@ -108,7 +108,7 @@ Deno.test("SlackAPI class", async (slackApiTest) => {
           },
         );
 
-        await apiCallTest.step(
+        await t.step(
           "should return successful response JSON",
           async () => {
             MockFetch.mock("POST@/api/chat.postMessage", () => {
@@ -123,8 +123,8 @@ Deno.test("SlackAPI class", async (slackApiTest) => {
         );
       });
 
-      await defaultUrlTest.step("response method", async (responseTest) => {
-        await responseTest.step(
+      await t.step("response method", async (t) => {
+        await t.step(
           "should throw if response returns an HTTP status code >= 400",
           async () => {
             MockFetch.mock("POST@/api/chat.postMessage", () => {
@@ -146,7 +146,7 @@ Deno.test("SlackAPI class", async (slackApiTest) => {
           },
         );
 
-        await responseTest.step(
+        await t.step(
           "should throw an HttpError if HTTP response status code >= 400",
           async () => {
             MockFetch.mock("POST@/api/chat.postMessage", () => {
@@ -177,7 +177,7 @@ Deno.test("SlackAPI class", async (slackApiTest) => {
           },
         );
 
-        await responseTest.step(
+        await t.step(
           "should return successful response JSON",
           async () => {
             MockFetch.mock("POST@/api/chat.postMessage", () => {
@@ -197,7 +197,7 @@ Deno.test("SlackAPI class", async (slackApiTest) => {
     },
   );
 
-  await slackApiTest.step(
+  await t.step(
     "instantiated with custom API URL",
     async (t) => {
       const client = SlackAPI("test-token", {
@@ -219,7 +219,7 @@ Deno.test("SlackAPI class", async (slackApiTest) => {
     },
   );
 
-  await slackApiTest.step(
+  await t.step(
     "instantiated with custom API URL without trailing slash",
     async (t) => {
       const client = SlackAPI("test-token", {
@@ -241,7 +241,7 @@ Deno.test("SlackAPI class", async (slackApiTest) => {
     },
   );
 
-  await slackApiTest.step(
+  await t.step(
     "calling custom method accessor functions",
     async (t) => {
       const client = SlackAPI("test-token");
