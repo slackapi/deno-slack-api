@@ -4,6 +4,7 @@ import {
   SlackAPIMethodArgs,
   SlackAPIOptions,
 } from "./types.ts";
+import { createHttpError, HttpError } from "./deps.ts";
 
 export class BaseSlackAPIClient implements BaseSlackClient {
   #token?: string;
@@ -44,8 +45,7 @@ export class BaseSlackAPIClient implements BaseSlackClient {
       body,
     });
     if (!resp.ok) {
-      const text = await resp.text();
-      throw Error(`${resp.status}: ${text}`);
+      throw await this.#createHttpError(resp);
     }
     return await resp.json();
   }
@@ -62,10 +62,20 @@ export class BaseSlackAPIClient implements BaseSlackClient {
       body: JSON.stringify(data),
     });
     if (!resp.ok) {
-      const text = await resp.text();
-      throw Error(`${resp.status}: ${text}`);
+      throw await this.#createHttpError(resp);
     }
     return await resp.json();
+  }
+
+  async #createHttpError(response: Response): Promise<HttpError> {
+    const text = await response.text();
+    return createHttpError(
+      response.status,
+      `${response.status}: ${text}`,
+      {
+        headers: response.headers,
+      },
+    );
   }
 }
 
