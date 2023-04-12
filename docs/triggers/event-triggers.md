@@ -42,7 +42,7 @@ The following is a list of event types along with their category:
 
 ### Event Configuration
 
-Event trigger must contain an Event configuration object, which specifies the details of the Event that will activate the trigger. The Event configuration object has the following attributes:
+Event trigger must contain an event configuration object, which specifies the details of the event that will activate the trigger. The event configuration object has the following attributes:
 
 | Parameter name    | Required?     | Description                                                             |
 | ------------------|:-------------:| ------------------------------------------------------------------------|

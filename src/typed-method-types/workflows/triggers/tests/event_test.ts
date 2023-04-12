@@ -5,7 +5,7 @@ import { SlackAPI } from "../../../../mod.ts";
 import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
 import { event_response } from "./fixtures/sample_responses.ts";
 
-Deno.test("Event Triggers can set the type using the string", () => {
+Deno.test("Event triggers can set the type using the string", () => {
   // deno-lint-ignore no-explicit-any
   const event: EventTrigger<any> = {
     type: "event",
@@ -20,7 +20,7 @@ Deno.test("Event Triggers can set the type using the string", () => {
   assertEquals(event.type, TriggerTypes.Event);
 });
 
-Deno.test("Event Triggers can set the type using the TriggerTypes object", () => {
+Deno.test("Event triggers can set the type using the TriggerTypes object", () => {
   // deno-lint-ignore no-explicit-any
   const event: EventTrigger<any> = {
     type: TriggerTypes.Event,

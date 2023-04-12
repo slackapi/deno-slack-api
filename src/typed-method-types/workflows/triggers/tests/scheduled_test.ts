@@ -4,7 +4,7 @@ import { TriggerTypes } from "../mod.ts";
 import { SlackAPI } from "../../../../mod.ts";
 import { scheduled_response } from "./fixtures/sample_responses.ts";
 
-Deno.test("Scheduled Triggers can be set with a string", () => {
+Deno.test("Scheduled triggers can be set with a string", () => {
   // deno-lint-ignore no-explicit-any
   const schedule: ScheduledTrigger<any> = {
     name: "Sample",
@@ -18,7 +18,7 @@ Deno.test("Scheduled Triggers can be set with a string", () => {
   assertEquals(schedule.type, TriggerTypes.Scheduled);
 });
 
-Deno.test("Scheduled Triggers can be set with TriggerTypes object", () => {
+Deno.test("Scheduled triggers can be set with TriggerTypes object", () => {
   // deno-lint-ignore no-explicit-any
   const schedule: ScheduledTrigger<any> = {
     name: "Sample",
@@ -32,7 +32,7 @@ Deno.test("Scheduled Triggers can be set with TriggerTypes object", () => {
   assertEquals(schedule.type, TriggerTypes.Scheduled);
 });
 
-Deno.test("Scheduled Triggers can be set with just the start_time property", () => {
+Deno.test("Scheduled triggers can be set with just the start_time property", () => {
   // deno-lint-ignore no-explicit-any
   const schedule: ScheduledTrigger<any> = {
     name: "Sample",
@@ -46,7 +46,7 @@ Deno.test("Scheduled Triggers can be set with just the start_time property", () 
   assertEquals(schedule.type, TriggerTypes.Scheduled);
 });
 
-Deno.test("Scheduled Triggers can be set just once", () => {
+Deno.test("Scheduled triggers can be set just once", () => {
   // deno-lint-ignore no-explicit-any
   const schedule: ScheduledTrigger<any> = {
     name: "Sample",
@@ -61,7 +61,7 @@ Deno.test("Scheduled Triggers can be set just once", () => {
   assertEquals(schedule.type, TriggerTypes.Scheduled);
 });
 
-Deno.test("Scheduled Triggers can be set just once with explicit once frequency type", () => {
+Deno.test("Scheduled triggers can be set just once with explicit once frequency type", () => {
   // deno-lint-ignore no-explicit-any
   const schedule: ScheduledTrigger<any> = {
     name: "Sample",
@@ -77,7 +77,7 @@ Deno.test("Scheduled Triggers can be set just once with explicit once frequency 
   assertEquals(schedule.type, TriggerTypes.Scheduled);
 });
 
-Deno.test("Scheduled Triggers can be set to be recurring hourly", () => {
+Deno.test("Scheduled triggers can be set to be recurring hourly", () => {
   // deno-lint-ignore no-explicit-any
   const schedule: ScheduledTrigger<any> = {
     name: "Sample",
@@ -94,7 +94,7 @@ Deno.test("Scheduled Triggers can be set to be recurring hourly", () => {
   assertEquals(schedule.type, TriggerTypes.Scheduled);
 });
 
-Deno.test("Scheduled Triggers can be set to be recurring", () => {
+Deno.test("Scheduled triggers can be set to be recurring", () => {
   // deno-lint-ignore no-explicit-any
   const schedule: ScheduledTrigger<any> = {
     name: "Sample",
@@ -111,7 +111,7 @@ Deno.test("Scheduled Triggers can be set to be recurring", () => {
   assertEquals(schedule.type, TriggerTypes.Scheduled);
 });
 
-Deno.test("Scheduled Triggers can be set to be reoccur daily", () => {
+Deno.test("Scheduled triggers can be set to be reoccur daily", () => {
   // deno-lint-ignore no-explicit-any
   const schedule: ScheduledTrigger<any> = {
     name: "Sample",
@@ -129,7 +129,7 @@ Deno.test("Scheduled Triggers can be set to be reoccur daily", () => {
   assertEquals(schedule.type, TriggerTypes.Scheduled);
 });
 
-Deno.test("Scheduled Triggers can be set to be reoccur weekly", () => {
+Deno.test("Scheduled triggers can be set to be reoccur weekly", () => {
   // deno-lint-ignore no-explicit-any
   const schedule: ScheduledTrigger<any> = {
     name: "Sample",
@@ -148,7 +148,7 @@ Deno.test("Scheduled Triggers can be set to be reoccur weekly", () => {
   assertEquals(schedule.type, TriggerTypes.Scheduled);
 });
 
-Deno.test("Scheduled Triggers can be set to be reoccur monthly", () => {
+Deno.test("Scheduled triggers can be set to be reoccur monthly", () => {
   // deno-lint-ignore no-explicit-any
   const schedule: ScheduledTrigger<any> = {
     name: "Sample",
@@ -168,7 +168,7 @@ Deno.test("Scheduled Triggers can be set to be reoccur monthly", () => {
   assertEquals(schedule.type, TriggerTypes.Scheduled);
 });
 
-Deno.test("Scheduled Triggers can be set to be reoccur yearly", () => {
+Deno.test("Scheduled triggers can be set to be reoccur yearly", () => {
   // deno-lint-ignore no-explicit-any
   const schedule: ScheduledTrigger<any> = {
     name: "Sample",

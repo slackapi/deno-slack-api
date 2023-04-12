@@ -150,7 +150,7 @@ export type ScheduledTriggerResponseObject<
   & BaseTriggerResponse<WorkflowDefinition>
   & {
     /**
-     * @description A schedule object returned by Scheduled triggers
+     * @description A schedule object returned by scheduled triggers
      */
     // deno-lint-ignore no-explicit-any
     schedule?: Record<string, any>;

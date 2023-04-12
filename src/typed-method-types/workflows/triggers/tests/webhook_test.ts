@@ -4,7 +4,7 @@ import { TriggerTypes } from "../mod.ts";
 import { SlackAPI } from "../../../../mod.ts";
 import { webhook_response } from "./fixtures/sample_responses.ts";
 
-Deno.test("Webhook Triggers can set the type using the string", () => {
+Deno.test("Webhook triggers can set the type using the string", () => {
   // deno-lint-ignore no-explicit-any
   const webhook: WebhookTrigger<any> = {
     type: "webhook",
@@ -15,7 +15,7 @@ Deno.test("Webhook Triggers can set the type using the string", () => {
   assertEquals(webhook.type, TriggerTypes.Webhook);
 });
 
-Deno.test("Webhook Triggers can set the type using the TriggerTypes object", () => {
+Deno.test("Webhook triggers can set the type using the TriggerTypes object", () => {
   // deno-lint-ignore no-explicit-any
   const webhook: WebhookTrigger<any> = {
     type: TriggerTypes.Webhook,
@@ -26,7 +26,7 @@ Deno.test("Webhook Triggers can set the type using the TriggerTypes object", () 
   assertEquals(webhook.type, TriggerTypes.Webhook);
 });
 
-Deno.test("Webhook Triggers support an optional filter object", () => {
+Deno.test("Webhook triggers support an optional filter object", () => {
   // deno-lint-ignore no-explicit-any
   const webhook: WebhookTrigger<any> = {
     type: TriggerTypes.Webhook,
