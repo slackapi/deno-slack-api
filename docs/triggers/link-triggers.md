@@ -1,6 +1,6 @@
 ## Link triggers
 
-A link trigger is an interactive trigger that activates when a link is clicked in the Slack client. When a link trigger is created, its API response returns a `shortcut_url` which can be used in Slack to show a button. Clicking on this button will activate the associated Workflow. A link trigger
+A link trigger is an interactive trigger that activates when a link is clicked in the Slack client. When a link trigger is created, its API response returns a `shortcut_url` which can be used in Slack to show a button. Clicking on this button will activate the associated workflow. A link trigger
 includes the common [trigger attributes](./trigger-basics.md#trigger-types) along with an optional shortcut parameter:
 
 | Parameter name  | Required?     | Description                                                          |

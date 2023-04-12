@@ -1,8 +1,8 @@
 ## What is a trigger?
 
-A trigger is an entry point for the execution of a [Workflow](https://api.slack.com/future/workflows). triggers define the circumstances under which a workflow will be initiated and contain contextual information that can be
-passed along from the trigger to a Workflow. Triggers come in different shapes and sizes, and there are four primary trigger types which can be used to activate a Workflow.
-These four types are [Event](./event-triggers.md), [Shortcut](./shortcut-triggers.md), [Scheduled](./scheduled-trigger.md), and [Webhook](./webhook-triggers.md). Because triggers are the entry point of a workflow, a Workflow needs to be defined before a trigger can be written for it. API information regarding triggers can be found at [here](https://api.slack.com/future/triggers)
+A trigger is an entry point for the execution of a [workflow](https://api.slack.com/future/workflows). triggers define the circumstances under which a workflow will be initiated and contain contextual information that can be
+passed along from the trigger to a workflow. Triggers come in different shapes and sizes, and there are four primary trigger types which can be used to activate a workflow.
+These four types are [Event](./event-triggers.md), [Shortcut](./shortcut-triggers.md), [Scheduled](./scheduled-trigger.md), and [Webhook](./webhook-triggers.md). Because triggers are the entry point of a workflow, a workflow needs to be defined before a trigger can be written for it. API information regarding triggers can be found at [here](https://api.slack.com/future/triggers)
 
 ### Trigger types
 
@@ -14,8 +14,8 @@ There are currently 4 supported trigger types, [Shortcut](shortcut-trigger.md), 
 | `type`            | Yes           | The type of trigger (one of `shortcut`, `event`, `scheduled`, or `webhook`)|
 | `name`            | Yes           | The name of the trigger                                              |
 | `description`     | No            | A description of the purpose of the trigger                          |
-| `workflow`        | Yes           | Which Workflow the trigger connects to                               |
-| `inputs`          | No            | What inputs (defined in the manifest) are passed to the Workflow      |
+| `workflow`        | Yes           | Which workflow the trigger connects to                               |
+| `inputs`          | No            | What inputs (defined in the manifest) are passed to the workflow      |
 
 The unique configuration objects for each trigger type can be found in their respective documents.
 

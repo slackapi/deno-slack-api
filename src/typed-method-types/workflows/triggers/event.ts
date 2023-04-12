@@ -102,7 +102,7 @@ type BaseWorkspaceEvent = BaseEvent & {
 };
 
 type BaseEvent = {
-  /** @description Defines the condition in which this event trigger should execute the Workflow */
+  /** @description Defines the condition in which this event trigger should execute the workflow */
   filter?: FilterType;
   // deno-lint-ignore no-explicit-any
   [otherOptions: string]: any;
