@@ -223,7 +223,6 @@ export const getPublicAPIMethods = () => {
     "workflows.updateStep",
   ];
 
-  // upcoming platform 2.0 methods we want available but aren't listed quite yet
   const platform2Methods = [
     "functions.completeError",
     "functions.completeSuccess",
