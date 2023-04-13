@@ -30,7 +30,7 @@ import { SlackAPI } from "deno-slack-api/mod.ts";
     name: "Request Time off",
     description: "Starts the workflow to request time off",
     workflow: "#/workflows/reverse_workflow",
-    inputs: { //inputs can now be autofilled from the workflow Definition
+    inputs: { //inputs can now be autofilled from the workflow definition
       a_string: {
         value: "TEST",
       },
