@@ -1,6 +1,6 @@
 import {
-  BaseResponse,
   BaseSlackClient,
+  FullResponse,
   SlackAPIMethodArgs,
   SlackAPIOptions,
 } from "./types.ts";
@@ -27,16 +27,17 @@ export class BaseSlackAPIClient implements BaseSlackClient {
     return this;
   }
 
+  // TODO (next major) return the `Promise<Response>` object
   async apiCall(
     method: string,
     data: SlackAPIMethodArgs = {},
-  ): Promise<BaseResponse> {
+  ): Promise<FullResponse> {
     // ensure there's a slash prior to method
     const url = `${this.#baseURL.replace(/\/$/, "")}/${method}`;
     const body = serializeData(data);
 
     const token = data.token || this.#token || "";
-    const resp = await fetch(url, {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -44,30 +45,31 @@ export class BaseSlackAPIClient implements BaseSlackClient {
       },
       body,
     });
-    if (!resp.ok) {
-      throw await this.#createHttpError(resp);
+    if (!response.ok) {
+      throw await this.createHttpError(response);
     }
-    return await resp.json();
+    return await this.createFullResponse(response);
   }
 
+  // TODO (next major) return a `Promise<Response>` object
   async response(
     url: string,
     data: Record<string, unknown>,
-  ): Promise<BaseResponse> {
-    const resp = await fetch(url, {
+  ): Promise<FullResponse> {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
-    if (!resp.ok) {
-      throw await this.#createHttpError(resp);
+    if (!response.ok) {
+      throw await this.createHttpError(response);
     }
-    return await resp.json();
+    return await this.createFullResponse(response);
   }
 
-  async #createHttpError(response: Response): Promise<HttpError> {
+  private async createHttpError(response: Response): Promise<HttpError> {
     const text = await response.text();
     return createHttpError(
       response.status,
@@ -76,6 +78,13 @@ export class BaseSlackAPIClient implements BaseSlackClient {
         headers: response.headers,
       },
     );
+  }
+
+  private async createFullResponse(response: Response): Promise<FullResponse> {
+    return {
+      toResponse: () => response,
+      ...await response.json(),
+    };
   }
 }
 

@@ -1,10 +1,23 @@
 import { TypedSlackAPIMethodsType } from "./typed-method-types/mod.ts";
 import { SlackAPIMethodsType } from "./generated/method-types/mod.ts";
+
 export type { DatastoreItem } from "./typed-method-types/apps.ts";
 
 export type {
   ValidTriggerTypes as Trigger,
 } from "./typed-method-types/workflows/triggers/mod.ts";
+
+// TODO (next major) remove this in favor of `Response`
+export type FullResponse = BaseResponse & {
+  /** Convert to the original `Response`. It returns a `Response`, that was successful.
+   *
+   * ```ts
+   * const originalResponse = response.toResponse();
+   * console.log(originalResponse.headers);
+   * ```
+   */
+  toResponse(): Response;
+};
 
 export type BaseResponse = {
   /**
@@ -41,15 +54,17 @@ export type BaseSlackClient = {
   response: BaseClientResponse;
 };
 
+// TODO (next major) return a `Promise<Response>` object
 type BaseClientCall = (
   method: string,
   data?: SlackAPIMethodArgs,
-) => Promise<BaseResponse>;
+) => Promise<FullResponse>;
 
+// TODO (next major) return a `Promise<Response>` object
 type BaseClientResponse = (
   url: string,
   data: Record<string, unknown>,
-) => Promise<BaseResponse>;
+) => Promise<FullResponse>;
 
 export type SlackAPIOptions = {
   /**
