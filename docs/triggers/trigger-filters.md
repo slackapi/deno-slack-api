@@ -16,7 +16,7 @@ The root parameter can contain a combination of `Boolean logic` and `Conditional
 | `operator`         | Yes           | The logical operator to run against your filter inputs (AND, OR, NOT) as a string value  |
 | `inputs`            | Yes          | The filter inputs that contain filter statement definitions              |
 
-### `Conditional Expressions`
+### `Conditional expressions`
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
