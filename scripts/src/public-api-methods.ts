@@ -223,14 +223,14 @@ export const getPublicAPIMethods = () => {
     "workflows.updateStep",
   ];
 
-  const platform2Methods = [
+  const nextGenPlatformMethods = [
     "functions.completeError",
     "functions.completeSuccess",
   ];
 
   const methodsSet = new Set([
     ...publicAPIMethods,
-    ...platform2Methods,
+    ...nextGenPlatformMethods,
   ]);
 
   methodsWithCustomTypes.forEach((customMethod) => {
