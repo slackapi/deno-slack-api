@@ -131,7 +131,7 @@ Similar to creating, updating triggers can be done through the CLI, or at runtim
 
 ### Updating triggers in the CLI
 
-To update a trigger using the Slack CLI, make the desired update to your existing [trigger File](#creating-triggers-using-the-slack-cli). When this is done, run the `slack trigger update` command from the CLI with a `--trigger-id` flag to identify the trigger to be updated.
+To update a trigger using the Slack CLI, make the desired update to your existing [trigger file](#creating-triggers-using-the-slack-cli). When this is done, run the `slack trigger update` command from the CLI with a `--trigger-id` flag to identify the trigger to be updated.
 
 ```zsh
 slack trigger update --trigger-id Ft123ABC --trigger-def "path/to/trigger.ts"
