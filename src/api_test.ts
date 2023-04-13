@@ -1,12 +1,12 @@
 import {
   assertEquals,
+  assertInstanceOf,
   assertRejects,
   isHttpError,
   MockFetch,
 } from "./dev_deps.ts";
 import { SlackAPI } from "./mod.ts";
 import { serializeData } from "./base-client.ts";
-import { assertInstanceOf } from "https://deno.land/std@0.132.0/testing/asserts.ts";
 import { HttpError } from "./deps.ts";
 
 Deno.test("SlackAPI class", async (t) => {
