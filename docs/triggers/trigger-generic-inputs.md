@@ -11,7 +11,7 @@ When a workflow is created in this manner, it contains a `workflow.definition` o
 
 When dealing with triggers at runtime, a workflow definition input can optionally be passed to the trigger's `create` or `update` API call as a generic. When a generic is passed, the object argument being defined will have access to typeahead on the `inputs` and `workflow` properties.
 
-### Using trigger Generics at runtime Example
+### Using trigger generics at runtime Example
 
 ```ts
 import { TriggersWorkflow } from "../manifest.ts";
