@@ -119,11 +119,11 @@ export type SlackAPIMethodArgs = BaseMethodArgs & {
 };
 
 export type SlackAPIMethod = {
-  (args?: SlackAPIMethodArgs): Promise<BaseResponse>;
+  (args?: SlackAPIMethodArgs): Promise<FullResponse>;
 };
 
 export type SlackAPICursorPaginatedMethod = {
   (
     args?: SlackAPIMethodArgs & CursorPaginationArgs,
-  ): Promise<BaseResponse & CursorPaginationResponse>;
+  ): Promise<FullResponse & CursorPaginationResponse>;
 };
