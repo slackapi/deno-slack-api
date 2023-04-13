@@ -246,7 +246,7 @@ Triggers can be listed at runtime using the `client.workflows.triggers.list` met
   });
 ```
 
-## Managing trigger Access
+## Managing trigger access
 
 A newly created Run on Slack trigger will only be accessible to others inside a workspace once its creator has granted access.
 
