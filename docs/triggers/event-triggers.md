@@ -1,17 +1,17 @@
-## Event Triggers
+## Event triggers
 
-An Event Trigger is a Trigger that activates when a specific event occurs within the Slack client. Event Triggers can activate on either workspace,
-or channel level events, and each specific event type has its own required object parameters that need to be filled. An event Trigger at the highest
-level includes the common Trigger parameters along with a required input parameter and an event parameter: 
+An event trigger is a trigger that activates when a specific event occurs within the Slack client. Event triggers can activate on either workspace,
+or channel level events, and each specific event type has its own required object parameters that need to be filled. An event trigger at the highest
+level includes the common trigger parameters along with a required input parameter and an event parameter:
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
 | `event`           | Yes            | An event object with information about the activation event          |
 
-### Event Types
+### Event types
 
-An `event_type` is a string which corresponds to an event in the Slack Client. These `event_type`s can be set on a Trigger to activate a Workflow.
-Currently, events are separated into two categories, Workspace level events, and Channel level events. Workspace level events are events that affect the entire workspace, regardless of channel or specific chat id. Channel level events listen in on specific channels and only activate when the event happens inside of that channel. Each of these require a separate payload which can be found defined in the section [below](#the-event-object). 
+An `event_type` is a string which corresponds to an event in the Slack client. These `event_type`s can be set on a trigger to activate a workflow.
+Currently, events are separated into two categories, Workspace level events, and Channel level events. Workspace level events are events that affect the entire workspace, regardless of channel or specific chat id. Channel level events listen in on specific channels and only activate when the event happens inside of that channel. Each of these require a separate payload which can be found defined in the section [below](#the-event-object).
 The following is a list of event types along with their category:
 
 | Event Name                       | Event String                | Category      | Notes       | Link    |  Payload     |
@@ -42,7 +42,7 @@ The following is a list of event types along with their category:
 
 ### Event Configuration
 
-Event Trigger must contain an Event configuration object, which specifies the details of the Event that will activate the Trigger. The Event configuration object has the following attributes: 
+Event trigger must contain an event configuration object, which specifies the details of the event that will activate the trigger. The event configuration object has the following attributes:
 
 | Parameter name    | Required?     | Description                                                             |
 | ------------------|:-------------:| ------------------------------------------------------------------------|
@@ -52,12 +52,12 @@ Event Trigger must contain an Event configuration object, which specifies the de
 | `channel_ids`       | Sometimes     | An array of `channel_id` strings that specifies which channels to listen for events (required for channel level events)  |
 | `metadata_event_type`       | Sometimes     | Required for metadata events, string corresponding to the event type |
 
+### Context data availability
 
-### Context Data Availability
-
-The `inputs` parameter has access to context information from when the Trigger is activated. Each event_type has access to its own specific data parameters which can be found below:
+The `inputs` parameter has access to context information from when the trigger is activated. Each event_type has access to its own specific data parameters which can be found below:
 
 #### reaction_added
+
 ```json
 "data": {             
   "event_type": "slack#/events/reaction_added",             
@@ -69,6 +69,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 #### message_metadata_posted
+
 ```json
 "data": {             
   "event_type": "slack#/events/message_metadata_posted",              
@@ -90,6 +91,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 #### user_joined_channel
+
 ```json
 "data": {             
   "event_type": "slack#/events/user_joined_channel",            
@@ -101,6 +103,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 #### dnd_status_updated
+
 ```json
 "data": {             
   "event_type": "slack#/events/user_updated_dnd",             
@@ -114,6 +117,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 #### channel_created
+
 ```json
 "data": {             
   "event_type": "slack#/events/channel_created",             
@@ -126,6 +130,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 #### user_joined_team
+
 ```json
 "data": {             
   "event_type": "slack#/events/user_joined_team",              
@@ -140,7 +145,9 @@ The `inputs` parameter has access to context information from when the Trigger i
   }            
 }
 ```
+
 #### emoji_changed
+
 ```json
 "data": {             
   "event_type": "slack#/events/emoji_changed",             
@@ -151,6 +158,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 #### user_left_channel
+
 ```json
 "data": {             
   "event_type": "slack#/events/user_left_channel",             
@@ -159,7 +167,9 @@ The `inputs` parameter has access to context information from when the Trigger i
   "channel_type" : "public/private/im/mpim", //channel type can be one of these 4 values, either "public", "private", "im", or "mpim"        
 }
 ```
+
 #### reaction_removed
+
 ```json
 "data": {             
   "event_type": "slack#/events/reaction_removed",             
@@ -171,6 +181,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 #### channel_deleted
+
 ```json
 "data": {             
   "event_type": "slack#/events/channel_deleted",              
@@ -182,6 +193,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 #### channel_renamed
+
 ```json
 "data": {             
   "event_type": "slack#/events/channel_renamed",             
@@ -193,6 +205,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 #### pin_added
+
 ```json
 "data": {             
   "event_type": "slack#/events/pin_added",              
@@ -205,6 +218,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 #### pin_removed
+
 ```json
 "data": {              
   "event_type": "slack#/events/pin_removed",              
@@ -217,6 +231,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 #### channel_archived
+
 ```json
 "data": {             
   "event_type": "slack#/events/channel_archived",             
@@ -227,6 +242,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 #### channel_unarchived
+
 ```json
 "data": {              
   "event_type": "slack#/events/channel_unarchived",             
@@ -238,6 +254,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 #### channel_shared
+
 ```json
 "data": {              
   "event_type": "slack#/events/channel_shared",              
@@ -249,6 +266,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 #### channel_unshared
+
 ```json
 "data": {              
   "event_type": "slack#/events/channel_unshared",              
@@ -261,6 +279,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 #### app_mentioned
+
 ```json
 "data": {              
   "event_type": "slack#/events/app_mentioned",              
@@ -273,6 +292,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 #### shared_channel_invite_accepted
+
 ```json
 "data": {
   "event_type": "slack#/events/shared_channel_invite_accepted",
@@ -327,6 +347,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 #### shared_channel_invite_approved
+
 ```json
 "data": {    
   "event_type": "slack#/events/shared_channel_invite_approved",    
@@ -381,6 +402,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 #### shared_channel_invite_declined
+
 ```json
 "data": {    
   "event_type": "slack#/events/shared_channel_invite_approved",    
@@ -435,6 +457,7 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 #### shared_channel_invite_received
+
 ```json
 "data": {  
   "event_type": "slack#/events/shared_channel_invite_received",  
@@ -468,8 +491,11 @@ The `inputs` parameter has access to context information from when the Trigger i
 ```
 
 ## Usage
-The examples below are sample Trigger objects which can be used to create Triggers in the [CLI](./trigger-basics.md/#creating-triggers-using-the-slack-cli).
-### Channel Level Trigger
+
+The examples below are sample trigger objects which can be used to create triggers in the [CLI](./trigger-basics.md/#creating-triggers-using-the-slack-cli).
+
+### Channel level trigger
+
 ```ts
 const trigger: Trigger = {
   type: "event",
@@ -488,7 +514,8 @@ const trigger: Trigger = {
 };
 ```
 
-### Workspace Level Trigger
+### Workspace level trigger
+
 ```ts
 const trigger: Trigger = {
   type: "event",
@@ -506,7 +533,8 @@ const trigger: Trigger = {
 }
 ```
 
-### MessagePosted Trigger
+### MessagePosted trigger
+
 ```ts
 const trigger: Trigger = {
   type: "event",
@@ -531,7 +559,8 @@ const trigger: Trigger = {
 }
 ```
 
-### Message Metadata Trigger
+### Message metadata trigger
+
 ```ts
 const trigger: Trigger = {
   type: "event",
@@ -550,7 +579,9 @@ const trigger: Trigger = {
   },
 }
 ```
-### Example Response
+
+### Example response
+
 ```ts
 {
   ok: true,

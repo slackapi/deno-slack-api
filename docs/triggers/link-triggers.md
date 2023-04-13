@@ -1,15 +1,15 @@
-## Link Triggers
+## Link triggers
 
-A Link Trigger is an interactive Trigger that activates when a link is clicked in the Slack client. When a Link Trigger is created, its API response returns a `shortcut_url` which can be used in Slack to show a button. Clicking on this button will activate the associated Workflow. A Link Trigger
-includes the common [Trigger attributes](./trigger-basics.md#trigger-types) along with an optional shortcut parameter: 
+A link trigger is an interactive trigger that activates when a link is clicked in the Slack client. When a link trigger is created, its API response returns a `shortcut_url` which can be used in Slack to show a button. Clicking on this button will activate the associated workflow. A link trigger
+includes the common [trigger attributes](./trigger-basics.md#trigger-types) along with an optional shortcut parameter:
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
 | `shortcut`        | No            | Contains information about the [button text](#shortcut-object) of the shortcut          |
 
-### Shortcut Configuration
+### Shortcut configuration
 
-A Link Trigger can contain an optional `shortcut` configuration object which specifies additional details about the link. Currently, the `shortcut` object is used to specify the button text of the link associated with the Trigger and has the following shape:
+A link trigger can contain an optional `shortcut` configuration object which specifies additional details about the link. Currently, the `shortcut` object is used to specify the button text of the link associated with the trigger and has the following shape:
 
 ```ts
   shortcut?: {
@@ -17,20 +17,21 @@ A Link Trigger can contain an optional `shortcut` configuration object which spe
   };
 ```
 
-### Context Data Availability
-The `data` context parameters available to a Shortcut Trigger are as follows:
+### Context data vailability
+
+The `data` context parameters available to a Shortcut trigger are as follows:
 
 | Parameter name  | type     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
-| `data.user_id`        | string            | A unique identifier for the Slack user who invoked the Trigger         |
-| `data.channel_id`        | string            | A unique identifier for the channel where the Trigger was invoked         |
+| `data.user_id`        | string            | A unique identifier for the Slack user who invoked the trigger         |
+| `data.channel_id`        | string            | A unique identifier for the channel where the trigger was invoked         |
 | `data.interactivity`        | object            | See [Block Kit interactivity](https://api.dev.slack.com/future/triggers/future/block-events)|
-| `data.location`        | string            | Where the Trigger was invoked. Can be `message` or `bookmark`|
-| `data.message_ts`        | string            | A unique UNIX timestamp in seconds indicating when the Trigger-invoking message was sent|
-| `data.user`        | object            | An object containing a `user_id` and a `secret` that can be used to identify and validate the specific user who invoked the Trigger|
-| `data.action_id`        | string            | A unique identifier for the action that invoked the Trigger. See [Block Kit interactivity](https://api.dev.slack.com/future/triggers/future/block-events) |
-| `data.block_id`        | string            | A unique identifier for the block where the Trigger was invoked. See [Block Kit interactivity](https://api.dev.slack.com/future/triggers/future/block-events)|
-| `data.bookmark_id`        | string            | A unique identifier for the bookmark where the Trigger was invoked|
+| `data.location`        | string            | Where the trigger was invoked. Can be `message` or `bookmark`|
+| `data.message_ts`        | string            | A unique UNIX timestamp in seconds indicating when the trigger-invoking message was sent|
+| `data.user`        | object            | An object containing a `user_id` and a `secret` that can be used to identify and validate the specific user who invoked the trigger|
+| `data.action_id`        | string            | A unique identifier for the action that invoked the trigger. See [Block Kit interactivity](https://api.dev.slack.com/future/triggers/future/block-events) |
+| `data.block_id`        | string            | A unique identifier for the block where the trigger was invoked. See [Block Kit interactivity](https://api.dev.slack.com/future/triggers/future/block-events)|
+| `data.bookmark_id`        | string            | A unique identifier for the bookmark where the trigger was invoked|
 
 The data context can be used in the input parameter as follows:
 
@@ -43,11 +44,13 @@ The data context can be used in the input parameter as follows:
  }
 }
 ```
+
 ## Usage
-Below are some usage examples of `ShortcutTrigger` objects which can be used in a .ts file to create a `shortcut` trigger through the [Slack CLI](./trigger-basics.md/#creating-triggers-using-the-slack-cli), alternatively this object could be passed into a 
+
+Below are some usage examples of `ShortcutTrigger` objects which can be used in a .ts file to create a `shortcut` trigger through the [Slack CLI](./trigger-basics.md/#creating-triggers-using-the-slack-cli), alternatively this object could be passed into a
 `client.workflows.triggers.create` method to achieve the same effect at [runtime](./trigger-basics.md/#creating-triggers-in-the-runtime-environment).
 
-### Example Configured Shortcut Trigger
+### Example configured shortcut trigger
 
 ```ts
 const trigger: ShortcutTrigger = {
@@ -68,7 +71,7 @@ const trigger: ShortcutTrigger = {
 export default trigger;
 ```
 
-### Example Shortcut Trigger Without Shortcut Object
+### Example shortcut trigger without shortcut object
 
 ```ts
 const trigger: ShortcutTrigger = {

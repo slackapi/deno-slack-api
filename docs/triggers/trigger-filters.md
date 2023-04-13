@@ -1,6 +1,6 @@
-## Trigger Filters
+## Trigger filters
 
-A Trigger filter is an object that can be added to a Trigger on creation that will define the condition in which a Trigger should execute its associated workflow. A Trigger filter contains two parameters:
+A trigger filter is an object that can be added to a trigger on creation that will define the condition in which a trigger should execute its associated workflow. A trigger filter contains two parameters:
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
@@ -16,18 +16,19 @@ The root parameter can contain a combination of `Boolean logic` and `Conditional
 | `operator`         | Yes           | The logical operator to run against your filter inputs (AND, OR, NOT) as a string value  |
 | `inputs`            | Yes          | The filter inputs that contain filter statement definitions              |
 
-### `Conditional Expressions` 
+### `Conditional expressions`
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
 | `statement`         | Yes         | Comparison of values (uses one of the following operators: ">", "<", "==", "!= )|
 
-## Usage Examples
+## Usage examples
 
 Trigger filters can be composed of a single statement, or combine multiple statements using different logical comparators. Follow along to see different examples that build upon each other.
 
-### Single Statement
-A Trigger filter can use a single statement, which will execute when the statement is true.
+### Single statement
+
+A trigger filter can use a single statement, which will execute when the statement is true.
 
 ```ts
 {
@@ -38,9 +39,11 @@ A Trigger filter can use a single statement, which will execute when the stateme
 }
 ```
 
-### Logical Operators
-A Trigger filter can also use simple logical operators to compare multiple statements and evaluate their outcome.
-```ts 
+### Logical operators
+
+A trigger filter can also use simple logical operators to compare multiple statements and evaluate their outcome.
+
+```ts
 {
     version: 1,
     root: {
@@ -54,7 +57,7 @@ A Trigger filter can also use simple logical operators to compare multiple state
   }
 ```
 
-```ts 
+```ts
 {
     version: 1,
     root: {
@@ -68,8 +71,10 @@ A Trigger filter can also use simple logical operators to compare multiple state
   }
 ```
 
-### Nested Logical Operators
-A Trigger filter can make use of nested logical operators and statements for more complicated conditional evaluations.
+### Nested logical operators
+
+A trigger filter can make use of nested logical operators and statements for more complicated conditional evaluations.
+
 ```ts
 {
     version: 1,
@@ -95,4 +100,3 @@ A Trigger filter can make use of nested logical operators and statements for mor
     },
   }
 ```
-

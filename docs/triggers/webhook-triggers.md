@@ -1,16 +1,16 @@
-## Webhook Triggers
+## Webhook triggers
 
-A Webhook Trigger is a Trigger that activates on a webhook activation in the Slack client. A Webhook Trigger
-includes the common Trigger parameters along with a webhook parameter: 
+A webhook trigger is a trigger that activates on a webhook activation in the Slack client. A webhook trigger
+includes the common trigger parameters along with a webhook parameter:
 
 | Parameter name| Required?     | Description                                                          |
 | --------------|:-------------:| ---------------------------------------------------------------------|
-| `inputs`        | Yes           | What inputs (defined in the manifest) are passed to the Trigger      |
+| `inputs`        | Yes           | What inputs (defined in the manifest) are passed to the trigger      |
 | `webook`        | No            | Contains a [filter](trigger-filters.md)             |
 
-### Webhook Configuration
+### Webhook configuration
 
-A Webhook Trigger can contain an optional `webhook` configuration object which specifies a `filter`:
+A webhook trigger can contain an optional `webhook` configuration object which specifies a `filter`:
 
 ```ts
   webhook?: {
@@ -18,14 +18,16 @@ A Webhook Trigger can contain an optional `webhook` configuration object which s
   };
 ```
 
-### Context Data Availability
-Like other Trigger types, Webhook Triggers have access to context data which can be used to fill the `inputs` parameter. Unlike other Triggers, the context data available
-to a webhook Trigger is not predetermined, and will depend on the information sent along with the webhook to activate the Trigger. Whatever data contained in the HTTP body of the webhook request 
+### Context data availability
+
+Like other trigger types, webhook triggers have access to context data which can be used to fill the `inputs` parameter. Unlike other triggers, the context data available
+to a webhook trigger is not predetermined, and will depend on the information sent along with the webhook to activate the trigger. Whatever data contained in the HTTP body of the webhook request
 is what will be available in `{{data}}`. So an HTTP request made with a body of `{"test": true}` would yield a context data object that could be referenced like `{{data.test}}`.
 
 ## Usage
 
-### Webhook Trigger Without Filter
+### Webhook trigger without filter
+
 ```ts
 const trigger: Trigger = {
   type: "webhook",
@@ -39,7 +41,8 @@ const trigger: Trigger = {
   },
 };
 ```
-### Webhook Trigger With Filter
+
+### Webhook trigger with filter
 
 ```ts
 const trigger: Trigger = {
@@ -64,6 +67,7 @@ const trigger: Trigger = {
 ```
 
 ## Example Response
+
 ```ts
 {
   ok: true,
@@ -97,12 +101,13 @@ const trigger: Trigger = {
 }
 ```
 
-## Invoking the Trigger 
+## Invoking the trigger
 
-Send a POST request to invoke the Trigger. Within that POST request you can send values for specific inputs.
+Send a POST request to invoke the trigger. Within that POST request you can send values for specific inputs.
 
 Example POST request
-```
+
+```bash
 curl \ 
 -X POST "https://hooks.slack.com/triggers/T123ABC456/.../..." \
 --header "Content-Type: application/json" \
@@ -111,7 +116,7 @@ curl \
 
 If successful, you'll get the following response:
 
-```
+```json
 {
   "ok":true
 }

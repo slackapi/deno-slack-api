@@ -223,15 +223,15 @@ export const getPublicAPIMethods = () => {
     "workflows.updateStep",
   ];
 
-  // upcoming platform 2.0 methods we want available but aren't listed quite yet
-  const platform2Methods = [
+  // next gen platform methods we want available but aren't listed quite yet
+  const nextGenPlatformMethods = [
     "functions.completeError",
     "functions.completeSuccess",
   ];
 
   const methodsSet = new Set([
     ...publicAPIMethods,
-    ...platform2Methods,
+    ...nextGenPlatformMethods,
   ]);
 
   methodsWithCustomTypes.forEach((customMethod) => {

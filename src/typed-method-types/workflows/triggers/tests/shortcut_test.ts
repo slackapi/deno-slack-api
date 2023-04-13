@@ -9,7 +9,7 @@ import type {
   RequiredInputWorkflow,
 } from "./fixtures/workflows.ts";
 
-Deno.test("Shortcut Triggers can set the type using the string", () => {
+Deno.test("Shortcut triggers can set the type using the string", () => {
   const shortcut: ShortcutTrigger<ExampleWorkflow> = {
     type: "shortcut",
     name: "test",
@@ -18,7 +18,7 @@ Deno.test("Shortcut Triggers can set the type using the string", () => {
   assertEquals(shortcut.type, TriggerTypes.Shortcut);
 });
 
-Deno.test("Shortcut Triggers can set the type using the TriggerTypes object", () => {
+Deno.test("Shortcut triggers can set the type using the TriggerTypes object", () => {
   const shortcut: ShortcutTrigger<RequiredInputWorkflow> = {
     type: TriggerTypes.Shortcut,
     name: "test",

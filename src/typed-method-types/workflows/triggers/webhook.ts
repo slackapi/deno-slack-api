@@ -13,7 +13,7 @@ export type WebhookTrigger<WorkflowDefinition extends WorkflowSchema> =
   & {
     type: typeof TriggerTypes.Webhook;
     webhook?: {
-      /** @description Defines the condition in which this webhook trigger should execute the Workflow */
+      /** @description Defines the condition in which this webhook trigger should execute the workflow */
       filter?: FilterType;
     };
   };
