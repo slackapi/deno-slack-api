@@ -8,7 +8,7 @@ A scheduled trigger is a trigger that activates on a set schedule, defined by a 
 
 ### Schedule configuration
 
-The `schedule` object can take the shape of either a Single Occurrence schedule or a Recurring Schedule. A Single occurrence schedule is a schedule which will only activate one time, a recurring schedule sets a schedule that will repeat on the schedule.
+The `schedule` object can take the shape of either a single occurrence schedule or a recurring schedule. A single occurrence schedule is a schedule which will only activate one time, a recurring schedule sets a schedule that will repeat on the schedule.
 
 Both Single Occurrence and Recurring Schedules have common base attributes:
 
