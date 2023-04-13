@@ -1,4 +1,4 @@
-import { BaseResponse } from "../../../types.ts";
+import { FullResponse } from "../../../types.ts";
 import { BaseTriggerResponse } from "./base_response.ts";
 import {
   BaseTrigger,
@@ -139,7 +139,7 @@ export type ScheduledTriggerResponse<
 export type ScheduledResponse<
   WorkflowDefinition extends WorkflowSchema,
 > =
-  & BaseResponse
+  & FullResponse
   & {
     trigger: ScheduledTriggerResponseObject<WorkflowDefinition>;
   };

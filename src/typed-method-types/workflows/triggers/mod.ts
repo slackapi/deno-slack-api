@@ -1,8 +1,8 @@
 import {
   BaseMethodArgs,
-  BaseResponse,
   CursorPaginationArgs,
   CursorPaginationResponse,
+  FullResponse,
 } from "../../../types.ts";
 import { InputParameterSchema, WorkflowInputs } from "./inputs.ts";
 import {
@@ -103,13 +103,13 @@ type ListTriggerResponse = Promise<
   ListResponse | FailedListTriggerResponse
 >;
 
-type FailedListTriggerResponse = BaseResponse & CursorPaginationResponse & {
+type FailedListTriggerResponse = FullResponse & CursorPaginationResponse & {
   ok: false;
   /** @description no triggers are returned on a failed response */
   triggers?: never;
 };
 
-export type FailedTriggerResponse = BaseResponse & {
+export type FailedTriggerResponse = FullResponse & {
   ok: false;
   /** @description no trigger is returned on a failed response */
   trigger?: never;

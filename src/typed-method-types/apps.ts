@@ -1,8 +1,8 @@
 import {
   BaseMethodArgs,
-  BaseResponse,
   CursorPaginationArgs,
   CursorPaginationResponse,
+  FullResponse,
 } from "../types.ts";
 
 // apps.datastore Types
@@ -39,7 +39,7 @@ export type DatastorePutArgs<
 export type DatastorePutResponse<
   Schema extends DatastoreSchema,
 > =
-  & BaseResponse
+  & FullResponse
   & {
     /**
      * @description The name of the datastore
@@ -69,7 +69,7 @@ export type DatastoreUpdateArgs<
 export type DatastoreUpdateResponse<
   Schema extends DatastoreSchema,
 > =
-  & BaseResponse
+  & FullResponse
   & {
     /**
      * @description The name of the datastore
@@ -100,7 +100,7 @@ export type DatastoreGetArgs<
 export type DatastoreGetResponse<
   Schema extends DatastoreSchema,
 > =
-  & BaseResponse
+  & FullResponse
   & {
     /**
      * @description The name of the datastore
@@ -130,7 +130,7 @@ export type DatastoreQueryArgs<
 export type DatastoreQueryResponse<
   Schema extends DatastoreSchema,
 > =
-  & BaseResponse
+  & FullResponse
   & CursorPaginationResponse
   & {
     /**
@@ -161,7 +161,7 @@ export type DatastoreDeleteArgs<
 
 export type DatastoreDeleteResponse<
   Schema extends DatastoreSchema,
-> = BaseResponse & {
+> = FullResponse & {
   /**
    * @description The name of the datastore
    */
@@ -207,13 +207,13 @@ type AppsAuthExternalGetArgs = {
 type AppsAuthExternalGetResponse =
   | AppsAuthExternalGetSuccessfulResponse
   | AppsAuthExternalGetFailedResponse;
-type AppsAuthExternalGetSuccessfulResponse = BaseResponse & {
+type AppsAuthExternalGetSuccessfulResponse = FullResponse & {
   ok: true;
   /** @description The actual external token */
   external_token: string;
 };
 
-type AppsAuthExternalGetFailedResponse = BaseResponse & {
+type AppsAuthExternalGetFailedResponse = FullResponse & {
   ok: false;
   external_token?: never;
   // deno-lint-ignore no-explicit-any
@@ -231,11 +231,11 @@ type AppsAuthExternalDeleteArgs = {
   external_token_id: string;
 };
 
-type AppsAuthExternalDeleteSuccessfulResponse = BaseResponse & {
+type AppsAuthExternalDeleteSuccessfulResponse = FullResponse & {
   ok: true;
 };
 
-type AppsAuthExternalDeleteFailedResponse = BaseResponse & {
+type AppsAuthExternalDeleteFailedResponse = FullResponse & {
   ok: false;
   // deno-lint-ignore no-explicit-any
   [otherOptions: string]: any;

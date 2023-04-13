@@ -1,4 +1,4 @@
-import { BaseResponse } from "../types.ts";
+import { FullResponse } from "../types.ts";
 
 type ChatPostMessageOptionalArgs = {
   /** @description The formatted text of the message to be published. If blocks are included, this will become the fallback text used in notifications. */
@@ -28,7 +28,7 @@ type ChatPostMessageArgs = ChatPostMessageOneOfRequired & {
   channel: string;
 };
 
-type ChatPostMessageSuccessfulResponse = BaseResponse & {
+type ChatPostMessageSuccessfulResponse = FullResponse & {
   ok: true;
   /** @description The channel the message was posted to */
   channel: string;
@@ -40,7 +40,7 @@ type ChatPostMessageSuccessfulResponse = BaseResponse & {
   [otherOptions: string]: any;
 };
 
-type ChatPostMessageFailedResponse = BaseResponse & {
+type ChatPostMessageFailedResponse = FullResponse & {
   ok: false;
   // deno-lint-ignore no-explicit-any
   [otherOptions: string]: any;
