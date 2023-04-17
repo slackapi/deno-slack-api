@@ -7,7 +7,7 @@ export type {
   ValidTriggerTypes as Trigger,
 } from "./typed-method-types/workflows/triggers/mod.ts";
 
-// TODO (next major) remove this in favor of `Response`
+// TODO: [brk-chg] remove this in favor of `Response`
 export type FullResponse = BaseResponse & {
   /** Convert to the original `Response`. It returns a `Response`, that was successful.
    *
@@ -54,13 +54,13 @@ export type BaseSlackClient = {
   response: BaseClientResponse;
 };
 
-// TODO (next major) return a `Promise<Response>` object
+// TODO: [brk-chg] return a `Promise<Response>` object
 type BaseClientCall = (
   method: string,
   data?: SlackAPIMethodArgs,
 ) => Promise<FullResponse>;
 
-// TODO (next major) return a `Promise<Response>` object
+// TODO: [brk-chg] return a `Promise<Response>` object
 type BaseClientResponse = (
   url: string,
   data: Record<string, unknown>,

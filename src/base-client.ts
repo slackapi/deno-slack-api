@@ -27,7 +27,7 @@ export class BaseSlackAPIClient implements BaseSlackClient {
     return this;
   }
 
-  // TODO (next major) return the `Promise<Response>` object
+  // TODO: [brk-chg] return the `Promise<Response>` object
   async apiCall(
     method: string,
     data: SlackAPIMethodArgs = {},
@@ -51,7 +51,7 @@ export class BaseSlackAPIClient implements BaseSlackClient {
     return await this.createFullResponse(response);
   }
 
-  // TODO (next major) return a `Promise<Response>` object
+  // TODO: [brk-chg] return a `Promise<Response>` object
   async response(
     url: string,
     data: Record<string, unknown>,
