@@ -82,7 +82,7 @@ export class BaseSlackAPIClient implements BaseSlackClient {
 
   private async createFullResponse(response: Response): Promise<FullResponse> {
     return {
-      toResponse: () => response,
+      toFetchResponse: () => response,
       ...await response.json(),
     };
   }

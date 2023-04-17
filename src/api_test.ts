@@ -133,7 +133,7 @@ Deno.test("SlackAPI class", async (t) => {
 
             const res = await client.apiCall("chat.postMessage", {});
             assertEquals(res.ok, false);
-            const fullRes = res.toResponse();
+            const fullRes = res.toFetchResponse();
             assertInstanceOf(fullRes, Response);
             assertEquals(fullRes.headers?.get("Retry-After"), "120");
 
@@ -153,7 +153,7 @@ Deno.test("SlackAPI class", async (t) => {
             try {
               const res = await client.apiCall("chat.postMessage", {});
               if (!res.ok) {
-                const fullRes = res.toResponse();
+                const fullRes = res.toFetchResponse();
                 console.log(fullRes);
                 console.log(fullRes.headers);
               }
@@ -165,7 +165,7 @@ Deno.test("SlackAPI class", async (t) => {
 
             const res = await client.apiCall("chat.postMessage", {});
             assertEquals(res.ok, false);
-            const fullRes = res.toResponse();
+            const fullRes = res.toFetchResponse();
             assertInstanceOf(fullRes, Response);
             assertEquals(fullRes.headers?.get("Retry-After"), "120");
 
@@ -259,7 +259,7 @@ Deno.test("SlackAPI class", async (t) => {
               {},
             );
             assertEquals(res.ok, false);
-            const fullRes = res.toResponse();
+            const fullRes = res.toFetchResponse();
             assertInstanceOf(fullRes, Response);
             assertEquals(fullRes.headers?.get("Retry-After"), "120");
 

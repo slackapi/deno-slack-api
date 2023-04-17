@@ -16,7 +16,7 @@ export type FullResponse = BaseResponse & {
    * console.log(originalResponse.headers);
    * ```
    */
-  toResponse(): Response;
+  toFetchResponse(): Response;
 };
 
 export type BaseResponse = {
