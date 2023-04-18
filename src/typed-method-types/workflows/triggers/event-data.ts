@@ -1243,38 +1243,38 @@ export const EventTriggerData = {
      */
     user: {
       /**
-       * @ignore
+       * The display name of the user who joined, as they chose upon registering to the workspace.
        */
-      toJSON: () => "{{data.user}}",
+      display_name: "{{data.user.display_name}}",
       /**
        * A unique identifier for the Slack user who joined the workspace or team.
        */
       id: "{{data.user.id}}",
       /**
-       * A unique identifier for the Slack workspace or team that was joined.
+       * Whether the user that joined is a bot or not.
        */
-      team_id: "{{data.user.team_id}}",
+      is_bot: "{{data.user.is_bot}}",
       /**
        * The name of the user who joined (usually based on the user's e-mail)
        */
       name: "{{data.user.name}}",
       /**
-       * The display name of the user who joined, as they chose upon registering to the workspace.
-       */
-      display_name: "{{data.user.display_name}}",
-      /**
        * The real name of the user who joined. May not be available; in such situations will match the display_name.
        */
       real_name: "{{data.user.real_name}}",
+      /**
+       * A unique identifier for the Slack workspace or team that was joined.
+       */
+      team_id: "{{data.user.team_id}}",
       /**
        * The timezone of the user who joined, in TZ identifier format.
        * @example "America/Toronto"
        */
       timezone: "{{data.user.timezone}}",
       /**
-       * Whether the user that joined is a bot or not.
+       * @ignore
        */
-      is_bot: "{{data.user.is_bot}}",
+      toJSON: () => "{{data.user}}",
     },
   },
   /**
