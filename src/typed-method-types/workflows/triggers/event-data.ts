@@ -241,6 +241,10 @@ export const EventTriggerData = {
       dnd_enabled: "{{data.dnd_status.dnd_enabled}}",
     },
     /**
+     * The event type being invoked. At runtime will always be "slack#/events/dnd_updated".
+     */
+    event_type: "{{data.event_type}}",
+    /**
      * A unique identifier for the Slack user whose DND status was updated.
      */
     user_id: "{{data.user_id}}",
