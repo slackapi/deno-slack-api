@@ -13,33 +13,33 @@ export const ShortcutTriggerData = {
   /**
    * Only available when trigger is invoked from a {@link https://api.slack.com/future/triggers/link#workflow_buttons Workflow button}! A unique identifier for the action that invoked the trigger.
    */
-  ActionID: "{{data.action_id}}",
+  action_id: "{{data.action_id}}",
   /**
    * Only available when trigger is invoked from a {@link https://api.slack.com/future/triggers/link#workflow_buttons Workflow button}! A unique identifier for the block where the trigger was invoked.
    */
-  BlockID: "{{data.block_id}}",
+  block_id: "{{data.block_id}}",
   /**
    * Only available when trigger is invoked from a channel's bookmarks bar! A unique identifier for the bookmark where the trigger was invoked.
    */
-  BookmarkID: "{{data.bookmark_id}}",
+  bookmark_id: "{{data.bookmark_id}}",
   /**
    * Only available when trigger is invoked from a channel, DM or MPDM! A unique identifier for the conversation where the trigger was invoked.
    */
-  ChannelID: "{{data.channel_id}}",
+  channel_id: "{{data.channel_id}}",
   /**
    * For consumption in functions that involve {@link https://api.slack.com/future/block-events Block Kit} or {@link https://api.slack.com/future/view-events Modal View} interactivity.
    */
-  Interactivity: "{{data.interactivity}}",
+  interactivity: "{{data.interactivity}}",
   /**
    * Where the trigger was invoked. At runtime, the value will be one of the following strings, depending on the invocation source: `message` when invoked from a message, `bookmark` when invoked from a bookmark, or `button` when invoked from a {@link https://api.slack.com/future/triggers/link#workflow_buttons Workflow Button}.
    */
-  Location: "{{data.location}}",
+  location: "{{data.location}}",
   /**
    * Only available when trigger is invoked from a channel, DM or MPDM! A unique UNIX timestamp in seconds indicating when the trigger-invoking message was sent.
    */
-  MessageTS: "{{data.message_ts}}",
+  message_ts: "{{data.message_ts}}",
   /**
    * A unique identifier for the Slack user who invoked the trigger.
    */
-  UserID: "{{data.user_id}}",
+  user_id: "{{data.user_id}}",
 } as const;
