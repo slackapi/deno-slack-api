@@ -656,6 +656,552 @@ export const EventTriggerData = {
     teams_in_channel: "{{data.teams_in_channel}}",
   },
   /**
+   * An admin approved a {@link https://slack.com/connect Slack Connect} invite to a shared channel.
+   */
+  shared_channel_invite_approved: { // TODO: did not test this event out as had trouble tripping the event :(
+    /**
+     * A unique identifier for the team or workspace issuing the approval.
+     */
+    approving_team_id: "{{data.approving_team_id}}",
+    /**
+     * Object containing details for the administrator approving the invite.
+     */
+    approving_user: {
+      /**
+       * The display name of the approving user.
+       */
+      display_name: "{{data.approving_user.display_name}}",
+      /**
+       * A unique identifier for the approving user.
+       */
+      id: "{{data.approving_user.id}}",
+      /**
+       * Whether or not the approving user is a bot.
+       */
+      is_bot: "{{data.approving_user.is_bot}}",
+      /**
+       * The name of the approving user.
+       */
+      name: "{{data.approving_user.name}}",
+      /**
+       * The real name of the approving user.
+       */
+      real_name: "{{data.approving_user.real_name}}",
+      /**
+       * A unique identifier for the team or workspace the approving user originally belongs to.
+       */
+      team_id: "{{data.approving_user.team_id}}",
+      /**
+       * The timezone of the approving user, in TZ identifier format.
+       * @example "America/Toronto"
+       */
+      timezone: "{{data.approving_user.timezone}}",
+      /**
+       * @ignore
+       */
+      toJSON: "{{data.approving_user}}",
+    },
+    /**
+     * A unique identifier for the channel being shared.
+     */
+    channel_id: "{{data.channel_id}}",
+    /**
+     * The channel name for the channel being shared.
+     */
+    channel_name: "{{data.channel_name}}",
+    /**
+     * The channel type for the channel being shared. Can be one of "public", "private", "mpdm" or "im".
+     */
+    channel_type: "{{data.channel_type}}",
+    /**
+     * The event type being invoked. At runtime will always be "slack#/events/shared_channel_invite_approved".
+     */
+    event_type: "{{data.event_type}}",
+    /**
+     * Details for the invite itself.
+     */
+    invite: {
+      /**
+       * A UNIX timestamp in seconds indicating when the invite was issued.
+       */
+      date_created: "{{data.invite.date_created}}",
+      /**
+       * A UNIX timestamp in seconds indicating when the invite will expire.
+       */
+      date_invalid: "{{data.invite.date_invalid}}",
+      /**
+       * A unique identifier for the invite.
+       */
+      id: "{{data.invite.id}}",
+      /**
+       * Object containing details about the team or workspace being invited to.
+       */
+      inviting_team: {
+        /**
+         * A UNIX timestamp in seconds indicating when the inviting team or workspace was created.
+         */
+        date_created: "{{data.invite.inviting_team.date_created}}",
+        /**
+         * The domain of the inviting team or workspace.
+         */
+        domain: "{{data.invite.inviting_team.domain}}",
+        /**
+         * An object containing CDN-backed slack.com URLs for the inviting team's icon.
+         */
+        icon: {
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 34 pixel size.
+           */
+          image_34: "{{data.invite.inviting_team.icon.image_34}}",
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 44 pixel size.
+           */
+          image_44: "{{data.invite.inviting_team.icon.image_44}}",
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 68 pixel size.
+           */
+          image_68: "{{data.invite.inviting_team.icon.image_68}}",
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 88 pixel size.
+           */
+          image_88: "{{data.invite.inviting_team.icon.image_88}}",
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 102 pixel size.
+           */
+          image_102: "{{data.invite.inviting_team.icon.image_102}}",
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 132 pixel size.
+           */
+          image_132: "{{data.invite.inviting_team.icon.image_132}}",
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 230 pixel size.
+           */
+          image_230: "{{data.invite.inviting_team.icon.image_230}}",
+          /**
+           * @ignore
+           */
+          toJSON: () => "{{data.invite.inviting_team.icon}}",
+        },
+        /**
+         * A unique identifier for the team or workspace being invited to.
+         */
+        id: "{{data.invite.inviting_team.id}}",
+        /**
+         * Whether or not the inviting team or workspace is verified or not.
+         */
+        is_verified: "{{data.invite.inviting_team.is_verified}}",
+        /**
+         * The name of the inviting team of workspace.
+         */
+        name: "{{data.invite.inviting_team.name}}",
+        toJSON: () => "{{data.invite.inviting_team}}",
+      },
+      /**
+       * Object containing details for the user that sent the invite.
+       */
+      inviting_user: {
+        /**
+         * The display name of the inviting user.
+         */
+        display_name: "{{data.invite.inviting_user.display_name}}",
+        /**
+         * A unique identifier for the user that sent the invite.
+         */
+        id: "{{data.invite.inviting_user.id}}",
+        /**
+         * Whether or not a bot invited the user.
+         */
+        is_bot: "{{data.invite.inviting_user.is_bot}}",
+        /**
+         * The name of the inviting user.
+         */
+        name: "{{data.invite.inviting_user.name}}",
+        /**
+         * The real name of the inviting user.
+         */
+        real_name: "{{data.invite.inviting_user.real_name}}",
+        /**
+         * A unique identifier for the team or workspace being invited to.
+         */
+        team_id: "{{data.invite.inviting_user.team_id}}",
+        /**
+         * The timezone of the user who sent the invite, in TZ identifier format.
+         * @example "America/Toronto"
+         */
+        timezone: "{{data.invite.inviting_user.timezone}}",
+        /**
+         * @ignore
+         */
+        toJSON: "{{data.invite.inviting_user}}",
+      },
+      /**
+       * The invitee's email address.
+       */
+      recipient_email: "{{data.invite.recipient_email}}",
+      /**
+       * A unique identifier for the user that was invited.
+       */
+      recipient_user_id: "{{data.invite.recipient_email}}",
+      /**
+       * @ignore
+       */
+      toJSON: () => "{{data.invite}}",
+    },
+    /**
+     * An array of objects containing details for all of the teams or workspaces present in the channel being shared.
+     */
+    teams_in_channel: "{{data.teams_in_channel}}",
+  },
+  /**
+   * An admin declined a {@link https://slack.com/connect Slack Connect} invite to a shared channel.
+   */
+  shared_channel_invite_declined: { // TODO: did not test this event out as had trouble tripping the event :(
+    /**
+     * A unique identifier for the team or workspace issuing the declination.
+     */
+    declining_team_id: "{{data.declining_team_id}}",
+    /**
+     * Object containing details for the administrator declining the invite.
+     */
+    declining_user: {
+      /**
+       * The display name of the declining user.
+       */
+      display_name: "{{data.declining_user.display_name}}",
+      /**
+       * A unique identifier for the declining user.
+       */
+      id: "{{data.declining_user.id}}",
+      /**
+       * Whether or not the declining user is a bot.
+       */
+      is_bot: "{{data.declining_user.is_bot}}",
+      /**
+       * The name of the declining user.
+       */
+      name: "{{data.declining_user.name}}",
+      /**
+       * The real name of the declining user.
+       */
+      real_name: "{{data.declining_user.real_name}}",
+      /**
+       * A unique identifier for the team or workspace the declining user originally belongs to.
+       */
+      team_id: "{{data.declining_user.team_id}}",
+      /**
+       * The timezone of the declining user, in TZ identifier format.
+       * @example "America/Toronto"
+       */
+      timezone: "{{data.declining_user.timezone}}",
+      /**
+       * @ignore
+       */
+      toJSON: "{{data.declining_user}}",
+    },
+    /**
+     * A unique identifier for the channel being shared.
+     */
+    channel_id: "{{data.channel_id}}",
+    /**
+     * The channel name for the channel being shared.
+     */
+    channel_name: "{{data.channel_name}}",
+    /**
+     * The channel type for the channel being shared. Can be one of "public", "private", "mpdm" or "im".
+     */
+    channel_type: "{{data.channel_type}}",
+    /**
+     * The event type being invoked. At runtime will always be "slack#/events/shared_channel_invite_declined".
+     */
+    event_type: "{{data.event_type}}",
+    /**
+     * Details for the invite itself.
+     */
+    invite: {
+      /**
+       * A UNIX timestamp in seconds indicating when the invite was issued.
+       */
+      date_created: "{{data.invite.date_created}}",
+      /**
+       * A UNIX timestamp in seconds indicating when the invite will expire.
+       */
+      date_invalid: "{{data.invite.date_invalid}}",
+      /**
+       * A unique identifier for the invite.
+       */
+      id: "{{data.invite.id}}",
+      /**
+       * Object containing details about the team or workspace being invited to.
+       */
+      inviting_team: {
+        /**
+         * A UNIX timestamp in seconds indicating when the inviting team or workspace was created.
+         */
+        date_created: "{{data.invite.inviting_team.date_created}}",
+        /**
+         * The domain of the inviting team or workspace.
+         */
+        domain: "{{data.invite.inviting_team.domain}}",
+        /**
+         * An object containing CDN-backed slack.com URLs for the inviting team's icon.
+         */
+        icon: {
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 34 pixel size.
+           */
+          image_34: "{{data.invite.inviting_team.icon.image_34}}",
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 44 pixel size.
+           */
+          image_44: "{{data.invite.inviting_team.icon.image_44}}",
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 68 pixel size.
+           */
+          image_68: "{{data.invite.inviting_team.icon.image_68}}",
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 88 pixel size.
+           */
+          image_88: "{{data.invite.inviting_team.icon.image_88}}",
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 102 pixel size.
+           */
+          image_102: "{{data.invite.inviting_team.icon.image_102}}",
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 132 pixel size.
+           */
+          image_132: "{{data.invite.inviting_team.icon.image_132}}",
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 230 pixel size.
+           */
+          image_230: "{{data.invite.inviting_team.icon.image_230}}",
+          /**
+           * @ignore
+           */
+          toJSON: () => "{{data.invite.inviting_team.icon}}",
+        },
+        /**
+         * A unique identifier for the team or workspace being invited to.
+         */
+        id: "{{data.invite.inviting_team.id}}",
+        /**
+         * Whether or not the inviting team or workspace is verified or not.
+         */
+        is_verified: "{{data.invite.inviting_team.is_verified}}",
+        /**
+         * The name of the inviting team of workspace.
+         */
+        name: "{{data.invite.inviting_team.name}}",
+        toJSON: () => "{{data.invite.inviting_team}}",
+      },
+      /**
+       * Object containing details for the user that sent the invite.
+       */
+      inviting_user: {
+        /**
+         * The display name of the inviting user.
+         */
+        display_name: "{{data.invite.inviting_user.display_name}}",
+        /**
+         * A unique identifier for the user that sent the invite.
+         */
+        id: "{{data.invite.inviting_user.id}}",
+        /**
+         * Whether or not a bot invited the user.
+         */
+        is_bot: "{{data.invite.inviting_user.is_bot}}",
+        /**
+         * The name of the inviting user.
+         */
+        name: "{{data.invite.inviting_user.name}}",
+        /**
+         * The real name of the inviting user.
+         */
+        real_name: "{{data.invite.inviting_user.real_name}}",
+        /**
+         * A unique identifier for the team or workspace being invited to.
+         */
+        team_id: "{{data.invite.inviting_user.team_id}}",
+        /**
+         * The timezone of the user who sent the invite, in TZ identifier format.
+         * @example "America/Toronto"
+         */
+        timezone: "{{data.invite.inviting_user.timezone}}",
+        /**
+         * @ignore
+         */
+        toJSON: "{{data.invite.inviting_user}}",
+      },
+      /**
+       * The invitee's email address.
+       */
+      recipient_email: "{{data.invite.recipient_email}}",
+      /**
+       * A unique identifier for the user that was invited.
+       */
+      recipient_user_id: "{{data.invite.recipient_email}}",
+      /**
+       * @ignore
+       */
+      toJSON: () => "{{data.invite}}",
+    },
+    /**
+     * An array of objects containing details for all of the teams or workspaces present in the channel being shared.
+     */
+    teams_in_channel: "{{data.teams_in_channel}}",
+  },
+  /**
+   * A user received a {@link https://slack.com/connect Slack Connect} invite to a shared channel.
+   * NOTE: this event will only trip when the {@link https://api.slack.com/methods/conversations.inviteShared inviteShared API} is used programmatically!
+   */
+  shared_channel_invite_received: { // TODO: did not test this event out as had trouble tripping the event :(
+    /**
+     * A unique identifier for the channel being shared.
+     */
+    channel_id: "{{data.channel_id}}",
+    /**
+     * The channel name for the channel being shared.
+     */
+    channel_name: "{{data.channel_name}}",
+    /**
+     * The channel type for the channel being shared. Can be one of "public", "private", "mpdm" or "im".
+     */
+    channel_type: "{{data.channel_type}}",
+    /**
+     * The event type being invoked. At runtime will always be "slack#/events/shared_channel_invite_received".
+     */
+    event_type: "{{data.event_type}}",
+    /**
+     * Details for the invite itself.
+     */
+    invite: {
+      /**
+       * A UNIX timestamp in seconds indicating when the invite was issued.
+       */
+      date_created: "{{data.invite.date_created}}",
+      /**
+       * A UNIX timestamp in seconds indicating when the invite will expire.
+       */
+      date_invalid: "{{data.invite.date_invalid}}",
+      /**
+       * A unique identifier for the invite.
+       */
+      id: "{{data.invite.id}}",
+      /**
+       * Object containing details about the team or workspace being invited to.
+       */
+      inviting_team: {
+        /**
+         * A UNIX timestamp in seconds indicating when the inviting team or workspace was created.
+         */
+        date_created: "{{data.invite.inviting_team.date_created}}",
+        /**
+         * The domain of the inviting team or workspace.
+         */
+        domain: "{{data.invite.inviting_team.domain}}",
+        /**
+         * An object containing CDN-backed slack.com URLs for the inviting team's icon.
+         */
+        icon: {
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 34 pixel size.
+           */
+          image_34: "{{data.invite.inviting_team.icon.image_34}}",
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 44 pixel size.
+           */
+          image_44: "{{data.invite.inviting_team.icon.image_44}}",
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 68 pixel size.
+           */
+          image_68: "{{data.invite.inviting_team.icon.image_68}}",
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 88 pixel size.
+           */
+          image_88: "{{data.invite.inviting_team.icon.image_88}}",
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 102 pixel size.
+           */
+          image_102: "{{data.invite.inviting_team.icon.image_102}}",
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 132 pixel size.
+           */
+          image_132: "{{data.invite.inviting_team.icon.image_132}}",
+          /**
+           * CDN-backed slack.com URL for the inviting team's icon at a 230 pixel size.
+           */
+          image_230: "{{data.invite.inviting_team.icon.image_230}}",
+          /**
+           * @ignore
+           */
+          toJSON: () => "{{data.invite.inviting_team.icon}}",
+        },
+        /**
+         * A unique identifier for the team or workspace being invited to.
+         */
+        id: "{{data.invite.inviting_team.id}}",
+        /**
+         * Whether or not the inviting team or workspace is verified or not.
+         */
+        is_verified: "{{data.invite.inviting_team.is_verified}}",
+        /**
+         * The name of the inviting team of workspace.
+         */
+        name: "{{data.invite.inviting_team.name}}",
+        toJSON: () => "{{data.invite.inviting_team}}",
+      },
+      /**
+       * Object containing details for the user that sent the invite.
+       */
+      inviting_user: {
+        /**
+         * The display name of the inviting user.
+         */
+        display_name: "{{data.invite.inviting_user.display_name}}",
+        /**
+         * A unique identifier for the user that sent the invite.
+         */
+        id: "{{data.invite.inviting_user.id}}",
+        /**
+         * Whether or not a bot invited the user.
+         */
+        is_bot: "{{data.invite.inviting_user.is_bot}}",
+        /**
+         * The name of the inviting user.
+         */
+        name: "{{data.invite.inviting_user.name}}",
+        /**
+         * The real name of the inviting user.
+         */
+        real_name: "{{data.invite.inviting_user.real_name}}",
+        /**
+         * A unique identifier for the team or workspace being invited to.
+         */
+        team_id: "{{data.invite.inviting_user.team_id}}",
+        /**
+         * The timezone of the user who sent the invite, in TZ identifier format.
+         * @example "America/Toronto"
+         */
+        timezone: "{{data.invite.inviting_user.timezone}}",
+        /**
+         * @ignore
+         */
+        toJSON: "{{data.invite.inviting_user}}",
+      },
+      /**
+       * The invitee's email address.
+       */
+      recipient_email: "{{data.invite.recipient_email}}",
+      /**
+       * A unique identifier for the user that was invited.
+       */
+      recipient_user_id: "{{data.invite.recipient_email}}",
+      /**
+       * @ignore
+       */
+      toJSON: () => "{{data.invite}}",
+    },
+  },
+  /**
    * A user joined a workspace channel.
    */
   user_joined_channel: {
