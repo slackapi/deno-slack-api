@@ -5,5 +5,5 @@ export const ScheduledTriggerData = {
   /**
    * A unique identifier for the Slack user who created the trigger.
    */
-  UserID: "{{data.user_id}}",
+  user_id: "{{data.user_id}}",
 } as const;
