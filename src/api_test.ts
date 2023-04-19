@@ -62,25 +62,6 @@ Deno.test("SlackAPI class", async (t) => {
         );
 
         await t.step(
-          "should throw if response returns an HTTP status code >= 400",
-          async () => {
-            MockFetch.mock("POST@/api/chat.postMessage", () => {
-              return new Response("big explosions", { status: 500 });
-            });
-
-            await assertRejects(
-              async () => {
-                return await client.apiCall("chat.postMessage", {});
-              },
-              Error,
-              "500: big explosions",
-            );
-
-            MockFetch.reset();
-          },
-        );
-
-        await t.step(
           "should throw an HttpError if HTTP response status code >= 400",
           async () => {
             MockFetch.mock("POST@/api/chat.postMessage", () => {
@@ -112,92 +93,76 @@ Deno.test("SlackAPI class", async (t) => {
           "should return successful response JSON",
           async () => {
             MockFetch.mock("POST@/api/chat.postMessage", () => {
-              return new Response('{"ok":true}');
+              return new Response(
+                '{"ok":true, "channel": "C123", "message": {}}',
+              );
             });
 
             const res = await client.apiCall("chat.postMessage", {});
             assertEquals(res.ok, true);
+            assertEquals(res.channel, "C123");
+            assertEquals(res.message, {});
 
             MockFetch.reset();
           },
         );
 
-        await t.step(
-          "should return usable Response with payload {'ok': false}",
-          async () => {
-            MockFetch.mock("POST@/api/chat.postMessage", () => {
-              return new Response('{"ok":false}', {
-                headers: { "Retry-After": "120" },
+        await t.step("toFetchResponse method", async (t) => {
+          await t.step(
+            "should return usable Response with payload {'ok': false}",
+            async () => {
+              MockFetch.mock("POST@/api/chat.postMessage", () => {
+                return new Response('{"ok":false}', {
+                  headers: { "Retry-After": "120" },
+                });
               });
-            });
 
-            const res = await client.apiCall("chat.postMessage", {});
-            assertEquals(res.ok, false);
-            const fullRes = res.toFetchResponse();
-            assertInstanceOf(fullRes, Response);
-            assertEquals(fullRes.headers?.get("Retry-After"), "120");
-
-            MockFetch.reset();
-          },
-        );
-
-        await t.step(
-          "should return usable Response with payload {'ok': false}",
-          async () => {
-            MockFetch.mock("POST@/api/chat.postMessage", () => {
-              return new Response('{"ok":false}', {
-                headers: { "Retry-After": "120" },
-              });
-            });
-
-            try {
               const res = await client.apiCall("chat.postMessage", {});
-              if (!res.ok) {
-                const fullRes = res.toFetchResponse();
-                console.log(fullRes);
-                console.log(fullRes.headers);
-              }
-            } catch (error) {
-              if (isHttpError(error)) {
-                error.headers;
-              }
-            }
+              assertEquals(res.ok, false);
+              const fullRes = res.toFetchResponse();
+              assertInstanceOf(fullRes, Response);
+              assertEquals(fullRes.headers?.get("Retry-After"), "120");
 
-            const res = await client.apiCall("chat.postMessage", {});
-            assertEquals(res.ok, false);
-            const fullRes = res.toFetchResponse();
-            assertInstanceOf(fullRes, Response);
-            assertEquals(fullRes.headers?.get("Retry-After"), "120");
+              MockFetch.reset();
+            },
+          );
 
-            MockFetch.reset();
-          },
-        );
+          await t.step(
+            "should return usable Response with payload {'ok': false}",
+            async () => {
+              MockFetch.mock("POST@/api/chat.postMessage", () => {
+                return new Response('{"ok":false}', {
+                  headers: { "Retry-After": "120" },
+                });
+              });
+
+              try {
+                const res = await client.apiCall("chat.postMessage", {});
+                if (!res.ok) {
+                  const fullRes = res.toFetchResponse();
+                  console.log(fullRes);
+                  console.log(fullRes.headers);
+                }
+              } catch (error) {
+                if (isHttpError(error)) {
+                  error.headers;
+                }
+              }
+
+              const res = await client.apiCall("chat.postMessage", {});
+              assertEquals(res.ok, false);
+              const fullRes = res.toFetchResponse();
+              assertInstanceOf(fullRes, Response);
+              assertEquals(fullRes.headers?.get("Retry-After"), "120");
+
+              MockFetch.reset();
+            },
+          );
+        });
       });
 
       await t.step("response method", async (t) => {
         await t.step(
-          "should throw if response returns an HTTP status code >= 400",
-          async () => {
-            MockFetch.mock("POST@/api/chat.postMessage", () => {
-              return new Response("big explosions", { status: 500 });
-            });
-
-            await assertRejects(
-              async () => {
-                return await client.response(
-                  "https://slack.com/api/chat.postMessage",
-                  {},
-                );
-              },
-              Error,
-              "500: big explosions",
-            );
-
-            MockFetch.reset();
-          },
-        );
-
-        await t.step(
           "should throw an HttpError if HTTP response status code >= 400",
           async () => {
             MockFetch.mock("POST@/api/chat.postMessage", () => {
@@ -232,7 +197,9 @@ Deno.test("SlackAPI class", async (t) => {
           "should return successful response JSON",
           async () => {
             MockFetch.mock("POST@/api/chat.postMessage", () => {
-              return new Response('{"ok":true}');
+              return new Response(
+                '{"ok":true, "channel": "C123", "message": {}}',
+              );
             });
 
             const res = await client.response(
@@ -240,32 +207,36 @@ Deno.test("SlackAPI class", async (t) => {
               {},
             );
             assertEquals(res.ok, true);
+            assertEquals(res.channel, "C123");
+            assertEquals(res.message, {});
 
             MockFetch.reset();
           },
         );
 
-        await t.step(
-          "should return usable Response with payload {'ok': false}",
-          async () => {
-            MockFetch.mock("POST@/api/chat.postMessage", () => {
-              return new Response('{"ok":false}', {
-                headers: { "Retry-After": "120" },
+        await t.step("toFetchResponse method", async (t) => {
+          await t.step(
+            "should return usable Response with payload {'ok': false}",
+            async () => {
+              MockFetch.mock("POST@/api/chat.postMessage", () => {
+                return new Response('{"ok":false}', {
+                  headers: { "Retry-After": "120" },
+                });
               });
-            });
 
-            const res = await client.response(
-              "https://slack.com/api/chat.postMessage",
-              {},
-            );
-            assertEquals(res.ok, false);
-            const fullRes = res.toFetchResponse();
-            assertInstanceOf(fullRes, Response);
-            assertEquals(fullRes.headers?.get("Retry-After"), "120");
+              const res = await client.response(
+                "https://slack.com/api/chat.postMessage",
+                {},
+              );
+              assertEquals(res.ok, false);
+              const fullRes = res.toFetchResponse();
+              assertInstanceOf(fullRes, Response);
+              assertEquals(fullRes.headers?.get("Retry-After"), "120");
 
-            MockFetch.reset();
-          },
-        );
+              MockFetch.reset();
+            },
+          );
+        });
       });
     },
   );
