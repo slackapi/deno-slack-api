@@ -5,7 +5,7 @@ or channel level events, and each specific event type has its own required objec
 level includes the common trigger parameters along with a required input parameter and an event parameter:
 An event trigger is a trigger that activates when a specific event occurs within the Slack client. Event triggers can activate on either workspace,
 or channel level events, and each specific event type has its own required object parameters that need to be filled. An event trigger at the highest
-level includes the common Trigger parameters along with a required input parameter and an event parameter:
+level includes the common trigger parameters along with a required input parameter and an event parameter:
 
 | Parameter name  | Required?     | Description                                                          |
 | ----------------|:-------------:| ---------------------------------------------------------------------|
