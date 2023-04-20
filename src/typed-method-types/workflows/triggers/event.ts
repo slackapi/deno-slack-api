@@ -27,17 +27,22 @@ type ChannelTypes = ObjectValueUnion<
     | "AppMentioned"
     | "ChannelShared"
     | "ChannelUnshared"
-    | "MessageMetadataPosted"
     | "PinAdded"
     | "PinRemoved"
     | "ReactionAdded"
     | "ReactionRemoved"
+    | "UserJoinedChannel"
+    | "UserLeftChannel"
+  >
+>;
+
+type SharedChannelTypes = ObjectValueUnion<
+  Pick<
+    typeof TriggerEventTypes,
     | "SharedChannelInviteAccepted"
     | "SharedChannelInviteApproved"
     | "SharedChannelInviteDeclined"
     | "SharedChannelInviteReceived"
-    | "UserJoinedChannel"
-    | "UserLeftChannel"
   >
 >;
 
@@ -55,36 +60,46 @@ type WorkspaceTypes = ObjectValueUnion<
   >
 >;
 
-type ChannelEvents =
-  & (ChannelEvent | MetadataChannelEvent | MessagePostedEvent)
-  & {
-    /** @description The channel id's that this event listens on */
-    channel_ids: PopulatedArray<string>;
-    // deno-lint-ignore no-explicit-any
-    [otherOptions: string]: any;
-  };
+export type ChannelEvents =
+  | ChannelEvent
+  | MetadataChannelEvent
+  | MessagePostedEvent
+  | SharedChannelEvent;
 
-type ChannelEvent = BaseEvent & {
+type BaseChannelEvent = BaseEvent & {
+  /** @description The channel id's that this event listens on */
+  channel_ids: PopulatedArray<string>;
+};
+
+type ChannelEvent = BaseChannelEvent & {
   /** @description The type of event */
-  event_type: Exclude<ChannelTypes, MessageMetadataTypes>;
+  event_type: ChannelTypes;
 };
 
 type MetadataChannelEvent =
-  & BaseEvent
+  & BaseChannelEvent
   & {
     /** @description The type of event */
-    event_type: Extract<ChannelTypes, MessageMetadataTypes>;
+    event_type: MessageMetadataTypes;
     /** @description User defined description for the metadata event type */
     metadata_event_type: string;
   };
 
 // The only event that currently requires a filter
 type MessagePostedEvent =
-  & BaseEvent
+  & BaseChannelEvent
   & Required<Pick<BaseEvent, "filter">>
   & {
     /** @description The type of event */
     event_type: MessagePostedEventType;
+  };
+
+type SharedChannelEvent =
+  & Omit<BaseChannelEvent, "channel_ids">
+  & Partial<Pick<BaseChannelEvent, "channel_ids">>
+  & {
+    /** @description The type of event */
+    event_type: SharedChannelTypes;
   };
 
 type WorkspaceEvents =
@@ -92,8 +107,6 @@ type WorkspaceEvents =
   & {
     /** @description The team id's that this event listens on */
     team_ids?: PopulatedArray<string>;
-    // deno-lint-ignore no-explicit-any
-    [otherOptions: string]: any;
   };
 
 type BaseWorkspaceEvent = BaseEvent & {
