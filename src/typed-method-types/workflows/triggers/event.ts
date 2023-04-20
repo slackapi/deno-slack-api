@@ -27,6 +27,7 @@ type ChannelTypes = ObjectValueUnion<
     | "AppMentioned"
     | "ChannelShared"
     | "ChannelUnshared"
+    | "MessageMetadataPosted"
     | "PinAdded"
     | "PinRemoved"
     | "ReactionAdded"
@@ -54,33 +55,32 @@ type WorkspaceTypes = ObjectValueUnion<
   >
 >;
 
-export type ChannelEvents =
-  | ChannelEvent
-  | MetadataChannelEvent
-  | MessagePostedEvent;
+type ChannelEvents =
+  & (ChannelEvent | MetadataChannelEvent | MessagePostedEvent)
+  & {
+    /** @description The channel id's that this event listens on */
+    channel_ids: PopulatedArray<string>;
+    // deno-lint-ignore no-explicit-any
+    [otherOptions: string]: any;
+  };
 
-type BaseChannelEvent = BaseEvent & {
-  /** @description The channel id's that this event listens on */
-  channel_ids: PopulatedArray<string>;
-};
-
-type ChannelEvent = BaseChannelEvent & {
+type ChannelEvent = BaseEvent & {
   /** @description The type of event */
-  event_type: ChannelTypes;
+  event_type: Exclude<ChannelTypes, MessageMetadataTypes>;
 };
 
 type MetadataChannelEvent =
-  & BaseChannelEvent
+  & BaseEvent
   & {
     /** @description The type of event */
-    event_type: MessageMetadataTypes;
+    event_type: Extract<ChannelTypes, MessageMetadataTypes>;
     /** @description User defined description for the metadata event type */
     metadata_event_type: string;
   };
 
 // The only event that currently requires a filter
 type MessagePostedEvent =
-  & BaseChannelEvent
+  & BaseEvent
   & Required<Pick<BaseEvent, "filter">>
   & {
     /** @description The type of event */
@@ -92,6 +92,8 @@ type WorkspaceEvents =
   & {
     /** @description The team id's that this event listens on */
     team_ids?: PopulatedArray<string>;
+    // deno-lint-ignore no-explicit-any
+    [otherOptions: string]: any;
   };
 
 type BaseWorkspaceEvent = BaseEvent & {
