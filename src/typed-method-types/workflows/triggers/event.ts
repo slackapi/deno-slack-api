@@ -36,16 +36,6 @@ type ChannelTypes = ObjectValueUnion<
   >
 >;
 
-type SharedChannelTypes = ObjectValueUnion<
-  Pick<
-    typeof TriggerEventTypes,
-    | "SharedChannelInviteAccepted"
-    | "SharedChannelInviteApproved"
-    | "SharedChannelInviteDeclined"
-    | "SharedChannelInviteReceived"
-  >
->;
-
 type WorkspaceTypes = ObjectValueUnion<
   Pick<
     typeof TriggerEventTypes,
@@ -56,6 +46,10 @@ type WorkspaceTypes = ObjectValueUnion<
     | "ChannelUnarchived"
     | "DndUpdated"
     | "EmojiChanged"
+    | "SharedChannelInviteAccepted"
+    | "SharedChannelInviteApproved"
+    | "SharedChannelInviteDeclined"
+    | "SharedChannelInviteReceived"
     | "UserJoinedTeam"
   >
 >;
@@ -63,8 +57,7 @@ type WorkspaceTypes = ObjectValueUnion<
 export type ChannelEvents =
   | ChannelEvent
   | MetadataChannelEvent
-  | MessagePostedEvent
-  | SharedChannelEvent;
+  | MessagePostedEvent;
 
 type BaseChannelEvent = BaseEvent & {
   /** @description The channel id's that this event listens on */
@@ -92,14 +85,6 @@ type MessagePostedEvent =
   & {
     /** @description The type of event */
     event_type: MessagePostedEventType;
-  };
-
-type SharedChannelEvent =
-  & Omit<BaseChannelEvent, "channel_ids">
-  & Partial<Pick<BaseChannelEvent, "channel_ids">>
-  & {
-    /** @description The type of event */
-    event_type: SharedChannelTypes;
   };
 
 type WorkspaceEvents =
