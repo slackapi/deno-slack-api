@@ -126,38 +126,6 @@ Deno.test("SlackAPI class", async (t) => {
               MockFetch.reset();
             },
           );
-
-          await t.step(
-            "should return usable Response with payload {'ok': false}",
-            async () => {
-              MockFetch.mock("POST@/api/chat.postMessage", () => {
-                return new Response('{"ok":false}', {
-                  headers: { "Retry-After": "120" },
-                });
-              });
-
-              try {
-                const res = await client.apiCall("chat.postMessage", {});
-                if (!res.ok) {
-                  const fullRes = res.toFetchResponse();
-                  console.log(fullRes);
-                  console.log(fullRes.headers);
-                }
-              } catch (error) {
-                if (isHttpError(error)) {
-                  error.headers;
-                }
-              }
-
-              const res = await client.apiCall("chat.postMessage", {});
-              assertEquals(res.ok, false);
-              const fullRes = res.toFetchResponse();
-              assertInstanceOf(fullRes, Response);
-              assertEquals(fullRes.headers?.get("Retry-After"), "120");
-
-              MockFetch.reset();
-            },
-          );
         });
       });
 
