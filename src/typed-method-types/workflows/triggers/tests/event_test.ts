@@ -34,6 +34,19 @@ Deno.test("Event triggers can set the type using the TriggerTypes object", () =>
   assertEquals(event.type, TriggerTypes.Event);
 });
 
+Deno.test("shared_channel_invite_* event triggers do not require channel_ids", () => {
+  const event: EventTrigger<ExampleWorkflow> = {
+    type: TriggerTypes.Event,
+    name: "test",
+    workflow: "#/workflows/example",
+    inputs: {},
+    event: {
+      event_type: "slack#/events/shared_channel_invite_accepted",
+    },
+  };
+  assertEquals(event.type, TriggerTypes.Event);
+});
+
 Deno.test("Mock call for event", async (t) => {
   mf.install(); // mock out calls to `fetch`
 
