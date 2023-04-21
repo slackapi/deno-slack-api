@@ -1,13 +1,13 @@
-import { assertEquals } from "https://deno.land/std@0.99.0/testing/asserts.ts";
-import { EventTrigger } from "../event.ts";
+import { assertEquals } from "../../../../dev_deps.ts";
 import { TriggerTypes } from "../mod.ts";
 import { SlackAPI } from "../../../../mod.ts";
 import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
 import { event_response } from "./fixtures/sample_responses.ts";
+import { ExampleWorkflow } from "./fixtures/workflows.ts";
+import { EventTrigger } from "../event.ts";
 
 Deno.test("Event triggers can set the type using the string", () => {
-  // deno-lint-ignore no-explicit-any
-  const event: EventTrigger<any> = {
+  const event: EventTrigger<ExampleWorkflow> = {
     type: "event",
     name: "test",
     workflow: "#/workflows/example",
@@ -21,8 +21,7 @@ Deno.test("Event triggers can set the type using the string", () => {
 });
 
 Deno.test("Event triggers can set the type using the TriggerTypes object", () => {
-  // deno-lint-ignore no-explicit-any
-  const event: EventTrigger<any> = {
+  const event: EventTrigger<ExampleWorkflow> = {
     type: TriggerTypes.Event,
     name: "test",
     workflow: "#/workflows/example",
@@ -30,6 +29,19 @@ Deno.test("Event triggers can set the type using the TriggerTypes object", () =>
     event: {
       event_type: "slack#/events/reaction_added",
       channel_ids: ["C013ZG3K41Z"],
+    },
+  };
+  assertEquals(event.type, TriggerTypes.Event);
+});
+
+Deno.test("shared_channel_invite_* event triggers do not require channel_ids", () => {
+  const event: EventTrigger<ExampleWorkflow> = {
+    type: TriggerTypes.Event,
+    name: "test",
+    workflow: "#/workflows/example",
+    inputs: {},
+    event: {
+      event_type: "slack#/events/shared_channel_invite_accepted",
     },
   };
   assertEquals(event.type, TriggerTypes.Event);
