@@ -557,34 +557,6 @@ export const EventTriggerContextData = {
          */
         icon: {
           /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 34 pixel size.
-           */
-          image_34: "{{data.invite.inviting_team.icon.image_34}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 44 pixel size.
-           */
-          image_44: "{{data.invite.inviting_team.icon.image_44}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 68 pixel size.
-           */
-          image_68: "{{data.invite.inviting_team.icon.image_68}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 88 pixel size.
-           */
-          image_88: "{{data.invite.inviting_team.icon.image_88}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 102 pixel size.
-           */
-          image_102: "{{data.invite.inviting_team.icon.image_102}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 132 pixel size.
-           */
-          image_132: "{{data.invite.inviting_team.icon.image_132}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 230 pixel size.
-           */
-          image_230: "{{data.invite.inviting_team.icon.image_230}}",
-          /**
            * @ignore
            */
           toJSON: () => "{{data.invite.inviting_team.icon}}",
@@ -753,34 +725,6 @@ export const EventTriggerContextData = {
          * An object containing CDN-backed slack.com URLs for the inviting team's icon.
          */
         icon: {
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 34 pixel size.
-           */
-          image_34: "{{data.invite.inviting_team.icon.image_34}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 44 pixel size.
-           */
-          image_44: "{{data.invite.inviting_team.icon.image_44}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 68 pixel size.
-           */
-          image_68: "{{data.invite.inviting_team.icon.image_68}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 88 pixel size.
-           */
-          image_88: "{{data.invite.inviting_team.icon.image_88}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 102 pixel size.
-           */
-          image_102: "{{data.invite.inviting_team.icon.image_102}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 132 pixel size.
-           */
-          image_132: "{{data.invite.inviting_team.icon.image_132}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 230 pixel size.
-           */
-          image_230: "{{data.invite.inviting_team.icon.image_230}}",
           /**
            * @ignore
            */
@@ -951,34 +895,6 @@ export const EventTriggerContextData = {
          */
         icon: {
           /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 34 pixel size.
-           */
-          image_34: "{{data.invite.inviting_team.icon.image_34}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 44 pixel size.
-           */
-          image_44: "{{data.invite.inviting_team.icon.image_44}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 68 pixel size.
-           */
-          image_68: "{{data.invite.inviting_team.icon.image_68}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 88 pixel size.
-           */
-          image_88: "{{data.invite.inviting_team.icon.image_88}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 102 pixel size.
-           */
-          image_102: "{{data.invite.inviting_team.icon.image_102}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 132 pixel size.
-           */
-          image_132: "{{data.invite.inviting_team.icon.image_132}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 230 pixel size.
-           */
-          image_230: "{{data.invite.inviting_team.icon.image_230}}",
-          /**
            * @ignore
            */
           toJSON: () => "{{data.invite.inviting_team.icon}}",
@@ -1106,34 +1022,6 @@ export const EventTriggerContextData = {
          * An object containing CDN-backed slack.com URLs for the inviting team's icon.
          */
         icon: {
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 34 pixel size.
-           */
-          image_34: "{{data.invite.inviting_team.icon.image_34}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 44 pixel size.
-           */
-          image_44: "{{data.invite.inviting_team.icon.image_44}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 68 pixel size.
-           */
-          image_68: "{{data.invite.inviting_team.icon.image_68}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 88 pixel size.
-           */
-          image_88: "{{data.invite.inviting_team.icon.image_88}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 102 pixel size.
-           */
-          image_102: "{{data.invite.inviting_team.icon.image_102}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 132 pixel size.
-           */
-          image_132: "{{data.invite.inviting_team.icon.image_132}}",
-          /**
-           * CDN-backed slack.com URL for the inviting team's icon at a 230 pixel size.
-           */
-          image_230: "{{data.invite.inviting_team.icon.image_230}}",
           /**
            * @ignore
            */
