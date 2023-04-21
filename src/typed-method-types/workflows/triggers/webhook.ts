@@ -1,4 +1,4 @@
-import { FullResponse } from "../../../types.ts";
+import { BaseResponse } from "../../../types.ts";
 import { BaseTriggerResponse } from "./base_response.ts";
 import {
   BaseTrigger,
@@ -26,7 +26,7 @@ export type WebhookTriggerResponse<
 export type WebhookResponse<
   WorkflowDefinition extends WorkflowSchema,
 > =
-  & FullResponse
+  & BaseResponse
   & {
     trigger: WebhookTriggerResponseObject<WorkflowDefinition>;
   };

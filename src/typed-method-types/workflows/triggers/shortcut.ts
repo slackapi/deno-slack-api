@@ -1,4 +1,4 @@
-import { FullResponse } from "../../../types.ts";
+import { BaseResponse } from "../../../types.ts";
 import { BaseTriggerResponse } from "./base_response.ts";
 import {
   BaseTrigger,
@@ -25,7 +25,7 @@ export type ShortcutTriggerResponse<
 export type ShortcutResponse<
   WorkflowDefinition extends WorkflowSchema,
 > =
-  & FullResponse
+  & BaseResponse
   & {
     trigger: ShortcutTriggerResponseObject<WorkflowDefinition>;
   };

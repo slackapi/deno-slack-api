@@ -1,4 +1,4 @@
-import { FullResponse } from "../types.ts";
+import { BaseResponse } from "../types.ts";
 
 type FunctionCompleteSuccessArgs = {
   // deno-lint-ignore no-explicit-any
@@ -16,11 +16,11 @@ type FunctionCompleteErrorArgs = {
 };
 
 type FunctionCompleteError = {
-  (args: FunctionCompleteErrorArgs): Promise<FullResponse>;
+  (args: FunctionCompleteErrorArgs): Promise<BaseResponse>;
 };
 
 type FunctionCompleteSuccess = {
-  (args: FunctionCompleteSuccessArgs): Promise<FullResponse>;
+  (args: FunctionCompleteSuccessArgs): Promise<BaseResponse>;
 };
 
 export type TypedFunctionMethodTypes = {

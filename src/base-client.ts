@@ -1,6 +1,6 @@
 import {
+  BaseResponse,
   BaseSlackClient,
-  FullResponse,
   SlackAPIMethodArgs,
   SlackAPIOptions,
 } from "./types.ts";
@@ -31,7 +31,7 @@ export class BaseSlackAPIClient implements BaseSlackClient {
   async apiCall(
     method: string,
     data: SlackAPIMethodArgs = {},
-  ): Promise<FullResponse> {
+  ): Promise<BaseResponse> {
     // ensure there's a slash prior to method
     const url = `${this.#baseURL.replace(/\/$/, "")}/${method}`;
     const body = serializeData(data);
@@ -48,14 +48,14 @@ export class BaseSlackAPIClient implements BaseSlackClient {
     if (!response.ok) {
       throw await this.createHttpError(response);
     }
-    return await this.createFullResponse(response);
+    return await this.createBaseResponse(response);
   }
 
   // TODO: [brk-chg] return a `Promise<Response>` object
   async response(
     url: string,
     data: Record<string, unknown>,
-  ): Promise<FullResponse> {
+  ): Promise<BaseResponse> {
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -66,7 +66,7 @@ export class BaseSlackAPIClient implements BaseSlackClient {
     if (!response.ok) {
       throw await this.createHttpError(response);
     }
-    return await this.createFullResponse(response);
+    return await this.createBaseResponse(response);
   }
 
   private async createHttpError(response: Response): Promise<HttpError> {
@@ -80,7 +80,7 @@ export class BaseSlackAPIClient implements BaseSlackClient {
     );
   }
 
-  private async createFullResponse(response: Response): Promise<FullResponse> {
+  private async createBaseResponse(response: Response): Promise<BaseResponse> {
     return {
       toFetchResponse: () => response,
       ...await response.json(),

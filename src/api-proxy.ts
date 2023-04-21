@@ -1,8 +1,8 @@
 import { BaseSlackAPIClient } from "./base-client.ts";
-import { FullResponse, SlackAPIClient, SlackAPIMethodArgs } from "./types.ts";
+import { BaseResponse, SlackAPIClient, SlackAPIMethodArgs } from "./types.ts";
 
 type APICallback = {
-  (method: string, payload?: SlackAPIMethodArgs): Promise<FullResponse>;
+  (method: string, payload?: SlackAPIMethodArgs): Promise<BaseResponse>;
 };
 
 export const ProxifyAndTypeClient = (baseClient: BaseSlackAPIClient) => {

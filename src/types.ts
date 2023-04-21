@@ -8,17 +8,6 @@ export type {
 } from "./typed-method-types/workflows/triggers/mod.ts";
 
 // TODO: [brk-chg] remove this in favor of `Response`
-export type FullResponse = BaseResponse & {
-  /** Convert to the original `Response`. It returns a `Response`, that was successful.
-   *
-   * ```ts
-   * const originalResponse = response.toResponse();
-   * console.log(originalResponse.headers);
-   * ```
-   */
-  toFetchResponse(): Response;
-};
-
 export type BaseResponse = {
   /**
    * @description `true` if the response from the server was successful, `false` otherwise.
@@ -39,6 +28,16 @@ export type BaseResponse = {
     warnings?: string[];
     messages?: string[];
   };
+
+  /** Convert to the original `Response`.
+   *
+   * ```ts
+   * const originalResponse = response.toResponse();
+   * console.log(originalResponse.headers);
+   * ```
+   */
+  toFetchResponse(): Response;
+
   // deno-lint-ignore no-explicit-any
   [otherOptions: string]: any;
 };
@@ -58,13 +57,13 @@ export type BaseSlackClient = {
 type BaseClientCall = (
   method: string,
   data?: SlackAPIMethodArgs,
-) => Promise<FullResponse>;
+) => Promise<BaseResponse>;
 
 // TODO: [brk-chg] return a `Promise<Response>` object
 type BaseClientResponse = (
   url: string,
   data: Record<string, unknown>,
-) => Promise<FullResponse>;
+) => Promise<BaseResponse>;
 
 export type SlackAPIOptions = {
   /**
@@ -119,11 +118,11 @@ export type SlackAPIMethodArgs = BaseMethodArgs & {
 };
 
 export type SlackAPIMethod = {
-  (args?: SlackAPIMethodArgs): Promise<FullResponse>;
+  (args?: SlackAPIMethodArgs): Promise<BaseResponse>;
 };
 
 export type SlackAPICursorPaginatedMethod = {
   (
     args?: SlackAPIMethodArgs & CursorPaginationArgs,
-  ): Promise<FullResponse & CursorPaginationResponse>;
+  ): Promise<BaseResponse & CursorPaginationResponse>;
 };

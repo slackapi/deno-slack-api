@@ -1,4 +1,4 @@
-import { FullResponse } from "../../../types.ts";
+import { BaseResponse } from "../../../types.ts";
 import { BaseTriggerResponse } from "./base_response.ts";
 import {
   BaseTrigger,
@@ -124,7 +124,7 @@ export type EventTriggerResponse<
 export type EventResponse<
   WorkflowDefinition extends WorkflowSchema,
 > =
-  & FullResponse
+  & BaseResponse
   & {
     trigger: EventTriggerResponseObject<WorkflowDefinition>;
   };
