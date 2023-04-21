@@ -27,7 +27,7 @@ export const ShortcutTriggerContextData = {
    */
   location: "{{data.location}}",
   /**
-   * A unique UNIX timestamp in seconds indicating when the trigger-invoking message was sent. Only available when trigger is invoked from a channel, DM or MPDM!
+   * A unique {@link https://api.slack.com/automation/types#message-ts Slack message timestamp string} indicating when the trigger-invoking message was sent. Only available when trigger is invoked from a channel, DM or MPDM!
    */
   message_ts: "{{data.message_ts}}",
   /**

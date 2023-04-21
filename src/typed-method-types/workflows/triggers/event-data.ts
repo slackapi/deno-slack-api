@@ -28,7 +28,7 @@ export const EventTriggerContextData = {
      */
     event_type: "{{data.event_type}}",
     /**
-     * A unique UNIX timestamp in seconds indicating when the message mentioning the app was sent.
+     * A unique {@link https://api.slack.com/automation/types#message-ts Slack message timestamp string} indicating when the message mentioning the app was sent.
      */
     message_ts: "{{data.message_ts}}",
     /**
@@ -82,7 +82,7 @@ export const EventTriggerContextData = {
      */
     channel_type: "{{data.channel_type}}",
     /**
-     * A unique UNIX timestamp in seconds indicating when the channel was created.
+     * A unique {@link https://api.slack.com/automation/types#message-ts Slack message timestamp string} indicating when the channel was created.
      */
     created: "{{data.created}}",
     /**
@@ -299,7 +299,7 @@ export const EventTriggerContextData = {
      */
     event_type: "{{data.event_type}}",
     /**
-     * A unique UNIX timestamp in seconds indicating when the message containing metadata was sent.
+     * A unique {@link https://api.slack.com/automation/types#message-ts Slack message timestamp string} indicating when the message containing metadata was sent.
      */
     message_ts: "{{data.message_ts}}",
     /**
@@ -332,7 +332,7 @@ export const EventTriggerContextData = {
      */
     event_type: "{{data.event_type}}",
     /**
-     * A unique UNIX timestamp in seconds indicating when the message was sent. In the case this is a threaded message, this property becomes the `message_ts` of the parent message.
+     * A unique {@link https://api.slack.com/automation/types#message-ts Slack message timestamp string} indicating when the message was sent. In the case this is a threaded message, this property becomes the `message_ts` of the parent message.
      */
     message_ts: "{{data.message_ts}}",
     /**
@@ -340,7 +340,7 @@ export const EventTriggerContextData = {
      */
     text: "{{data.text}}",
     /**
-     * A unique UNIX timestamp in seconds indicating when the threaded message was sent. At runtime this value may not exist if the message in question is not a threaded message!
+     * A unique {@link https://api.slack.com/automation/types#message-ts Slack message timestamp string} indicating when the threaded message was sent. At runtime this value may not exist if the message in question is not a threaded message!
      */
     thread_ts: "{{data.thread_ts}}",
     /**
@@ -369,7 +369,7 @@ export const EventTriggerContextData = {
      */
     event_type: "{{data.event_type}}",
     /**
-     * A unique UNIX timestamp in seconds indicating when the message being pinned was sent.
+     * A unique {@link https://api.slack.com/automation/types#message-ts Slack message timestamp string} indicating when the message being pinned was sent.
      */
     message_ts: "{{data.message_ts}}",
     /**
@@ -398,7 +398,7 @@ export const EventTriggerContextData = {
      */
     event_type: "{{data.event_type}}",
     /**
-     * A unique UNIX timestamp in seconds indicating when the message being unpinned was sent.
+     * A unique {@link https://api.slack.com/automation/types#message-ts Slack message timestamp string} indicating when the message being unpinned was sent.
      */
     message_ts: "{{data.message_ts}}",
     /**
@@ -423,7 +423,7 @@ export const EventTriggerContextData = {
      */
     message_context: "{{data.message_context}}",
     /**
-     * A unique UNIX timestamp in seconds indicating when the message being reacted to was sent.
+     * A unique {@link https://api.slack.com/automation/types#message-ts Slack message timestamp string} indicating when the message being reacted to was sent.
      */
     message_ts: "{{data.message_ts}}",
     /**
@@ -448,7 +448,7 @@ export const EventTriggerContextData = {
      */
     event_type: "{{data.event_type}}",
     /**
-     * A unique UNIX timestamp in seconds indicating when the message whose reaction is being removed from was sent.
+     * A unique {@link https://api.slack.com/automation/types#message-ts Slack message timestamp string} indicating when the message whose reaction is being removed from was sent.
      */
     message_ts: "{{data.message_ts}}",
     /**
