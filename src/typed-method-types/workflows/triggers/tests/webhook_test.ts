@@ -1,4 +1,4 @@
-import { assertEquals, MockFetch } from "../../../../dev_deps.ts";
+import { assertEquals, mf } from "../../../../dev_deps.ts";
 import { WebhookTrigger } from "../webhook.ts";
 import { TriggerTypes } from "../mod.ts";
 import { SlackAPI } from "../../../../mod.ts";
@@ -46,7 +46,7 @@ Deno.test("Webhook Triggers support an optional filter object", () => {
 });
 
 Deno.test("Mock call for webhook", async (t) => {
-  MockFetch.install(); // mock out calls to `fetch`
+  mf.install(); // mock out calls to `fetch`
 
   await t.step("instantiated with default API URL", async (t) => {
     const client = SlackAPI("test-token");
@@ -59,7 +59,7 @@ Deno.test("Mock call for webhook", async (t) => {
       await t.step(
         "should return successful response JSON on create",
         async () => {
-          MockFetch.mock(
+          mf.mock(
             "POST@/api/workflows.triggers.create",
             (req: Request) => {
               assertEquals(
@@ -88,9 +88,9 @@ Deno.test("Mock call for webhook", async (t) => {
               webhook_response.trigger.webhook_url,
             );
           }
-          MockFetch.reset();
+          mf.reset();
 
-          MockFetch.reset();
+          mf.reset();
         },
       );
     });
@@ -98,7 +98,7 @@ Deno.test("Mock call for webhook", async (t) => {
     await t.step(
       "should return successful response JSON on update",
       async () => {
-        MockFetch.mock(
+        mf.mock(
           "POST@/api/workflows.triggers.update",
           (req: Request) => {
             assertEquals(
@@ -128,7 +128,7 @@ Deno.test("Mock call for webhook", async (t) => {
             webhook_response.trigger.webhook_url,
           );
         }
-        MockFetch.reset();
+        mf.reset();
       },
     );
   });

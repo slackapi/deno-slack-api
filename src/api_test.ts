@@ -3,14 +3,14 @@ import {
   assertInstanceOf,
   assertRejects,
   isHttpError,
-  MockFetch,
+  mf,
 } from "./dev_deps.ts";
 import { SlackAPI } from "./mod.ts";
 import { serializeData } from "./base-client.ts";
 import { HttpError } from "./deps.ts";
 
 Deno.test("SlackAPI class", async (t) => {
-  MockFetch.install(); // mock out calls to `fetch`
+  mf.install(); // mock out calls to `fetch`
 
   await t.step(
     "instantiated with default API URL",
@@ -25,29 +25,29 @@ Deno.test("SlackAPI class", async (t) => {
 
       await t.step("apiCall method", async (t) => {
         await t.step("should call the default API URL", async () => {
-          MockFetch.mock("POST@/api/chat.postMessage", (req: Request) => {
+          mf.mock("POST@/api/chat.postMessage", (req: Request) => {
             assertEquals(req.url, "https://slack.com/api/chat.postMessage");
             return new Response('{"ok":true}');
           });
 
           await client.apiCall("chat.postMessage", {});
 
-          MockFetch.reset();
+          mf.reset();
         });
 
         await t.step(
           "should prioritize calling provided token vs. token instantiated client with",
           async () => {
-            MockFetch.mock("POST@/api/chat.postMessage", (req: Request) => {
+            mf.mock("POST@/api/chat.postMessage", (req: Request) => {
               assertEquals(req.headers.get("authorization"), "Bearer override");
               return new Response('{"ok":true}');
             });
 
             await client.apiCall("chat.postMessage", { token: "override" });
 
-            MockFetch.reset();
+            mf.reset();
 
-            MockFetch.mock("POST@/api/chat.postMessage", (req: Request) => {
+            mf.mock("POST@/api/chat.postMessage", (req: Request) => {
               assertEquals(
                 req.headers.get("authorization"),
                 "Bearer test-token",
@@ -57,14 +57,14 @@ Deno.test("SlackAPI class", async (t) => {
 
             await client.apiCall("chat.postMessage", {});
 
-            MockFetch.reset();
+            mf.reset();
           },
         );
 
         await t.step(
           "should throw an HttpError if HTTP response status code >= 400",
           async () => {
-            MockFetch.mock("POST@/api/chat.postMessage", () => {
+            mf.mock("POST@/api/chat.postMessage", () => {
               return new Response("ratelimited", {
                 status: 429,
                 headers: { "Retry-After": "120" },
@@ -85,14 +85,14 @@ Deno.test("SlackAPI class", async (t) => {
               },
             );
 
-            MockFetch.reset();
+            mf.reset();
           },
         );
 
         await t.step(
           "should return successful response JSON",
           async () => {
-            MockFetch.mock("POST@/api/chat.postMessage", () => {
+            mf.mock("POST@/api/chat.postMessage", () => {
               return new Response(
                 '{"ok":true, "channel": "C123", "message": {}}',
               );
@@ -103,7 +103,7 @@ Deno.test("SlackAPI class", async (t) => {
             assertEquals(res.channel, "C123");
             assertEquals(res.message, {});
 
-            MockFetch.reset();
+            mf.reset();
           },
         );
 
@@ -111,7 +111,7 @@ Deno.test("SlackAPI class", async (t) => {
           await t.step(
             "should return usable Response with payload {'ok': false}",
             async () => {
-              MockFetch.mock("POST@/api/chat.postMessage", () => {
+              mf.mock("POST@/api/chat.postMessage", () => {
                 return new Response('{"ok":false}', {
                   headers: { "Retry-After": "120" },
                 });
@@ -123,7 +123,7 @@ Deno.test("SlackAPI class", async (t) => {
               assertInstanceOf(fullRes, Response);
               assertEquals(fullRes.headers?.get("Retry-After"), "120");
 
-              MockFetch.reset();
+              mf.reset();
             },
           );
         });
@@ -133,7 +133,7 @@ Deno.test("SlackAPI class", async (t) => {
         await t.step(
           "should throw an HttpError if HTTP response status code >= 400",
           async () => {
-            MockFetch.mock("POST@/api/chat.postMessage", () => {
+            mf.mock("POST@/api/chat.postMessage", () => {
               return new Response("ratelimited", {
                 status: 429,
                 headers: { "Retry-After": "120" },
@@ -157,14 +157,14 @@ Deno.test("SlackAPI class", async (t) => {
               },
             );
 
-            MockFetch.reset();
+            mf.reset();
           },
         );
 
         await t.step(
           "should return successful response JSON",
           async () => {
-            MockFetch.mock("POST@/api/chat.postMessage", () => {
+            mf.mock("POST@/api/chat.postMessage", () => {
               return new Response(
                 '{"ok":true, "channel": "C123", "message": {}}',
               );
@@ -178,7 +178,7 @@ Deno.test("SlackAPI class", async (t) => {
             assertEquals(res.channel, "C123");
             assertEquals(res.message, {});
 
-            MockFetch.reset();
+            mf.reset();
           },
         );
 
@@ -186,7 +186,7 @@ Deno.test("SlackAPI class", async (t) => {
           await t.step(
             "should return usable Response with payload {'ok': false}",
             async () => {
-              MockFetch.mock("POST@/api/chat.postMessage", () => {
+              mf.mock("POST@/api/chat.postMessage", () => {
                 return new Response('{"ok":false}', {
                   headers: { "Retry-After": "120" },
                 });
@@ -201,7 +201,7 @@ Deno.test("SlackAPI class", async (t) => {
               assertInstanceOf(fullRes, Response);
               assertEquals(fullRes.headers?.get("Retry-After"), "120");
 
-              MockFetch.reset();
+              mf.reset();
             },
           );
         });
@@ -218,14 +218,14 @@ Deno.test("SlackAPI class", async (t) => {
 
       await t.step("apiCall method", async (t) => {
         await t.step("should call the custom API URL", async () => {
-          MockFetch.mock("POST@/chat.postMessage", (req: Request) => {
+          mf.mock("POST@/chat.postMessage", (req: Request) => {
             assertEquals(req.url, "https://apitown.com/chat.postMessage");
             return new Response('{"ok":true}');
           });
 
           await client.apiCall("chat.postMessage", {});
 
-          MockFetch.reset();
+          mf.reset();
         });
       });
     },
@@ -240,14 +240,14 @@ Deno.test("SlackAPI class", async (t) => {
 
       await t.step("apiCall method", async (t) => {
         await t.step("should call the custom API URL", async () => {
-          MockFetch.mock("POST@/chat.postMessage", (req: Request) => {
+          mf.mock("POST@/chat.postMessage", (req: Request) => {
             assertEquals(req.url, "https://apitown.com/chat.postMessage");
             return new Response('{"ok":true}');
           });
 
           await client.apiCall("chat.postMessage", {});
 
-          MockFetch.reset();
+          mf.reset();
         });
       });
     },
@@ -261,35 +261,35 @@ Deno.test("SlackAPI class", async (t) => {
       await t.step(
         "should provide single level deep api method functions",
         async () => {
-          MockFetch.mock("POST@/api/chat.postMessage", () => {
+          mf.mock("POST@/api/chat.postMessage", () => {
             return new Response('{"ok":true}');
           });
 
           const res = await client.chat.postMessage({ channel: "", text: "" });
           assertEquals(res.ok, true);
 
-          MockFetch.reset();
+          mf.reset();
         },
       );
 
       await t.step(
         "should provide deeply nested api method functions",
         async () => {
-          MockFetch.mock("POST@/api/admin.apps.approved.list", () => {
+          mf.mock("POST@/api/admin.apps.approved.list", () => {
             return new Response('{"ok":true}');
           });
 
           const res = await client.admin.apps.approved.list();
           assertEquals(res.ok, true);
 
-          MockFetch.reset();
+          mf.reset();
         },
       );
 
       await t.step(
         "should allow for typed method calls",
         async () => {
-          MockFetch.mock("POST@/api/apps.datastore.put", () => {
+          mf.mock("POST@/api/apps.datastore.put", () => {
             return new Response('{"ok":true}');
           });
 
@@ -311,14 +311,14 @@ Deno.test("SlackAPI class", async (t) => {
           });
           assertEquals(res.ok, true);
 
-          MockFetch.reset();
+          mf.reset();
         },
       );
 
       await t.step(
         "should allow for typed method calls for external auth",
         async () => {
-          MockFetch.mock("POST@/api/apps.auth.external.get", () => {
+          mf.mock("POST@/api/apps.auth.external.get", () => {
             return new Response('{"ok":true, "external_token": "abcd"}');
           });
           const TestExternalAuthId = {
@@ -327,14 +327,14 @@ Deno.test("SlackAPI class", async (t) => {
           const res = await client.apps.auth.external.get(TestExternalAuthId);
           assertEquals(res.ok, true);
           assertEquals(res.external_token, "abcd");
-          MockFetch.reset();
+          mf.reset();
         },
       );
 
       await t.step(
         "should allow for typed method calls for external auth with force_refresh",
         async () => {
-          MockFetch.mock("POST@/api/apps.auth.external.get", () => {
+          mf.mock("POST@/api/apps.auth.external.get", () => {
             return new Response('{"ok":true, "external_token": "abcd"}');
           });
           const res = await client.apps.auth.external.get({
@@ -343,27 +343,27 @@ Deno.test("SlackAPI class", async (t) => {
           });
           assertEquals(res.ok, true);
           assertEquals(res.external_token, "abcd");
-          MockFetch.reset();
+          mf.reset();
         },
       );
 
       await t.step(
         "should allow for typed method calls for external auth delete method",
         async () => {
-          MockFetch.mock("POST@/api/apps.auth.external.delete", () => {
+          mf.mock("POST@/api/apps.auth.external.delete", () => {
             return new Response('{"ok":true}');
           });
           const res = await client.apps.auth.external.delete({
             external_token_id: "ET12345",
           });
           assertEquals(res.ok, true);
-          MockFetch.reset();
+          mf.reset();
         },
       );
     },
   );
 
-  MockFetch.uninstall();
+  mf.uninstall();
 });
 
 Deno.test("serializeData helper function", async (t) => {
@@ -402,13 +402,13 @@ Deno.test("serializeData helper function", async (t) => {
 });
 
 Deno.test("SlackApi.setSlackApiUrl()", async (t) => {
-  MockFetch.install();
+  mf.install();
   const testClient = SlackAPI("test-token");
 
   await t.step("override url", async () => {
     testClient.setSlackApiUrl("https://something.slack.com/api/");
 
-    MockFetch.mock("POST@/api/chat.postMessage", (req: Request) => {
+    mf.mock("POST@/api/chat.postMessage", (req: Request) => {
       assertEquals(
         req.url,
         "https://something.slack.com/api/chat.postMessage",
@@ -418,13 +418,13 @@ Deno.test("SlackApi.setSlackApiUrl()", async (t) => {
 
     await testClient.apiCall("chat.postMessage", {});
 
-    MockFetch.reset();
+    mf.reset();
   });
 
   await t.step("override url without trailing slash", async () => {
     testClient.setSlackApiUrl("https://something.slack.com/api");
 
-    MockFetch.mock("POST@/api/chat.postMessage", (req: Request) => {
+    mf.mock("POST@/api/chat.postMessage", (req: Request) => {
       assertEquals(
         req.url,
         "https://something.slack.com/api/chat.postMessage",
@@ -434,13 +434,13 @@ Deno.test("SlackApi.setSlackApiUrl()", async (t) => {
 
     await testClient.apiCall("chat.postMessage", {});
 
-    MockFetch.reset();
+    mf.reset();
   });
 
   await t.step("reset url", async () => {
     testClient.setSlackApiUrl("https://slack.com/api/");
 
-    MockFetch.mock("POST@/api/chat.postMessage", (req: Request) => {
+    mf.mock("POST@/api/chat.postMessage", (req: Request) => {
       assertEquals(
         req.url,
         "https://slack.com/api/chat.postMessage",
@@ -450,8 +450,8 @@ Deno.test("SlackApi.setSlackApiUrl()", async (t) => {
 
     await testClient.apiCall("chat.postMessage", {});
 
-    MockFetch.reset();
+    mf.reset();
   });
 
-  MockFetch.uninstall();
+  mf.uninstall();
 });
