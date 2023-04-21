@@ -22,7 +22,7 @@ export const EventTriggerContextData = {
     /**
      * The channel type where the app was mentioned. Can be one of "public", "private", "mpdm" or "im".
      */
-    channel_type: "{{data.channel_type}}", // TODO: validate the various values for this property
+    channel_type: "{{data.channel_type}}",
     /**
      * The event type being invoked. At runtime will always be "slack#/events/app_mentioned".
      */
@@ -53,9 +53,9 @@ export const EventTriggerContextData = {
      */
     channel_name: "{{data.channel_name}}",
     /**
-     * The channel type for the channel that was archived. Can be one of "public", "private", "mpdm" or "im".
+     * The channel type for the channel that was archived. Can be one of "public" or "private".
      */
-    channel_type: "{{data.channel_type}}", // TODO: validate the various values for this property
+    channel_type: "{{data.channel_type}}",
     /**
      * The event type being invoked. At runtime will always be "slack#/events/channel_archived".
      */
@@ -78,9 +78,9 @@ export const EventTriggerContextData = {
      */
     channel_name: "{{data.channel_name}}",
     /**
-     * The channel type for the channel that was created. Can be one of "public", "private", "mpdm" or "im".
+     * The channel type for the channel that was created. Can be one of "public" or "private".
      */
-    channel_type: "{{data.channel_type}}", // TODO: validate the various values for this property
+    channel_type: "{{data.channel_type}}",
     /**
      * A unique UNIX timestamp in seconds indicating when the channel was created.
      */
@@ -107,9 +107,9 @@ export const EventTriggerContextData = {
      */
     channel_name: "{{data.channel_name}}",
     /**
-     * The channel type for the channel that was deleted. Can be one of "public", "private", "mpdm" or "im".
+     * The channel type for the channel that was deleted. Can be one of "public" or "private".
      */
-    channel_type: "{{data.channel_type}}", // TODO: validate the various values for this property
+    channel_type: "{{data.channel_type}}",
     /**
      * The event type being invoked. At runtime will always be "slack#/events/channel_deleted".
      */
@@ -132,9 +132,9 @@ export const EventTriggerContextData = {
      */
     channel_name: "{{data.channel_name}}",
     /**
-     * The channel type for the channel that was renamed. Can be one of "public", "private", "mpdm" or "im".
+     * The channel type for the channel that was renamed. Can be one of "public" or "private".
      */
-    channel_type: "{{data.channel_type}}", // TODO: validate the various values for this property
+    channel_type: "{{data.channel_type}}",
     /**
      * The event type being invoked. At runtime will always be "slack#/events/channel_renamed".
      */
@@ -157,9 +157,9 @@ export const EventTriggerContextData = {
      */
     channel_name: "{{data.channel_name}}",
     /**
-     * The channel type for the channel that was shared. Can be one of "public", "private", "mpdm" or "im".
+     * The channel type for the channel that was shared. Can be one of "public" or "private".
      */
-    channel_type: "{{data.channel_type}}", // TODO: validate the various values for this property
+    channel_type: "{{data.channel_type}}",
     /**
      * A unique identifier for the team or workspace that the channel was shared with.
      */
@@ -182,9 +182,9 @@ export const EventTriggerContextData = {
      */
     channel_name: "{{data.channel_name}}",
     /**
-     * The channel type for the channel that was unarchived. Can be one of "public", "private", "mpdm" or "im".
+     * The channel type for the channel that was unarchived. Can be one of "public" or "private".
      */
-    channel_type: "{{data.channel_type}}", // TODO: validate the various values for this property
+    channel_type: "{{data.channel_type}}",
     /**
      * The event type being invoked. At runtime will always be "slack#/events/channel_unarchived".
      */
@@ -207,9 +207,9 @@ export const EventTriggerContextData = {
      */
     channel_name: "{{data.channel_name}}",
     /**
-     * The channel type for the channel that was unshared. Can be one of "public", "private", "mpdm" or "im".
+     * The channel type for the channel that was unshared. Can be one of "public" or "private".
      */
-    channel_type: "{{data.channel_type}}", // TODO: validate the various values for this property
+    channel_type: "{{data.channel_type}}",
     /**
      * A unique identifier for the team or workspace that the channel was unshared with.
      */
@@ -315,12 +315,10 @@ export const EventTriggerContextData = {
    * A message was sent to a channel. NOTE: a {@link https://api.slack.com/future/triggers/event#filters trigger filter} is required to listen for this event.
    */
   message_posted: {
-    // TODO: not sure about this one. backend code this should exist, but I wasn't able to get it to show up.
-    // Maybe this gets set if an APP posts a message? Needs further testing.
     /**
-     * A unique identifier for the app? huh
+     * A unique identifier for the app that posted the message. WARNING: Only available if posted by an app! If your message event trigger's filter matches a posted message, but it came from a non-app user, and your message event trigger uses this context data, the workflow execution will fail.
      */
-    //app_id: "{{data.app_id}}",
+    app_id: "{{data.app_id}}",
     /**
      * A unique identifier for the channel where message was posted.
      */
@@ -328,7 +326,7 @@ export const EventTriggerContextData = {
     /**
      * The channel type where the message was posted. Can be one of "public", "private", "mpdm" or "im".
      */
-    channel_type: "{{data.channel_type}}", // TODO: validate the various values for this property
+    channel_type: "{{data.channel_type}}",
     /**
      * The event type being invoked. At runtime will always be "slack#/events/message_posted".
      */
@@ -365,7 +363,7 @@ export const EventTriggerContextData = {
     /**
      * The channel type for the channel where the message was pinned. Can be one of "public", "private", "mpdm" or "im".
      */
-    channel_type: "{{data.channel_type}}", // TODO: validate the various values for this property
+    channel_type: "{{data.channel_type}}",
     /**
      * The event type being invoked. At runtime will always be "slack#/events/pin_added".
      */
@@ -394,7 +392,7 @@ export const EventTriggerContextData = {
     /**
      * The channel type for the channel where the message was unpinned. Can be one of "public", "private", "mpdm" or "im".
      */
-    channel_type: "{{data.channel_type}}", // TODO: validate the various values for this property
+    channel_type: "{{data.channel_type}}",
     /**
      * The event type being invoked. At runtime will always be "slack#/events/pin_removed".
      */
@@ -634,7 +632,7 @@ export const EventTriggerContextData = {
   /**
    * An admin approved a {@link https://slack.com/connect Slack Connect} invite to a shared channel.
    */
-  shared_channel_invite_approved: { // TODO: did not test this event out as had trouble tripping the event :(
+  shared_channel_invite_approved: {
     /**
      * A unique identifier for the team or workspace issuing the approval.
      */
@@ -803,7 +801,7 @@ export const EventTriggerContextData = {
   /**
    * An admin declined a {@link https://slack.com/connect Slack Connect} invite to a shared channel.
    */
-  shared_channel_invite_declined: { // TODO: did not test this event out as had trouble tripping the event :(
+  shared_channel_invite_declined: {
     /**
      * A unique identifier for the channel being shared.
      */
@@ -973,7 +971,7 @@ export const EventTriggerContextData = {
    * A user received a {@link https://slack.com/connect Slack Connect} invite to a shared channel.
    * NOTE: this event will only trip when the {@link https://api.slack.com/methods/conversations.inviteShared inviteShared API} is used programmatically!
    */
-  shared_channel_invite_received: { // TODO: did not test this event out as had trouble tripping the event :(
+  shared_channel_invite_received: {
     /**
      * A unique identifier for the channel being shared.
      */
