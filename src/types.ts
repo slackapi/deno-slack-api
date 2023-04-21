@@ -29,10 +29,11 @@ export type BaseResponse = {
     messages?: string[];
   };
 
-  /** Convert to the original `Response`.
+  /**
+   * @description Get the original `Response` object created by `fetch`
    *
    * ```ts
-   * const originalResponse = response.toResponse();
+   * const originalResponse = response.toFetchResponse();
    * console.log(originalResponse.headers);
    * ```
    */
