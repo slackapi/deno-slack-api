@@ -3,7 +3,7 @@ import { SlackAPIOptions } from "./types.ts";
 import { ProxifyAndTypeClient } from "./api-proxy.ts";
 
 export {
-  TriggerData,
+  TriggerContextData,
   TriggerTypes,
 } from "./typed-method-types/workflows/triggers/mod.ts";
 export { TriggerEventTypes } from "./typed-method-types/workflows/triggers/trigger-event-types.ts";

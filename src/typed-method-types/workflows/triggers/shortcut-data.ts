@@ -9,7 +9,7 @@
 /**
  * Link-trigger-specific input values that contain information about the link trigger.
  */
-export const ShortcutTriggerData = {
+export const ShortcutTriggerContextData = {
   /**
    * Only available when trigger is invoked from a {@link https://api.slack.com/future/triggers/link#workflow_buttons Workflow button}! A unique identifier for the action that invoked the trigger.
    */

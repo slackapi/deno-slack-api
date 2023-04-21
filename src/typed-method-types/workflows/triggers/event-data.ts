@@ -2,7 +2,7 @@
  * Event-trigger-specific input values that contain information about the event trigger.
  * Different events will contain different data.
  */
-export const EventTriggerData = {
+export const EventTriggerContextData = {
   /**
    * A message event that mentions the app.
    */
