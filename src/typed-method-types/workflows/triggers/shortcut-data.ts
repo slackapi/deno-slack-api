@@ -3,11 +3,11 @@
  */
 export const ShortcutTriggerContextData = {
   /**
-   * A unique identifier for the action that invoked the trigger. Only available when trigger is invoked from a {@link https://api.slack.com/future/triggers/link#workflow_buttons Workflow button}!
+   * A unique identifier for the action that invoked the trigger. Only available when trigger is invoked from a {@link https://api.slack.com/automation/triggers/link#workflow_buttons Workflow button}!
    */
   action_id: "{{data.action_id}}",
   /**
-   * A unique identifier for the block where the trigger was invoked. Only available when trigger is invoked from a {@link https://api.slack.com/future/triggers/link#workflow_buttons Workflow button}!
+   * A unique identifier for the block where the trigger was invoked. Only available when trigger is invoked from a {@link https://api.slack.com/automation/triggers/link#workflow_buttons Workflow button}!
    */
   block_id: "{{data.block_id}}",
   /**
@@ -19,11 +19,11 @@ export const ShortcutTriggerContextData = {
    */
   channel_id: "{{data.channel_id}}",
   /**
-   * For consumption in functions that involve {@link https://api.slack.com/future/block-events Block Kit} or {@link https://api.slack.com/future/view-events Modal View} interactivity.
+   * For consumption in functions that involve {@link https://api.slack.com/automation/block-events Block Kit} or {@link https://api.slack.com/automation/view-events Modal View} interactivity.
    */
   interactivity: "{{data.interactivity}}",
   /**
-   * Where the trigger was invoked. At runtime, the value will be one of the following strings, depending on the invocation source: `message` when invoked from a message, `bookmark` when invoked from a bookmark, or `button` when invoked from a {@link https://api.slack.com/future/triggers/link#workflow_buttons Workflow Button}.
+   * Where the trigger was invoked. At runtime, the value will be one of the following strings, depending on the invocation source: `message` when invoked from a message, `bookmark` when invoked from a bookmark, or `button` when invoked from a {@link https://api.slack.com/automation/triggers/link#workflow_buttons Workflow Button}.
    */
   location: "{{data.location}}",
   /**

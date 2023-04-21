@@ -312,7 +312,7 @@ export const EventTriggerContextData = {
     user_id: "{{data.user_id}}",
   },
   /**
-   * A message was sent to a channel. NOTE: a {@link https://api.slack.com/future/triggers/event#filters trigger filter} is required to listen for this event.
+   * A message was sent to a channel. NOTE: a {@link https://api.slack.com/automation/triggers/event#filters trigger filter} is required to listen for this event.
    */
   message_posted: {
     /**
@@ -419,7 +419,7 @@ export const EventTriggerContextData = {
      */
     event_type: "{{data.event_type}}",
     /**
-     * A {@link https://api.slack.com/future/types#message-context Message Context} object representing the message being reacted to.
+     * A {@link https://api.slack.com/automation/types#message-context Message Context} object representing the message being reacted to.
      */
     message_context: "{{data.message_context}}",
     /**
