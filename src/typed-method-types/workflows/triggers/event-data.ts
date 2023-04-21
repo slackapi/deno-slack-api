@@ -12,7 +12,7 @@ export const EventTriggerContextData = {
      */
     app_id: "{{data.app_id}}",
     /**
-     * A unique identifier for the channel where the app was mentioned.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} where the app was mentioned.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -36,7 +36,7 @@ export const EventTriggerContextData = {
      */
     text: "{{data.text}}",
     /**
-     * A unique identifier for the Slack user who mentioned the app.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who mentioned the app.
      */
     user_id: "{{data.user_id}}",
   },
@@ -45,7 +45,7 @@ export const EventTriggerContextData = {
    */
   channel_archived: {
     /**
-     * A unique identifier for the channel that was archived.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} that was archived.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -61,7 +61,7 @@ export const EventTriggerContextData = {
      */
     event_type: "{{data.event_type}}",
     /**
-     * A unique identifier for the Slack user who archived the channel.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who archived the channel.
      */
     user_id: "{{data.user_id}}",
   },
@@ -70,7 +70,7 @@ export const EventTriggerContextData = {
    */
   channel_created: {
     /**
-     * A unique identifier for the channel that was created.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} that was created.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -86,7 +86,7 @@ export const EventTriggerContextData = {
      */
     created: "{{data.created}}",
     /**
-     * A unique identifier for the Slack user who created the channel.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who created the channel.
      */
     creator_id: "{{data.creator_id}}",
     /**
@@ -99,7 +99,7 @@ export const EventTriggerContextData = {
    */
   channel_deleted: {
     /**
-     * A unique identifier for the channel that was deleted.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} that was deleted.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -115,7 +115,7 @@ export const EventTriggerContextData = {
      */
     event_type: "{{data.event_type}}",
     /**
-     * A unique identifier for the Slack user who deleted the channel.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who deleted the channel.
      */
     user_id: "{{data.user_id}}",
   },
@@ -124,7 +124,7 @@ export const EventTriggerContextData = {
    */
   channel_renamed: {
     /**
-     * A unique identifier for the channel that was renamed.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} that was renamed.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -140,7 +140,7 @@ export const EventTriggerContextData = {
      */
     event_type: "{{data.event_type}}",
     /**
-     * A unique identifier for the Slack user who renamed the channel.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who renamed the channel.
      */
     user_id: "{{data.user_id}}",
   },
@@ -149,7 +149,7 @@ export const EventTriggerContextData = {
    */
   channel_shared: {
     /**
-     * A unique identifier for the channel that was shared.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} that was shared.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -174,7 +174,7 @@ export const EventTriggerContextData = {
    */
   channel_unarchived: {
     /**
-     * A unique identifier for the channel that was unarchived.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} that was unarchived.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -190,7 +190,7 @@ export const EventTriggerContextData = {
      */
     event_type: "{{data.event_type}}",
     /**
-     * A unique identifier for the Slack user who unarchived the channel.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who unarchived the channel.
      */
     user_id: "{{data.user_id}}",
   },
@@ -199,7 +199,7 @@ export const EventTriggerContextData = {
    */
   channel_unshared: {
     /**
-     * A unique identifier for the channel that was unshared.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} that was unshared.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -245,7 +245,7 @@ export const EventTriggerContextData = {
      */
     event_type: "{{data.event_type}}",
     /**
-     * A unique identifier for the Slack user whose DND status was updated.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} whose DND status was updated.
      */
     user_id: "{{data.user_id}}",
   },
@@ -291,7 +291,7 @@ export const EventTriggerContextData = {
      */
     app_id: "{{data.app_id}}",
     /**
-     * A unique identifier for the channel where the metadata was posted.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} where the metadata was posted.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -307,7 +307,7 @@ export const EventTriggerContextData = {
      */
     metadata: "{{data.metadata}}",
     /**
-     * A unique identifier for the Slack user who posted the metadata-containing message.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who posted the metadata-containing message.
      */
     user_id: "{{data.user_id}}",
   },
@@ -320,7 +320,7 @@ export const EventTriggerContextData = {
      */
     app_id: "{{data.app_id}}",
     /**
-     * A unique identifier for the channel where message was posted.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} where message was posted.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -344,7 +344,7 @@ export const EventTriggerContextData = {
      */
     thread_ts: "{{data.thread_ts}}",
     /**
-     * A unique identifier for the Slack user who posted the message.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who posted the message.
      */
     user_id: "{{data.user_id}}",
   },
@@ -353,7 +353,7 @@ export const EventTriggerContextData = {
    */
   pin_added: {
     /**
-     * A unique identifier for the channel where the message was pinned.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} where the message was pinned.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -373,7 +373,7 @@ export const EventTriggerContextData = {
      */
     message_ts: "{{data.message_ts}}",
     /**
-     * A unique identifier for the Slack user who pinned the message.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who pinned the message.
      */
     user_id: "{{data.user_id}}",
   },
@@ -382,7 +382,7 @@ export const EventTriggerContextData = {
    */
   pin_removed: {
     /**
-     * A unique identifier for the channel where the message was unpinned.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} where the message was unpinned.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -402,7 +402,7 @@ export const EventTriggerContextData = {
      */
     message_ts: "{{data.message_ts}}",
     /**
-     * A unique identifier for the Slack user who unpinned the message.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who unpinned the message.
      */
     user_id: "{{data.user_id}}",
   },
@@ -411,7 +411,7 @@ export const EventTriggerContextData = {
    */
   reaction_added: {
     /**
-     * A unique identifier for the channel where the emoji reaction was added to.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} where the emoji reaction was added to.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -431,7 +431,7 @@ export const EventTriggerContextData = {
      */
     reaction: "{{data.reaction}}",
     /**
-     * A unique identifier for the Slack user who reacted with the emoji.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who reacted with the emoji.
      */
     user_id: "{{data.user_id}}",
   },
@@ -440,7 +440,7 @@ export const EventTriggerContextData = {
    */
   reaction_removed: {
     /**
-     * A unique identifier for the channel where the emoji reaction was removed from.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} where the emoji reaction was removed from.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -456,7 +456,7 @@ export const EventTriggerContextData = {
      */
     reaction: "{{data.reaction}}",
     /**
-     * A unique identifier for the Slack user who removed the emoji reaction.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who removed the emoji reaction.
      */
     user_id: "{{data.user_id}}",
   },
@@ -473,7 +473,7 @@ export const EventTriggerContextData = {
        */
       display_name: "{{data.accepting_user.display_name}}",
       /**
-       * A unique identifier for the user being invited.
+       * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} being invited.
        */
       id: "{{data.accepting_user.id}}",
       /**
@@ -507,7 +507,7 @@ export const EventTriggerContextData = {
      */
     approval_required: "{{data.approval_required}}",
     /**
-     * A unique identifier for the channel being shared.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} being shared.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -582,7 +582,7 @@ export const EventTriggerContextData = {
          */
         display_name: "{{data.invite.inviting_user.display_name}}",
         /**
-         * A unique identifier for the user that sent the invite.
+         * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} that sent the invite.
          */
         id: "{{data.invite.inviting_user.id}}",
         /**
@@ -616,9 +616,9 @@ export const EventTriggerContextData = {
        */
       recipient_email: "{{data.invite.recipient_email}}",
       /**
-       * A unique identifier for the user that was invited.
+       * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} that was invited.
        */
-      recipient_user_id: "{{data.invite.recipient_email}}",
+      recipient_user_id: "{{data.invite.recipient_user_id}}",
       /**
        * @ignore
        */
@@ -646,7 +646,7 @@ export const EventTriggerContextData = {
        */
       display_name: "{{data.approving_user.display_name}}",
       /**
-       * A unique identifier for the approving user.
+       * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} approving the invite.
        */
       id: "{{data.approving_user.id}}",
       /**
@@ -676,7 +676,7 @@ export const EventTriggerContextData = {
       toJSON: "{{data.approving_user}}",
     },
     /**
-     * A unique identifier for the channel being shared.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} being shared.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -751,7 +751,7 @@ export const EventTriggerContextData = {
          */
         display_name: "{{data.invite.inviting_user.display_name}}",
         /**
-         * A unique identifier for the user that sent the invite.
+         * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} that sent the invite.
          */
         id: "{{data.invite.inviting_user.id}}",
         /**
@@ -785,9 +785,9 @@ export const EventTriggerContextData = {
        */
       recipient_email: "{{data.invite.recipient_email}}",
       /**
-       * A unique identifier for the user that was invited.
+       * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} that was invited.
        */
-      recipient_user_id: "{{data.invite.recipient_email}}",
+      recipient_user_id: "{{data.invite.recipient_user_id}}",
       /**
        * @ignore
        */
@@ -803,7 +803,7 @@ export const EventTriggerContextData = {
    */
   shared_channel_invite_declined: {
     /**
-     * A unique identifier for the channel being shared.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} being shared.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -827,7 +827,7 @@ export const EventTriggerContextData = {
        */
       display_name: "{{data.declining_user.display_name}}",
       /**
-       * A unique identifier for the declining user.
+       * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} declining the invite.
        */
       id: "{{data.declining_user.id}}",
       /**
@@ -920,7 +920,7 @@ export const EventTriggerContextData = {
          */
         display_name: "{{data.invite.inviting_user.display_name}}",
         /**
-         * A unique identifier for the user that sent the invite.
+         * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} that sent the invite.
          */
         id: "{{data.invite.inviting_user.id}}",
         /**
@@ -954,9 +954,9 @@ export const EventTriggerContextData = {
        */
       recipient_email: "{{data.invite.recipient_email}}",
       /**
-       * A unique identifier for the user that was invited.
+       * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} that was invited.
        */
-      recipient_user_id: "{{data.invite.recipient_email}}",
+      recipient_user_id: "{{data.invite.recipient_user_id}}",
       /**
        * @ignore
        */
@@ -973,7 +973,7 @@ export const EventTriggerContextData = {
    */
   shared_channel_invite_received: {
     /**
-     * A unique identifier for the channel being shared.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} being shared.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -1048,7 +1048,7 @@ export const EventTriggerContextData = {
          */
         display_name: "{{data.invite.inviting_user.display_name}}",
         /**
-         * A unique identifier for the user that sent the invite.
+         * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} that sent the invite.
          */
         id: "{{data.invite.inviting_user.id}}",
         /**
@@ -1082,9 +1082,9 @@ export const EventTriggerContextData = {
        */
       recipient_email: "{{data.invite.recipient_email}}",
       /**
-       * A unique identifier for the user that was invited.
+       * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} that was invited.
        */
-      recipient_user_id: "{{data.invite.recipient_email}}",
+      recipient_user_id: "{{data.invite.recipient_user_id}}",
       /**
        * @ignore
        */
@@ -1096,7 +1096,7 @@ export const EventTriggerContextData = {
    */
   user_joined_channel: {
     /**
-     * A unique identifier for the channel that was joined.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} that was joined.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -1108,11 +1108,11 @@ export const EventTriggerContextData = {
      */
     event_type: "{{data.event_type}}",
     /**
-     * A unique identifier for the Slack user who invited the member to the channel.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who invited the member to the channel.
      */
     inviter_id: "{{data.inviter_id}}",
     /**
-     * A unique identifier for the Slack user who joined the channel.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who joined the channel.
      */
     user_id: "{{data.user_id}}",
   },
@@ -1133,7 +1133,7 @@ export const EventTriggerContextData = {
        */
       display_name: "{{data.user.display_name}}",
       /**
-       * A unique identifier for the Slack user who joined the workspace or team.
+       * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who joined the workspace or team.
        */
       id: "{{data.user.id}}",
       /**
@@ -1168,7 +1168,7 @@ export const EventTriggerContextData = {
    */
   user_left_channel: {
     /**
-     * A unique identifier for the channel that was left.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} that was left.
      */
     channel_id: "{{data.channel_id}}",
     /**
@@ -1180,7 +1180,7 @@ export const EventTriggerContextData = {
      */
     event_type: "{{data.event_type}}",
     /**
-     * A unique identifier for the Slack user who left the channel.
+     * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who left the channel.
      */
     user_id: "{{data.user_id}}",
   },

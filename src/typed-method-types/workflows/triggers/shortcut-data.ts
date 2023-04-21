@@ -15,7 +15,7 @@ export const ShortcutTriggerContextData = {
    */
   bookmark_id: "{{data.bookmark_id}}",
   /**
-   * A unique identifier for the conversation where the trigger was invoked. Only available when trigger is invoked from a channel, DM or MPDM!
+   * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} where the trigger was invoked. Only available when trigger is invoked from a channel, DM or MPDM!
    */
   channel_id: "{{data.channel_id}}",
   /**
@@ -31,7 +31,7 @@ export const ShortcutTriggerContextData = {
    */
   message_ts: "{{data.message_ts}}",
   /**
-   * A unique identifier for the Slack user who invoked the trigger.
+   * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who invoked the trigger.
    */
   user_id: "{{data.user_id}}",
 } as const;
