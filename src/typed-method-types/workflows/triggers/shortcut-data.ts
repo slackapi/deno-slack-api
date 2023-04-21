@@ -3,19 +3,19 @@
  */
 export const ShortcutTriggerContextData = {
   /**
-   * Only available when trigger is invoked from a {@link https://api.slack.com/future/triggers/link#workflow_buttons Workflow button}! A unique identifier for the action that invoked the trigger.
+   * A unique identifier for the action that invoked the trigger. Only available when trigger is invoked from a {@link https://api.slack.com/future/triggers/link#workflow_buttons Workflow button}!
    */
   action_id: "{{data.action_id}}",
   /**
-   * Only available when trigger is invoked from a {@link https://api.slack.com/future/triggers/link#workflow_buttons Workflow button}! A unique identifier for the block where the trigger was invoked.
+   * A unique identifier for the block where the trigger was invoked. Only available when trigger is invoked from a {@link https://api.slack.com/future/triggers/link#workflow_buttons Workflow button}!
    */
   block_id: "{{data.block_id}}",
   /**
-   * Only available when trigger is invoked from a channel's bookmarks bar! A unique identifier for the bookmark where the trigger was invoked.
+   * A unique identifier for the bookmark where the trigger was invoked. Only available when trigger is invoked from a channel's bookmarks bar!
    */
   bookmark_id: "{{data.bookmark_id}}",
   /**
-   * Only available when trigger is invoked from a channel, DM or MPDM! A unique identifier for the conversation where the trigger was invoked.
+   * A unique identifier for the conversation where the trigger was invoked. Only available when trigger is invoked from a channel, DM or MPDM!
    */
   channel_id: "{{data.channel_id}}",
   /**
@@ -27,7 +27,7 @@ export const ShortcutTriggerContextData = {
    */
   location: "{{data.location}}",
   /**
-   * Only available when trigger is invoked from a channel, DM or MPDM! A unique UNIX timestamp in seconds indicating when the trigger-invoking message was sent.
+   * A unique UNIX timestamp in seconds indicating when the trigger-invoking message was sent. Only available when trigger is invoked from a channel, DM or MPDM!
    */
   message_ts: "{{data.message_ts}}",
   /**

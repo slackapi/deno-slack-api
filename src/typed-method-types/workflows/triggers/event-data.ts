@@ -258,19 +258,19 @@ export const EventTriggerContextData = {
      */
     event_type: "{{data.event_type}}",
     /**
-     * Only applies when an emoji was added to the workspace! The name of the newly-added emoji.
+     * The name of the newly-added emoji. Only applies when an emoji was added to the workspace!
      */
     name: "{{data.name}}",
     /**
-     * Only applies when one or more emojis were removed from the workspace! The names of the removed emojis. At runtime this value will always be an array.
+     * The names of the removed emojis. At runtime this value will always be an array. Only applies when one or more emojis were removed from the workspace!
      */
     names: "{{data.names}}",
     /**
-     * Only applies when an emoji was renamed in the workspace! The new name of the renamed emoji.
+     * The new name of the renamed emoji. Only applies when an emoji was renamed in the workspace!
      */
     new_name: "{{data.new_name}}",
     /**
-     * Only applies when an emoji was renamed in the workspace! The old name of the renamed emoji.
+     * The old name of the renamed emoji. Only applies when an emoji was renamed in the workspace!
      */
     old_name: "{{data.old_name}}",
     /**
@@ -278,7 +278,7 @@ export const EventTriggerContextData = {
      */
     subtype: "{{data.subtype}}",
     /**
-     * Only applies when an emoji was added to or renamed in the workspace! The URL of the emoji picture.
+     * The URL of the emoji picture. Only applies when an emoji was added to or renamed in the workspace!
      */
     value: "{{data.value}}",
   },
