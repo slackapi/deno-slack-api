@@ -27,7 +27,7 @@ import {
 } from "./webhook.ts";
 import { ShortcutTriggerContextData } from "./shortcut-data.ts";
 import { ScheduledTriggerContextData } from "./scheduled-data.ts";
-import { EventTriggerContextData } from "./event-data.ts";
+import { EventTriggerContextData } from "./event-data/mod.ts";
 
 /**
  * @enum {string} Enumerates valid trigger types.
