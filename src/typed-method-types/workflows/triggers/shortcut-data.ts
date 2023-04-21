@@ -1,12 +1,4 @@
 /**
- * Some notes on testing shortcut triggers in various contexts:
- * - when a shortcut trigger is tripped from a bookmark, available fields are: "channel_id":"C1234","location":"bookmark","bookmark_id":"Bk1234"
- * - when tripped from a message trigger URL unfurl, available fields are: "channel_id":"C014MMA0WCA","message_ts":"1681326425.481799","location":"message"
- *   - if it is tripped from a message within a DM, the channel_id will be "U12345ABC" instead of "C12345ABC"
- * - when tripped from a workflow button, available fields are: "channel_id":"C014MMA0WCA","message_ts":"1681333583.837279","location":"button","action_id":"yVN","block_id":"U07ci"
- */
-
-/**
  * Link-trigger-specific input values that contain information about the link trigger.
  */
 export const ShortcutTriggerContextData = {
