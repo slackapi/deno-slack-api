@@ -1,3 +1,33 @@
+const Interactor = {
+  /**
+   * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who invoked the trigger.
+   */
+  id: "{{data.interactivity.interactor.id}}",
+  /**
+   * This is a secret! Don't tell anyone!
+  secret: "{{data.interactivity.interactor.secret}}",
+   */
+} as const;
+
+Object.defineProperty(Interactor, "toJSON", {
+  value: () => "{{data.interactivity.interactor}}",
+});
+
+const Interactivity = {
+  /**
+   * A unique identifier to the particular user interaction.
+   */
+  interactivity_pointer: "{{data.interactivity.interactivity_pointer}}",
+  /**
+   * Represents the user who interacted with the trigger.
+   */
+  interactor: Interactor,
+} as const;
+
+Object.defineProperty(Interactivity, "toJSON", {
+  value: () => "{{data.interactivity}}",
+});
+
 /**
  * Link-trigger-specific input values that contain information about the link trigger.
  */
@@ -19,7 +49,7 @@ export const ShortcutTriggerContextData = {
    */
   channel_id: "{{data.channel_id}}",
   /**
-   * For consumption in functions that involve {@link https://api.slack.com/automation/block-events Block Kit} or {@link https://api.slack.com/automation/view-events Modal View} interactivity.
+   * An object that contains context about the particular interactivity event that tripped the trigger. For consumption in functions that involve {@link https://api.slack.com/automation/block-events Block Kit} or {@link https://api.slack.com/automation/view-events Modal View} interactivity.
    */
   interactivity: "{{data.interactivity}}",
   /**
