@@ -1,6 +1,6 @@
-import { invite } from "./common-objects/shared_channel_invite.ts";
+import { Invite } from "./common-objects/shared_channel_invite.ts";
 
-const accepting_user = {
+const AcceptingUser = {
   /**
    * The display name of the invited user.
    */
@@ -32,7 +32,7 @@ const accepting_user = {
   timezone: "{{data.accepting_user.timezone}}",
 } as const;
 
-Object.defineProperty(accepting_user, "toJSON", {
+Object.defineProperty(AcceptingUser, "toJSON", {
   value: () => "{{data.accepting_user}}",
 });
 
@@ -40,7 +40,7 @@ export const SharedChannelInviteAccepted = {
   /**
    * Object containing details for the invitee.
    */
-  accepting_user,
+  accepting_user: AcceptingUser,
   /**
    * Whether the invite required administrator approval or not.
    */
@@ -64,7 +64,7 @@ export const SharedChannelInviteAccepted = {
   /**
    * Details for the invite itself.
    */
-  invite,
+  invite: Invite,
   /**
    * An array of objects containing details for all of the teams or workspaces present in the channel being shared.
    */

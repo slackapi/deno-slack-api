@@ -4,7 +4,7 @@ Object.defineProperty(icon, "toJSON", {
   value: () => "{{data.invite.inviting_team.icon}}",
 });
 
-const inviting_team = {
+const InvitingTeam = {
   /**
    * A UNIX timestamp in seconds indicating when the inviting team or workspace was created.
    */
@@ -31,11 +31,11 @@ const inviting_team = {
   name: "{{data.invite.inviting_team.name}}",
 } as const;
 
-Object.defineProperty(inviting_team, "toJSON", {
+Object.defineProperty(InvitingTeam, "toJSON", {
   value: () => "{{data.invite.inviting_team}}",
 });
 
-const inviting_user = {
+const InvitingUser = {
   /**
    * The display name of the inviting user.
    */
@@ -67,11 +67,11 @@ const inviting_user = {
   timezone: "{{data.invite.inviting_user.timezone}}",
 } as const;
 
-Object.defineProperty(inviting_user, "toJSON", {
+Object.defineProperty(InvitingUser, "toJSON", {
   value: () => "{{data.invite.inviting_user}}",
 });
 
-export const invite = {
+export const Invite = {
   /**
    * A UNIX timestamp in seconds indicating when the invite was issued.
    */
@@ -87,11 +87,11 @@ export const invite = {
   /**
    * Object containing details about the team or workspace being invited to.
    */
-  inviting_team,
+  inviting_team: InvitingTeam,
   /**
    * Object containing details for the user that sent the invite.
    */
-  inviting_user,
+  inviting_user: InvitingUser,
   /**
    * The invitee's email address.
    */
@@ -102,4 +102,4 @@ export const invite = {
   recipient_user_id: "{{data.invite.recipient_user_id}}",
 } as const;
 
-Object.defineProperty(invite, "toJSON", { value: () => "{{data.invite}}" });
+Object.defineProperty(Invite, "toJSON", { value: () => "{{data.invite}}" });

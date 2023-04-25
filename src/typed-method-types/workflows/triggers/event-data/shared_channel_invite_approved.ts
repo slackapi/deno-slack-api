@@ -1,6 +1,6 @@
-import { invite } from "./common-objects/shared_channel_invite.ts";
+import { Invite } from "./common-objects/shared_channel_invite.ts";
 
-const approving_user = {
+const ApprovingUser = {
   /**
    * The display name of the approving user.
    */
@@ -32,7 +32,7 @@ const approving_user = {
   timezone: "{{data.approving_user.timezone}}",
 } as const;
 
-Object.defineProperty(approving_user, "toJSON", {
+Object.defineProperty(ApprovingUser, "toJSON", {
   value: () => "{{data.approving_user}}",
 });
 
@@ -44,7 +44,7 @@ export const SharedChannelInviteApproved = {
   /**
    * Object containing details for the administrator approving the invite.
    */
-  approving_user,
+  approving_user: ApprovingUser,
   /**
    * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} being shared.
    */
@@ -64,7 +64,7 @@ export const SharedChannelInviteApproved = {
   /**
    * Details for the invite itself.
    */
-  invite,
+  invite: Invite,
   /**
    * An array of objects containing details for all of the teams or workspaces present in the channel being shared.
    */

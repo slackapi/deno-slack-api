@@ -1,6 +1,6 @@
-import { invite } from "./common-objects/shared_channel_invite.ts";
+import { Invite } from "./common-objects/shared_channel_invite.ts";
 
-const declining_user = {
+const DecliningUser = {
   /**
    * The display name of the declining user.
    */
@@ -32,7 +32,7 @@ const declining_user = {
   timezone: "{{data.declining_user.timezone}}",
 } as const;
 
-Object.defineProperty(declining_user, "toJSON", {
+Object.defineProperty(DecliningUser, "toJSON", {
   value: () => "{{data.declining_user}}",
 });
 
@@ -56,7 +56,7 @@ export const SharedChannelInviteDeclined = {
   /**
    * Object containing details for the administrator declining the invite.
    */
-  declining_user,
+  declining_user: DecliningUser,
   /**
    * The event type being invoked. At runtime will always be "slack#/events/shared_channel_invite_declined".
    */
@@ -64,7 +64,7 @@ export const SharedChannelInviteDeclined = {
   /**
    * Details for the invite itself.
    */
-  invite,
+  invite: Invite,
   /**
    * An array of objects containing details for all of the teams or workspaces present in the channel being shared.
    */

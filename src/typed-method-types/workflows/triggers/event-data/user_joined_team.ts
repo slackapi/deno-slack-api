@@ -1,4 +1,4 @@
-const user = {
+const User = {
   /**
    * The display name of the user who joined, as they chose upon registering to the workspace.
    */
@@ -30,7 +30,7 @@ const user = {
   timezone: "{{data.user.timezone}}",
 } as const;
 
-Object.defineProperty(user, "toJSON", { value: () => "{{data.user}}" });
+Object.defineProperty(User, "toJSON", { value: () => "{{data.user}}" });
 
 export const UserJoinedTeam = {
   /**
@@ -40,5 +40,5 @@ export const UserJoinedTeam = {
   /**
    * An object containing the user's details.
    */
-  user,
+  user: User,
 } as const;

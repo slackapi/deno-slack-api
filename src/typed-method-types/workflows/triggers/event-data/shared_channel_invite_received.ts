@@ -1,4 +1,4 @@
-import { invite } from "./common-objects/shared_channel_invite.ts";
+import { Invite } from "./common-objects/shared_channel_invite.ts";
 
 export const SharedChannelInviteReceived = {
   /**
@@ -20,5 +20,5 @@ export const SharedChannelInviteReceived = {
   /**
    * Details for the invite itself.
    */
-  invite,
+  invite: Invite,
 } as const;
