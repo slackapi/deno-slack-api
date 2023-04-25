@@ -11,7 +11,7 @@ Deno.test("APIProxy", async () => {
   };
 
   const apiCallHandler = (_method: string, _payload?: SlackAPIMethodArgs) => {
-    return Promise.resolve({ ok: true });
+    return Promise.resolve({ ok: true, toFetchResponse: () => new Response() });
   };
   const apiCallHandlerSpy = spy(apiCallHandler);
 

@@ -1,11 +1,13 @@
 import { TypedSlackAPIMethodsType } from "./typed-method-types/mod.ts";
 import { SlackAPIMethodsType } from "./generated/method-types/mod.ts";
+
 export type { DatastoreItem } from "./typed-method-types/apps.ts";
 
 export type {
   ValidTriggerTypes as Trigger,
 } from "./typed-method-types/workflows/triggers/mod.ts";
 
+// TODO: [brk-chg] remove this in favor of `Response`
 export type BaseResponse = {
   /**
    * @description `true` if the response from the server was successful, `false` otherwise.
@@ -26,6 +28,17 @@ export type BaseResponse = {
     warnings?: string[];
     messages?: string[];
   };
+
+  /**
+   * @description Get the original `Response` object created by `fetch`
+   *
+   * ```ts
+   * const originalResponse = response.toFetchResponse();
+   * console.log(originalResponse.headers);
+   * ```
+   */
+  toFetchResponse(): Response;
+
   // deno-lint-ignore no-explicit-any
   [otherOptions: string]: any;
 };
@@ -41,11 +54,13 @@ export type BaseSlackClient = {
   response: BaseClientResponse;
 };
 
+// TODO: [brk-chg] return a `Promise<Response>` object
 type BaseClientCall = (
   method: string,
   data?: SlackAPIMethodArgs,
 ) => Promise<BaseResponse>;
 
+// TODO: [brk-chg] return a `Promise<Response>` object
 type BaseClientResponse = (
   url: string,
   data: Record<string, unknown>,

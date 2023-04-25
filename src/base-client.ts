@@ -4,6 +4,7 @@ import {
   SlackAPIMethodArgs,
   SlackAPIOptions,
 } from "./types.ts";
+import { createHttpError, HttpError } from "./deps.ts";
 
 export class BaseSlackAPIClient implements BaseSlackClient {
   #token?: string;
@@ -26,6 +27,7 @@ export class BaseSlackAPIClient implements BaseSlackClient {
     return this;
   }
 
+  // TODO: [brk-chg] return the `Promise<Response>` object
   async apiCall(
     method: string,
     data: SlackAPIMethodArgs = {},
@@ -35,7 +37,7 @@ export class BaseSlackAPIClient implements BaseSlackClient {
     const body = serializeData(data);
 
     const token = data.token || this.#token || "";
-    const resp = await fetch(url, {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -43,29 +45,46 @@ export class BaseSlackAPIClient implements BaseSlackClient {
       },
       body,
     });
-    if (!resp.ok) {
-      const text = await resp.text();
-      throw Error(`${resp.status}: ${text}`);
+    if (!response.ok) {
+      throw await this.createHttpError(response);
     }
-    return await resp.json();
+    return await this.createBaseResponse(response);
   }
 
+  // TODO: [brk-chg] return a `Promise<Response>` object
   async response(
     url: string,
     data: Record<string, unknown>,
   ): Promise<BaseResponse> {
-    const resp = await fetch(url, {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
-    if (!resp.ok) {
-      const text = await resp.text();
-      throw Error(`${resp.status}: ${text}`);
+    if (!response.ok) {
+      throw await this.createHttpError(response);
     }
-    return await resp.json();
+    return await this.createBaseResponse(response);
+  }
+
+  private async createHttpError(response: Response): Promise<HttpError> {
+    const text = await response.text();
+    return createHttpError(
+      response.status,
+      `${response.status}: ${text}`,
+      {
+        headers: response.headers,
+      },
+    );
+  }
+
+  private async createBaseResponse(response: Response): Promise<BaseResponse> {
+    return {
+      toFetchResponse: () => response,
+      ...await response.json(),
+    };
   }
 }
 
