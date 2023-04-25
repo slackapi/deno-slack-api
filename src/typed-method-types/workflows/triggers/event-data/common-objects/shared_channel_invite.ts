@@ -1,6 +1,6 @@
-const icon = {} as const;
+const Icon = {} as const;
 
-Object.defineProperty(icon, "toJSON", {
+Object.defineProperty(Icon, "toJSON", {
   value: () => "{{data.invite.inviting_team.icon}}",
 });
 
@@ -16,7 +16,7 @@ const InvitingTeam = {
   /**
    * An object containing CDN-backed slack.com URLs for the inviting team's icon.
    */
-  icon,
+  icon: Icon,
   /**
    * A unique identifier for the team or workspace being invited to.
    */
