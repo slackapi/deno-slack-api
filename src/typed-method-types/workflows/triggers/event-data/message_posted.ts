@@ -1,6 +1,6 @@
 export const MessagePosted = {
   /**
-   * A unique identifier for the app that posted the message. WARNING: Only available if posted by an app! If your message event trigger's filter matches a posted message, but it came from a non-app user, and your message event trigger uses this context data, the workflow execution will fail.
+   * A unique identifier for the app that posted the message. Only available when message is posted by an app.
    */
   app_id: "{{data.app_id}}",
   /**
