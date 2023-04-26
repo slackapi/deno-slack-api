@@ -6,7 +6,7 @@ import { ChannelRenamed } from "./channel_renamed.ts";
 import { ChannelShared } from "./channel_shared.ts";
 import { ChannelUnarchived } from "./channel_unarchived.ts";
 import { ChannelUnshared } from "./channel_unshared.ts";
-import { DNDUpdated } from "./dnd_updated.ts";
+import { DndUpdated } from "./dnd_updated.ts";
 import { EmojiChanged } from "./emoji_changed.ts";
 import { MessageMetadataPosted } from "./message_metadata_posted.ts";
 import { MessagePosted } from "./message_posted.ts";
@@ -62,7 +62,7 @@ export const EventTriggerContextData = {
   /**
    * Do Not Disturb settings updated for a member.
    */
-  DNDUpdated,
+  DndUpdated,
   /**
    * An emoji was added, removed or renamed in the workspace.
    */

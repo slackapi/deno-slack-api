@@ -51,7 +51,7 @@ export const ShortcutTriggerContextData = {
   /**
    * An object that contains context about the particular interactivity event that tripped the trigger. For consumption in functions that involve {@link https://api.slack.com/automation/block-events Block Kit} or {@link https://api.slack.com/automation/view-events Modal View} interactivity.
    */
-  interactivity: "{{data.interactivity}}",
+  interactivity: Interactivity,
   /**
    * Where the trigger was invoked. At runtime, the value will be one of the following strings, depending on the invocation source: `message` when invoked from a message, `bookmark` when invoked from a bookmark, or `button` when invoked from a {@link https://api.slack.com/automation/triggers/link#workflow_buttons Workflow Button}.
    */
