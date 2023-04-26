@@ -71,7 +71,7 @@ export const TriggerEventTypes = {
   /**
    * A shared channel invite was accepted.
    */
-  SharedChannelInviteAccepted: "slack#/events/shared_cha nnel_invite_accepted",
+  SharedChannelInviteAccepted: "slack#/events/shared_channel_invite_accepted",
   /**
    * A shared channel invite was approved.
    */
