@@ -25,12 +25,48 @@ import {
   WebhookTriggerResponse,
   WebhookTriggerResponseObject,
 } from "./webhook.ts";
+import { ShortcutTriggerContextData } from "./shortcut-data.ts";
+import { ScheduledTriggerContextData } from "./scheduled-data.ts";
+import { EventTriggerContextData } from "./event-data/mod.ts";
 
+/**
+ * @enum {string} Enumerates valid trigger types.
+ */
 export const TriggerTypes = {
+  /**
+   * An event trigger type specifier, for invoking a workflow when a specific event happens in Slack.
+   */
   Event: "event",
+  /**
+   * A scheduled trigger type specifier, for invoking a workflow at a specific time interval.
+   */
   Scheduled: "scheduled",
+  /**
+   * A shortcut, or link, trigger type specifier, for invoking a workflow from a conversation in Slack.
+   */
   Shortcut: "shortcut",
+  /**
+   * A webhook trigger type specifier, for invoking a workflow when a specific URL receives an HTTP POST request.
+   */
   Webhook: "webhook",
+} as const;
+
+/**
+ * Data available on different triggers for use in workflow inputs.
+ */
+export const TriggerContextData = {
+  /**
+   * Data available on scheduled triggers for use in workflow inputs.
+   */
+  Scheduled: ScheduledTriggerContextData,
+  /**
+   * Data available on shortcut, or link, triggers for use in workflow inputs.
+   */
+  Shortcut: ShortcutTriggerContextData,
+  /**
+   * Data available from the variety of different eventr triggers for use in workflow inputs.
+   */
+  Event: EventTriggerContextData,
 } as const;
 
 // Set defaults for any direct uses of this type
