@@ -1,4 +1,4 @@
-const DNDStatus = {
+const DndStatus = {
   /**
    * Whether Do Not Disturb is enabled or not.
    */
@@ -13,15 +13,15 @@ const DNDStatus = {
   next_dnd_start_ts: "{{data.dnd_status.next_dnd_start_ts}}",
 };
 
-Object.defineProperty(DNDStatus, "toJSON", {
+Object.defineProperty(DndStatus, "toJSON", {
   value: () => "{{data.dnd_status}}",
 });
 
-export const DNDUpdated = {
+export const DndUpdated = {
   /**
    * Do Not Disturb object containing all DND-related data.
    */
-  dnd_status: DNDStatus,
+  dnd_status: DndStatus,
   /**
    * The event type being invoked. At runtime will always be "slack#/events/dnd_updated".
    */
