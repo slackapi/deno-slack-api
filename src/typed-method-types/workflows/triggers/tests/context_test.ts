@@ -1,5 +1,13 @@
 import { assertEquals } from "../../../../dev_deps.ts";
-import { TriggerContextData } from "../mod.ts";
+import { TriggerContext, TriggerContextData } from "../mod.ts";
+
+Deno.test("TriggerContext surfaces appropriate shared context", () => {
+  assertEquals(TriggerContext.EnterpriseId, "{{enterprise_id}}");
+  assertEquals(TriggerContext.EventId, "{{event_id}}");
+  assertEquals(TriggerContext.EventTimestamp, "{{event_timestamp}}");
+  assertEquals(TriggerContext.TeamId, "{{team_id}}");
+  assertEquals(TriggerContext.Type, "{{type}}");
+});
 
 Deno.test("TriggerContextData Objects allow property access or string references", async (t) => {
   const { Shortcut, Event } = TriggerContextData;

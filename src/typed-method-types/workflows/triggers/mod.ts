@@ -52,7 +52,7 @@ export const TriggerTypes = {
 } as const;
 
 /**
- * Data available on different triggers for use in workflow inputs.
+ * Data available based on the type of trigger for use in workflow inputs.
  */
 export const TriggerContextData = {
   /**
@@ -64,9 +64,39 @@ export const TriggerContextData = {
    */
   Shortcut: ShortcutTriggerContextData,
   /**
-   * Data available from the variety of different eventr triggers for use in workflow inputs.
+   * Data available from the variety of different event triggers for use in workflow inputs.
    */
   Event: EventTriggerContextData,
+} as const;
+
+/**
+ * Data available on triggers for use in workflow inputs.
+ */
+export const TriggerContext = {
+  /**
+   * A unique identifier for the team or workspace where the trigger was invoked.
+   */
+  TeamId: "{{team_id}}",
+  /**
+   * A unique identifier for the enterprise where the trigger was invoked. Only available when trigger is invoked within an enterprise.
+   */
+  EnterpriseId: "{{enterprise_id}}",
+  /**
+   * A unique identifier for the event that occurred. Only available when trigger is invoked from an event.
+   */
+  EventId: "{{event_id}}",
+  /**
+   * A UNIX timestamp representing the time the event occurred.
+   */
+  EventTimestamp: "{{event_timestamp}}",
+  /**
+   * The type of trigger, this value will match the type value passed to the trigger.
+   */
+  Type: "{{type}}",
+  /**
+   * Data available based on the type of trigger for use in workflow inputs.
+   */
+  Data: TriggerContextData,
 } as const;
 
 // Set defaults for any direct uses of this type
