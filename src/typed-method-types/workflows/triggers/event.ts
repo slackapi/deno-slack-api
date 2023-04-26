@@ -32,10 +32,6 @@ type ChannelTypes = ObjectValueUnion<
     | "PinRemoved"
     | "ReactionAdded"
     | "ReactionRemoved"
-    | "SharedChannelInviteAccepted"
-    | "SharedChannelInviteApproved"
-    | "SharedChannelInviteDeclined"
-    | "SharedChannelInviteReceived"
     | "UserJoinedChannel"
     | "UserLeftChannel"
   >
@@ -51,6 +47,10 @@ type WorkspaceTypes = ObjectValueUnion<
     | "ChannelUnarchived"
     | "DndUpdated"
     | "EmojiChanged"
+    | "SharedChannelInviteAccepted"
+    | "SharedChannelInviteApproved"
+    | "SharedChannelInviteDeclined"
+    | "SharedChannelInviteReceived"
     | "UserJoinedTeam"
   >
 >;
