@@ -13,45 +13,45 @@ import { TriggerEventTypes } from "./trigger-event-types.ts";
 type MessageMetadataTypes = ObjectValueUnion<
   Pick<
     typeof TriggerEventTypes,
-    "message_metadata_posted" /* | "message_metadata_added" | "message_metadata_removed" */
+    "MessageMetadataPosted" /* | "MessageMetadataAdded" | "MessageMetadataDeleted" */
   >
 >;
 
 type MessagePostedEventType = ObjectValueUnion<
-  Pick<typeof TriggerEventTypes, "message_posted">
+  Pick<typeof TriggerEventTypes, "MessagePosted">
 >;
 
 type ChannelTypes = ObjectValueUnion<
   Pick<
     typeof TriggerEventTypes,
-    | "app_mentioned"
-    | "channel_shared"
-    | "channel_unshared"
-    | "message_metadata_posted"
-    | "pin_added"
-    | "pin_removed"
-    | "reaction_added"
-    | "reaction_removed"
-    | "shared_channel_invite_accepted"
-    | "shared_channel_invite_approved"
-    | "shared_channel_invite_declined"
-    | "shared_channel_invite_received"
-    | "user_joined_channel"
-    | "user_left_channel"
+    | "AppMentioned"
+    | "ChannelShared"
+    | "ChannelUnshared"
+    | "MessageMetadataPosted"
+    | "PinAdded"
+    | "PinRemoved"
+    | "ReactionAdded"
+    | "ReactionRemoved"
+    | "SharedChannelInviteAccepted"
+    | "SharedChannelInviteApproved"
+    | "SharedChannelInviteDeclined"
+    | "SharedChannelInviteReceived"
+    | "UserJoinedChannel"
+    | "UserLeftChannel"
   >
 >;
 
 type WorkspaceTypes = ObjectValueUnion<
   Pick<
     typeof TriggerEventTypes,
-    | "channel_archived"
-    | "channel_created"
-    | "channel_deleted"
-    | "channel_renamed"
-    | "channel_unarchived"
-    | "dnd_updated"
-    | "emoji_changed"
-    | "user_joined_team"
+    | "ChannelArchived"
+    | "ChannelCreated"
+    | "ChannelDeleted"
+    | "ChannelRenamed"
+    | "ChannelUnarchived"
+    | "DndUpdated"
+    | "EmojiChanged"
+    | "UserJoinedTeam"
   >
 >;
 

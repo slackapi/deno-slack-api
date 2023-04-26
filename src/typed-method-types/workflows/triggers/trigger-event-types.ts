@@ -37,7 +37,7 @@ export const TriggerEventTypes = {
   /**
    * Do not Disturb settings changed for a member.
    */
-  DNDUpdated: "slack#/events/dnd_updated",
+  DndUpdated: "slack#/events/dnd_updated",
   /**
    * A custom emoji has been added or changed.
    */
@@ -59,7 +59,7 @@ export const TriggerEventTypes = {
   /**
    * A pin was removed from a channel.
    */
-  PinRemove: "slack#/events/pin_removed",
+  PinRemoved: "slack#/events/pin_removed",
   /**
    * A member has added an emoji reaction to an item.
    */
