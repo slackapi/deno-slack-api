@@ -39,7 +39,7 @@ export type WebhookTriggerResponseObject<
     /**
      * @description The webhook object used to define the webhook trigger
      */
-    webhook?: string;
+    webhook?: { filter?: FilterType };
     /**
      * @description The URL used to trip the webhook trigger
      */
