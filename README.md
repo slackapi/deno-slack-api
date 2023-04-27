@@ -3,13 +3,13 @@
 Slack API Client for Deno Run on Slack projects
 
 ```ts
-import { SlackAPI } from "https://deno.land/x/deno_slack_api@0.0.8/mod.ts"
+import { SlackAPI } from "https://deno.land/x/deno_slack_api@0.0.8/mod.ts";
 
 const client = SlackAPI(token);
 
 // ...or create a client with options
 const client = SlackAPI(token, {
-  slackApiUrl: "..."
+  slackApiUrl: "...",
 });
 
 await client.chat.postMessage({
@@ -33,11 +33,16 @@ A recent version of `deno`.
 
 ## Versioning
 
-Releases for this repository follow the [SemVer](https://semver.org/) versioning scheme. The SDK's contract is determined by the top-level exports from `src/mod.ts` and `src/types.ts`. Exports not included in these files are deemed internal and any modifications will not be treated as breaking changes. As such, internal exports should be treated as unstable and used at your own risk.
+Releases for this repository follow the [SemVer](https://semver.org/) versioning
+scheme. The SDK's contract is determined by the top-level exports from
+`src/mod.ts` and `src/types.ts`. Exports not included in these files are deemed
+internal and any modifications will not be treated as breaking changes. As such,
+internal exports should be treated as unstable and used at your own risk.
 
 ## Running Tests
 
-If you make changes to this repo, or just want to make sure things are working as desired, you can run:
+If you make changes to this repo, or just want to make sure things are working
+as desired, you can run:
 
     deno task test
 
