@@ -64,7 +64,7 @@ export const TriggerContextData = {
    */
   Shortcut: ShortcutTriggerContextData,
   /**
-   * Data available from the variety of different eventr triggers for use in workflow inputs.
+   * Data available from the variety of different event triggers for use in workflow inputs.
    */
   Event: EventTriggerContextData,
 } as const;
