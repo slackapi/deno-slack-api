@@ -40,7 +40,7 @@ jobs:
         run: > 
           deno run
           --allow-read --allow-write 
-          deno-slack-sdk/scripts/import_map/update.ts 
+          deno-slack-api/scripts/import_map/update.ts 
           --import-map "./sample/import_map.json"
           --api "../deno-slack-api/src/"
 
