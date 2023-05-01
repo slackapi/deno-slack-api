@@ -26,7 +26,7 @@ jobs:
         with:
           deno-version: v1.x
 
-      - name: Checkout the sdk
+      - name: Checkout the api
         uses: actions/checkout@v3
         with:
           path: ./deno-slack-api
