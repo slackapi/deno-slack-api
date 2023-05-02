@@ -87,7 +87,7 @@ export type SlackAPIMethodsType = {
 
 const getGroupCode = (groupNode: APIMethodNode) => {
   let imports = null;
-  let groupCode = `
+  const groupCode = `
   ${groupNode.getTypesCode()}
 `;
   if (groupCode.match(/SlackAPIMethod[,;]/)) {
