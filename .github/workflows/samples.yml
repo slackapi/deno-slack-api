@@ -39,7 +39,7 @@ jobs:
       - name: Set imports.deno-slack-api/ to ../deno-slack-api/src/ in import_map.json
         run: > 
           deno run
-          --allow-read --allow-write 
+          --allow-read --allow-write --allow-net
           deno-slack-api/scripts/import_map/update.ts 
           --import-map "./sample/import_map.json"
           --api "../deno-slack-api/src/"
