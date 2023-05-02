@@ -1,4 +1,4 @@
-import { pascalCase, emptyDir, ensureDir } from "../../src/deps.ts";
+import { emptyDir, ensureDir, pascalCase } from "../../src/deps.ts";
 import { APIMethodNode } from "./api-method-node.ts";
 import { getPublicAPIMethods } from "./public-api-methods.ts";
 
@@ -91,16 +91,16 @@ const getGroupCode = (groupNode: APIMethodNode) => {
   ${groupNode.getTypesCode()}
 `;
   if (groupCode.match(/SlackAPIMethod[,;]/)) {
-    imports = '{ SlackAPIMethod';
+    imports = "{ SlackAPIMethod";
   }
   if (groupCode.match(/SlackAPICursorPaginatedMethod[,;]/)) {
     if (imports !== null) {
-      imports += ', SlackAPICursorPaginatedMethod';
+      imports += ", SlackAPICursorPaginatedMethod";
     } else {
-      imports = '{ SlackAPICursorPaginatedMethod';
+      imports = "{ SlackAPICursorPaginatedMethod";
     }
   }
-  imports += ' }';
+  imports += " }";
 
   return `import type ${imports} from "../../types.ts";\n${groupCode}`;
 };
