@@ -58,7 +58,7 @@ export type BaseTriggerResponse<
       // deno-lint-ignore no-explicit-any
       [key: string]: Record<string, any>;
     };
-    /** @deprecated Use `available_data` instead */
+    /** @deprecated Trigger outputs will be removed. Use `available_data` instead */
     outputs: {
       [key: string]: {
         type: string;
