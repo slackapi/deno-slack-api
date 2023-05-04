@@ -2,7 +2,7 @@
   "$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
   "fmt": {
     "files": {
-      "include": ["src", "docs", "README.md"]
+      "include": ["src", "scripts", "docs", "README.md"]
     },
     "options": {
       "semiColons": true,
@@ -15,17 +15,17 @@
   },
   "lint": {
     "files": {
-      "include": ["src"]
+      "include": ["src", "scripts"]
     }
   },
   "test": {
     "files": {
-      "include": ["src"]
+      "include": ["src", "scripts"]
     }
   },
   "tasks": {
     "test": "deno fmt --check && deno lint && deno test",
-    "coverage": "deno test --coverage=.coverage && deno coverage --exclude=fixtures --exclude=test --exclude=src/generated --lcov --output=lcov.info .coverage && deno run --allow-read https://deno.land/x/code_coverage@0.2.0/cli.ts"
+    "coverage": "deno test --coverage=.coverage && deno coverage --exclude=fixtures --exclude=test --exclude=scripts --exclude=src/generated --lcov --output=lcov.info .coverage && deno run --allow-read https://deno.land/x/code_coverage@0.2.0/cli.ts"
   },
   "lock": false
 }
