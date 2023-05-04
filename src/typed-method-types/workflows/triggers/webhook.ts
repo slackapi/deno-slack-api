@@ -37,11 +37,13 @@ export type WebhookTriggerResponseObject<
   & BaseTriggerResponse<WorkflowDefinition>
   & {
     /**
-     * @description The webhook object used to define the webhook trigger
+     * @description The filter object used to define the webhook trigger
      */
-    webhook?: string;
+    filter?: FilterType;
     /**
      * @description The URL used to trip the webhook trigger
      */
     webhook_url?: string;
+    // deno-lint-ignore no-explicit-any
+    [otherOptions: string]: any;
   };
