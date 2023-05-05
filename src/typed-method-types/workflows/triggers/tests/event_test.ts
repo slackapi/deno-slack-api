@@ -201,13 +201,11 @@ Deno.test("Mock call for event", async (t) => {
             },
           });
           assertEquals(res.ok, true);
-          if (res.ok) {
-            assertObjectMatch(res.trigger, event_response.trigger);
-            assertEquals(
-              res.trigger?.event_type,
-              event_response.trigger.event_type,
-            );
-          }
+          assertObjectMatch(res.trigger, event_response.trigger);
+          assertEquals(
+            res.trigger?.event_type,
+            event_response.trigger.event_type,
+          );
 
           mf.reset();
         },
@@ -241,13 +239,11 @@ Deno.test("Mock call for event", async (t) => {
           },
         });
         assertEquals(res.ok, true);
-        if (res.ok) {
-          assertObjectMatch(res.trigger, event_response.trigger);
-          assertEquals(
-            res.trigger?.event_type,
-            event_response.trigger.event_type,
-          );
-        }
+        assertObjectMatch(res.trigger, event_response.trigger);
+        assertEquals(
+          res.trigger?.event_type,
+          event_response.trigger.event_type,
+        );
 
         mf.reset();
       },

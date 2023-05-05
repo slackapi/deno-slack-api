@@ -82,15 +82,11 @@ Deno.test("Mock call for webhook", async (t) => {
             },
           });
           assertEquals(res.ok, true);
-          if (res.ok) {
-            assertObjectMatch(res.trigger, webhook_response.trigger);
-            assertEquals(
-              res.trigger?.webhook_url,
-              webhook_response.trigger.webhook_url,
-            );
-          }
-          mf.reset();
-
+          assertObjectMatch(res.trigger, webhook_response.trigger);
+          assertEquals(
+            res.trigger?.webhook_url,
+            webhook_response.trigger.webhook_url,
+          );
           mf.reset();
         },
       );
@@ -122,13 +118,11 @@ Deno.test("Mock call for webhook", async (t) => {
           },
         });
         assertEquals(res.ok, true);
-        if (res.ok) {
-          assertObjectMatch(res.trigger, webhook_response.trigger);
-          assertEquals(
-            res.trigger?.webhook_url,
-            webhook_response.trigger.webhook_url,
-          );
-        }
+        assertObjectMatch(res.trigger, webhook_response.trigger);
+        assertEquals(
+          res.trigger?.webhook_url,
+          webhook_response.trigger.webhook_url,
+        );
         mf.reset();
       },
     );

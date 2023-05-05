@@ -60,11 +60,9 @@ type InputSchema<Params extends InputParameterSchema> = Params extends
 type WorkflowInputsType<Params extends InputParameterSchema> =
   // This intentionally avoids Distributive Conditional Types, so be careful removing any of the following square brackets
   // See https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types for more details
-  [keyof Params["properties"]] extends [string]
-    // Since never extends string, must check for no properties
+  [keyof Params["properties"]] extends [string] // Since never extends string, must check for no properties
     ? [keyof Params["properties"]] extends [never] ? EmptyInputs
-    : Params["required"] extends Array<infer T> ? [T] extends [never]
-        // If there are no required properties, inputs are optional
+    : Params["required"] extends Array<infer T> ? [T] extends [never] // If there are no required properties, inputs are optional
         ? PopulatedInputs<Params>
         // If there are required params, inputs are required
       : Required<PopulatedInputs<Params>>
