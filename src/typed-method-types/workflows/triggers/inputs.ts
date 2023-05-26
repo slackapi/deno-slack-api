@@ -48,7 +48,7 @@ type PopulatedInputs<Params extends InputParameterSchema> = {
  * Returns an object where any string can be set to a valid WorkflowInput value
  */
 type InputSchema<Params extends InputParameterSchema> = Params extends
-  InputParameterSchema ? 
+  InputParameterSchema ?
     & { [k in keyof Params["properties"]]?: WorkflowInput }
     & { [k in Params["required"][number]]: WorkflowInput }
   : Record<string, WorkflowInput>;
