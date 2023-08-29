@@ -127,6 +127,7 @@ function getImportVersion() {
     if (url.protocol === "file:") {
       console.log("this module was loaded locally");
     }
+    return url.host;
   } catch (error) {
     throw Error("no module found");
   }
