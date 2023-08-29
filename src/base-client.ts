@@ -37,14 +37,17 @@ export class BaseSlackAPIClient implements BaseSlackClient {
     const body = serializeData(data);
 
     const token = data.token || this.#token || "";
-    const response = await fetch(url, {
+    const request = new Request(url, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/x-www-form-urlencoded",
+        "User-Agent": getUserAgent(),
       },
       body,
     });
+    const response = await fetch(request);
+
     if (!response.ok) {
       throw await this.createHttpError(response);
     }
@@ -106,4 +109,25 @@ export function serializeData(data: Record<string, unknown>): URLSearchParams {
   });
 
   return new URLSearchParams(encodedData);
+}
+
+function getUserAgent() {
+  const userAgents = [];
+  userAgents.push(`Deno/${Deno.version.deno}`);
+  userAgents.push(`OS/${Deno.build.os}`);
+  userAgents.push(
+    `deno-slack-api/${getImportVersion()}`,
+  );
+  return userAgents.join(" ");
+}
+
+function getImportVersion() {
+  try {
+    const url = new URL(import.meta.url);
+    if (url.protocol === "file:") {
+      console.log("this module was loaded locally");
+    }
+  } catch (error) {
+    throw Error("no module found");
+  }
 }
