@@ -11,3 +11,7 @@ export {
   afterEach,
   beforeAll,
 } from "https://deno.land/std@0.185.0/testing/bdd.ts";
+export {
+  assertSpyCalls,
+  stub,
+} from "https://deno.land/std@0.185.0/testing/mock.ts";

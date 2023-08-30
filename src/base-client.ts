@@ -42,7 +42,7 @@ export class BaseSlackAPIClient implements BaseSlackClient {
       headers: {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/x-www-form-urlencoded",
-        "User-Agent": getUserAgent(),
+        "User-Agent": _internals.getUserAgent(),
       },
       body,
     });
@@ -63,6 +63,7 @@ export class BaseSlackAPIClient implements BaseSlackClient {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "User-Agent": _internals.getUserAgent(),
       },
       body: JSON.stringify(data),
     });
@@ -116,19 +117,22 @@ function getUserAgent() {
   userAgents.push(`Deno/${Deno.version.deno}`);
   userAgents.push(`OS/${Deno.build.os}`);
   userAgents.push(
-    `deno-slack-api/${getImportVersion()}`,
+    `deno-slack-api/${_internals.getModuleVersion()}`,
   );
   return userAgents.join(" ");
 }
 
-function getImportVersion() {
-  try {
-    const url = new URL(import.meta.url);
-    if (url.protocol === "file:") {
-      console.log("this module was loaded locally");
-    }
-    return url.host;
-  } catch (error) {
-    throw Error("no module found");
+function getModuleVersion(): string {
+  const url = _internals.getModuleUrl();
+  if (url.host === "deno.land") {
+    const regVersion = url.pathname.match(/deno_slack_api@(?<v>.*)\//)?.[1];
+    if (regVersion) return regVersion;
   }
+  return "unknown";
 }
+
+function getModuleUrl(): URL {
+  return new URL(import.meta.url);
+}
+
+export const _internals = { getUserAgent, getModuleVersion, getModuleUrl };
