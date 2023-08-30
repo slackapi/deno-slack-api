@@ -19,12 +19,15 @@ jobs:
           - slack-samples/deno-message-translator
           - slack-samples/deno-request-time-off
           - slack-samples/deno-simple-survey
+        # we test on both most recent stable version of deno (v1.x) as well as
+        # the version of deno used by Run on Slack (v1.31.1)
+        deno-version: [v1.x, v1.31.1]
 
     steps:
-      - name: Setup Deno
+      - name: Setup Deno ${{ matrix.deno-version }}
         uses: denoland/setup-deno@v1
         with:
-          deno-version: v1.x
+          deno-version: ${{ matrix.deno-version }}
 
       - name: Checkout the api
         uses: actions/checkout@v3
@@ -37,10 +40,10 @@ jobs:
           path: ./sample
 
       - name: Set imports.deno-slack-api/ to ../deno-slack-api/src/ in import_map.json
-        run: > 
+        run: >
           deno run
           --allow-read --allow-write --allow-net
-          deno-slack-api/scripts/import_map/update.ts 
+          deno-slack-api/scripts/src/import_map/update.ts
           --import-map "./sample/import_map.json"
           --api "../deno-slack-api/src/"
 

@@ -1,11 +1,11 @@
-import { HttpError } from "../../src/deps.ts";
 import {
   afterEach,
   assertEquals,
   assertRejects,
   beforeAll,
   mf,
-} from "../../src/dev_deps.ts";
+} from "../../../src/dev_deps.ts";
+import { HttpError } from "../deps.ts";
 import { apiDepsIn } from "./update.ts";
 
 const depsTsMock =

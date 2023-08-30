@@ -1,8 +1,4 @@
-import { parse } from "https://deno.land/std@0.185.0/flags/mod.ts";
-import {
-  createHttpError,
-} from "https://deno.land/std@0.182.0/http/http_errors.ts";
-
+import { createHttpError, parse } from "../deps.ts";
 // Regex for https://deno.land/x/deno_slack_api@x.x.x/
 const API_REGEX =
   /(https:\/\/deno.land\/x\/deno_slack_api@[0-9]+\.[0-9]+\.[0-9]+\/)/g;

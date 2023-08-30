@@ -1,4 +1,4 @@
-name: Deno
+name: Deno Format, Lint and Unit Tests
 
 on:
   push:
@@ -9,15 +9,20 @@ on:
 jobs:
   deno:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # we test on both most recent stable version of deno (v1.x) as well as
+        # the version of deno used by Run on Slack (v1.31.1)
+        deno-version: [v1.x, v1.31.1]
 
     steps:
       - name: Setup repo
         uses: actions/checkout@v3
 
-      - name: Setup Deno
+      - name: Setup Deno ${{ matrix.deno-version }}
         uses: denoland/setup-deno@v1
         with:
-          deno-version: v1.x
+          deno-version: ${{ matrix.deno-version }}
 
       - name: Run formatter, linter and tests
         run: deno task test
