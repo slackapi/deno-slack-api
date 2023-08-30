@@ -37,7 +37,7 @@ export class BaseSlackAPIClient implements BaseSlackClient {
     const body = serializeData(data);
 
     const token = data.token || this.#token || "";
-    const request = new Request(url, {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -46,7 +46,6 @@ export class BaseSlackAPIClient implements BaseSlackClient {
       },
       body,
     });
-    const response = await fetch(request);
 
     if (!response.ok) {
       throw await this.createHttpError(response);

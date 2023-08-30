@@ -28,7 +28,7 @@ Deno.test("SlackAPI class", async (t) => {
         await t.step("should call the default API URL", async () => {
           mf.mock("POST@/api/chat.postMessage", (req: Request) => {
             assertEquals(req.url, "https://slack.com/api/chat.postMessage");
-            assertExists(req.headers.has("User-Agent"));
+            assertExists(req.headers.has("user-agent"));
             return new Response('{"ok":true}');
           });
 
@@ -42,7 +42,7 @@ Deno.test("SlackAPI class", async (t) => {
           async () => {
             mf.mock("POST@/api/chat.postMessage", (req: Request) => {
               assertEquals(req.headers.get("authorization"), "Bearer override");
-              assertExists(req.headers.has("User-Agent"));
+              assertExists(req.headers.has("user-agent"));
               return new Response('{"ok":true}');
             });
 
