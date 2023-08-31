@@ -1,9 +1,12 @@
 import { assertEquals } from "https://deno.land/std@0.185.0/testing/asserts.ts";
-import { _internals, getUserAgent } from "./base-client-helpers.ts";
-import { serializeData } from "./base-client-helpers.ts";
+import {
+  _internals,
+  getUserAgent,
+  serializeData,
+} from "./base-client-helpers.ts";
 import { assertSpyCalls, stub } from "./dev_deps.ts";
 
-Deno.test(_internals.getModuleVersion.name, async (t) => {
+Deno.test(`base-client-helpers.${_internals.getModuleVersion.name}`, async (t) => {
   await t.step(
     "should return the version if the module is sourced from deno.land",
     () => {
@@ -57,7 +60,7 @@ Deno.test(_internals.getModuleVersion.name, async (t) => {
   );
 });
 
-Deno.test(getUserAgent.name, async (t) => {
+Deno.test(`base-client-helpers.${getUserAgent.name}`, async (t) => {
   await t.step(
     "should return the user agent with expected output",
     () => {
