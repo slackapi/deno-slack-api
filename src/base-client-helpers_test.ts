@@ -62,7 +62,7 @@ Deno.test(`base-client-helpers.${_internals.getModuleVersion.name}`, async (t) =
 
 Deno.test(`base-client-helpers.${getUserAgent.name}`, async (t) => {
   await t.step(
-    "should return the user agent with expected output",
+    "should return the user agent with deno version, OS name and undefined deno-slack-api version",
     () => {
       const expectedVersion = undefined;
       const getModuleUrlStub = stub(_internals, "getModuleVersion", () => {
@@ -84,7 +84,7 @@ Deno.test(`base-client-helpers.${getUserAgent.name}`, async (t) => {
   );
 
   await t.step(
-    "should return the user agent with module version",
+    "should return the user agent with deno version, OS name and deno-slack-api version",
     () => {
       const expectedVersion = "2.1.0";
       const getModuleUrlStub = stub(_internals, "getModuleUrl", () => {
