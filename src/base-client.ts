@@ -47,7 +47,6 @@ export class BaseSlackAPIClient implements BaseSlackClient {
       },
       body,
     });
-
     if (!response.ok) {
       throw await this.createHttpError(response);
     }
