@@ -5,6 +5,7 @@ import {
   SlackAPIOptions,
 } from "./types.ts";
 import { createHttpError, HttpError } from "./deps.ts";
+import { getUserAgent, serializeData } from "./base-client-helpers.ts";
 
 export class BaseSlackAPIClient implements BaseSlackClient {
   #token?: string;
@@ -42,7 +43,7 @@ export class BaseSlackAPIClient implements BaseSlackClient {
       headers: {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/x-www-form-urlencoded",
-        "User-Agent": _internals.getUserAgent(),
+        "User-Agent": getUserAgent(),
       },
       body,
     });
@@ -62,7 +63,7 @@ export class BaseSlackAPIClient implements BaseSlackClient {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "User-Agent": _internals.getUserAgent(),
+        "User-Agent": getUserAgent(),
       },
       body: JSON.stringify(data),
     });
@@ -90,48 +91,3 @@ export class BaseSlackAPIClient implements BaseSlackClient {
     };
   }
 }
-
-// Serialize an object into a string so as to be compatible with x-www-form-urlencoded payloads
-export function serializeData(data: Record<string, unknown>): URLSearchParams {
-  const encodedData: Record<string, string> = {};
-  Object.entries(data).forEach(([key, value]) => {
-    // Objects/arrays, numbers and booleans get stringified
-    // Slack API accepts JSON-stringified-and-url-encoded payloads for objects/arrays
-    // Inspired by https://github.com/slackapi/node-slack-sdk/blob/%40slack/web-api%406.7.2/packages/web-api/src/WebClient.ts#L452-L528
-
-    // Skip properties with undefined values.
-    if (value === undefined) return;
-
-    const serializedValue: string = typeof value !== "string"
-      ? JSON.stringify(value)
-      : value;
-    encodedData[key] = serializedValue;
-  });
-
-  return new URLSearchParams(encodedData);
-}
-
-function getUserAgent() {
-  const userAgents = [];
-  userAgents.push(`Deno/${Deno.version.deno}`);
-  userAgents.push(`OS/${Deno.build.os}`);
-  userAgents.push(
-    `deno-slack-api/${_internals.getModuleVersion()}`,
-  );
-  return userAgents.join(" ");
-}
-
-function getModuleVersion(): string {
-  const url = _internals.getModuleUrl();
-  if (url.host === "deno.land") {
-    const regVersion = url.pathname.match(/deno_slack_api@(?<v>.*)\//)?.[1];
-    if (regVersion) return regVersion;
-  }
-  return "unknown";
-}
-
-function getModuleUrl(): URL {
-  return new URL(import.meta.url);
-}
-
-export const _internals = { getUserAgent, getModuleVersion, getModuleUrl };

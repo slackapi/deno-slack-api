@@ -1,5 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.185.0/testing/asserts.ts";
-import { _internals } from "./base-client.ts";
+import { _internals, getUserAgent } from "./base-client-helpers.ts";
+import { serializeData } from "./base-client-helpers.ts";
 import { assertSpyCalls, stub } from "./dev_deps.ts";
 
 Deno.test(_internals.getModuleVersion.name, async (t) => {
@@ -56,7 +57,7 @@ Deno.test(_internals.getModuleVersion.name, async (t) => {
   );
 });
 
-Deno.test(_internals.getUserAgent.name, async (t) => {
+Deno.test(getUserAgent.name, async (t) => {
   await t.step(
     "should return the user agent with expected output",
     () => {
@@ -66,7 +67,7 @@ Deno.test(_internals.getUserAgent.name, async (t) => {
       });
 
       try {
-        const userAgent = _internals.getUserAgent();
+        const userAgent = getUserAgent();
 
         assertSpyCalls(getModuleUrlStub, 1);
         assertEquals(
@@ -90,7 +91,7 @@ Deno.test(_internals.getUserAgent.name, async (t) => {
       });
 
       try {
-        const userAgent = _internals.getUserAgent();
+        const userAgent = getUserAgent();
 
         assertSpyCalls(getModuleUrlStub, 1);
         assertEquals(
@@ -100,6 +101,41 @@ Deno.test(_internals.getUserAgent.name, async (t) => {
       } finally {
         getModuleUrlStub.restore();
       }
+    },
+  );
+});
+
+Deno.test(`${serializeData.name} helper function`, async (t) => {
+  await t.step(
+    "should serialize string values as strings and return a URLSearchParams object",
+    () => {
+      assertEquals(
+        serializeData({ "batman": "robin" }).toString(),
+        "batman=robin",
+      );
+    },
+  );
+  await t.step(
+    "should serialize non-string values as JSON-encoded strings and return a URLSearchParams object",
+    () => {
+      assertEquals(
+        serializeData({ "hockey": { "good": true, "awesome": "yes" } })
+          .toString(),
+        "hockey=%7B%22good%22%3Atrue%2C%22awesome%22%3A%22yes%22%7D",
+      );
+    },
+  );
+  await t.step(
+    "should not serialize undefined values",
+    () => {
+      assertEquals(
+        serializeData({
+          "hockey": { "good": true, "awesome": "yes" },
+          "baseball": undefined,
+        })
+          .toString(),
+        "hockey=%7B%22good%22%3Atrue%2C%22awesome%22%3A%22yes%22%7D",
+      );
     },
   );
 });
