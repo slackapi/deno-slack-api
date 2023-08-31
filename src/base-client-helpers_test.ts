@@ -40,7 +40,7 @@ Deno.test(_internals.getModuleVersion.name, async (t) => {
   );
 
   await t.step(
-    "should return the unknown if the module version is invalid",
+    "should return undefined if the regex used to parse deno_slack_api@x.x.x fails",
     () => {
       const getModuleUrlStub = stub(_internals, "getModuleUrl", () => {
         return new URL("https://deno.land/x/deno_slack_sdk@2.1.0/mod.ts)");
