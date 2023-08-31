@@ -12,7 +12,7 @@ export function getUserAgent() {
 
 function getModuleVersion(): string | undefined {
   const url = _internals.getModuleUrl();
-  // insure this module is remote
+  // Insure this module is sourced from https://deno.land/x/deno_slack_api
   if (url.host === "deno.land") {
     return url.pathname.match(API_VERSION_REGEX)?.at(1);
   }
