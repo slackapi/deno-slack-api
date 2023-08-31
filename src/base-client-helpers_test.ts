@@ -23,7 +23,7 @@ Deno.test(_internals.getModuleVersion.name, async (t) => {
   );
 
   await t.step(
-    "should return the unknown if the module is not sourced from deno.land",
+    "should return undefined if the module is not sourced from deno.land",
     () => {
       const getModuleUrlStub = stub(_internals, "getModuleUrl", () => {
         return new URL("file:///hello/world.ts)");
