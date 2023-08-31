@@ -1,4 +1,4 @@
-const API_VERSION_REGEX = /deno_slack_api@(.*)\//;
+const API_VERSION_REGEX = /\/deno_slack_api@(.*)\//;
 
 export function getUserAgent() {
   const userAgents = [];
@@ -10,13 +10,13 @@ export function getUserAgent() {
   return userAgents.join(" ");
 }
 
-function getModuleVersion(): string {
+function getModuleVersion(): string | undefined {
   const url = _internals.getModuleUrl();
+  // insure this module is remote
   if (url.host === "deno.land") {
-    const regVersion = url.pathname.match(API_VERSION_REGEX)?.at(1);
-    if (regVersion) return regVersion;
+    return url.pathname.match(API_VERSION_REGEX)?.at(1);
   }
-  return "unknown";
+  return undefined;
 }
 
 function getModuleUrl(): URL {

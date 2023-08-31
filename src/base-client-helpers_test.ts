@@ -32,7 +32,7 @@ Deno.test(_internals.getModuleVersion.name, async (t) => {
         const moduleVersion = _internals.getModuleVersion();
 
         assertSpyCalls(getModuleUrlStub, 1);
-        assertEquals(moduleVersion, "unknown");
+        assertEquals(moduleVersion, undefined);
       } finally {
         getModuleUrlStub.restore();
       }
@@ -49,7 +49,7 @@ Deno.test(_internals.getModuleVersion.name, async (t) => {
         const moduleVersion = _internals.getModuleVersion();
 
         assertSpyCalls(getModuleUrlStub, 1);
-        assertEquals(moduleVersion, "unknown");
+        assertEquals(moduleVersion, undefined);
       } finally {
         getModuleUrlStub.restore();
       }
@@ -61,7 +61,7 @@ Deno.test(getUserAgent.name, async (t) => {
   await t.step(
     "should return the user agent with expected output",
     () => {
-      const expectedVersion = "unknown";
+      const expectedVersion = undefined;
       const getModuleUrlStub = stub(_internals, "getModuleVersion", () => {
         return expectedVersion;
       });
@@ -72,7 +72,7 @@ Deno.test(getUserAgent.name, async (t) => {
         assertSpyCalls(getModuleUrlStub, 1);
         assertEquals(
           userAgent,
-          `Deno/${Deno.version.deno} OS/${Deno.build.os} deno-slack-api/${expectedVersion}`,
+          `Deno/${Deno.version.deno} OS/${Deno.build.os} deno-slack-api/undefined`,
         );
       } finally {
         getModuleUrlStub.restore();
