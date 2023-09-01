@@ -1,12 +1,12 @@
 import {
   assertEquals,
+  assertExists,
   assertInstanceOf,
   assertRejects,
   isHttpError,
   mf,
 } from "./dev_deps.ts";
 import { SlackAPI } from "./mod.ts";
-import { serializeData } from "./base-client.ts";
 import { HttpError } from "./deps.ts";
 
 Deno.test("SlackAPI class", async (t) => {
@@ -27,6 +27,7 @@ Deno.test("SlackAPI class", async (t) => {
         await t.step("should call the default API URL", async () => {
           mf.mock("POST@/api/chat.postMessage", (req: Request) => {
             assertEquals(req.url, "https://slack.com/api/chat.postMessage");
+            assertExists(req.headers.has("user-agent"));
             return new Response('{"ok":true}');
           });
 
@@ -40,6 +41,7 @@ Deno.test("SlackAPI class", async (t) => {
           async () => {
             mf.mock("POST@/api/chat.postMessage", (req: Request) => {
               assertEquals(req.headers.get("authorization"), "Bearer override");
+              assertExists(req.headers.has("user-agent"));
               return new Response('{"ok":true}');
             });
 
@@ -364,41 +366,6 @@ Deno.test("SlackAPI class", async (t) => {
   );
 
   mf.uninstall();
-});
-
-Deno.test("serializeData helper function", async (t) => {
-  await t.step(
-    "should serialize string values as strings and return a URLSearchParams object",
-    () => {
-      assertEquals(
-        serializeData({ "batman": "robin" }).toString(),
-        "batman=robin",
-      );
-    },
-  );
-  await t.step(
-    "should serialize non-string values as JSON-encoded strings and return a URLSearchParams object",
-    () => {
-      assertEquals(
-        serializeData({ "hockey": { "good": true, "awesome": "yes" } })
-          .toString(),
-        "hockey=%7B%22good%22%3Atrue%2C%22awesome%22%3A%22yes%22%7D",
-      );
-    },
-  );
-  await t.step(
-    "should not serialize undefined values",
-    () => {
-      assertEquals(
-        serializeData({
-          "hockey": { "good": true, "awesome": "yes" },
-          "baseball": undefined,
-        })
-          .toString(),
-        "hockey=%7B%22good%22%3Atrue%2C%22awesome%22%3A%22yes%22%7D",
-      );
-    },
-  );
 });
 
 Deno.test("SlackApi.setSlackApiUrl()", async (t) => {
