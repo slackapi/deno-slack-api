@@ -1,5 +1,6 @@
 import { TypedSlackAPIMethodsType } from "./typed-method-types/mod.ts";
 import { SlackAPIMethodsType } from "./generated/method-types/mod.ts";
+import { FileUploadV2Args } from "./typed-method-types/files.ts";
 
 export type { DatastoreItem } from "./typed-method-types/apps.ts";
 
@@ -52,6 +53,9 @@ export type BaseSlackClient = {
   setSlackApiUrl: (slackApiUrl: string) => BaseSlackClient;
   apiCall: BaseClientCall;
   response: BaseClientResponse;
+  fileUploadV2: (
+    args: FileUploadV2Args,
+  ) => Promise<BaseResponse[]>;
 };
 
 // TODO: [brk-chg] return a `Promise<Response>` object

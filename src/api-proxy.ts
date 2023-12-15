@@ -16,6 +16,7 @@ export const ProxifyAndTypeClient = (baseClient: BaseSlackAPIClient) => {
     setSlackApiUrl: baseClient.setSlackApiUrl.bind(baseClient),
     apiCall: baseClient.apiCall.bind(baseClient),
     response: baseClient.response.bind(baseClient),
+    fileUploadV2: baseClient.fileUploadV2.bind(baseClient),
   };
 
   // Create our proxy, and type it w/ our api method types
