@@ -195,7 +195,9 @@ Deno.test("SlackAPIMethodsType generated types", () => {
   assertEquals(typeof client.enterprise.auth.idpconfig.remove, "function");
   assertEquals(typeof client.enterprise.auth.idpconfig.set, "function");
   assertEquals(typeof client.files.comments.delete, "function");
+  assertEquals(typeof client.files.completeUploadExternal, "function");
   assertEquals(typeof client.files.delete, "function");
+  assertEquals(typeof client.files.getUploadURLExternal, "function");
   assertEquals(typeof client.files.info, "function");
   assertEquals(typeof client.files.list, "function");
   assertEquals(typeof client.files.remote.add, "function");

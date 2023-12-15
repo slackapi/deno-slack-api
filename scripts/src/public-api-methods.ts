@@ -162,6 +162,8 @@ export const getPublicAPIMethods = () => {
     "files.list",
     "files.revokePublicURL",
     "files.sharedPublicURL",
+    "files.getUploadURLExternal",
+    "files.completeUploadExternal",
     "files.upload",
     "files.remote.add",
     "files.remote.info",
