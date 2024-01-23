@@ -51,6 +51,36 @@ export type DatastorePutResponse<
     item: DatastoreItem<Schema>;
   };
 
+export type DatastoreBulkPutArgs<
+  Schema extends DatastoreSchema,
+> =
+  & BaseMethodArgs
+  & {
+    /**
+     * @description The name of the datastore
+     */
+    datastore: Schema["name"];
+    /**
+     * @description Array of items to store
+     */
+    items: DatastoreItem<Schema>[];
+  };
+
+export type DatastoreBulkPutResponse<
+  Schema extends DatastoreSchema,
+> =
+  & BaseResponse
+  & {
+    /**
+     * @description The name of the datastore
+     */
+    datastore: Schema["name"];
+    /**
+     * @description Array of items that failed to be inserted
+     */
+    failed_items: DatastoreItem<Schema>[];
+  };
+
 export type DatastoreUpdateArgs<
   Schema extends DatastoreSchema,
 > =
@@ -112,6 +142,41 @@ export type DatastoreGetResponse<
     item: DatastoreItem<Schema>;
   };
 
+export type DatastoreBulkGetArgs<
+  Schema extends DatastoreSchema,
+> =
+  & {
+    /**
+     * @description Primary keys of the items to retrieve
+     */
+    // deno-lint-ignore no-explicit-any
+    ids: any[];
+    /**
+     * @description The name of the datastore
+     */
+    datastore: Schema["name"];
+  }
+  & BaseMethodArgs;
+
+export type DatastoreBulkGetResponse<
+  Schema extends DatastoreSchema,
+> =
+  & BaseResponse
+  & {
+    /**
+     * @description The name of the datastore
+     */
+    datastore: Schema["name"];
+    /**
+     * @description The retreived items
+     */
+    items: DatastoreItem<Schema>[];
+    /**
+     * @description Array of items that failed to be retreived
+     */
+    failed_items: DatastoreItem<Schema>[];
+  };
+
 export type DatastoreQueryArgs<
   Schema extends DatastoreSchema,
 > =
@@ -168,15 +233,55 @@ export type DatastoreDeleteResponse<
   datastore: Schema["name"];
 };
 
+export type DatastoreBulkDeleteArgs<
+  Schema extends DatastoreSchema,
+> =
+  & {
+    /**
+     * @description Primary keys of the items to delete
+     */
+    // deno-lint-ignore no-explicit-any
+    ids: any[];
+    /**
+     * @description The name of the datastore
+     */
+    datastore: Schema["name"];
+  }
+  & BaseMethodArgs;
+
+export type DatastoreBulkDeleteResponse<
+  Schema extends DatastoreSchema,
+> = BaseResponse & {
+  /**
+   * @description The name of the datastore
+   */
+  datastore: Schema["name"];
+  /**
+   * @description Primary keys of the items that failed to be deleted
+   */
+  // deno-lint-ignore no-explicit-any
+  ids: any[];
+};
+
 export type AppsDatastoreGet = {
   <Schema extends DatastoreSchema>(
     args: DatastoreGetArgs<Schema>,
   ): Promise<DatastoreGetResponse<Schema>>;
 };
+export type AppsDatastoreBulkGet = {
+  <Schema extends DatastoreSchema>(
+    args: DatastoreBulkGetArgs<Schema>,
+  ): Promise<DatastoreBulkGetResponse<Schema>>;
+};
 export type AppsDatastorePut = {
   <Schema extends DatastoreSchema>(
     args: DatastorePutArgs<Schema>,
   ): Promise<DatastorePutResponse<Schema>>;
+};
+export type AppsDatastoreBulkPut = {
+  <Schema extends DatastoreSchema>(
+    args: DatastoreBulkPutArgs<Schema>,
+  ): Promise<DatastoreBulkPutResponse<Schema>>;
 };
 export type AppsDatastoreUpdate = {
   <Schema extends DatastoreSchema>(
@@ -192,6 +297,11 @@ export type AppsDatastoreDelete = {
   <Schema extends DatastoreSchema>(
     args: DatastoreDeleteArgs<Schema>,
   ): Promise<DatastoreDeleteResponse<Schema>>;
+};
+export type AppsDatastoreBulkDelete = {
+  <Schema extends DatastoreSchema>(
+    args: DatastoreBulkDeleteArgs<Schema>,
+  ): Promise<DatastoreBulkDeleteResponse<Schema>>;
 };
 
 // apps.auth Types
@@ -253,10 +363,13 @@ export type TypedAppsMethodTypes = {
   apps: {
     datastore: {
       get: AppsDatastoreGet;
+      bulkGet: AppsDatastoreBulkGet;
       put: AppsDatastorePut;
+      bulkPut: AppsDatastoreBulkPut;
       update: AppsDatastoreUpdate;
       query: AppsDatastoreQuery;
       delete: AppsDatastoreDelete;
+      bulkDelete: AppsDatastoreBulkDelete;
     };
     auth: {
       external: {

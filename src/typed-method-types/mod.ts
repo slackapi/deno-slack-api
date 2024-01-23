@@ -13,8 +13,11 @@ import { TypedWorkflowsMethodTypes } from "./workflows/mod.ts";
  */
 export const methodsWithCustomTypes = [
   "apps.datastore.delete",
+  "apps.datastore.bulkDelete",
   "apps.datastore.get",
+  "apps.datastore.bulkGet",
   "apps.datastore.put",
+  "apps.datastore.bulkPut",
   "apps.datastore.update",
   "apps.datastore.query",
   "apps.auth.external.get",
