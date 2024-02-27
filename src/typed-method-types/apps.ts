@@ -208,6 +208,35 @@ export type DatastoreQueryResponse<
     items: DatastoreItem<Schema>[];
   };
 
+export type DatastoreCountArgs<
+  Schema extends DatastoreSchema,
+> =
+  & BaseMethodArgs
+  & {
+    /**
+     * @description The name of the datastore
+     */
+    datastore: Schema["name"];
+    expression?: string;
+    "expression_attributes"?: Record<string, string>;
+    "expression_values"?: Record<string, string | boolean | number>;
+  };
+
+export type DatastoreCountResponse<
+  Schema extends DatastoreSchema,
+> =
+  & BaseResponse
+  & {
+    /**
+     * @description The name of the datastore
+     */
+    datastore: Schema["name"];
+    /**
+     * @description The number of items matching your query
+     */
+    count: number;
+  };
+
 export type DatastoreDeleteArgs<
   Schema extends DatastoreSchema,
 > =
@@ -293,6 +322,11 @@ export type AppsDatastoreQuery = {
     args: DatastoreQueryArgs<Schema>,
   ): Promise<DatastoreQueryResponse<Schema>>;
 };
+export type AppsDatastoreCount = {
+  <Schema extends DatastoreSchema>(
+    args: DatastoreCountArgs<Schema>,
+  ): Promise<DatastoreCountResponse<Schema>>;
+};
 export type AppsDatastoreDelete = {
   <Schema extends DatastoreSchema>(
     args: DatastoreDeleteArgs<Schema>,
@@ -368,6 +402,7 @@ export type TypedAppsMethodTypes = {
       bulkPut: AppsDatastoreBulkPut;
       update: AppsDatastoreUpdate;
       query: AppsDatastoreQuery;
+      count: AppsDatastoreCount;
       delete: AppsDatastoreDelete;
       bulkDelete: AppsDatastoreBulkDelete;
     };
