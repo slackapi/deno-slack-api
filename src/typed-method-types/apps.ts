@@ -187,8 +187,18 @@ export type DatastoreQueryArgs<
      * @description The name of the datastore
      */
     datastore: Schema["name"];
+    /**
+     * @description A query filter expression
+     * @see {@link https://api.slack.com/automation/datastores-retrieve#filter-expressions}.
+     */
     expression?: string;
+    /**
+     * @description A map of attributes referenced in expression
+     */
     "expression_attributes"?: Record<string, string>;
+    /**
+     * @description A map of values referenced in expression
+     */
     "expression_values"?: Record<string, string | boolean | number>;
   };
 
@@ -217,8 +227,18 @@ export type DatastoreCountArgs<
      * @description The name of the datastore
      */
     datastore: Schema["name"];
+    /**
+     * @description A query filter expression
+     * @see {@link https://api.slack.com/automation/datastores-retrieve#filter-expressions}.
+     */
     expression?: string;
+    /**
+     * @description A map of attributes referenced in expression
+     */
     "expression_attributes"?: Record<string, string>;
+    /**
+     * @description A map of values referenced in expression
+     */
     "expression_values"?: Record<string, string | boolean | number>;
   };
 
