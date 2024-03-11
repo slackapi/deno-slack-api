@@ -6,6 +6,22 @@ import {
 } from "../types.ts";
 
 // apps.datastore Types
+type DynamoQueryArgs = {
+  /**
+   * @description A query filter expression
+   * @see {@link https://api.slack.com/automation/datastores-retrieve#filter-expressions}.
+   */
+  expression?: string;
+  /**
+   * @description A map of attributes referenced in `expression`
+   */
+  "expression_attributes"?: Record<string, string>;
+  /**
+   * @description A map of values referenced in `expression`
+   */
+  "expression_values"?: Record<string, string | boolean | number>;
+};
+
 export type DatastoreSchema = {
   name: string;
   // deno-lint-ignore no-explicit-any
@@ -182,24 +198,12 @@ export type DatastoreQueryArgs<
 > =
   & BaseMethodArgs
   & CursorPaginationArgs
+  & DynamoQueryArgs
   & {
     /**
      * @description The name of the datastore
      */
     datastore: Schema["name"];
-    /**
-     * @description A query filter expression
-     * @see {@link https://api.slack.com/automation/datastores-retrieve#filter-expressions}.
-     */
-    expression?: string;
-    /**
-     * @description A map of attributes referenced in expression
-     */
-    "expression_attributes"?: Record<string, string>;
-    /**
-     * @description A map of values referenced in expression
-     */
-    "expression_values"?: Record<string, string | boolean | number>;
   };
 
 export type DatastoreQueryResponse<
@@ -222,24 +226,12 @@ export type DatastoreCountArgs<
   Schema extends DatastoreSchema,
 > =
   & BaseMethodArgs
+  & DynamoQueryArgs
   & {
     /**
      * @description The name of the datastore
      */
     datastore: Schema["name"];
-    /**
-     * @description A query filter expression
-     * @see {@link https://api.slack.com/automation/datastores-retrieve#filter-expressions}.
-     */
-    expression?: string;
-    /**
-     * @description A map of attributes referenced in expression
-     */
-    "expression_attributes"?: Record<string, string>;
-    /**
-     * @description A map of values referenced in expression
-     */
-    "expression_values"?: Record<string, string | boolean | number>;
   };
 
 export type DatastoreCountResponse<
