@@ -105,6 +105,8 @@ To create a new release:
 7. Publish the release by clicking the "Publish release" button!
 8. After a few minutes, the corresponding version will be available on
    <https://deno.land/x/deno_slack_api>.
+9. Don't forget to also bump this library's version in the deno-slack-sdk's `deps.ts`
+   file!
 
 ## Workflow
 
