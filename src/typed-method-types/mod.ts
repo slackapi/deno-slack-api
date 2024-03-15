@@ -20,6 +20,7 @@ export const methodsWithCustomTypes = [
   "apps.datastore.bulkPut",
   "apps.datastore.update",
   "apps.datastore.query",
+  "apps.datastore.count",
   "apps.auth.external.get",
   "apps.auth.external.delete",
   "chat.postMessage",
