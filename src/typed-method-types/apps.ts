@@ -6,22 +6,6 @@ import {
 } from "../types.ts";
 
 // apps.datastore Types
-type DynamoQueryArgs = {
-  /**
-   * @description A query filter expression
-   * @see {@link https://api.slack.com/automation/datastores-retrieve#filter-expressions}.
-   */
-  expression?: string;
-  /**
-   * @description A map of attributes referenced in `expression`
-   */
-  "expression_attributes"?: Record<string, string>;
-  /**
-   * @description A map of values referenced in `expression`
-   */
-  "expression_values"?: Record<string, string | boolean | number>;
-};
-
 export type DatastoreSchema = {
   name: string;
   // deno-lint-ignore no-explicit-any
@@ -198,12 +182,14 @@ export type DatastoreQueryArgs<
 > =
   & BaseMethodArgs
   & CursorPaginationArgs
-  & DynamoQueryArgs
   & {
     /**
      * @description The name of the datastore
      */
     datastore: Schema["name"];
+    expression?: string;
+    "expression_attributes"?: Record<string, string>;
+    "expression_values"?: Record<string, string | boolean | number>;
   };
 
 export type DatastoreQueryResponse<
@@ -220,33 +206,6 @@ export type DatastoreQueryResponse<
      * @description The items matching your query
      */
     items: DatastoreItem<Schema>[];
-  };
-
-export type DatastoreCountArgs<
-  Schema extends DatastoreSchema,
-> =
-  & BaseMethodArgs
-  & DynamoQueryArgs
-  & {
-    /**
-     * @description The name of the datastore
-     */
-    datastore: Schema["name"];
-  };
-
-export type DatastoreCountResponse<
-  Schema extends DatastoreSchema,
-> =
-  & BaseResponse
-  & {
-    /**
-     * @description The name of the datastore
-     */
-    datastore: Schema["name"];
-    /**
-     * @description The number of items matching your query
-     */
-    count: number;
   };
 
 export type DatastoreDeleteArgs<
@@ -334,11 +293,6 @@ export type AppsDatastoreQuery = {
     args: DatastoreQueryArgs<Schema>,
   ): Promise<DatastoreQueryResponse<Schema>>;
 };
-export type AppsDatastoreCount = {
-  <Schema extends DatastoreSchema>(
-    args: DatastoreCountArgs<Schema>,
-  ): Promise<DatastoreCountResponse<Schema>>;
-};
 export type AppsDatastoreDelete = {
   <Schema extends DatastoreSchema>(
     args: DatastoreDeleteArgs<Schema>,
@@ -414,7 +368,6 @@ export type TypedAppsMethodTypes = {
       bulkPut: AppsDatastoreBulkPut;
       update: AppsDatastoreUpdate;
       query: AppsDatastoreQuery;
-      count: AppsDatastoreCount;
       delete: AppsDatastoreDelete;
       bulkDelete: AppsDatastoreBulkDelete;
     };
