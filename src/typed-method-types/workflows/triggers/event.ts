@@ -60,12 +60,12 @@ type ChannelEvents =
   & (ChannelUnscopedEvent | ChannelScopedEvent); // controls event scoping: `channel_ids` and `all_resources`
 
 /**
- * Event that is unscoped (limited) to a specific channel
+ * Event that is unscoped and not limited to a specific channel
  */
 type ChannelUnscopedEvent = {
   /** @description If set to `true`, will trigger in all channels. `false` by default and mutually exclusive with `channel_ids`. */
   all_resources: true;
-  /** @description The channel ids that this event listens on. Mutually exclusive with `all_resources`. */
+  /** @description The channel ids that this event listens on. Mutually exclusive with `all_resources: true`. */
   channel_ids?: never;
 };
 
@@ -73,7 +73,7 @@ type ChannelUnscopedEvent = {
  * Event that is scoped to specific channel ID(s)
  */
 type ChannelScopedEvent = {
-  /** @description The channel ids that this event listens on. Mutually exclusive with `all_resources`. */
+  /** @description The channel ids that this event listens on. Mutually exclusive with `all_resources: true`. */
   channel_ids: PopulatedArray<string>;
   /** @description If set to `true`, will trigger in all channels. `false` by default and mutually exclusive with `channel_ids`. */
   all_resources?: false;
