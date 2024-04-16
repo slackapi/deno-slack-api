@@ -56,27 +56,38 @@ type WorkspaceTypes = ObjectValueUnion<
 >;
 
 type ChannelEvents =
-  & (ChannelEvent | MetadataChannelEvent | MessagePostedEvent)
-  & {
-    /** @description The channel id's that this event listens on */
-    channel_ids: PopulatedArray<string>;
-    // deno-lint-ignore no-explicit-any
-    [otherOptions: string]: any;
-  };
+  & (ChannelEvent | MetadataChannelEvent | MessagePostedEvent) // controls `event_type` and `filter`
+  & (ChannelUnscopedEvent | ChannelScopedEvent); // controls event scoping: `channel_ids` and `all_resources`
+
+/**
+ * Event that is unscoped and not limited to a specific channel
+ */
+type ChannelUnscopedEvent = {
+  /** @description If set to `true`, will trigger in all channels. `false` by default and mutually exclusive with `channel_ids`. */
+  all_resources: true;
+  /** @description The channel ids that this event listens on. Mutually exclusive with `all_resources: true`. */
+  channel_ids?: never;
+};
+
+/**
+ * Event that is scoped to specific channel ID(s)
+ */
+type ChannelScopedEvent = {
+  /** @description The channel ids that this event listens on. Mutually exclusive with `all_resources: true`. */
+  channel_ids: PopulatedArray<string>;
+  /** @description If set to `true`, will trigger in all channels. `false` by default and mutually exclusive with `channel_ids`. */
+  all_resources?: false;
+};
 
 type ChannelEvent = BaseEvent & {
   /** @description The type of event */
   event_type: Exclude<ChannelTypes, MessageMetadataTypes>;
 };
 
-type MetadataChannelEvent =
-  & BaseEvent
-  & {
-    /** @description The type of event */
-    event_type: Extract<ChannelTypes, MessageMetadataTypes>;
-    /** @description User defined description for the metadata event type */
-    metadata_event_type: string;
-  };
+type MetadataChannelEvent = ChannelEvent & {
+  /** @description User defined description for the metadata event type */
+  metadata_event_type: string;
+};
 
 // The only event that currently requires a filter
 type MessagePostedEvent =
@@ -87,26 +98,20 @@ type MessagePostedEvent =
     event_type: MessagePostedEventType;
   };
 
-type WorkspaceEvents =
-  & BaseWorkspaceEvent
-  & {
-    /** @description The team id's that this event listens on */
-    team_ids?: PopulatedArray<string>;
-    // deno-lint-ignore no-explicit-any
-    [otherOptions: string]: any;
-  };
-
-type BaseWorkspaceEvent = BaseEvent & {
+type WorkspaceEvents = BaseEvent & {
   /** @description The type of event */
   event_type: WorkspaceTypes;
+  /** @description The team IDs that this event should listen on. Must be included when used on Enterprise Grid and working with workspace-based event triggers. */
+  team_ids?: PopulatedArray<string>;
 };
 
 type BaseEvent = {
+  // TODO: (breaking change) filter should not be optional here, but explicitly chosen for the events that accept it;
+  // could use similar technique as we do to manage messagemetadata-specific properties (above)
   /** @description Defines the condition in which this event trigger should execute the workflow */
   filter?: FilterType;
   // deno-lint-ignore no-explicit-any
-  [otherOptions: string]: any;
-};
+} & Record<string, any>;
 
 export type EventTrigger<WorkflowDefinition extends WorkflowSchema> =
   & BaseTrigger<WorkflowDefinition>
@@ -138,6 +143,6 @@ export type EventTriggerResponseObject<
      * @description The type of event specified for the event trigger
      */
     event_type?: string;
-    // deno-lint-ignore no-explicit-any
-    [otherOptions: string]: any;
-  };
+  }
+  // deno-lint-ignore no-explicit-any
+  & Record<string, any>;
