@@ -39,7 +39,7 @@ deno task test
 You can also run a test coverage report with:
 
 ```zsh
-deno task coverage
+deno task test:coverage
 ```
 
 ### Lint and format

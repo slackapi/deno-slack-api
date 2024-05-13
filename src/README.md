@@ -1,5 +1,7 @@
 # deno-slack-api
 
+[![codecov](https://codecov.io/gh/slackapi/deno-slack-api/graph/badge.svg?token=QKJCI23P5S)](https://codecov.io/gh/slackapi/deno-slack-api)
+
 Slack API Client for Deno Run on Slack projects
 
 ```ts

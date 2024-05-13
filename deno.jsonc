@@ -32,7 +32,8 @@
   },
   "tasks": {
     "test": "deno fmt --check && deno lint && deno test",
-    "coverage": "deno test --coverage=.coverage && deno coverage --exclude=fixtures --exclude=test --exclude=scripts --exclude=src/generated --lcov --output=lcov.info .coverage && deno run --allow-read https://deno.land/x/code_coverage@0.2.0/cli.ts"
+    "generate-lcov": "rm -rf .coverage && deno test --reporter=dot --coverage=.coverage && deno coverage --exclude=fixtures --exclude=test --exclude=scripts --exclude=src/generated --lcov --output=lcov.info .coverage",
+    "test:coverage": "deno task generate-lcov && deno coverage --exclude=fixtures --exclude=test --exclude=scripts --exclude=src/generated .coverage src"
   },
   "lock": false
 }

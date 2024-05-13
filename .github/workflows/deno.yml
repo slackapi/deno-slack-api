@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Setup repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Deno
         uses: denoland/setup-deno@v1
@@ -23,9 +23,18 @@ jobs:
         run: deno task test
 
       - name: Generate CodeCov-friendly coverage report
-        run: deno task coverage
+        run: deno task generate-lcov
 
       - name: Upload coverage to CodeCov
-        uses: codecov/codecov-action@v3.1.0
+        uses: codecov/codecov-action@v4
         with:
           file: ./lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Report health score
+        uses: slackapi/slack-health-score@v0
+        with:
+          codecov_token: ${{ secrets.FILS_CODECOV_API_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          extension: ts
+          include: src
