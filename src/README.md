@@ -50,7 +50,7 @@ as desired, you can run:
 
 To get a full test coverage report, run:
 
-    deno task coverage
+    deno task test:coverage
 
 ---
 
