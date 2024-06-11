@@ -7,6 +7,9 @@ export type ConversationsAPIType = {
   acceptSharedInvite: SlackAPIMethod;
   approveSharedInvite: SlackAPIMethod;
   archive: SlackAPIMethod;
+  canvases: {
+    create: SlackAPIMethod;
+  };
   close: SlackAPIMethod;
   create: SlackAPIMethod;
   declineSharedInvite: SlackAPIMethod;

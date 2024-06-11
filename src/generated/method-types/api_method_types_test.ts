@@ -139,6 +139,12 @@ Deno.test("SlackAPIMethodsType generated types", () => {
   assertEquals(typeof client.calls.participants.add, "function");
   assertEquals(typeof client.calls.participants.remove, "function");
   assertEquals(typeof client.calls.update, "function");
+  assertEquals(typeof client.canvases.access.delete, "function");
+  assertEquals(typeof client.canvases.access.set, "function");
+  assertEquals(typeof client.canvases.create, "function");
+  assertEquals(typeof client.canvases.delete, "function");
+  assertEquals(typeof client.canvases.edit, "function");
+  assertEquals(typeof client.canvases.sections.lookup, "function");
   assertEquals(typeof client.chat.delete, "function");
   assertEquals(typeof client.chat.deleteScheduledMessage, "function");
   assertEquals(typeof client.chat.getPermalink, "function");
@@ -151,6 +157,7 @@ Deno.test("SlackAPIMethodsType generated types", () => {
   assertEquals(typeof client.conversations.acceptSharedInvite, "function");
   assertEquals(typeof client.conversations.approveSharedInvite, "function");
   assertEquals(typeof client.conversations.archive, "function");
+  assertEquals(typeof client.conversations.canvases.create, "function");
   assertEquals(typeof client.conversations.close, "function");
   assertEquals(typeof client.conversations.create, "function");
   assertEquals(typeof client.conversations.declineSharedInvite, "function");
