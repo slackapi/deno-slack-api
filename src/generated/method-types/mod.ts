@@ -5,6 +5,7 @@ import { type AuthAPIType } from "./auth.ts";
 import { type BookmarksAPIType } from "./bookmarks.ts";
 import { type BotsAPIType } from "./bots.ts";
 import { type CallsAPIType } from "./calls.ts";
+import { type CanvasesAPIType } from "./canvases.ts";
 import { type ChatAPIType } from "./chat.ts";
 import { type ConversationsAPIType } from "./conversations.ts";
 import { type DialogAPIType } from "./dialog.ts";
@@ -36,6 +37,7 @@ export type SlackAPIMethodsType = {
   bookmarks: BookmarksAPIType;
   bots: BotsAPIType;
   calls: CallsAPIType;
+  canvases: CanvasesAPIType;
   chat: ChatAPIType;
   conversations: ConversationsAPIType;
   dialog: DialogAPIType;

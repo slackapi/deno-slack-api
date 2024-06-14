@@ -103,6 +103,12 @@ export const getPublicAPIMethods = () => {
     "calls.update",
     "calls.participants.add",
     "calls.participants.remove",
+    "canvases.access.delete",
+    "canvases.access.set",
+    "canvases.create",
+    "canvases.delete",
+    "canvases.edit",
+    "canvases.sections.lookup",
     "chat.delete",
     "chat.deleteScheduledMessage",
     "chat.getPermalink",
@@ -116,6 +122,7 @@ export const getPublicAPIMethods = () => {
     "conversations.acceptSharedInvite",
     "conversations.approveSharedInvite",
     "conversations.archive",
+    "conversations.canvases.create",
     "conversations.close",
     "conversations.create",
     "conversations.declineSharedInvite",
@@ -161,6 +168,8 @@ export const getPublicAPIMethods = () => {
     "files.remote.remove",
     "files.remote.share",
     "files.remote.update",
+    "functions.completeError",
+    "functions.completeSuccess",
     "migration.exchange",
     "oauth.access",
     "oauth.v2.access",
@@ -223,15 +232,8 @@ export const getPublicAPIMethods = () => {
     "workflows.updateStep",
   ];
 
-  // next gen platform methods we want available but aren't listed quite yet
-  const nextGenPlatformMethods = [
-    "functions.completeError",
-    "functions.completeSuccess",
-  ];
-
   const methodsSet = new Set([
     ...publicAPIMethods,
-    ...nextGenPlatformMethods,
   ]);
 
   methodsWithCustomTypes.forEach((customMethod) => {
