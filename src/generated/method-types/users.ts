@@ -6,6 +6,9 @@ import type {
 export type UsersAPIType = {
   conversations: SlackAPICursorPaginatedMethod;
   deletePhoto: SlackAPIMethod;
+  discoverableContacts: {
+    lookup: SlackAPIMethod;
+  };
   getPresence: SlackAPIMethod;
   identity: SlackAPIMethod;
   info: SlackAPIMethod;
