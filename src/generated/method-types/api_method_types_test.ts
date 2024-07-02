@@ -161,6 +161,10 @@ Deno.test("SlackAPIMethodsType generated types", () => {
   assertEquals(typeof client.conversations.close, "function");
   assertEquals(typeof client.conversations.create, "function");
   assertEquals(typeof client.conversations.declineSharedInvite, "function");
+  assertEquals(
+    typeof client.conversations.externalInvitePermissions.set,
+    "function",
+  );
   assertEquals(typeof client.conversations.history, "function");
   assertEquals(typeof client.conversations.info, "function");
   assertEquals(typeof client.conversations.invite, "function");
@@ -232,6 +236,7 @@ Deno.test("SlackAPIMethodsType generated types", () => {
   assertEquals(typeof client.team.accessLogs, "function");
   assertEquals(typeof client.team.billableInfo, "function");
   assertEquals(typeof client.team.billing.info, "function");
+  assertEquals(typeof client.team.externalTeams.disconnect, "function");
   assertEquals(typeof client.team.externalTeams.list, "function");
   assertEquals(typeof client.team.info, "function");
   assertEquals(typeof client.team.integrationLogs, "function");

@@ -10,6 +10,7 @@ export type TeamAPIType = {
     info: SlackAPIMethod;
   };
   externalTeams: {
+    disconnect: SlackAPIMethod;
     list: SlackAPICursorPaginatedMethod;
   };
   info: SlackAPIMethod;
