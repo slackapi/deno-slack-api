@@ -13,6 +13,9 @@ export type ConversationsAPIType = {
   close: SlackAPIMethod;
   create: SlackAPIMethod;
   declineSharedInvite: SlackAPIMethod;
+  externalInvitePermissions: {
+    set: SlackAPIMethod;
+  };
   history: SlackAPICursorPaginatedMethod;
   info: SlackAPIMethod;
   invite: SlackAPIMethod;
