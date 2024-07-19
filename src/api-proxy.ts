@@ -1,6 +1,8 @@
 import { BaseSlackAPIClient } from "./base-client.ts";
 import { BaseResponse, SlackAPIClient, SlackAPIMethodArgs } from "./types.ts";
 
+const DO_NOT_PROXY = ["then"];
+
 type APICallback = {
   (method: string, payload?: SlackAPIMethodArgs): Promise<BaseResponse>;
 };
@@ -46,7 +48,10 @@ export const APIProxy = (
   const proxy = new Proxy(objectToProxy, {
     get(obj, prop) {
       // We're attempting to access a property that doesn't exist, so create a new nested proxy
-      if (typeof prop === "string" && !(prop in obj)) {
+      if (
+        typeof prop === "string" && !DO_NOT_PROXY.includes(prop) &&
+        !(prop in obj)
+      ) {
         return APIProxy(null, apiCallback, ...path, prop);
       }
 
