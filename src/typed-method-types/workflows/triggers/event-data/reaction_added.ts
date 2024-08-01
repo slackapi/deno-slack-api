@@ -1,4 +1,7 @@
+import all_trigger_data from "./common-objects/all_triggers.ts";
+
 export const ReactionAdded = {
+  ...all_trigger_data,
   /**
    * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} where the emoji reaction was added to.
    */

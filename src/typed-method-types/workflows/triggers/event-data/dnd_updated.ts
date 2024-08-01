@@ -1,4 +1,7 @@
+import all_trigger_data from "./common-objects/all_triggers.ts";
+
 const DndStatus = {
+  ...all_trigger_data,
   /**
    * Whether Do Not Disturb is enabled or not.
    */

@@ -1,4 +1,7 @@
+import all_trigger_data from "./common-objects/all_triggers.ts";
+
 export const MessageMetadataPosted = {
+  ...all_trigger_data,
   /**
    * A unique identifier for the app that posted metadata.
    */

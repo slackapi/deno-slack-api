@@ -1,3 +1,5 @@
+import all_trigger_data from "./common-objects/all_triggers.ts";
+
 const User = {
   /**
    * The display name of the user who joined, as they chose upon registering to the workspace.
@@ -33,6 +35,7 @@ const User = {
 Object.defineProperty(User, "toJSON", { value: () => "{{data.user}}" });
 
 export const UserJoinedTeam = {
+  ...all_trigger_data,
   /**
    * The event type being invoked. At runtime will always be "slack#/events/user_joined_channel".
    */
