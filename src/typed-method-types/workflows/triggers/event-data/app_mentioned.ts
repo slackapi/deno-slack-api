@@ -1,4 +1,7 @@
+import base_trigger_data from "./common-objects/all_triggers.ts";
+
 export const AppMentioned = {
+  ...base_trigger_data,
   /**
    * A unique identifier for the app being mentioned.
    */

@@ -1,4 +1,7 @@
+import base_trigger_data from "./common-objects/all_triggers.ts";
+
 export const EmojiChanged = {
+  ...base_trigger_data,
   /**
    * The event type being invoked. At runtime will always be "slack#/events/emoji_changed".
    */

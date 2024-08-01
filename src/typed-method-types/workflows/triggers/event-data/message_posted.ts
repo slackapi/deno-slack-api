@@ -1,4 +1,7 @@
+import base_trigger_data from "./common-objects/all_triggers.ts";
+
 export const MessagePosted = {
+  ...base_trigger_data,
   /**
    * A unique identifier for the app that posted the message. Only available when message is posted by an app.
    */
