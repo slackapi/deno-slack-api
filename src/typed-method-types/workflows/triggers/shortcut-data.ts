@@ -1,4 +1,4 @@
-import all_trigger_data from './event-data/common-objects/all_triggers.ts';
+import all_trigger_data from "./event-data/common-objects/all_triggers.ts";
 
 const Interactor = {
   /**
