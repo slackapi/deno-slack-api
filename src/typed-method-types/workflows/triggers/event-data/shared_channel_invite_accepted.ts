@@ -1,5 +1,5 @@
 import { Invite } from "./common-objects/shared_channel_invite.ts";
-import all_trigger_data from "./common-objects/all_triggers.ts";
+import base_trigger_data from "./common-objects/all_triggers.ts";
 
 const AcceptingUser = {
   /**
@@ -38,7 +38,7 @@ Object.defineProperty(AcceptingUser, "toJSON", {
 });
 
 export const SharedChannelInviteAccepted = {
-  ...all_trigger_data,
+  ...base_trigger_data,
   /**
    * Object containing details for the invitee.
    */

@@ -1,7 +1,7 @@
-import all_trigger_data from "./common-objects/all_triggers.ts";
+import base_trigger_data from "./common-objects/all_triggers.ts";
 
 export const ChannelUnshared = {
-  ...all_trigger_data,
+  ...base_trigger_data,
   /**
    * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} that was unshared.
    */

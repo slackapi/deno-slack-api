@@ -1,5 +1,5 @@
 import { Invite } from "./common-objects/shared_channel_invite.ts";
-import all_trigger_data from "./common-objects/all_triggers.ts";
+import base_trigger_data from "./common-objects/all_triggers.ts";
 
 const DecliningUser = {
   /**
@@ -38,7 +38,7 @@ Object.defineProperty(DecliningUser, "toJSON", {
 });
 
 export const SharedChannelInviteDeclined = {
-  ...all_trigger_data,
+  ...base_trigger_data,
   /**
    * A unique identifier for the {@link https://api.slack.com/automation/types#channelid Slack channel} being shared.
    */

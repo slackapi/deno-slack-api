@@ -1,4 +1,4 @@
-import all_trigger_data from "./event-data/common-objects/all_triggers.ts";
+import base_trigger_data from "./event-data/common-objects/all_triggers.ts";
 
 const Interactor = {
   /**
@@ -34,7 +34,7 @@ Object.defineProperty(Interactivity, "toJSON", {
  * Link-trigger-specific input values that contain information about the link trigger.
  */
 export const ShortcutTriggerContextData = {
-  ...all_trigger_data,
+  ...base_trigger_data,
   /**
    * A unique identifier for the action that invoked the trigger. Only available when trigger is invoked from a {@link https://api.slack.com/automation/triggers/link#workflow_buttons Workflow button}!
    */

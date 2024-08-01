@@ -1,5 +1,5 @@
 import { Invite } from "./common-objects/shared_channel_invite.ts";
-import all_trigger_data from "./common-objects/all_triggers.ts";
+import base_trigger_data from "./common-objects/all_triggers.ts";
 
 const ApprovingUser = {
   /**
@@ -38,7 +38,7 @@ Object.defineProperty(ApprovingUser, "toJSON", {
 });
 
 export const SharedChannelInviteApproved = {
-  ...all_trigger_data,
+  ...base_trigger_data,
   /**
    * A unique identifier for the team or workspace issuing the approval.
    */
