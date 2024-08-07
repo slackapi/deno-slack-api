@@ -2,8 +2,8 @@ import { assertEquals } from "../../../../dev_deps.ts";
 import { SlackAPI, TriggerEventTypes, TriggerTypes } from "../../../../mod.ts";
 import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
 import { event_response } from "./fixtures/sample_responses.ts";
-import { ExampleWorkflow } from "./fixtures/workflows.ts";
-import { EventTrigger } from "../event.ts";
+import type { ExampleWorkflow } from "./fixtures/workflows.ts";
+import type { EventTrigger } from "../event.ts";
 
 Deno.test("Event trigger type tests", async (t) => {
   await t.step("Event triggers can set the type using the string", () => {

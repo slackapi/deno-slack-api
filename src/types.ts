@@ -1,5 +1,5 @@
-import { TypedSlackAPIMethodsType } from "./typed-method-types/mod.ts";
-import { SlackAPIMethodsType } from "./generated/method-types/mod.ts";
+import type { TypedSlackAPIMethodsType } from "./typed-method-types/mod.ts";
+import type { SlackAPIMethodsType } from "./generated/method-types/mod.ts";
 
 export type { DatastoreItem } from "./typed-method-types/apps.ts";
 

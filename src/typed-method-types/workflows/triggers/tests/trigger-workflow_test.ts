@@ -1,6 +1,6 @@
 import { SlackAPI } from "../../../../mod.ts";
 import {
-  _format,
+  type _format,
   assert,
   assertEquals,
 } from "https://deno.land/std@0.99.0/testing/asserts.ts";
@@ -15,7 +15,7 @@ import type {
 } from "./fixtures/workflows.ts";
 import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
 import { shortcut_response } from "./fixtures/sample_responses.ts";
-import { Trigger } from "../../../../types.ts";
+import type { Trigger } from "../../../../types.ts";
 
 Deno.test("Trigger inputs are powered by generics", async (t) => {
   const client = SlackAPI("");

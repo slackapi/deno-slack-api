@@ -1,5 +1,5 @@
 import { assertEquals, mf } from "../../../../dev_deps.ts";
-import { WebhookTrigger } from "../webhook.ts";
+import type { WebhookTrigger } from "../webhook.ts";
 import { TriggerTypes } from "../mod.ts";
 import { SlackAPI } from "../../../../mod.ts";
 import { webhook_response } from "./fixtures/sample_responses.ts";

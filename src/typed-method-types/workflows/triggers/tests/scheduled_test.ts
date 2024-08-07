@@ -1,5 +1,5 @@
 import { assertEquals, mf } from "../../../../dev_deps.ts";
-import { ScheduledTrigger } from "../scheduled.ts";
+import type { ScheduledTrigger } from "../scheduled.ts";
 import { TriggerTypes } from "../mod.ts";
 import { SlackAPI } from "../../../../mod.ts";
 import { scheduled_response } from "./fixtures/sample_responses.ts";

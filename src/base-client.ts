@@ -1,10 +1,10 @@
-import {
+import type {
   BaseResponse,
   BaseSlackClient,
   SlackAPIMethodArgs,
   SlackAPIOptions,
 } from "./types.ts";
-import { createHttpError, HttpError } from "./deps.ts";
+import { createHttpError, type HttpError } from "./deps.ts";
 import { getUserAgent, serializeData } from "./base-client-helpers.ts";
 
 export class BaseSlackAPIClient implements BaseSlackClient {

@@ -1,5 +1,5 @@
 import { BaseSlackAPIClient } from "./base-client.ts";
-import { SlackAPIClient, SlackAPIOptions } from "./types.ts";
+import type { SlackAPIClient, SlackAPIOptions } from "./types.ts";
 import { ProxifyAndTypeClient } from "./api-proxy.ts";
 
 export {

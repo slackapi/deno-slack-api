@@ -1,4 +1,4 @@
-import { BaseTrigger, WorkflowSchema } from "./mod.ts";
+import type { BaseTrigger, WorkflowSchema } from "./mod.ts";
 
 export type BaseTriggerResponse<
   WorkflowDefinition extends WorkflowSchema,

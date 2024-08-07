@@ -1,14 +1,14 @@
-import { BaseResponse } from "../../../types.ts";
-import { BaseTriggerResponse } from "./base_response.ts";
-import {
+import type { BaseResponse } from "../../../types.ts";
+import type { BaseTriggerResponse } from "./base_response.ts";
+import type {
   BaseTrigger,
   FailedTriggerResponse,
   TriggerTypes,
   WorkflowSchema,
 } from "./mod.ts";
-import { FilterType } from "./trigger-filter.ts";
-import { ObjectValueUnion, PopulatedArray } from "../../../type-helpers.ts";
-import { TriggerEventTypes } from "./trigger-event-types.ts";
+import type { FilterType } from "./trigger-filter.ts";
+import type { ObjectValueUnion, PopulatedArray } from "../../../type-helpers.ts";
+import type { TriggerEventTypes } from "./trigger-event-types.ts";
 
 type MessageMetadataTypes = ObjectValueUnion<
   Pick<

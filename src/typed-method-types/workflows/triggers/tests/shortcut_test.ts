@@ -1,5 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.99.0/testing/asserts.ts";
-import { ShortcutTrigger } from "../shortcut.ts";
+import type { ShortcutTrigger } from "../shortcut.ts";
 import { TriggerTypes } from "../mod.ts";
 import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
 import { SlackAPI } from "../../../../mod.ts";
