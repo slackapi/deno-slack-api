@@ -25,6 +25,9 @@
       "include": ["src", "scripts"]
     }
   },
+  "publish": {
+    "exclude": ["./README.md"]
+  },
   "test": {
     "files": {
       "include": ["src", "scripts"]
@@ -35,5 +38,11 @@
     "generate-lcov": "rm -rf .coverage && deno test --reporter=dot --coverage=.coverage && deno coverage --exclude=fixtures --exclude=test --exclude=scripts --exclude=src/generated --lcov --output=lcov.info .coverage",
     "test:coverage": "deno task generate-lcov && deno coverage --exclude=fixtures --exclude=test --exclude=scripts --exclude=src/generated .coverage src"
   },
-  "lock": false
+  "lock": false,
+  "name": "@slack/api",
+  "version": "0.0.1",
+  "exports": {
+    ".": "./src/mod.ts",
+    "./types": "./src/types.ts"
+  }  
 }
