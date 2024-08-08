@@ -11,7 +11,7 @@ To instantiate the Slack API Client, use the top level `SlackAPI` export.
     default this is set to `"https://slack.com/api/"`
 
 ```ts
-import { SlackAPI } from "https://deno.land/x/deno_slack_api@0.0.8/mod.ts";
+import { SlackAPI } from "jsr:@slack/api";
 
 // create a client with defaults
 const client = SlackAPI(token);

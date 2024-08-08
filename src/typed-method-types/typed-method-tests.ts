@@ -1,4 +1,4 @@
-import { assertEquals } from "../dev_deps.ts";
+import { assertEquals } from "@std/assert";
 import { SlackAPI } from "../mod.ts";
 
 Deno.test("Custom Type Methods are valid functions", () => {

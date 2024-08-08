@@ -1,4 +1,4 @@
-import { assertEquals } from "../../../../dev_deps.ts";
+import { assertEquals } from "@std/assert";
 import { TriggerContextData } from "../mod.ts";
 
 Deno.test("TriggerContextData Objects allow property access or string references", async (t) => {

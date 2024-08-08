@@ -1,7 +1,7 @@
 import { APIProxy } from "./api-proxy.ts";
 import { BaseSlackAPIClient } from "./base-client.ts";
 import type { SlackAPIMethodArgs } from "./types.ts";
-import { assertSpyCall, spy } from "./dev_deps.ts";
+import { assertSpyCall, spy } from "@std/testing/mock";
 
 Deno.test("APIProxy", async (t) => {
   const baseClient = new BaseSlackAPIClient("test-token");

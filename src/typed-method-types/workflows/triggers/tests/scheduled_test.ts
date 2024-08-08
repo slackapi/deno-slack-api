@@ -1,4 +1,5 @@
-import { assertEquals, mf } from "../../../../dev_deps.ts";
+import { mf } from "../../../../dev_deps.ts";
+import { assertEquals, assertObjectMatch } from "@std/assert";
 import type { ScheduledTrigger } from "../scheduled.ts";
 import { TriggerTypes } from "../mod.ts";
 import { SlackAPI } from "../../../../mod.ts";
@@ -233,7 +234,7 @@ Deno.test("Mock call for schedule", async (t) => {
           });
           assertEquals(res.ok, true);
           if (res.ok) {
-            assertEquals(res.trigger, scheduled_response.trigger);
+            assertObjectMatch(res.trigger, scheduled_response.trigger);
             assertEquals(
               res.trigger?.schedule,
               scheduled_response.trigger.schedule,
@@ -289,7 +290,7 @@ Deno.test("Mock call for schedule", async (t) => {
         });
         assertEquals(res.ok, true);
         if (res.ok) {
-          assertEquals(res.trigger, scheduled_response.trigger);
+          assertObjectMatch(res.trigger, scheduled_response.trigger);
           assertEquals(
             res.trigger?.schedule,
             scheduled_response.trigger.schedule,

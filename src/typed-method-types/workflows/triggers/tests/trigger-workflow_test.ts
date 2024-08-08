@@ -1,9 +1,5 @@
 import { SlackAPI } from "../../../../mod.ts";
-import {
-  type _format,
-  assert,
-  assertEquals,
-} from "https://deno.land/std@0.99.0/testing/asserts.ts";
+import { assert, assertEquals } from "@std/assert";
 import type {
   CustomizableInputWorkflow,
   ExampleWorkflow,

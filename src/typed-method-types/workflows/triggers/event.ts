@@ -7,7 +7,10 @@ import type {
   WorkflowSchema,
 } from "./mod.ts";
 import type { FilterType } from "./trigger-filter.ts";
-import type { ObjectValueUnion, PopulatedArray } from "../../../type-helpers.ts";
+import type {
+  ObjectValueUnion,
+  PopulatedArray,
+} from "../../../type-helpers.ts";
 import type { TriggerEventTypes } from "./trigger-event-types.ts";
 
 type MessageMetadataTypes = ObjectValueUnion<

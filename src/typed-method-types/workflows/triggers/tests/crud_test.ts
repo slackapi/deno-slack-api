@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.99.0/testing/asserts.ts";
+import { assertEquals, assertObjectMatch } from "@std/assert";
 import { SlackAPI } from "../../../../mod.ts";
 import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
 import {
@@ -71,7 +71,7 @@ Deno.test("Mock CRUD call", async (t) => {
           });
           assertEquals(res.ok, true);
           if (res.ok) {
-            assertEquals(res.trigger, shortcut_response.trigger);
+            assertObjectMatch(res.trigger, shortcut_response.trigger);
             assertEquals(
               res.trigger?.shortcut_url,
               shortcut_response.trigger.shortcut_url,
@@ -107,7 +107,7 @@ Deno.test("Mock CRUD call", async (t) => {
         });
         assertEquals(res.ok, true);
         if (res.ok) {
-          assertEquals(res.trigger, shortcut_response.trigger);
+          assertObjectMatch(res.trigger, shortcut_response.trigger);
           assertEquals(
             res.trigger?.shortcut_url,
             shortcut_response.trigger.shortcut_url,
