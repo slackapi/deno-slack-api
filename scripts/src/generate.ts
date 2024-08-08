@@ -121,7 +121,7 @@ const getTestCode = (api: APIMethodNode) => {
   visitMethodNodes(api);
 
   return `
-import { assertEquals } from "@std/testing/assert";
+import { assertEquals } from "@std/assert";
 import { SlackAPI } from "../../mod.ts";
 
 Deno.test("SlackAPIMethodsType generated types", () => {

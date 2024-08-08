@@ -32,6 +32,7 @@
     "./types": "./src/types.ts"
   },
   "imports": {
+    "@deno/dnt": "jsr:@deno/dnt@^0.41",
     "@std/assert": "jsr:@std/assert@^1",
     "@std/cli": "jsr:@std/cli@^1",
     "@std/fs": "jsr:@std/fs@^1",

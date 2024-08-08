@@ -1,6 +1,6 @@
 // ex. scripts/build_npm.ts
 import { emptyDir } from "@std/fs";
-import { build } from "https://deno.land/x/dnt@0.34.0/mod.ts";
+import { build } from "@deno/dnt";
 
 await emptyDir("./npm");
 
@@ -11,7 +11,7 @@ await build({
   outDir: "./npm",
   // ensures that the emitted package is compatible with node v14 later
   compilerOptions: {
-    lib: ["es2022.error"], // fix ErrorOptions not exported in ES2020
+    lib: ["ES2022.Error"], // fix ErrorOptions not exported in ES2020
     target: "ES2020",
   },
   shims: {
