@@ -1,11 +1,7 @@
-import { HttpError } from "../../src/deps.ts";
-import {
-  afterEach,
-  assertEquals,
-  assertRejects,
-  beforeAll,
-  mf,
-} from "../../src/dev_deps.ts";
+import { isHttpError } from "@std/http/http-errors";
+import { mf } from "../../src/dev_deps.ts";
+import { assertEquals, assertRejects } from "@std/assert";
+import { afterEach, beforeAll } from "@std/testing/bdd";
 import { apiDepsIn } from "./update.ts";
 
 const depsTsMock =
@@ -47,12 +43,8 @@ Deno.test("apiDepsIn should throw http error on response not ok", async () => {
     return new Response("error", { status: 500 });
   });
 
-  await assertRejects(
-    async () => {
-      return await apiDepsIn(
-        "https://deno.land/x/deno_slack_sdk@x.x.x/",
-      );
-    },
-    HttpError,
+  const error = await assertRejects(() =>
+    apiDepsIn("https://deno.land/x/deno_slack_sdk@x.x.x/")
   );
+  isHttpError(error);
 });

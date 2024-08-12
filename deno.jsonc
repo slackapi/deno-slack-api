@@ -1,37 +1,23 @@
 {
   "$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
   "fmt": {
-    "files": {
-      "include": [
-        "src",
-        "scripts",
-        "docs",
-        "README.md",
-        ".github/maintainers_guide.md",
-        ".github/CONTRIBUTING.md"
-      ]
-    },
-    "options": {
-      "semiColons": true,
-      "indentWidth": 2,
-      "lineWidth": 80,
-      "proseWrap": "always",
-      "singleQuote": false,
-      "useTabs": false
-    }
+    "include": [
+      "src",
+      "scripts",
+      "docs",
+      "README.md",
+      ".github/maintainers_guide.md",
+      ".github/CONTRIBUTING.md"
+    ]
   },
   "lint": {
-    "files": {
-      "include": ["src", "scripts"]
-    }
+    "include": ["src", "scripts"]
   },
   "publish": {
     "exclude": ["./README.md"]
   },
   "test": {
-    "files": {
-      "include": ["src", "scripts"]
-    }
+    "include": ["src", "scripts"]
   },
   "tasks": {
     "test": "deno fmt --check && deno lint && deno test",
@@ -40,9 +26,18 @@
   },
   "lock": false,
   "name": "@slack/api",
-  "version": "0.0.1",
+  "version": "2.9.0",
   "exports": {
     ".": "./src/mod.ts",
     "./types": "./src/types.ts"
-  }  
+  },
+  "imports": {
+    "@deno/dnt": "jsr:@deno/dnt@^0.41",
+    "@std/assert": "jsr:@std/assert@^1",
+    "@std/cli": "jsr:@std/cli@^1",
+    "@std/fs": "jsr:@std/fs@^1",
+    "@std/http": "jsr:@std/http@^0.206",
+    "@std/testing": "jsr:@std/testing@^1",
+    "@std/text": "jsr:@std/text@^1"
+  }
 }

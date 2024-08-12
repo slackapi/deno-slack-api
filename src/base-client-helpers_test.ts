@@ -1,10 +1,10 @@
-import { assertEquals } from "https://deno.land/std@0.185.0/testing/asserts.ts";
+import { assertEquals } from "@std/assert";
 import {
   _internals,
   getUserAgent,
   serializeData,
 } from "./base-client-helpers.ts";
-import { assertSpyCalls, stub } from "./dev_deps.ts";
+import { assertSpyCalls, stub } from "@std/testing/mock";
 
 Deno.test(`base-client-helpers.${_internals.getModuleVersion.name}`, async (t) => {
   await t.step(

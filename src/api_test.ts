@@ -1,13 +1,12 @@
+import { mf } from "./dev_deps.ts";
 import {
   assertEquals,
   assertExists,
   assertInstanceOf,
   assertRejects,
-  isHttpError,
-  mf,
-} from "./dev_deps.ts";
+} from "@std/assert";
 import { SlackAPI } from "./mod.ts";
-import { HttpError } from "./deps.ts";
+import { HttpError } from "@std/http/http-errors";
 
 Deno.test("SlackAPI class", async (t) => {
   mf.install(); // mock out calls to `fetch`
@@ -73,19 +72,13 @@ Deno.test("SlackAPI class", async (t) => {
               });
             });
 
-            await assertRejects(
-              async () => {
-                return await client.apiCall("chat.postMessage", {});
-              },
-              (error: Error) => {
-                assertInstanceOf(error, HttpError);
-                if (isHttpError(error)) {
-                  assertEquals(error.headers?.get("Retry-After"), "120");
-                  assertEquals(error.status, 429);
-                  assertEquals(error.message, "429: ratelimited");
-                }
-              },
+            const error = await assertRejects(
+              () => client.apiCall("chat.postMessage", {}),
+              HttpError,
+              "429: ratelimited",
             );
+            assertEquals(error.headers?.get("Retry-After"), "120");
+            assertEquals(error.status, 429);
 
             mf.reset();
           },
@@ -142,22 +135,14 @@ Deno.test("SlackAPI class", async (t) => {
               });
             });
 
-            await assertRejects(
-              async () => {
-                return await client.response(
-                  "https://slack.com/api/chat.postMessage",
-                  {},
-                );
-              },
-              (error: Error) => {
-                assertInstanceOf(error, HttpError);
-                if (isHttpError(error)) {
-                  assertEquals(error.headers?.get("Retry-After"), "120");
-                  assertEquals(error.status, 429);
-                  assertEquals(error.message, "429: ratelimited");
-                }
-              },
+            const error = await assertRejects(
+              () =>
+                client.response("https://slack.com/api/chat.postMessage", {}),
+              HttpError,
             );
+            assertEquals(error.headers?.get("Retry-After"), "120");
+            assertEquals(error.status, 429);
+            assertEquals(error.message, "429: ratelimited");
 
             mf.reset();
           },

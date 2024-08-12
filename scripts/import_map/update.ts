@@ -1,14 +1,12 @@
-import { parse } from "https://deno.land/std@0.185.0/flags/mod.ts";
-import {
-  createHttpError,
-} from "https://deno.land/std@0.182.0/http/http_errors.ts";
+import { parseArgs } from "@std/cli/parse-args";
+import { createHttpError } from "@std/http/http-errors";
 
 // Regex for https://deno.land/x/deno_slack_api@x.x.x/
 const API_REGEX =
   /(https:\/\/deno.land\/x\/deno_slack_api@[0-9]+\.[0-9]+\.[0-9]+\/)/g;
 
 async function main() {
-  const flags = parse(Deno.args, {
+  const flags = parseArgs(Deno.args, {
     string: ["import-map", "api"],
     default: {
       "import-map": `${Deno.cwd()}/import_map.json`,

@@ -1,5 +1,9 @@
 import type { BaseSlackAPIClient } from "./base-client.ts";
-import type { BaseResponse, SlackAPIClient, SlackAPIMethodArgs } from "./types.ts";
+import type {
+  BaseResponse,
+  SlackAPIClient,
+  SlackAPIMethodArgs,
+} from "./types.ts";
 
 const DO_NOT_PROXY = ["then"];
 

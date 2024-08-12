@@ -5,7 +5,7 @@
 Slack API Client for Deno Run on Slack projects
 
 ```ts
-import { SlackAPI } from "https://deno.land/x/deno_slack_api@2.1.1/mod.ts";
+import { SlackAPI } from "jsr:@slack/api";
 
 const client = SlackAPI(token);
 

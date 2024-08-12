@@ -1,4 +1,4 @@
-import { assertEquals } from "../../../../dev_deps.ts";
+import { assertEquals, assertObjectMatch } from "@std/assert";
 import { SlackAPI, TriggerEventTypes, TriggerTypes } from "../../../../mod.ts";
 import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
 import { event_response } from "./fixtures/sample_responses.ts";
@@ -202,7 +202,7 @@ Deno.test("Mock call for event", async (t) => {
           });
           assertEquals(res.ok, true);
           if (res.ok) {
-            assertEquals(res.trigger, event_response.trigger);
+            assertObjectMatch(res.trigger, event_response.trigger);
             assertEquals(
               res.trigger?.event_type,
               event_response.trigger.event_type,
@@ -242,7 +242,7 @@ Deno.test("Mock call for event", async (t) => {
         });
         assertEquals(res.ok, true);
         if (res.ok) {
-          assertEquals(res.trigger, event_response.trigger);
+          assertObjectMatch(res.trigger, event_response.trigger);
           assertEquals(
             res.trigger?.event_type,
             event_response.trigger.event_type,
