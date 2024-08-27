@@ -350,6 +350,201 @@ Deno.test("SlackAPI class", async (t) => {
     },
   );
 
+  await t.step(
+    "fileUploadV2 method",
+    async (t) => {
+      const client = SlackAPI("test-token");
+      await t.step(
+        "should successfully upload a single file",
+        async () => {
+          const testFile = {
+            file: new Blob(["test"]),
+            filename: "test.txt",
+            length: "6",
+            fileId: "test_id",
+          };
+          mf.mock("POST@/api/files.getUploadURLExternal", () => {
+            return new Response(
+              JSON.stringify({
+                "ok": true,
+                "upload_url": "https://files.slack.com/test",
+                "file_id": "test_id",
+              }),
+            );
+          });
+          mf.mock("POST@/test", () => {
+            return new Response(
+              undefined,
+              { status: 200 },
+            );
+          });
+          mf.mock("POST@/api/files.completeUploadExternal", () => {
+            return new Response(
+              `{"ok":true}`,
+            );
+          });
+          const response = await client.fileUploadV2({
+            file_uploads: [
+              testFile,
+            ],
+          });
+          response.forEach((res) => assertEquals(res.ok, true));
+
+          mf.reset();
+        },
+      );
+
+      await t.step(
+        "should successfully upload multiple file",
+        async () => {
+          const testFile = {
+            file: new Blob(["test"]),
+            filename: "test.txt",
+            length: "6",
+            fileId: "test_id",
+          };
+          const testTextFile = {
+            file: "test",
+            filename: "test.txt",
+            length: "6",
+            fileId: "test_id",
+          };
+          mf.mock("POST@/api/files.getUploadURLExternal", () => {
+            return new Response(
+              JSON.stringify({
+                "ok": true,
+                "upload_url": "https://files.slack.com/test",
+                "file_id": "test_id",
+              }),
+            );
+          });
+          mf.mock("POST@/test", () => {
+            return new Response(
+              undefined,
+              { status: 200 },
+            );
+          });
+          mf.mock("POST@/api/files.completeUploadExternal", () => {
+            return new Response(
+              `{"ok":true}`,
+            );
+          });
+          const response = await client.fileUploadV2({
+            file_uploads: [
+              testFile,
+              testTextFile,
+            ],
+          });
+          response.forEach((res) => assertEquals(res.ok, true));
+
+          mf.reset();
+        },
+      );
+      await t.step(
+        "should rejects when get upload url fails",
+        async () => {
+          const testFile = {
+            file: new Blob(["test"]),
+            filename: "test.txt",
+            length: "6",
+            fileId: "test_id",
+          };
+          mf.mock("POST@/api/files.getUploadURLExternal", () => {
+            return new Response(
+              JSON.stringify({
+                "ok": false,
+              }),
+            );
+          });
+          await assertRejects(async () =>
+            await client.fileUploadV2({
+              file_uploads: [
+                testFile,
+              ],
+            })
+          );
+
+          mf.reset();
+        },
+      );
+      await t.step(
+        "should rejects when upload fails",
+        async () => {
+          const testFile = {
+            file: new Blob(["test"]),
+            filename: "test.txt",
+            length: "6",
+            fileId: "test_id",
+          };
+          mf.mock("POST@/api/files.getUploadURLExternal", () => {
+            return new Response(
+              JSON.stringify({
+                "ok": true,
+                "upload_url": "https://files.slack.com/test",
+                "file_id": "test_id",
+              }),
+            );
+          });
+          mf.mock("POST@/test", () => {
+            return new Response(
+              undefined,
+              { status: 500 },
+            );
+          });
+          await assertRejects(async () =>
+            await client.fileUploadV2({
+              file_uploads: [
+                testFile,
+              ],
+            })
+          );
+
+          mf.reset();
+        },
+      );
+      await t.step(
+        "should rejects when upload complete fails",
+        async () => {
+          const testFile = {
+            file: new Blob(["test"]),
+            filename: "test.txt",
+            length: "6",
+            fileId: "test_id",
+          };
+          mf.mock("POST@/api/files.getUploadURLExternal", () => {
+            return new Response(
+              JSON.stringify({
+                "ok": true,
+                "upload_url": "https://files.slack.com/test",
+                "file_id": "test_id",
+              }),
+            );
+          });
+          mf.mock("POST@/test", () => {
+            return new Response(
+              undefined,
+              { status: 200 },
+            );
+          });
+          mf.mock("POST@/api/files.completeUploadExternal", () => {
+            return new Response(
+              `{"ok":false}`,
+            );
+          });
+          await assertRejects(async () =>
+            await client.fileUploadV2({
+              file_uploads: [
+                testFile,
+              ],
+            })
+          );
+
+          mf.reset();
+        },
+      );
+    },
+  );
+
   mf.uninstall();
 });
 
