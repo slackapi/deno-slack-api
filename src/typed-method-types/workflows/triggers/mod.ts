@@ -1,26 +1,26 @@
-import {
+import type {
   BaseMethodArgs,
   BaseResponse,
   CursorPaginationArgs,
   CursorPaginationResponse,
 } from "../../../types.ts";
-import { InputParameterSchema, WorkflowInputs } from "./inputs.ts";
-import {
+import type { InputParameterSchema, WorkflowInputs } from "./inputs.ts";
+import type {
   EventTrigger,
   EventTriggerResponse,
   EventTriggerResponseObject,
 } from "./event.ts";
-import {
+import type {
   ScheduledTrigger,
   ScheduledTriggerResponse,
   ScheduledTriggerResponseObject,
 } from "./scheduled.ts";
-import {
+import type {
   ShortcutTrigger,
   ShortcutTriggerResponse,
   ShortcutTriggerResponseObject,
 } from "./shortcut.ts";
-import {
+import type {
   WebhookTrigger,
   WebhookTriggerResponse,
   WebhookTriggerResponseObject,

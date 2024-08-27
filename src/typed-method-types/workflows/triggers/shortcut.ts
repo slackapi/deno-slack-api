@@ -1,6 +1,6 @@
-import { BaseResponse } from "../../../types.ts";
-import { BaseTriggerResponse } from "./base_response.ts";
-import {
+import type { BaseResponse } from "../../../types.ts";
+import type { BaseTriggerResponse } from "./base_response.ts";
+import type {
   BaseTrigger,
   FailedTriggerResponse,
   TriggerTypes,

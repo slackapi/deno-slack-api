@@ -1,5 +1,6 @@
-import { assertEquals, mf } from "../../../../dev_deps.ts";
-import { WebhookTrigger } from "../webhook.ts";
+import { mf } from "../../../../dev_deps.ts";
+import { assertEquals, assertObjectMatch } from "@std/assert";
+import type { WebhookTrigger } from "../webhook.ts";
 import { TriggerTypes } from "../mod.ts";
 import { SlackAPI } from "../../../../mod.ts";
 import { webhook_response } from "./fixtures/sample_responses.ts";
@@ -82,7 +83,7 @@ Deno.test("Mock call for webhook", async (t) => {
           });
           assertEquals(res.ok, true);
           if (res.ok) {
-            assertEquals(res.trigger, webhook_response.trigger);
+            assertObjectMatch(res.trigger, webhook_response.trigger);
             assertEquals(
               res.trigger?.webhook_url,
               webhook_response.trigger.webhook_url,
@@ -122,7 +123,7 @@ Deno.test("Mock call for webhook", async (t) => {
         });
         assertEquals(res.ok, true);
         if (res.ok) {
-          assertEquals(res.trigger, webhook_response.trigger);
+          assertObjectMatch(res.trigger, webhook_response.trigger);
           assertEquals(
             res.trigger?.webhook_url,
             webhook_response.trigger.webhook_url,

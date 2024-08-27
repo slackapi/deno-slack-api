@@ -1,12 +1,12 @@
-import { BaseResponse } from "../../../types.ts";
-import { BaseTriggerResponse } from "./base_response.ts";
-import {
+import type { BaseResponse } from "../../../types.ts";
+import type { BaseTriggerResponse } from "./base_response.ts";
+import type {
   BaseTrigger,
   FailedTriggerResponse,
   TriggerTypes,
   WorkflowSchema,
 } from "./mod.ts";
-import { FilterType } from "./trigger-filter.ts";
+import type { FilterType } from "./trigger-filter.ts";
 
 export type WebhookTrigger<WorkflowDefinition extends WorkflowSchema> =
   & BaseTrigger<WorkflowDefinition>

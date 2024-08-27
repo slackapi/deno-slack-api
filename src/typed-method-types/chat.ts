@@ -1,4 +1,4 @@
-import { BaseResponse } from "../types.ts";
+import type { BaseResponse } from "../types.ts";
 
 type ChatPostMessageOptionalArgs = {
   /** @description The formatted text of the message to be published. If blocks are included, this will become the fallback text used in notifications. */

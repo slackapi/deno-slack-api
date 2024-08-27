@@ -1,4 +1,4 @@
-import { BaseResponse } from "../types.ts";
+import type { BaseResponse } from "../types.ts";
 
 type FunctionCompleteSuccessArgs = {
   // deno-lint-ignore no-explicit-any

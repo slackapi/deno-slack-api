@@ -42,6 +42,7 @@ jobs:
           --allow-read --allow-write --allow-net
           deno-slack-api/scripts/import_map/update.ts 
           --import-map "./sample/import_map.json"
+          --parent-import-map "./deno-slack-api/deno.jsonc"
           --api "../deno-slack-api/src/"
 
       - name: Deno check **/*.ts

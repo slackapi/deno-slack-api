@@ -1,4 +1,4 @@
-import { NO_GENERIC_TITLE, WorkflowSchema } from "./mod.ts";
+import type { NO_GENERIC_TITLE, WorkflowSchema } from "./mod.ts";
 
 // deno-lint-ignore no-explicit-any
 type EmptyObject = Record<any, never>;
