@@ -1,4 +1,4 @@
-import { pascalCase } from "./deps.ts";
+import { pascalCase } from "../../src/deps.ts";
 
 const CURSOR_PAGINATED_API_NAMES = [
   "getEntities",
