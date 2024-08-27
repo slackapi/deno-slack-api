@@ -1,5 +1,5 @@
 import { isHttpError } from "@std/http/http-errors";
-import { mf } from "../../src/dev_deps.ts";
+import { mf } from "../../../src/dev_deps.ts";
 import { assertEquals, assertRejects } from "@std/assert";
 import { afterEach, beforeAll } from "@std/testing/bdd";
 import { apiDepsIn } from "./update.ts";

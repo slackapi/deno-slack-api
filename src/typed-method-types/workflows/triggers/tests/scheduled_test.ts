@@ -233,19 +233,21 @@ Deno.test("Mock call for schedule", async (t) => {
             },
           });
           assertEquals(res.ok, true);
-          assertObjectMatch(res.trigger, scheduled_response.trigger);
-          assertEquals(
-            res.trigger?.schedule,
-            scheduled_response.trigger.schedule,
-          );
-          assertEquals(
-            res.trigger?.schedule?.start_time,
-            scheduled_response.trigger.schedule.start_time,
-          );
-          assertEquals(
-            res.trigger?.schedule?.timezone,
-            scheduled_response.trigger.schedule.timezone,
-          );
+          if (res.ok) {
+            assertObjectMatch(res.trigger, scheduled_response.trigger);
+            assertEquals(
+              res.trigger?.schedule,
+              scheduled_response.trigger.schedule,
+            );
+            assertEquals(
+              res.trigger?.schedule?.start_time,
+              scheduled_response.trigger.schedule.start_time,
+            );
+            assertEquals(
+              res.trigger?.schedule?.timezone,
+              scheduled_response.trigger.schedule.timezone,
+            );
+          }
 
           mf.reset();
         },
@@ -287,19 +289,21 @@ Deno.test("Mock call for schedule", async (t) => {
           },
         });
         assertEquals(res.ok, true);
-        assertObjectMatch(res.trigger, scheduled_response.trigger);
-        assertEquals(
-          res.trigger?.schedule,
-          scheduled_response.trigger.schedule,
-        );
-        assertEquals(
-          res.trigger?.schedule?.start_time,
-          scheduled_response.trigger.schedule.start_time,
-        );
-        assertEquals(
-          res.trigger?.schedule?.timezone,
-          scheduled_response.trigger.schedule.timezone,
-        );
+        if (res.ok) {
+          assertObjectMatch(res.trigger, scheduled_response.trigger);
+          assertEquals(
+            res.trigger?.schedule,
+            scheduled_response.trigger.schedule,
+          );
+          assertEquals(
+            res.trigger?.schedule?.start_time,
+            scheduled_response.trigger.schedule.start_time,
+          );
+          assertEquals(
+            res.trigger?.schedule?.timezone,
+            scheduled_response.trigger.schedule.timezone,
+          );
+        }
 
         mf.reset();
       },
