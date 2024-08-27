@@ -1,4 +1,4 @@
-import { BaseResponse } from "../types.ts";
+import type { BaseResponse } from "../types.ts";
 
 interface FileUpload {
   /** @description Comma-separated list of channel names or IDs where the file will be shared. */

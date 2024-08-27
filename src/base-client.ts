@@ -6,7 +6,10 @@ import type {
 } from "./types.ts";
 import { createHttpError, type HttpError } from "@std/http/http-errors";
 import { getUserAgent, serializeData } from "./base-client-helpers.ts";
-import { FileUploadV2, FileUploadV2Args } from "./typed-method-types/files.ts";
+import type {
+  FileUploadV2,
+  FileUploadV2Args,
+} from "./typed-method-types/files.ts";
 
 export class BaseSlackAPIClient implements BaseSlackClient {
   #token?: string;
