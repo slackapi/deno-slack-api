@@ -3,14 +3,15 @@ import { createHttpError } from "@std/http/http-errors";
 
 // Regex for https://deno.land/x/deno_slack_api@x.x.x/
 const API_REGEX =
-  /(https:\/\/deno.land\/x\/deno_slack_api@[0-9]+\.[0-9]+\.[0-9]+\/)/g;
+  /(https:\/\/deno.land\/x\/deno_slack_api@[0-9]\.[0-9]+\.[0-9]+\/)/g;
 
 async function main() {
   const flags = parseArgs(Deno.args, {
-    string: ["import-map", "api"],
+    string: ["import-map", "api", "parent-import-map"],
     default: {
       "import-map": `${Deno.cwd()}/import_map.json`,
       "api": "../deno-slack-api/src/",
+      "parent-import-map": undefined,
     },
   });
 
@@ -35,7 +36,18 @@ async function main() {
     ),
   };
 
-  const importMapJsonOut = JSON.stringify(importMap);
+  if (flags["parent-import-map"]) {
+    const parentImportMapJsonIn = await Deno.readTextFile(
+      flags["parent-import-map"],
+    );
+    console.log("parent `import_map.json` in content:", parentImportMapJsonIn);
+    const parentImportMap = JSON.parse(parentImportMapJsonIn);
+    for (const entry of Object.entries(parentImportMap["imports"])) {
+      importMap["imports"][entry[0]] = entry[1];
+    }
+  }
+
+  const importMapJsonOut = JSON.stringify(importMap, null, 2);
   console.log("`import_map.json` out content:", importMapJsonOut);
 
   await Deno.writeTextFile(flags["import-map"], importMapJsonOut);
