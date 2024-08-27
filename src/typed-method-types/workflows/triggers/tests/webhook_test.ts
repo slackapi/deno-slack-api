@@ -90,8 +90,6 @@ Deno.test("Mock call for webhook", async (t) => {
             );
           }
           mf.reset();
-
-          mf.reset();
         },
       );
     });
