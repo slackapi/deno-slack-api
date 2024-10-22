@@ -67,5 +67,5 @@ workflows:
       - e2e-test:
           # TODO: update to main post-merge
           e2e_target_branch: "deno-api-import-url"
-          sdk_branch: << pipeline.git.branch >>
+          api_branch: << pipeline.git.branch >>
           context: slack-cli-e2e
