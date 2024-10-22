@@ -24,14 +24,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Kick off platform-devpx-test pipeline
+          name: Kick off platform-devxp-test pipeline
           command: |
-            IMPORT_URL="https://raw.githubusercontent.com/slackapi/deno-slack-sdk/refs/heads/<< parameters.sdk_branch >>/src/";
+            IMPORT_URL="https://raw.githubusercontent.com/slackapi/deno-slack-api/refs/heads/<< parameters.api_branch >>/src/";
             # https://app.circleci.com/settings/organization/github/slackapi/contexts
             TEST_JOB_WORKFLOW_ID=$(curl --location --request POST 'https://circleci.com/api/v2/project/gh/slackapi/platform-devxp-test/pipeline' \
             --header 'Content-Type: application/json' \
             -u "${FIL_CIRCLECI_PERSONAL_TOKEN}:" \
-            --data "{\"branch\":\"<< parameters.e2e_target_branch >>\",\"parameters\":{\"deno_sdk_import_url\":\"${IMPORT_URL}\"}}" | jq '.id')
+            --data "{\"branch\":\"<< parameters.e2e_target_branch >>\",\"parameters\":{\"deno_api_import_url\":\"${IMPORT_URL}\"}}" | jq '.id')
             echo "e2e test workflow started with id: $TEST_JOB_WORKFLOW_ID"
             echo "export TEST_JOB_WORKFLOW_ID=${TEST_JOB_WORKFLOW_ID}" >> $BASH_ENV
       - run:
