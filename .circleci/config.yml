@@ -15,8 +15,7 @@ jobs:
       e2e_target_branch:
         type: string
         description: "What branch of the integration test repo should be used to test the CLI?"
-        # TODO: update to main post-merge
-        default: deno-api-import-url
+        default: main
       api_branch:
         type: string
         description: "What deno-slack-api branch should be used during testing?"
@@ -65,7 +64,6 @@ workflows:
   e2e-test:
     jobs:
       - e2e-test:
-          # TODO: update to main post-merge
-          e2e_target_branch: "deno-api-import-url"
+          e2e_target_branch: "main"
           api_branch: << pipeline.git.branch >>
           context: slack-cli-e2e
