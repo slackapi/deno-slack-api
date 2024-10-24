@@ -15,10 +15,6 @@ export const UserJoinedChannel = {
    */
   event_type: "{{data.event_type}}",
   /**
-   * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who invited the member to the channel.
-   */
-  inviter_id: "{{data.inviter_id}}",
-  /**
    * A unique identifier for the {@link https://api.slack.com/automation/types#userid Slack user} who joined the channel.
    */
   user_id: "{{data.user_id}}",
