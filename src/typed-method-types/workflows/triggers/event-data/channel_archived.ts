@@ -11,7 +11,7 @@ export const ChannelArchived = {
    */
   channel_name: "{{data.channel_name}}",
   /**
-   * The channel type for the channel that was archived. Can be one of "public" or "private".
+   * The channel type for the channel that was archived. Can be one of `public`, `private`, `im` or `mpim`.
    */
   channel_type: "{{data.channel_type}}",
   /**
