@@ -25,7 +25,7 @@ jobs:
 
     steps:
       - name: Setup Deno ${{ matrix.deno-version }}
-        uses: denoland/setup-deno@v1
+        uses: denoland/setup-deno@v2
         with:
           deno-version: ${{ matrix.deno-version }}
 

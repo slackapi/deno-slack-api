@@ -18,7 +18,7 @@ jobs:
       - name: Setup repo
         uses: actions/checkout@v4
       - name: Setup Deno
-        uses: denoland/setup-deno@v1
+        uses: denoland/setup-deno@v2
         with:
           deno-version: ${{ matrix.deno-version }}
       - name: Run formatter, linter and tests
@@ -26,7 +26,7 @@ jobs:
       - name: Generate CodeCov-friendly coverage report
         run: deno task generate-lcov
       - name: Upload coverage to CodeCov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           file: ./lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}
