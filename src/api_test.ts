@@ -7,6 +7,7 @@ import {
 } from "@std/assert";
 import { SlackAPI } from "./mod.ts";
 import { HttpError } from "@std/http/http-errors";
+import { stubFetch } from "./utils_test.ts";
 
 Deno.test("SlackAPI class", async (t) => {
   mf.install(); // mock out calls to `fetch`
@@ -24,10 +25,14 @@ Deno.test("SlackAPI class", async (t) => {
 
       await t.step("apiCall method", async (t) => {
         await t.step("should call the default API URL", async () => {
-          mf.mock("POST@/api/chat.postMessage", (req: Request) => {
-            assertEquals(req.url, "https://slack.com/api/chat.postMessage");
-            assertExists(req.headers.has("user-agent"));
-            return new Response('{"ok":true}');
+          // mf.mock("POST@/api/chat.postMessage", (req: Request) => {
+          //   assertEquals(req.url, "https://slack.com/api/chat.postMessage");
+          //   assertExists(req.headers.has("user-agent"));
+          //   return new Response('{"ok":true}');
+          // });
+          using _fetchStub = stubFetch(new Response('{"ok":true}'), {
+            url: "https://slack.com/api/chat.postMessage",
+            init: { headers: { "user-agent": "hello" } },
           });
 
           await client.apiCall("chat.postMessage", {});
