@@ -9,30 +9,41 @@ import type {
   OptionalInputWorkflow,
   RequiredInputWorkflow,
 } from "./fixtures/workflows.ts";
-import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
+import { stubFetch } from "../../../../utils_test.ts";
 import { shortcut_response } from "./fixtures/sample_responses.ts";
 import type { Trigger } from "../../../../types.ts";
+import type { Stub } from "@std/testing/mock";
 
 Deno.test("Trigger inputs are powered by generics", async (t) => {
   const client = SlackAPI("");
-  mf.install();
-  mf.mock("POST@/api/workflows.triggers.create", (req: Request) => {
-    assertEquals(
-      req.url,
-      "https://slack.com/api/workflows.triggers.create",
+
+  function createStub(): Stub {
+    return stubFetch(
+      new Response(JSON.stringify(shortcut_response)),
+      (req) => {
+        assertEquals(req.method, "POST");
+        assertEquals(
+          req.url,
+          "https://slack.com/api/workflows.triggers.create",
+        );
+      },
     );
-    return new Response(JSON.stringify(shortcut_response));
-  });
-  mf.mock("POST@/api/workflows.triggers.update", (req: Request) => {
-    assertEquals(
-      req.url,
-      "https://slack.com/api/workflows.triggers.update",
-    );
-    return new Response(JSON.stringify(shortcut_response));
-  });
+  }
+
+  // usi createStub = stubFetch(
+  //   new Response(JSON.stringify(shortcut_response)),
+  //   (req) => {
+  //     assertEquals(req.method, "POST");
+  //     assertEquals(
+  //       req.url,
+  //       "https://slack.com/api/workflows.triggers.create",
+  //     );
+  //   },
+  // );
 
   await t.step("no generics required", async (t) => {
     await t.step("catches invalid workflow strings", async () => {
+      using _createStub = createStub();
       const _trigger: Trigger = {
         name: "TEST",
         type: "shortcut",
@@ -49,6 +60,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
     });
 
     await t.step("allows no inputs to be set", async () => {
+      using _createStub = createStub();
       const _: Trigger = {
         name: "TEST",
         type: "shortcut",
@@ -63,6 +75,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
     });
 
     await t.step("allows empty inputs to be set", async () => {
+      using _createStub = createStub();
       const _: Trigger = {
         name: "TEST",
         type: "shortcut",
@@ -80,6 +93,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
     });
 
     await t.step("allows populated inputs to be set", async () => {
+      using _createStub = createStub();
       const _: Trigger = {
         name: "TEST",
         type: "shortcut",
@@ -97,6 +111,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
     });
 
     await t.step("catches error if inputs are wrong", async () => {
+      using _createStub = createStub();
       const _: Trigger = {
         name: "TEST",
         type: "shortcut",
@@ -116,6 +131,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
     });
 
     await t.step("with trigger update", async () => {
+      using _createStub = createStub();
       const _: Trigger = {
         name: "TEST",
         type: "shortcut",
@@ -135,6 +151,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
 
   await t.step("with workflow generic", async (t) => {
     await t.step("catches invalid workflow string", async () => {
+      using _createStub = createStub();
       const _: Trigger<ExampleWorkflow> = {
         name: "TEST",
         type: "shortcut",
@@ -153,6 +170,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
 
     await t.step("handles workflow with no defined input params", async (t) => {
       await t.step("allows no inputs to be set", async () => {
+        using _createStub = createStub();
         const _: Trigger<ExampleWorkflow> = {
           name: "TEST",
           type: "shortcut",
@@ -168,6 +186,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
       });
 
       await t.step("allows empty inputs to be set", async () => {
+        using _createStub = createStub();
         const _: Trigger<ExampleWorkflow> = {
           name: "TEST",
           type: "shortcut",
@@ -185,6 +204,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
       });
 
       await t.step("catches populated inputs being passed", async () => {
+        using _createStub = createStub();
         const _: Trigger<ExampleWorkflow> = {
           name: "TEST",
           type: "shortcut",
@@ -206,6 +226,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
 
     await t.step("handles workflow with no defined properties", async (t) => {
       await t.step("allows no inputs to be set", async () => {
+        using _createStub = createStub();
         const _: Trigger<NoInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
@@ -221,6 +242,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
       });
 
       await t.step("allows empty inputs to be set", async () => {
+        using _createStub = createStub();
         const _: Trigger<NoInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
@@ -238,6 +260,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
       });
 
       await t.step("catches populated inputs being passed", async () => {
+        using _createStub = createStub();
         const _: Trigger<NoInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
@@ -259,6 +282,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
 
     await t.step("handles workflow with only optional inputs", async (t) => {
       await t.step("allows no inputs to be set", async () => {
+        using _createStub = createStub();
         const _: Trigger<OptionalInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
@@ -274,6 +298,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
       });
 
       await t.step("allows empty inputs to be set", async () => {
+        using _createStub = createStub();
         const _: Trigger<OptionalInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
@@ -291,6 +316,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
       });
 
       await t.step("allows optional inputs to be set", async () => {
+        using _createStub = createStub();
         const _: Trigger<OptionalInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
@@ -308,6 +334,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
       });
 
       await t.step("catches error if inputs are wrong", async () => {
+        using _createStub = createStub();
         const _: Trigger<OptionalInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
@@ -329,6 +356,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
 
     await t.step("handles workflow with only required inputs", async (t) => {
       await t.step("requires inputs to be set", async () => {
+        using _createStub = createStub();
         const _: Trigger<RequiredInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
@@ -346,6 +374,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
       });
 
       await t.step("catches empty inputs being set", async () => {
+        using _createStub = createStub();
         const _: Trigger<RequiredInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
@@ -365,6 +394,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
       });
 
       await t.step("allows required inputs to be set", async () => {
+        using _createStub = createStub();
         const _: Trigger<RequiredInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
@@ -384,6 +414,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
 
     await t.step("handles workflow with customizable inputs", async (t) => {
       await t.step("allows customizable input to be set", async () => {
+        using _createStub = createStub();
         const _: Trigger<CustomizableInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
@@ -400,6 +431,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
       });
 
       await t.step("allows optional customizable input to be set", async () => {
+        using _createStub = createStub();
         const _: Trigger<CustomizableInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
@@ -418,6 +450,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
       await t.step(
         "allows empty optional customizable inputs to be set",
         async () => {
+          using _createStub = createStub();
           const _: Trigger<OptionalCustomizableInputWorkflow> = {
             name: "TEST",
             type: "shortcut",
@@ -439,6 +472,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
       await t.step(
         "catches if customizable and value are set",
         async () => {
+          using _createStub = createStub();
           const _: Trigger<CustomizableInputWorkflow> = {
             name: "TEST",
             type: "shortcut",
@@ -464,6 +498,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
       await t.step(
         "catches if customizable is not a boolean",
         async () => {
+          using _createStub = createStub();
           const _: Trigger<CustomizableInputWorkflow> = {
             name: "TEST",
             type: "shortcut",
@@ -489,6 +524,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
       await t.step(
         "catches if customizable is false",
         async () => {
+          using _createStub = createStub();
           const _: Trigger<CustomizableInputWorkflow> = {
             name: "TEST",
             type: "shortcut",
@@ -514,6 +550,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
 
     await t.step("handles workflow with a mix of inputs", async (t) => {
       await t.step("requires inputs to be set", async () => {
+        using _createStub = createStub();
         const _: Trigger<MixedInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
@@ -530,6 +567,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
       });
 
       await t.step("catches empty inputs being set", async () => {
+        using _createStub = createStub();
         const _: Trigger<MixedInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
@@ -549,6 +587,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
       });
 
       await t.step("allows required inputs to be set", async () => {
+        using _createStub = createStub();
         const _: Trigger<MixedInputWorkflow> = {
           name: "TEST",
           type: "shortcut",
@@ -568,6 +607,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
       await t.step(
         "allows required and optional inputs to be set",
         async () => {
+          using _createStub = createStub();
           const _: Trigger<MixedInputWorkflow> = {
             name: "TEST",
             type: "shortcut",
@@ -592,6 +632,17 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
     });
 
     await t.step("with trigger update", async () => {
+      using _updateStub = stubFetch(
+        new Response(JSON.stringify(shortcut_response)),
+        (req) => {
+          assertEquals(req.method, "POST");
+          assertEquals(
+            req.url,
+            "https://slack.com/api/workflows.triggers.update",
+          );
+        },
+      );
+
       await client.workflows.triggers.update<ExampleWorkflow>({
         name: "TEST",
         type: "shortcut",
@@ -601,5 +652,4 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
       assert(true);
     });
   });
-  mf.reset();
 });
