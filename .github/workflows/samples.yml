@@ -21,7 +21,10 @@ jobs:
           - slack-samples/deno-simple-survey
         # we test on both most recent stable version of deno (v1.x) as well as
         # the version of deno used by Run on Slack (as noted in https://api.slack.com/slackcli/metadata.json)
-        deno-version: [v1.x, v1.45.4, 2.x]
+        deno-version:
+          - v1.x
+          - v1.45.4
+          - v2.x
 
     steps:
       - name: Setup Deno ${{ matrix.deno-version }}
