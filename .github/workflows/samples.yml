@@ -11,6 +11,7 @@ jobs:
   samples:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         sample:
           - slack-samples/deno-issue-submission
