@@ -30,17 +30,6 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
     );
   }
 
-  // usi createStub = stubFetch(
-  //   new Response(JSON.stringify(shortcut_response)),
-  //   (req) => {
-  //     assertEquals(req.method, "POST");
-  //     assertEquals(
-  //       req.url,
-  //       "https://slack.com/api/workflows.triggers.create",
-  //     );
-  //   },
-  // );
-
   await t.step("no generics required", async (t) => {
     await t.step("catches invalid workflow strings", async () => {
       using _createStub = createStub();
