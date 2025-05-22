@@ -40,7 +40,8 @@ jobs:
   health-score:
     needs: test
     permissions:
-      contents: none
+      checks: write
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - name: Setup repo
