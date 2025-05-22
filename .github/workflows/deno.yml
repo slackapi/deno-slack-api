@@ -41,6 +41,7 @@ jobs:
     needs: test
     permissions:
       checks: write
+      contents: none
     runs-on: ubuntu-latest
     steps:
       - name: Setup repo
