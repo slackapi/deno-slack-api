@@ -9,7 +9,7 @@ import type {
   OptionalInputWorkflow,
   RequiredInputWorkflow,
 } from "./fixtures/workflows.ts";
-import { stubFetch } from "../../../../utils_test.ts";
+import { stubFetch } from "../../../../../testing/http.ts";
 import { shortcut_response } from "./fixtures/sample_responses.ts";
 import type { Trigger } from "../../../../types.ts";
 import type { Stub } from "@std/testing/mock";
@@ -19,7 +19,6 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
 
   function createStub(): Stub {
     return stubFetch(
-      new Response(JSON.stringify(shortcut_response)),
       (req) => {
         assertEquals(req.method, "POST");
         assertEquals(
@@ -27,6 +26,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
           "https://slack.com/api/workflows.triggers.create",
         );
       },
+      new Response(JSON.stringify(shortcut_response)),
     );
   }
 
@@ -622,7 +622,6 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
 
     await t.step("with trigger update", async () => {
       using _updateStub = stubFetch(
-        new Response(JSON.stringify(shortcut_response)),
         (req) => {
           assertEquals(req.method, "POST");
           assertEquals(
@@ -630,6 +629,7 @@ Deno.test("Trigger inputs are powered by generics", async (t) => {
             "https://slack.com/api/workflows.triggers.update",
           );
         },
+        new Response(JSON.stringify(shortcut_response)),
       );
 
       await client.workflows.triggers.update<ExampleWorkflow>({

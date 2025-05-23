@@ -7,17 +7,18 @@
       "docs",
       "README.md",
       ".github/maintainers_guide.md",
-      ".github/CONTRIBUTING.md"
+      ".github/CONTRIBUTING.md",
+      "testing"
     ]
   },
   "lint": {
-    "include": ["src", "scripts"]
+    "include": ["src", "scripts", "testing"]
   },
   "publish": {
     "exclude": ["./README.md"]
   },
   "test": {
-    "include": ["src", "scripts"]
+    "include": ["src", "scripts", "testing"]
   },
   "tasks": {
     "test": "deno fmt --check && deno lint && deno test",

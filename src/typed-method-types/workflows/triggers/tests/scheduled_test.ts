@@ -2,7 +2,7 @@ import { assertEquals, assertObjectMatch } from "@std/assert";
 import type { ScheduledTrigger } from "../scheduled.ts";
 import { TriggerTypes } from "../mod.ts";
 import { SlackAPI } from "../../../../mod.ts";
-import { stubFetch } from "../../../../utils_test.ts";
+import { stubFetch } from "../../../../../testing/http.ts";
 import { scheduled_response } from "./fixtures/sample_responses.ts";
 
 Deno.test("Scheduled triggers can be set with a string", () => {
@@ -201,7 +201,6 @@ Deno.test("Mock call for schedule", async (t) => {
         "should return successful response JSON on create",
         async () => {
           using _fetchStub = stubFetch(
-            new Response(JSON.stringify(scheduled_response)),
             (req) => {
               assertEquals(req.method, "POST");
               assertEquals(
@@ -209,6 +208,7 @@ Deno.test("Mock call for schedule", async (t) => {
                 "https://slack.com/api/workflows.triggers.create",
               );
             },
+            new Response(JSON.stringify(scheduled_response)),
           );
 
           const res = await client.workflows.triggers.create({
@@ -254,7 +254,6 @@ Deno.test("Mock call for schedule", async (t) => {
       "should return successful response JSON on update",
       async () => {
         using _fetchStub = stubFetch(
-          new Response(JSON.stringify(scheduled_response)),
           (req) => {
             assertEquals(req.method, "POST");
             assertEquals(
@@ -262,6 +261,7 @@ Deno.test("Mock call for schedule", async (t) => {
               "https://slack.com/api/workflows.triggers.update",
             );
           },
+          new Response(JSON.stringify(scheduled_response)),
         );
 
         const res = await client.workflows.triggers.update({

@@ -1,7 +1,7 @@
 import { assertEquals, assertObjectMatch } from "@std/assert";
 import type { ShortcutTrigger } from "../shortcut.ts";
 import { TriggerTypes } from "../mod.ts";
-import { stubFetch } from "../../../../utils_test.ts";
+import { stubFetch } from "../../../../../testing/http.ts";
 import { SlackAPI } from "../../../../mod.ts";
 import { shortcut_response } from "./fixtures/sample_responses.ts";
 import type {
@@ -42,7 +42,6 @@ Deno.test("Mock call for shortcut", async (t) => {
         "should return successful response JSON on create",
         async () => {
           using _fetchStub = stubFetch(
-            new Response(JSON.stringify(shortcut_response)),
             (req) => {
               assertEquals(req.method, "POST");
               assertEquals(
@@ -50,6 +49,7 @@ Deno.test("Mock call for shortcut", async (t) => {
                 "https://slack.com/api/workflows.triggers.create",
               );
             },
+            new Response(JSON.stringify(shortcut_response)),
           );
 
           const res = await client.workflows.triggers.create({
@@ -78,7 +78,6 @@ Deno.test("Mock call for shortcut", async (t) => {
       "should return successful response JSON on update",
       async () => {
         using _fetchStub = stubFetch(
-          new Response(JSON.stringify(shortcut_response)),
           (req) => {
             assertEquals(req.method, "POST");
             assertEquals(
@@ -86,6 +85,7 @@ Deno.test("Mock call for shortcut", async (t) => {
               "https://slack.com/api/workflows.triggers.update",
             );
           },
+          new Response(JSON.stringify(shortcut_response)),
         );
 
         const res = await client.workflows.triggers.update({

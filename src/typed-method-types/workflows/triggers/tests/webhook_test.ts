@@ -2,7 +2,7 @@ import { assertEquals, assertObjectMatch } from "@std/assert";
 import type { WebhookTrigger } from "../webhook.ts";
 import { TriggerTypes } from "../mod.ts";
 import { SlackAPI } from "../../../../mod.ts";
-import { stubFetch } from "../../../../utils_test.ts";
+import { stubFetch } from "../../../../../testing/http.ts";
 import { webhook_response } from "./fixtures/sample_responses.ts";
 
 Deno.test("Webhook triggers can set the type using the string", () => {
@@ -59,7 +59,6 @@ Deno.test("Mock call for webhook", async (t) => {
         "should return successful response JSON on create",
         async () => {
           using _fetchStub = stubFetch(
-            new Response(JSON.stringify(webhook_response)),
             (req) => {
               assertEquals(req.method, "POST");
               assertEquals(
@@ -67,6 +66,7 @@ Deno.test("Mock call for webhook", async (t) => {
                 "https://slack.com/api/workflows.triggers.create",
               );
             },
+            new Response(JSON.stringify(webhook_response)),
           );
 
           const res = await client.workflows.triggers.create({
@@ -95,7 +95,6 @@ Deno.test("Mock call for webhook", async (t) => {
       "should return successful response JSON on update",
       async () => {
         using _fetchStub = stubFetch(
-          new Response(JSON.stringify(webhook_response)),
           (req) => {
             assertEquals(req.method, "POST");
             assertEquals(
@@ -103,6 +102,7 @@ Deno.test("Mock call for webhook", async (t) => {
               "https://slack.com/api/workflows.triggers.update",
             );
           },
+          new Response(JSON.stringify(webhook_response)),
         );
 
         const res = await client.workflows.triggers.update({
