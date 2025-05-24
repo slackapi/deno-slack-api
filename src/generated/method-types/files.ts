@@ -7,7 +7,9 @@ export type FilesAPIType = {
   comments: {
     delete: SlackAPIMethod;
   };
+  completeUploadExternal: SlackAPIMethod;
   delete: SlackAPIMethod;
+  getUploadURLExternal: SlackAPIMethod;
   info: SlackAPIMethod;
   list: SlackAPICursorPaginatedMethod;
   remote: {

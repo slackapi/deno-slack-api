@@ -6,6 +6,10 @@ import type {
 } from "./types.ts";
 import { createHttpError, type HttpError } from "@std/http/http-errors";
 import { getUserAgent, serializeData } from "./base-client-helpers.ts";
+import type {
+  FileUploadV2,
+  FileUploadV2Args,
+} from "./typed-method-types/files.ts";
 
 export class BaseSlackAPIClient implements BaseSlackClient {
   #token?: string;
@@ -70,6 +74,83 @@ export class BaseSlackAPIClient implements BaseSlackClient {
       throw await this.createHttpError(response);
     }
     return await this.createBaseResponse(response);
+  }
+
+  async fileUploadV2(
+    args: FileUploadV2Args,
+  ) {
+    const { file_uploads } = args;
+    const uploadUrls = await Promise.all(
+      file_uploads.map((file) => this.getFileUploadUrl(file)),
+    );
+
+    await Promise.all(
+      uploadUrls.map((uploadUrl, index) =>
+        this.uploadFile(uploadUrl.upload_url, file_uploads[index].file)
+      ),
+    );
+
+    return await Promise.all(
+      uploadUrls.map((uploadUrl, index) =>
+        this.completeFileUpload(uploadUrl.file_id, file_uploads[index])
+      ),
+    );
+  }
+
+  private async getFileUploadUrl(file: FileUploadV2) {
+    const fileMetaData = {
+      filename: file.filename,
+      length: file.length,
+      alt_text: file.alt_text,
+      snippet_type: file.snippet_type,
+    };
+    const response = await this.apiCall(
+      "files.getUploadURLExternal",
+      fileMetaData,
+    );
+
+    if (!response.ok) {
+      throw new Error(JSON.stringify(response.response_metadata));
+    }
+    return response;
+  }
+
+  private async completeFileUpload(fileID: string, file: FileUploadV2) {
+    const fileMetaData = {
+      files: JSON.stringify([{ id: fileID, title: file.title }]),
+      channel_id: file.channel_id,
+      initial_comment: file.initial_comment,
+      thread_ts: file.thread_ts,
+    };
+    const response = await this.apiCall(
+      "files.completeUploadExternal",
+      fileMetaData,
+    );
+    if (!response.ok) {
+      throw new Error(JSON.stringify(response.response_metadata));
+    }
+    return response;
+  }
+
+  private async uploadFile(
+    uploadUrl: string,
+    file: FileUploadV2["file"],
+  ) {
+    const response = await fetch(uploadUrl, {
+      headers: {
+        "Content-Type": typeof file === "string"
+          ? "text/plain"
+          : "application/octet-stream",
+        "User-Agent": getUserAgent(),
+      },
+      method: "POST",
+      body: file,
+    });
+
+    if (!response.ok) {
+      throw await this.createHttpError(response);
+    }
+    return;
   }
 
   private async createHttpError(response: Response): Promise<HttpError> {
