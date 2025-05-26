@@ -1,5 +1,6 @@
 import { parseArgs } from "@std/cli/parse-args";
 import { createHttpError } from "@std/http/http-errors";
+import { join } from "@std/path";
 
 // Regex for https://deno.land/x/deno_slack_api@x.x.x/
 const API_REGEX =
@@ -7,50 +8,49 @@ const API_REGEX =
 
 async function main() {
   const flags = parseArgs(Deno.args, {
-    string: ["import-map", "api", "parent-import-map"],
+    string: ["import-file", "api"],
     default: {
-      "import-map": `${Deno.cwd()}/import_map.json`,
-      "api": "../deno-slack-api/src/",
-      "parent-import-map": undefined,
+      "import-file": `${Deno.cwd()}/import_map.json`,
+      "api": "../deno-slack-api",
     },
   });
 
-  const importMapJsonIn = await Deno.readTextFile(flags["import-map"]);
-  console.log("`import_map.json` in content:", importMapJsonIn);
+  const importFileJsonIn = await Deno.readTextFile(flags["import-file"]);
+  console.log("`import_map.json` in content:", importFileJsonIn);
 
-  const importMap = JSON.parse(importMapJsonIn);
-  const denoSlackSdkValue = importMap["imports"]["deno-slack-sdk/"];
+  const importFile = JSON.parse(importFileJsonIn);
+  const denoSlackSdkValue = importFile["imports"]["deno-slack-sdk/"];
 
   const apiDepsInSdk = await apiDepsIn(denoSlackSdkValue);
 
-  importMap["imports"]["deno-slack-api/"] = flags.api;
-  importMap["scopes"] = {
+  const apiPackageSpecifier = join(flags.api, "/src/");
+
+  importFile["imports"]["deno-slack-api/"] = apiPackageSpecifier;
+  importFile["scopes"] = {
     [denoSlackSdkValue]: [...apiDepsInSdk].reduce(
       (sdkScopes: Record<string, string>, apiDep: string) => {
         return {
           ...sdkScopes,
-          [apiDep]: flags.api,
+          [apiDep]: apiPackageSpecifier,
         };
       },
       {},
     ),
   };
 
-  if (flags["parent-import-map"]) {
-    const parentImportMapJsonIn = await Deno.readTextFile(
-      flags["parent-import-map"],
-    );
-    console.log("parent `import_map.json` in content:", parentImportMapJsonIn);
-    const parentImportMap = JSON.parse(parentImportMapJsonIn);
-    for (const entry of Object.entries(parentImportMap["imports"])) {
-      importMap["imports"][entry[0]] = entry[1];
-    }
+  const parentFileJsonIn = await Deno.readTextFile(
+    join(flags.api, "/deno.jsonc"),
+  );
+  console.log("parent `import file` in content:", parentFileJsonIn);
+  const parentImportFile = JSON.parse(parentFileJsonIn);
+  for (const entry of Object.entries(parentImportFile["imports"])) {
+    importFile["imports"][entry[0]] = entry[1];
   }
 
-  const importMapJsonOut = JSON.stringify(importMap, null, 2);
-  console.log("`import_map.json` out content:", importMapJsonOut);
+  const importMapJsonOut = JSON.stringify(importFile, null, 2);
+  console.log("`import file` out content:", importMapJsonOut);
 
-  await Deno.writeTextFile(flags["import-map"], importMapJsonOut);
+  await Deno.writeTextFile(flags["import-file"], importMapJsonOut);
 }
 
 export async function apiDepsIn(moduleUrl: string): Promise<Set<string>> {

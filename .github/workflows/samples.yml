@@ -43,15 +43,14 @@ jobs:
           repository: ${{ matrix.sample }}
           path: ./sample
 
-      - name: Set imports.deno-slack-api/ to ../deno-slack-api/src/ in import_map.json
+      - name: Set imports.deno-slack-api/ to ../deno-slack-api/src/ in imports
         run: >
           deno run
           --allow-read --allow-write --allow-net
-          deno-slack-api/scripts/src/import_map/update.ts
-          --import-map "./sample/import_map.json"
-          --parent-import-map "./deno-slack-api/deno.jsonc"
-          --api "../deno-slack-api/src/"
+          deno-slack-api/scripts/src/imports/update.ts
+          --import-file "./sample/import_map.json"
+          --api "../deno-slack-api"
 
       - name: Deno check **/*.ts
         working-directory: ./sample
-        run: find . -type f -regex ".*\.ts" | xargs deno --import-map=import_map.json check -r
+        run: find . -type f -regex ".*\.ts" | xargs deno check -r
