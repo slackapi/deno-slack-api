@@ -1,6 +1,6 @@
 import { parseArgs } from "@std/cli/parse-args";
 import { createHttpError } from "@std/http/http-errors";
-import { join } from "@std/path";
+import { dirname, join, relative } from "@std/path";
 
 // Regex for https://deno.land/x/deno_slack_api@x.x.x/
 const API_REGEX =
@@ -15,7 +15,11 @@ async function main() {
     },
   });
 
-  const importFileJsonIn = await Deno.readTextFile(flags["import-file"]);
+  const importFilePath = await Deno.realPath(flags["import-file"]);
+  const importFileDir = dirname(importFilePath);
+  const apiDir = await Deno.realPath(flags.api);
+
+  const importFileJsonIn = await Deno.readTextFile(importFilePath);
   console.log("`import_map.json` in content:", importFileJsonIn);
 
   const importFile = JSON.parse(importFileJsonIn);
@@ -23,7 +27,10 @@ async function main() {
 
   const apiDepsInSdk = await apiDepsIn(denoSlackSdkValue);
 
-  const apiPackageSpecifier = join(flags.api, "/src/");
+  const apiPackageSpecifier = join(
+    relative(importFileDir, apiDir),
+    "/src/",
+  );
 
   importFile["imports"]["deno-slack-api/"] = apiPackageSpecifier;
   importFile["scopes"] = {
@@ -39,7 +46,7 @@ async function main() {
   };
 
   const parentFileJsonIn = await Deno.readTextFile(
-    join(flags.api, "/deno.jsonc"),
+    join(apiDir, "/deno.jsonc"),
   );
   console.log("parent `import file` in content:", parentFileJsonIn);
   const parentImportFile = JSON.parse(parentFileJsonIn);
