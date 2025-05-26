@@ -2,9 +2,11 @@ name: Deno Format, Lint and Unit Tests
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   test:
@@ -17,11 +19,15 @@ jobs:
           - v1.x
           - v1.46.2
           - v2.x
+    permissions:
+      contents: read
     steps:
       - name: Setup repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
       - name: Setup Deno
-        uses: denoland/setup-deno@v2
+        uses: denoland/setup-deno@e95548e56dfa95d4e1a28d6f422fafe75c4c26fb # v2.0.3
         with:
           deno-version: ${{ matrix.deno-version }}
       - name: Run formatter, linter and tests
@@ -29,7 +35,7 @@ jobs:
       - name: Generate CodeCov-friendly coverage report
         run: deno task generate-lcov
       - name: Upload coverage to CodeCov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24 # v5.4.3
         with:
           files: ./lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -38,12 +44,15 @@ jobs:
     needs: test
     permissions:
       checks: write
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - name: Setup repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
       - name: Report health score
-        uses: slackapi/slack-health-score@v0
+        uses: slackapi/slack-health-score@d58a419f15cdaff97e9aa7f09f95772830ab66f7 # v0.1.1
         with:
           codecov_token: ${{ secrets.FILS_CODECOV_API_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
