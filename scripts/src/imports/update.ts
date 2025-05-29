@@ -10,8 +10,8 @@ async function main() {
   const flags = parseArgs(Deno.args, {
     string: ["import-file", "api"],
     default: {
-      "import-file": `${Deno.cwd()}/import_map.json`,
-      "api": "../deno-slack-api",
+      "import-file": `${Deno.cwd()}/deno.jsonc`,
+      "api": "./deno-slack-api/",
     },
   });
 
@@ -20,7 +20,7 @@ async function main() {
   const apiDir = await Deno.realPath(flags.api);
 
   const importFileJsonIn = await Deno.readTextFile(importFilePath);
-  console.log("`import_map.json` in content:", importFileJsonIn);
+  console.log(`content in ${flags["import-file"]}:`, importFileJsonIn);
 
   const importFile = JSON.parse(importFileJsonIn);
   const denoSlackSdkValue = importFile["imports"]["deno-slack-sdk/"];
