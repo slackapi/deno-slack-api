@@ -26,7 +26,7 @@ jobs:
         # the version of deno used by Run on Slack (as noted in https://api.slack.com/slackcli/metadata.json)
         deno-version:
           - v1.x
-          - v1.45.4
+          - v1.46.2
           - v2.x
     permissions:
       contents: read
