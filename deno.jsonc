@@ -7,17 +7,18 @@
       "docs",
       "README.md",
       ".github/maintainers_guide.md",
-      ".github/CONTRIBUTING.md"
+      ".github/CONTRIBUTING.md",
+      "testing"
     ]
   },
   "lint": {
-    "include": ["src", "scripts"]
+    "include": ["src", "scripts", "testing"]
   },
   "publish": {
     "exclude": ["./README.md"]
   },
   "test": {
-    "include": ["src", "scripts"]
+    "include": ["src", "scripts", "testing"]
   },
   "tasks": {
     "test": "deno fmt --check && deno lint && deno test",
@@ -36,7 +37,8 @@
     "@std/assert": "jsr:@std/assert@^1",
     "@std/cli": "jsr:@std/cli@^1",
     "@std/fs": "jsr:@std/fs@^1",
-    "@std/http": "jsr:@std/http@^0.206",
+    "@std/http": "jsr:@std/http@^0.206.0",
+    "@std/path": "jsr:@std/path@^1.0.9",
     "@std/testing": "jsr:@std/testing@^1",
     "@std/text": "jsr:@std/text@^1"
   }

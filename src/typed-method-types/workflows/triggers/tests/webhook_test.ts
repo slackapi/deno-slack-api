@@ -1,8 +1,8 @@
-import { mf } from "../../../../dev_deps.ts";
 import { assertEquals, assertObjectMatch } from "@std/assert";
 import type { WebhookTrigger } from "../webhook.ts";
 import { TriggerTypes } from "../mod.ts";
 import { SlackAPI } from "../../../../mod.ts";
+import { stubFetch } from "../../../../../testing/http.ts";
 import { webhook_response } from "./fixtures/sample_responses.ts";
 
 Deno.test("Webhook triggers can set the type using the string", () => {
@@ -47,8 +47,6 @@ Deno.test("Webhook triggers support an optional filter object", () => {
 });
 
 Deno.test("Mock call for webhook", async (t) => {
-  mf.install(); // mock out calls to `fetch`
-
   await t.step("instantiated with default API URL", async (t) => {
     const client = SlackAPI("test-token");
 
@@ -60,15 +58,15 @@ Deno.test("Mock call for webhook", async (t) => {
       await t.step(
         "should return successful response JSON on create",
         async () => {
-          mf.mock(
-            "POST@/api/workflows.triggers.create",
-            (req: Request) => {
+          using _fetchStub = stubFetch(
+            (req) => {
+              assertEquals(req.method, "POST");
               assertEquals(
                 req.url,
                 "https://slack.com/api/workflows.triggers.create",
               );
-              return new Response(JSON.stringify(webhook_response));
             },
+            new Response(JSON.stringify(webhook_response)),
           );
 
           const res = await client.workflows.triggers.create({
@@ -89,7 +87,6 @@ Deno.test("Mock call for webhook", async (t) => {
               webhook_response.trigger.webhook_url,
             );
           }
-          mf.reset();
         },
       );
     });
@@ -97,15 +94,15 @@ Deno.test("Mock call for webhook", async (t) => {
     await t.step(
       "should return successful response JSON on update",
       async () => {
-        mf.mock(
-          "POST@/api/workflows.triggers.update",
-          (req: Request) => {
+        using _fetchStub = stubFetch(
+          (req) => {
+            assertEquals(req.method, "POST");
             assertEquals(
               req.url,
               "https://slack.com/api/workflows.triggers.update",
             );
-            return new Response(JSON.stringify(webhook_response));
           },
+          new Response(JSON.stringify(webhook_response)),
         );
 
         const res = await client.workflows.triggers.update({
@@ -127,7 +124,6 @@ Deno.test("Mock call for webhook", async (t) => {
             webhook_response.trigger.webhook_url,
           );
         }
-        mf.reset();
       },
     );
   });

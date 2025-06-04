@@ -13,6 +13,7 @@ jobs:
   samples:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         sample:
           - slack-samples/deno-issue-submission
@@ -21,9 +22,12 @@ jobs:
           - slack-samples/deno-message-translator
           - slack-samples/deno-request-time-off
           - slack-samples/deno-simple-survey
-        # we test on both most recent stable version of deno (v1.x) as well as
+        # we test on both most recent stable version of deno (v1.x, v2.x) as well as
         # the version of deno used by Run on Slack (as noted in https://api.slack.com/slackcli/metadata.json)
-        deno-version: [v1.x, v1.45.4]
+        deno-version:
+          - v1.x
+          - v1.46.2
+          - v2.x
     permissions:
       contents: read
     steps:
@@ -44,14 +48,13 @@ jobs:
           path: ./sample
           persist-credentials: false
 
-      - name: Set imports.deno-slack-api/ to ../deno-slack-api/src/ in import_map.json
+      - name: Set imports.deno-slack-api/ to ../deno-slack-api/src/ in imports
         run: >
           deno run
           --allow-read --allow-write --allow-net
-          deno-slack-api/scripts/src/import_map/update.ts
-          --import-map "./sample/import_map.json"
-          --parent-import-map "./deno-slack-api/deno.jsonc"
-          --api "../deno-slack-api/src/"
+          deno-slack-api/scripts/src/imports/update.ts
+          --import-file "./sample/deno.jsonc"
+          --api "./deno-slack-api/"
 
       - name: Deno check **/*.ts
         working-directory: ./sample

@@ -1,6 +1,6 @@
 import { assertEquals, assertObjectMatch } from "@std/assert";
 import { SlackAPI, TriggerEventTypes, TriggerTypes } from "../../../../mod.ts";
-import * as mf from "https://deno.land/x/mock_fetch@0.3.0/mod.ts";
+import { stubFetch } from "../../../../../testing/http.ts";
 import { event_response } from "./fixtures/sample_responses.ts";
 import type { ExampleWorkflow } from "./fixtures/workflows.ts";
 import type { EventTrigger } from "../event.ts";
@@ -164,8 +164,6 @@ Deno.test("Event trigger type tests", async (t) => {
 });
 
 Deno.test("Mock call for event", async (t) => {
-  mf.install(); // mock out calls to `fetch`
-
   await t.step("instantiated with default API URL", async (t) => {
     const client = SlackAPI("test-token");
 
@@ -178,13 +176,16 @@ Deno.test("Mock call for event", async (t) => {
       await t.step(
         "should return successful response JSON on create",
         async () => {
-          mf.mock("POST@/api/workflows.triggers.create", (req: Request) => {
-            assertEquals(
-              req.url,
-              "https://slack.com/api/workflows.triggers.create",
-            );
-            return new Response(JSON.stringify(event_response));
-          });
+          using _fetchStub = stubFetch(
+            (req) => {
+              assertEquals(req.method, "POST");
+              assertEquals(
+                req.url,
+                "https://slack.com/api/workflows.triggers.create",
+              );
+            },
+            new Response(JSON.stringify(event_response)),
+          );
 
           const res = await client.workflows.triggers.create({
             name: "TEST",
@@ -208,8 +209,6 @@ Deno.test("Mock call for event", async (t) => {
               event_response.trigger.event_type,
             );
           }
-
-          mf.reset();
         },
       );
     });
@@ -217,13 +216,16 @@ Deno.test("Mock call for event", async (t) => {
     await t.step(
       "should return successful response JSON on update",
       async () => {
-        mf.mock("POST@/api/workflows.triggers.update", (req: Request) => {
-          assertEquals(
-            req.url,
-            "https://slack.com/api/workflows.triggers.update",
-          );
-          return new Response(JSON.stringify(event_response));
-        });
+        using _fetchStub = stubFetch(
+          (req) => {
+            assertEquals(req.method, "POST");
+            assertEquals(
+              req.url,
+              "https://slack.com/api/workflows.triggers.update",
+            );
+          },
+          new Response(JSON.stringify(event_response)),
+        );
 
         const res = await client.workflows.triggers.update({
           name: "TEST",
@@ -248,8 +250,6 @@ Deno.test("Mock call for event", async (t) => {
             event_response.trigger.event_type,
           );
         }
-
-        mf.reset();
       },
     );
   });

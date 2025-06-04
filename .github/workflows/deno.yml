@@ -15,7 +15,10 @@ jobs:
       matrix:
         # we test on both most recent stable version of deno (v1.x) as well as
         # the version of deno used by Run on Slack (as noted in https://api.slack.com/slackcli/metadata.json)
-        deno-version: [v1.x, v1.45.4]
+        deno-version:
+          - v1.x
+          - v1.46.2
+          - v2.x
     permissions:
       contents: read
     steps:
@@ -33,8 +36,9 @@ jobs:
         run: deno task generate-lcov
       - name: Upload coverage to CodeCov
         uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24 # v5.4.3
+        if: matrix.deno-version == 'v2.x'
         with:
-          file: ./lcov.info
+          files: ./lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}
 
   health-score:
