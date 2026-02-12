@@ -69,7 +69,7 @@ run();
 const getMainAPICode = (api: APIMethodNode): string => {
   const imports = api.childNodes.map((node) => {
     const groupAPITypeName = `${toPascalCase(node.name)}APIType`;
-    return `import { type ${groupAPITypeName} } from "./${node.name}.ts";`;
+    return `import type { ${groupAPITypeName} } from "./${node.name}.ts";`;
   }).join("\n");
 
   const apiTypeMixins = api.childNodes.map((node) => {
