@@ -90,6 +90,8 @@ To create a new release:
 3. Bump the `version` field in `deno.jsonc` to the new release version.
 4. Open a pull request from the version branch into `main` and get it
    approved/merged.
+   1. `git commit -m 'chore(release): version 1.0.1'`
+   2. `git push -u origin 1.0.1`
 5. Create a new GitHub Release from the
    [Releases page](https://github.com/slackapi/deno-slack-api/releases) by
    clicking the "Draft a new release" button.
