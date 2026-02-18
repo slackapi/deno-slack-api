@@ -75,38 +75,46 @@ last tag is in a releasable state! At a minimum, [run the tests](#testing).
 
 To create a new release:
 
-1. Create a new GitHub Release from the
+1. Determine the new release version. You can start off by incrementing the
+   version to reflect a patch (i.e. 1.0.0 -> 1.0.1).
+   - Review the pull request labels of the changes since the last release (i.e.
+     `semver:minor`, `semver:patch`, `semver:major`). Tip: Your release version
+     should be based on the tag of the largest change, so if the changes include
+     a `semver:minor`, the release version should be upgraded to reflect a
+     minor.
+   - Ensure that this version adheres to [semantic versioning][semver]. See
+     [Versioning](#versioning-and-tags) for correct version format. Version tags
+     should match the following pattern: `1.0.1` (no `v` preceding the number).
+2. Create a new branch from `main` named after the release version (e.g.
+   `1.0.1`).
+3. Bump the `version` field in `deno.jsonc` to the new release version.
+4. Open a pull request from the version branch into `main` and get it
+   approved/merged.
+   1. `git commit -m 'chore(release): version 1.0.1'`
+   2. `git push -u origin 1.0.1`
+5. Create a new GitHub Release from the
    [Releases page](https://github.com/slackapi/deno-slack-api/releases) by
    clicking the "Draft a new release" button.
-2. Input a new version manually into the "Choose a tag" input. You can start off
-   by incrementing the version to reflect a patch. (i.e. 1.16.0 -> 1.16.1)
+6. Input the new version into the "Choose a tag" input.
    - After you input the new version, click the "Create a new tag: x.x.x on
      publish" button. This won't create your tag immediately.
    - Auto-generate the release notes by clicking the "Auto-generate release
      notes" button. This will pull in changes that will be included in your
      release.
      - Edit the resulting notes to ensure they have decent messaging that are
-       understandable by non-contributors, but each commit should still have
-       it's own line.
-   - Flip to the preview mode and review the pull request labels of the changes
-     included in this release (i.e. `semver:minor` `semver:patch`,
-     `semver:major`). Tip: Your release version should be based on the tag of
-     the largest change, so if this release includes a `semver:minor`, the
-     release version in your tag should be upgraded to reflect a minor.
-   - Ensure that this version adheres to [semantic versioning][semver]. See
-     [Versioning](#versioning-and-tags) for correct version format. Version tags
-     should match the following pattern: `1.0.1` (no `v` preceding the number).
-3. Set the "Target" input to the "main" branch.
-4. Name the release title after the version tag.
-5. Make any adjustments to generated release notes to make sure they are
+       understandable by non-contributors, but each commit should still have its
+       own line.
+7. Set the "Target" input to the "main" branch.
+8. Name the release title after the version tag.
+9. Make any adjustments to generated release notes to make sure they are
    accessible and approachable and that an end-user with little context about
    this project could still understand.
-6. Make sure "This is a pre-release" is _not_ checked.
-7. Publish the release by clicking the "Publish release" button!
-8. After a few minutes, the corresponding version will be available on
-   <https://deno.land/x/deno_slack_api>.
-9. Don't forget to also bump this library's version in the deno-slack-sdk's
-   `deps.ts` file!
+10. Make sure "This is a pre-release" is _not_ checked.
+11. Publish the release by clicking the "Publish release" button!
+12. After a few minutes, the corresponding version will be available on
+    <https://deno.land/x/deno_slack_api> and <https://jsr.io/@slack/api>.
+13. Don't forget to also bump this library's version in the deno-slack-sdk's
+    `deps.ts` file!
 
 ## Workflow
 

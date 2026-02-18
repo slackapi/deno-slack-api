@@ -12,13 +12,23 @@
     ]
   },
   "lint": {
-    "include": ["src", "scripts", "testing"]
+    "include": [
+      "src",
+      "scripts",
+      "testing"
+    ]
   },
   "publish": {
-    "exclude": ["./README.md"]
+    "exclude": [
+      "./README.md"
+    ]
   },
   "test": {
-    "include": ["src", "scripts", "testing"]
+    "include": [
+      "src",
+      "scripts",
+      "testing"
+    ]
   },
   "tasks": {
     "test": "deno fmt --check && deno lint && deno test",
@@ -27,7 +37,7 @@
   },
   "lock": false,
   "name": "@slack/api",
-  "version": "2.9.0",
+  "version": "2.9.2",
   "exports": {
     ".": "./src/mod.ts",
     "./types": "./src/types.ts"
