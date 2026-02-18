@@ -19,8 +19,11 @@
     ]
   },
   "publish": {
-    "exclude": [
-      "./README.md"
+    "include": [
+      "README.md",
+      "LICENSE",
+      "deno.jsonc",
+      "src/**"
     ]
   },
   "test": {
@@ -37,7 +40,7 @@
   },
   "lock": false,
   "name": "@slack/api",
-  "version": "2.9.2",
+  "version": "2.9.3",
   "exports": {
     ".": "./src/mod.ts",
     "./types": "./src/types.ts"

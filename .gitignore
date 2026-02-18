@@ -3,3 +3,4 @@ scripts/api_spec.json
 .coverage
 lcov.info
 npm/
+.cursor
