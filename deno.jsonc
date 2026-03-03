@@ -53,7 +53,6 @@
     "@std/http": "jsr:@std/http@^0.206.0",
     "@std/path": "jsr:@std/path@^1.0.9",
     "@std/testing": "jsr:@std/testing@^1",
-    "@std/text": "jsr:@std/text@^1",
-    "@std/http/http-errors": "jsr:@std/http/http-errors"
+    "@std/text": "jsr:@std/text@^1"
   }
 }
