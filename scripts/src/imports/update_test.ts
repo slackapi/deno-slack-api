@@ -1,4 +1,4 @@
-import { isHttpError } from "@std/http";
+import { isHttpError } from "@std/http/http-errors";
 import { assertEquals, assertRejects } from "@std/assert";
 import { apiDepsIn } from "./update.ts";
 import { stubFetch } from "../../../testing/http.ts";

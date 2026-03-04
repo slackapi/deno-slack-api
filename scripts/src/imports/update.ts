@@ -1,5 +1,5 @@
 import { parseArgs } from "@std/cli/parse-args";
-import { createHttpError } from "@std/http";
+import { createHttpError } from "@std/http/http-errors";
 import { dirname, join, relative } from "@std/path";
 
 // Regex for https://deno.land/x/deno_slack_api@x.x.x/
