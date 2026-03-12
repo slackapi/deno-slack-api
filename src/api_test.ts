@@ -5,7 +5,7 @@ import {
   assertRejects,
 } from "@std/assert";
 import { SlackAPI } from "./mod.ts";
-import { HttpError } from "@std/http/http-errors";
+import { HttpError } from "jsr:@std/http@^0.206.0/http-errors";
 import { stubFetch } from "../testing/http.ts";
 
 Deno.test("SlackAPI class", async (t) => {

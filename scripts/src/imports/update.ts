@@ -1,5 +1,5 @@
 import { parseArgs } from "@std/cli/parse-args";
-import { createHttpError } from "@std/http/http-errors";
+import { createHttpError } from "jsr:@std/http@^0.206.0/http-errors";
 import { dirname, join, relative } from "@std/path";
 
 // Regex for https://deno.land/x/deno_slack_api@x.x.x/
@@ -27,10 +27,11 @@ async function main() {
 
   const apiDepsInSdk = await apiDepsIn(denoSlackSdkValue);
 
+  // Use "src" not "/src/" - leading slash makes join() treat it as absolute, dropping the relative path
   const apiPackageSpecifier = join(
     relative(importFileDir, apiDir),
-    "/src/",
-  );
+    "src",
+  ) + "/";
 
   importFile["imports"]["deno-slack-api/"] = apiPackageSpecifier;
   importFile["scopes"] = {

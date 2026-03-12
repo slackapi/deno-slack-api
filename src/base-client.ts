@@ -4,7 +4,7 @@ import type {
   SlackAPIMethodArgs,
   SlackAPIOptions,
 } from "./types.ts";
-import { createHttpError, type HttpError } from "@std/http/http-errors";
+import { createHttpError, type HttpError } from "jsr:@std/http@^0.206.0/http-errors";
 import { getUserAgent, serializeData } from "./base-client-helpers.ts";
 
 export class BaseSlackAPIClient implements BaseSlackClient {
