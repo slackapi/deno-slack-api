@@ -2,7 +2,14 @@
 
 [![codecov](https://codecov.io/gh/slackapi/deno-slack-api/graph/badge.svg?token=QKJCI23P5S)](https://codecov.io/gh/slackapi/deno-slack-api)
 
+
 Slack API Client for Deno Run on Slack projects
+
+## 📢 Important
+
+We recommend importing this package from
+[JSR](https://jsr.io/@slack/sdk/versions). New releases will no longer be
+published to `deno.land/x`.
 
 ```ts
 import { SlackAPI } from "https://deno.land/x/deno_slack_api@2.1.1/mod.ts";
