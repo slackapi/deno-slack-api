@@ -46,13 +46,18 @@
     "./types": "./src/types.ts"
   },
   "imports": {
-    "@deno/dnt": "jsr:@deno/dnt@^0.41",
-    "@std/assert": "jsr:@std/assert@^1",
-    "@std/cli": "jsr:@std/cli@^1",
-    "@std/fs": "jsr:@std/fs@^1",
-    "@std/http": "jsr:@std/http@^0.206.0",
-    "@std/path": "jsr:@std/path@^1.0.9",
-    "@std/testing": "jsr:@std/testing@^1",
-    "@std/text": "jsr:@std/text@^1"
+    "@deno/dnt": "https://deno.land/x/dnt@0.41.0/mod.ts",
+    "@std/assert": "https://deno.land/std@0.220.0/assert/mod.ts",
+    "@std/cli/parse-args": "https://deno.land/std@0.220.0/cli/parse_args.ts",
+    "@std/cli": "https://deno.land/std@0.220.0/cli/mod.ts",
+    "@std/fs": "https://deno.land/std@0.220.0/fs/mod.ts",
+    "@std/http/http-errors": "https://deno.land/std@0.182.0/http/http_errors.ts",
+    "@std/http": "https://deno.land/std@0.220.0/http/mod.ts",
+    "@std/path": "https://deno.land/std@0.220.0/path/mod.ts",
+    "@std/testing/bdd": "https://deno.land/std@0.220.0/testing/bdd.ts",
+    "@std/testing/mock": "https://deno.land/std@0.220.0/testing/mock.ts",
+    "@std/testing": "https://deno.land/std@0.220.0/testing/mod.ts",
+    "@std/text/to-pascal-case": "https://deno.land/std@0.220.0/text/case.ts",
+    "@std/text": "https://deno.land/std@0.220.0/text/mod.ts"
   }
 }

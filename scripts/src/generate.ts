@@ -1,5 +1,4 @@
-import { toPascalCase } from "@std/text/to-pascal-case";
-import { emptyDir, ensureDir } from "@std/fs";
+import { emptyDir, ensureDir, pascalCase } from "../../src/deps.ts";
 import { APIMethodNode } from "./api-method-node.ts";
 import { getPublicAPIMethods } from "./public-api-methods.ts";
 
@@ -68,12 +67,12 @@ run();
 
 const getMainAPICode = (api: APIMethodNode): string => {
   const imports = api.childNodes.map((node) => {
-    const groupAPITypeName = `${toPascalCase(node.name)}APIType`;
-    return `import type { ${groupAPITypeName} } from "./${node.name}.ts";`;
+    const groupAPITypeName = `${pascalCase(node.name)}APIType`;
+    return `import { type ${groupAPITypeName} } from "./${node.name}.ts";`;
   }).join("\n");
 
   const apiTypeMixins = api.childNodes.map((node) => {
-    const groupAPIName = toPascalCase(node.name);
+    const groupAPIName = pascalCase(node.name);
     return `${node.name}: ${groupAPIName}APIType,`;
   }).join("\n");
 
@@ -121,7 +120,7 @@ const getTestCode = (api: APIMethodNode) => {
   visitMethodNodes(api);
 
   return `
-import { assertEquals } from "@std/assert";
+import { assertEquals } from "../../dev_deps.ts";
 import { SlackAPI } from "../../mod.ts";
 
 Deno.test("SlackAPIMethodsType generated types", () => {
