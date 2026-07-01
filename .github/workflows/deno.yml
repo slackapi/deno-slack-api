@@ -12,6 +12,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         # we test on both most recent stable version of deno (v1.x) as well as
         # the version of deno used by Run on Slack (as noted in https://api.slack.com/slackcli/metadata.json)
