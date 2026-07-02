@@ -35,7 +35,12 @@ export function stubFetch(
       if (matchesResult instanceof Promise) {
         await matchesResult;
       }
-      return Promise.resolve(response.clone());
+      const cloned = response.clone();
+      return new Response(cloned.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers: new Headers(response.headers),
+      });
     },
   );
 }
