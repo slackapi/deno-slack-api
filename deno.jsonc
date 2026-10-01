@@ -46,13 +46,13 @@
     "./types": "./src/types.ts"
   },
   "imports": {
-    "@deno/dnt": "jsr:@deno/dnt@^0.41",
-    "@std/assert": "jsr:@std/assert@^1",
-    "@std/cli": "jsr:@std/cli@^1",
-    "@std/fs": "jsr:@std/fs@^1",
-    "@std/http": "jsr:@std/http@^0.206.0",
-    "@std/path": "jsr:@std/path@^1.0.9",
-    "@std/testing": "jsr:@std/testing@^1",
-    "@std/text": "jsr:@std/text@^1"
+    "@deno/dnt": "jsr:@deno/dnt@0.41.3",
+    "@std/assert": "jsr:@std/assert@1.0.19",
+    "@std/cli": "jsr:@std/cli@1.0.28",
+    "@std/fs": "jsr:@std/fs@1.0.23",
+    "@std/http": "jsr:@std/http@0.206.0",
+    "@std/path": "jsr:@std/path@1.1.4",
+    "@std/testing": "jsr:@std/testing@1.0.17",
+    "@std/text": "jsr:@std/text@1.0.17"
   }
 }
